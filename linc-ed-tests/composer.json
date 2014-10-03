@@ -1,0 +1,6 @@
+{
+    "name": "linc-ed/linc-ed-tests",
+    "require": {
+        "phpunit/phpunit": "~4.3"
+    }
+}
