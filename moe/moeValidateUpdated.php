@@ -724,11 +724,7 @@ $data = $this->start_date;
 $convert = date('Ymd', strtotime($data));
 	
 			if (isset($data)){	
-			if( strtotime($data) > strtotime('now') ) {
-							$this->moe[$number]['valid'] = 'false';
-							$this->moe[$number]['value'] = "642 - Student cannot have a first attendance date before first day at any school";
-				}
-				else {
+			
 				 if (preg_match("/^\d{8}$/", $convert)) {
 					 //IF FIRST ATTENDANCE is < FIRST SCHOOLING
 					 	if (date('Ymd', strtotime($data)) < date('Ymd', strtotime($this->mappedData['FIRST SCHOOLING']))){
@@ -746,7 +742,7 @@ $convert = date('Ymd', strtotime($data));
 							$this->moe[$number]['value'] = "122 - Format of date first attended this school is incorrect";
 							
 						}
-					}
+					
 				}
 			else {
 				
@@ -811,8 +807,7 @@ $convert = date('Ymd', strtotime($data));
 				
 				 if (preg_match("/^\d{8}$/", $convert)) {
 					 
-							
-							
+					
 							$weeks = round(($this->checkAgetoStart)/7,0); //total weeks since started school.
 							if ($weeks < 254){
 								$this->moe[$number]['valid'] = 'false';
@@ -871,7 +866,7 @@ if ($this->moe[$number]['valid']=='false'){
 	}
 
 	
-
+return $this->moe[$number]['valid'] ;	
 
 }
 
@@ -943,6 +938,8 @@ $this->moe[$number]['input_field'] = '<select name="select-'.$this->moe[$number]
 								}
 							
 			$this->moe[$number]['input_field'] .= '</select>';	
+
+return $this->moe[$number]['valid'] ;
 
 }
 

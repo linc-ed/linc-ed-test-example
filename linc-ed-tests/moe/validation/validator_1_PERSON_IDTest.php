@@ -49,7 +49,7 @@ class validator_1_PERSON_Test extends PHPUnit_Framework_TestCase {
 			    'field_6'=>'',
 			    'field_7'=>'',
 			    'field_8'=>'',
-			    'field_9'=>'2008-09-08',
+			    'field_9'=>'2014-03-04',
 			    'field_10'=>'111',
 			    'field_11'=>'',
 			    'field_12'=>'',
@@ -275,6 +275,8 @@ class validator_1_PERSON_Test extends PHPUnit_Framework_TestCase {
 		
 	}
 
+	
+
 	public function testStartDateAtThisSchool() {
 				
 		
@@ -283,6 +285,27 @@ class validator_1_PERSON_Test extends PHPUnit_Framework_TestCase {
 		$this->assertSame($valid, 'true');
 		
 	}
+
+	public function testStartDateAtAnySchool() {
+				
+		
+		$moe = new MOEValidator(MOECodeSets::$students[2756], 'M', MOECodeSets::$schools[1234]);
+		$valid = $moe->check_9();
+		$this->assertSame($valid, 'true');
+		
+	}
+
+	public function testEthnicity1() {
+				
+		
+		$moe = new MOEValidator(MOECodeSets::$students[2756], 'M', MOECodeSets::$schools[1234]);
+		$valid = $moe->check_10();
+		$this->assertSame($valid, 'true');
+		
+	}
+
+
+
 
 
 	
