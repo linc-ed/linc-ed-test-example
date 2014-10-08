@@ -2037,6 +2037,11 @@ else {
 	$this->moe[$number]['value'] = $data;
 }
 
+if ($data=='N/A'){
+
+	$this->moe[$number]['value'] = 'Null';
+}
+
 if ($this->moe[$number]['valid']=='false'){
 	if ($this->moe[$number]['Mandatory']=="YES"){
 		$warning = 'warning-2';	
@@ -2054,6 +2059,7 @@ if ($this->moe[$number]['valid']=='false'){
 			
 		}
 		
+
 	
 $this->moe[$number]['input_field'] = '<input type="text" class="'.$this->moe[$number]['Content Type'].'" data-arraypos="'.$this->moe[$number]['Field No'].'" name="'.$this->moe[$number]['LINC Name'].'" data-id="'.$this->person_id.'" id="'.$this->moe[$number]['LINC Name'].$this->person_id.'" value="'.$this->moe[$number]['value'].'" data-theme="'.$theme.'" placeholder="'.$this->moe[$number]['Placeholder'].'"/>';
 
