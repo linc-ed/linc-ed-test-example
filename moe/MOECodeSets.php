@@ -10,14 +10,21 @@
  */
 
 require_once(dirname(__FILE__).'/MOESchool.php');
+require_once(dirname(__FILE__).'/MOEStudent.php');
 
 
 class MOECodeSets {
 
 	public static $schools = null;
+	public static $students = null;
 
 	public static function addSchool($schoolArray) {
-		self::$schools[$schoolArray[0]] = new MOESchool($schoolArray);
+		$school = new MOESchool($schoolArray);
+		self::$schools[$schoolArray['school_id']] = $school->array;
+	}
+	public static function addStudent($studentArray) {
+		$student = new MOEStudent($studentArray);
+		self::$students[$studentArray['person_id']] = $student->array;
 	}
 
 }
@@ -25,3 +32,4 @@ class MOECodeSets {
 //to keep our class tiny in this example. Avoid having logic outside
 //of the class like this.
 MOECodeSets::$schools = array();
+MOECodeSets::$students = array();

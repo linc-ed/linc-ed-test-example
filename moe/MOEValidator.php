@@ -8,7 +8,7 @@
 
 require_once(dirname(__FILE__).'/MOECodeSets.php');
 
-class MOEValidator {
+class MOEValidate {
 
 	/**
 	 * Validates that the SCHOOL ID is not null and is an open school

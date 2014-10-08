@@ -12,17 +12,14 @@
  * written code.
  */
 
-class MOESchool {
-
+class MOEStudent {
 	
+
 	public $array;
 	
 
 	public function __construct($array) {
 		
-		$this->array = array( 'school_type'=> $array['school_type'],
-		'enrollmentScheme'=> $array['enrollmentScheme'],
-		'enrollmentSchemeDate' => $array['enrollmentSchemeDate']);
+		$this->array = $array;
 	}
-	
 }
