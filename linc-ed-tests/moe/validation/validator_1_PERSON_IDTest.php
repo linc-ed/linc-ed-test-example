@@ -31,8 +31,10 @@ class validator_1_PERSON_Test extends PHPUnit_Framework_TestCase {
 		//I'm inventing a structure here based on 
 		//http://www.educationcounts.govt.nz/__data/assets/excel_doc/0007/145645/School-Name-and-Numbers-2014-01.xls
 		MOECodeSets::addSchool(array('school_id' => '1234', 'school_type'=>'20', 'enrollmentScheme'=>'Y', 'enrollmentSchemeDate'=>''));
+		MOECodeSets::addSchool(array('school_id' => '3338', 'school_type'=>'20', 'enrollmentScheme'=>'Y', 'enrollmentSchemeDate'=>''));
 		MOECodeSets::addStudent(array
-				('person_id'=>'2756',
+			(
+				'person_id'=>'2756',
 			    'dob'=>'2003-02-28',
 			    'start_date'=>'2014-02-04',
 			    'gender'=>'M',
@@ -148,7 +150,7 @@ class validator_1_PERSON_Test extends PHPUnit_Framework_TestCase {
 			    'field_110'=>'',
 			    'field_111'=>'',
 			    'field_112'=>'3418515',
-			    'field_113'=>'0274424418  call first',
+			    'field_113'=>'0274424418 call first',
 			    'field_114'=>'',
 			    'field_115'=>'dolcevita@xtra.co.nz',
 			    'field_116'=>'Vincent',
@@ -368,7 +370,6 @@ class validator_1_PERSON_Test extends PHPUnit_Framework_TestCase {
 	}
 
 	public function testStudentType() {
-				
 		
 		$moe = new MOEValidator(MOECodeSets::$students[2756], 'M', MOECodeSets::$schools[1234]);
 		$valid = $moe->check_18();
@@ -376,15 +377,13 @@ class validator_1_PERSON_Test extends PHPUnit_Framework_TestCase {
 		
 	}
 
+	public function testSchoolName(){
 
+		$schoolCodes = MOECodes::$schoolCodes;
+		$valid = array_key_exists(MOECodeSets::$schools[3338]['school_id'], $schoolCodes);
+		$this->assertSame($valid, true);
 
-
-
-
-	
-	
-    
-
+	}
 }
 
 ?>

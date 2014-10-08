@@ -20,7 +20,9 @@ class MOESchool {
 
 	public function __construct($array) {
 		
-		$this->array = array( 'school_type'=> $array['school_type'],
+		$this->array = array( 
+				'school_id' => $array['school_id'], 
+				'school_type'=> $array['school_type'],
 		'enrollmentScheme'=> $array['enrollmentScheme'],
 		'enrollmentSchemeDate' => $array['enrollmentSchemeDate']);
 	}

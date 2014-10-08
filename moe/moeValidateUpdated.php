@@ -44,11 +44,8 @@ public $mappedData= array();
 		$this->vacated = $data['vacated'];
 		
 		
-		
 		$fieldList = MOECodes::$fieldList;
 		
-		
-	
 		$mappedData = array();
 		foreach ($fieldList as $key=>$map){
 			// The data passed to the class is in the form of e.g. 'field_12'(key) => student data(value). This can be mapped to the correct field name based on the static area in the MoeCodes class.
