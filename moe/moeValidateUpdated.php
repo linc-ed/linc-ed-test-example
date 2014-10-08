@@ -1905,7 +1905,7 @@ $data = $this->mappedData[$this->moe[22]['LINC Name']];
 if ($this->mappedData['TYPE']== "FF"){
 	$this->moe[$number]['Mandatory']="YES";
 }
-if( is_null($this->mappedData['REASON']) && $this->mappedData['TYPE']== "FF" && ($this->mappedData['FEE']==0 || is_null( $this->mappedData['FEE'] )) ){
+if( $this->mappedData['REASON']=='' && $this->mappedData['TYPE']== "FF" && ($this->mappedData['FEE']==0 || is_null( $this->mappedData['FEE'] ) || $this->mappedData['FEE']=='' ) ){
 	
 	$this->moe[22]['valid'] = 'false';
 	$this->moe[22]['value'] = '202 - FEE for International fee-paying student is missing. Enter fee charged, excluding GST, for this academic year';
