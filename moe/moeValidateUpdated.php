@@ -961,30 +961,38 @@ $number = 11;
 
 
 		$array = $this->codes->ethnicityCodes();
-		
-		if (in_array($data, array(111,121,122, 123 ,124 ,125 ,126, 127,128,129,211,311,321,331,341,351,361,371,411, 412,413,414,421,431,441,442,443,444,511,521, 531,611,999))){
-			
+
+		if ($data==''){
+
 			$this->moe[$number]['valid'] = 'true';
 			$this->moe[$number]['value'] = $data;
+		}
+		else { // field is not blank so must be checked for validity
+		
+				if (in_array($data, array(111,121,122, 123 ,124 ,125 ,126, 127,128,129,211,311,321,331,341,351,361,371,411, 412,413,414,421,431,441,442,443,444,511,521, 531,611,999))){
+					
+					$this->moe[$number]['valid'] = 'true';
+					$this->moe[$number]['value'] = $data;
+						
+						if ($code == 211 ){
+							$this->maori = 'true';
+					}	
+				}
 				
-				if ($code == 211 ){
-				$this->maori = 'true';
-			}	
-		}
-		
-		else {
-			$this->moe[$number]['valid'] = 'false';
-			$this->moe[$number]['value'] = '142 - Ethnic code is incorrect';
-		
-		}
+				else {
+					$this->moe[$number]['valid'] = 'false';
+					$this->moe[$number]['value'] = '142 - Ethnic code is incorrect';
+				
+				}
+	}	
 				
 	if ($this->moe[$number]['valid']=='false'){
-	if ($this->moe[$number]['Mandatory']=="YES"){
-		$warning = 'warning-2';	
-	}
-	else {
-		$warning = 'warning';	
-	}
+			if ($this->moe[$number]['Mandatory']=="YES"){
+				$warning = 'warning-2';	
+			}
+			else {
+				$warning = 'warning';	
+			}
 	
 	$this->moe[$number]['input_label'] = '<label id="'.$this->moe[$number]['LINC Name'] .$this->person_id.'_label" for="'.$this->moe[$number]['LINC Name'] .$this->person_id.'"><span class="error"><i class="font-'.$this->moe[$number]['ICON'] .'"  ></i> '.$this->moe[$number]['Field Label'] .': <i class="font-'. $warning .'"  ></i></span>'.linc_popupmessage( $this->moe[$number]['LINC Name'],  $this->moe[$number]['Field Label'], $this->moe[$number]['Description']).'</label>';
 				
@@ -1010,6 +1018,8 @@ $this->moe[$number]['input_field'] = '<select name="select-'.$this->moe[$number]
 								}
 							
 			$this->moe[$number]['input_field'] .= '</select>';	
+
+			return $this->moe[$number]['valid'] ;
 }
 
 
@@ -1027,23 +1037,30 @@ public function check_12(){
 );
 
 $array = $this->codes->ethnicityCodes();
-		
-		if (in_array($data, array(111,121,122, 123 ,124 ,125 ,126, 127,128,129,211,311,321,331,341,351,361,371,411, 412,413,414,421,431,441,442,443,444,511,521, 531,611,999))){
-			
+	
+		if ($data==''){
+
 			$this->moe[$number]['valid'] = 'true';
 			$this->moe[$number]['value'] = $data;
-			
-			if ($code == 211 ){
-				$this->maori = 'true';
-			}
+		}
+		else { // field is not blank so must be checked for validity
+		
+				if (in_array($data, array(111,121,122, 123 ,124 ,125 ,126, 127,128,129,211,311,321,331,341,351,361,371,411, 412,413,414,421,431,441,442,443,444,511,521, 531,611,999))){
 					
-		}
-		
-		else {
-			$this->moe[$number]['valid'] = 'false';
-			$this->moe[$number]['value'] = '142 - Ethnic code is incorrect';
-		
-		}
+					$this->moe[$number]['valid'] = 'true';
+					$this->moe[$number]['value'] = $data;
+						
+						if ($code == 211 ){
+							$this->maori = 'true';
+					}	
+				}
+				
+				else {
+					$this->moe[$number]['valid'] = 'false';
+					$this->moe[$number]['value'] = '142 - Ethnic code is incorrect';
+				
+				}
+	}	
 				
 if ($this->moe[$number]['valid']=='false'){
 	if ($this->moe[$number]['Mandatory']=="YES"){
@@ -1078,10 +1095,14 @@ $this->moe[$number]['input_field'] = '<select name="select-'.$this->moe[$number]
 							
 			$this->moe[$number]['input_field'] .= '</select>';	
 	
+return $this->moe[$number]['valid'] ;
+
  }
 
 
 public function check_13(){
+		
+
 		if ($this->maori == 'true' ||$this->mappedData['ethnic_origin']==211 ){
 			
 					$data = $this->mappedData['IWI1'];
@@ -1103,6 +1124,7 @@ public function check_13(){
 			}
 			else {
 				//Value is not Null and not in Ministry code list and [Rmonth in [M,J] or Funding Year Level >=9]
+
 						if  (in_array($this->rmonth, array('M', 'J'))|| $this->mappedData['funding_year_level'] >=9) {
 							$this->moe[$number]['valid'] = 'false';
 							$this->moe[$number]['value'] = '500 - Iwi code value is not in Ministry code list';
@@ -1150,9 +1172,11 @@ $this->moe[$number]['input_field'] = '<select name="select-'.$this->moe[$number]
 								}
 							
 			$this->moe[$number]['input_field'] .= '</select>';	
-
+			return $this->moe[$number]['valid'] ;
 }
-	
+else {
+	return 'true' ; // child is not recorded as being NZ Maori so this field is not required. So testing needs to show as 'true'
+}	
 }
 
 public function check_14(){
@@ -1224,8 +1248,11 @@ $this->moe[$number]['input_field'] = '<select name="select-'.$this->moe[$number]
 								}
 							
 			$this->moe[$number]['input_field'] .= '</select>';	
-
+return $this->moe[$number]['valid'] ;
 }
+else {
+	return 'true' ; // child is not recorded as being NZ Maori so this field is not required. So testing needs to show as 'true'
+}	
 	
 }
 
@@ -1299,14 +1326,19 @@ $this->moe[$number]['input_field'] = '<select name="select-'.$this->moe[$number]
 							
 			$this->moe[$number]['input_field'] .= '</select>';	
 
+return $this->moe[$number]['valid'] ;
 }
+else {
+	return 'true' ; // child is not recorded as being NZ Maori so this field is not required. So testing needs to show as 'true'
+}	
 	
 }
 
 
 public function check_16(){
 	
-	$this->moe[16]=array("Content Type"=> 'metacontent', "Field Name"=>"ORS and Section 9", "LINC Name"=>"ORS_and_Section_9", "Field No"=>"16", "Description"=>"Level of resources required for students with a Section 9 Agreement","Mandatory"=>"YES","Type"=>"Controlled value code list"
+	$number=16;
+	$this->moe[16]=array("Content Type"=> 'metacontent', "Field Name"=>"ORS and Section 9", "LINC Name"=>"ORS and Section 9", "Field No"=>"16", "Description"=>"Level of resources required for students with a Section 9 Agreement","Mandatory"=>"YES","Type"=>"Controlled value code list"
 , 'valid'=>'',
 'value' =>'', 'message' =>'',
 'input_field'=>'',
@@ -1329,6 +1361,28 @@ else {
 	
 }
 
+if ($this->moe[$number]['valid']=='false'){
+	if ($this->moe[$number]['Mandatory']=="YES"){
+		$warning = 'warning-2';	
+	}
+	else {
+		$warning = 'warning';	
+	}
+	
+	$this->moe[$number]['input_label'] = '<label id="'.$this->moe[$number]['LINC Name'] .$this->person_id.'_label" for="'.$this->moe[$number]['LINC Name'] .$this->person_id.'"><span class="error"><i class="font-'.$this->moe[$number]['ICON'] .'"  ></i> '.$this->moe[$number]['Field Label'] .': <i class="font-'. $warning .'"  ></i></span>'.linc_popupmessage( $this->moe[$number]['LINC Name'],  $this->moe[$number]['Field Label'], $this->moe[$number]['Description']).'</label>';
+				
+		}
+		else if ($this->moe[$number]['valid']=='true'){
+
+		$this->moe[$number]['input_label'] =  '<label  id="'.$this->moe[$number]['LINC Name'].$this->person_id.'_label" for="'.$this->moe[$number]['LINC Name'] .$this->person_id.'"><span class="valid"><i class="font-'.$this->moe[$number]['ICON'].'"  ></i> '.$this->moe[$number]['Field Label'].': <i class="font-checkmark-3"  ></i></span></label>';
+			
+		}
+		
+	
+$this->moe[$number]['input_field'] = '<input type="text" class="'.$this->moe[$number]['Content Type'].'" data-arraypos="'.$this->moe[$number]['Field No'].'" name="'.$this->moe[$number]['LINC Name'].'" data-id="'.$this->person_id.'" id="'.$this->moe[$number]['LINC Name'].$this->person_id.'" value="'.$this->moe[$number]['value'].'" data-theme="'.$theme.'" placeholder="'.$this->moe[$number]['Placeholder'].'"/>';	
+
+return $this->moe[$number]['valid'];
+
 }
 
 
@@ -1343,11 +1397,13 @@ public function check_17(){
 
 
 $data = $this->mappedData[$this->moe[$number]['LINC Name']];
-
-if (isset($data) && !is_null($data)){
-	
-	
 $array =array(0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15);
+
+if (isset($data) && !is_null($data) && $data !='' && in_array($data, array(0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15)) && is_numeric($data)){
+	
+	
+
+
 			if (in_array($this->school_type, array(23, 32, 34)) && !in_array($data, $array)){
 				
 					$this->moe[$number]['valid'] = 'false';
@@ -1355,14 +1411,14 @@ $array =array(0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15);
 				
 			}
 			//If School Type in [20, 21] and REASON = Null and TYPE not equal to EM and FUNDING YEAR LEVEL>8 and Rmonth in [M,J]
-			else if (in_array($this->school_type, array(20, 21)) && $data>8 && $this->mappedData['TYPE'] != 'EM' && is_null($this->mappedData['REASON'])){
+			else if (in_array($this->school_type, array(20, 21)) && $data>8 && $this->mappedData['TYPE'] != 'EM' && $this->mappedData['REASON'] ==''){
 				
 				$this->moe[$number]['valid'] = 'false';
 					$this->moe[$number]['value'] = '162 - Funding Year Level is inconsistent with primary school';
 				
 			}
 			//If School Type=22 and FUNDING YEAR LEVEL not in [7,8] and Reason=Null and [Rmonth in [M,J]]
-			else if (in_array($this->school_type, array(22)) && !in_array($data, array('7','8')) && is_null($this->mappedData['REASON']) && in_array($this->rmonth, array('M', 'J'))){
+			else if (in_array($this->school_type, array(22)) && !in_array($data, array('7','8')) &&  $this->mappedData['REASON'] =='' && in_array($this->rmonth, array('M', 'J'))){
 				
 					$this->moe[$number]['valid'] = 'false';
 					$this->moe[$number]['value'] = '605 - Funding Year Level must be 7 or 8 for a student in an intermediate school';
@@ -1401,7 +1457,7 @@ $array =array(0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15);
 				
 			}
 			//If FUNDING YEAR LEVEL=6 and age at 1 July(t) <=9 and Rmonth in [M,J]
-			else if ($data==6 && $this->rmonth == 'J' && $this->ageOnJuly1 <=9){
+			else if ($data==6 && in_array($this->rmonth, array('M', 'J')) && $this->ageOnJuly1 <=9){
 				
 					$this->moe[$number]['valid'] = 'false';
 					$this->moe[$number]['value'] = $data;
@@ -1496,7 +1552,7 @@ $this->moe[$number]['input_field'] = '<form>
 </form>';
 
 
-
+return $this->moe[$number]['valid'];
 
 
 }
@@ -1632,7 +1688,9 @@ $this->moe[$number]['input_field'] = '<select name="select-'.$this->moe[$number]
 			$this->moe[$number]['input_field'].= ' value="'.$key.'" data-arraypos="'.$this->moe[$number]['Field No'].'" data-id="'.$this->person_id.'" data-value="'.$key.'" name="'.$this->moe[$number]['LINC Name'].'" data-id="'.$this->person_id.'">'.$code.'</option>';	
 								}
 							
-			$this->moe[$number]['input_field'] .= '</select>';	
+			$this->moe[$number]['input_field'] .= '</select>';
+
+			return $this->moe[$number]['valid'];	
 }
 
 
@@ -1670,7 +1728,6 @@ if ($this->moe[$number]['valid']=='false'){
 			
 		}
 		
-	
 $this->moe[$number]['input_field'] = '<input type="number" class="'.$this->moe[$number]['Content Type'].'" data-arraypos="'.$this->moe[$number]['Field No'].'" name="'.$this->moe[$number]['LINC Name'].'" data-id="'.$this->person_id.'" id="'.$this->moe[$number]['LINC Name'].$this->person_id.'" value="'.$this->moe[$number]['value'].'" data-theme="'.$theme.'" placeholder="'.$this->moe[$number]['Placeholder'].'"/>';
 }
 
@@ -1743,6 +1800,8 @@ if ($this->moe[$number]['valid']=='false'){
 						}
 										
 				$this->moe[$number]['input_field'] .= '</fieldset>';	
+
+				return $this->moe[$number]['valid'];
 }
 
 
@@ -1827,6 +1886,8 @@ $this->moe[$number]['input_field'] = '<select name="select-'.$this->moe[$number]
 								}
 							
 			$this->moe[$number]['input_field'] .= '</select>';	
+
+			return $this->moe[$number]['valid'];
 }
 
 
@@ -1874,6 +1935,8 @@ if ($this->moe[$number]['valid']=='false'){
 		
 	
 $this->moe[$number]['input_field'] = '<input type="number" class="'.$this->moe[$number]['Content Type'].'" data-arraypos="'.$this->moe[$number]['Field No'].'" name="'.$this->moe[$number]['LINC Name'].'" data-id="'.$this->person_id.'" id="'.$this->moe[$number]['LINC Name'].$this->person_id.'" value="'.$this->moe[$number]['value'].'" data-theme="'.$theme.'" placeholder="'.$this->moe[$number]['Placeholder'].'"/>';
+return $this->moe[$number]['valid'];
+
 }
 
 
@@ -1945,6 +2008,8 @@ if ($this->moe[$number]['valid']=='false'){
 		
 	
 $this->moe[$number]['input_field'] = '<input type="number" class="'.$this->moe[$number]['Content Type'].'" data-arraypos="'.$this->moe[$number]['Field No'].'" name="'.$this->moe[$number]['LINC Name'].'" data-id="'.$this->person_id.'" id="'.$this->moe[$number]['LINC Name'].$this->person_id.'" value="'.$this->moe[$number]['value'].'" data-theme="'.$theme.'" placeholder="'.$this->moe[$number]['Placeholder'].'"/>';
+
+return $this->moe[$number]['valid'];
 }
 
 
@@ -1992,6 +2057,7 @@ if ($this->moe[$number]['valid']=='false'){
 	
 $this->moe[$number]['input_field'] = '<input type="text" class="'.$this->moe[$number]['Content Type'].'" data-arraypos="'.$this->moe[$number]['Field No'].'" name="'.$this->moe[$number]['LINC Name'].'" data-id="'.$this->person_id.'" id="'.$this->moe[$number]['LINC Name'].$this->person_id.'" value="'.$this->moe[$number]['value'].'" data-theme="'.$theme.'" placeholder="'.$this->moe[$number]['Placeholder'].'"/>';
 
+return $this->moe[$number]['valid'];
 }
 
 
@@ -2039,7 +2105,7 @@ $convert = date('Ymd', strtotime($data));
 				}
 				
 				
-
+return $this->moe[$number]['valid'];
 
 }
 
@@ -2124,7 +2190,7 @@ if ($this->mappedData['LAST ATTENDANCE'] || $this->test==true){
 		}
 }
 }
-
+return $this->moe[$number]['valid'];
 }
 
 
@@ -2157,6 +2223,8 @@ $this->moe[$number]['valid'] = 'true';
 	$this->moe[$number]['value'] = $data;
 }
 	}
+
+	return $this->moe[$number]['valid'];
 }
 
 public function check_29(){
@@ -2195,6 +2263,8 @@ $this->moe[$number]['valid'] = 'true';
 	$this->moe[$number]['value'] = $data;
 }
 	}
+
+	return $this->moe[$number]['valid'];
 }
 
 
@@ -2234,6 +2304,8 @@ $this->moe[$number]['valid'] = 'true';
 	
 	}
 }
+
+return $this->moe[$number]['valid'];
 }
 
 public function check_31(){
@@ -2279,6 +2351,9 @@ else {
 	$this->moe[$number]['value'] = $data;
 	
 }
+	
+	return $this->moe[$number]['valid'];
+
 	}
 
 
@@ -2300,6 +2375,7 @@ $data = $this->mappedData[$this->moe[$number]['LINC Name']];
 	$this->moe[$number]['value'] = $data;
 	
 
+return $this->moe[$number]['valid'];
 }
 
 public function check_33(){$this->moe[33]=array("Content Type"=> 'metacontent', "Field Name"=>"HOURS PER YEAR SUBJECT 1", "LINC Name"=>"HOURS PER YEAR SUBJECT 1", "Field No"=>"33", "Description"=>"Approximate number of hours per year that subject 1 at secondary school level will be studied for","Mandatory"=>"for Year 9 – Year 15","Type"=>"Numeric (Natural number)"
@@ -2345,6 +2421,8 @@ else if ($this->rmonth=="J" && $data >310){
 	$this->moe[$number]['value'] = $data;
 	
 	}
+
+	return $this->moe[$number]['valid'];
 }
 
 
@@ -2375,7 +2453,9 @@ else {
 	$this->moe[$number]['value'] = $data;
 	
 	}
-	
+
+
+return $this->moe[$number]['valid'];	
 	}
 
 
@@ -2420,6 +2500,8 @@ else {
 	
 }
 
+
+return $this->moe[$number]['valid'];
 }
 
 
@@ -2435,7 +2517,10 @@ $number = 36;
 $data = $this->mappedData[$this->moe[$number]['LINC Name']];
 
 $this->moe[$number]['valid'] = 'true';
-	$this->moe[$number]['value'] = $data;}
+	$this->moe[$number]['value'] = $data;
+
+return $this->moe[$number]['valid'];
+}
 
 
 public function check_37(){$this->moe[37]=array("Content Type"=> 'metacontent', "Field Name"=>"HOURS PER YEAR SUBJECT 2", "LINC Name"=>"HOURS PER YEAR SUBJECT 2","Field No"=>"37", "Description"=>"Approximate number of hours per year that subject 1 at secondary school level will be studied for","Mandatory"=>"for Year 9 – Year 15","Type"=>"Numeric (Natural number)"
@@ -2479,6 +2564,8 @@ else if ($this->rmonth=="J" && $data >310){
 	$this->moe[$number]['value'] = $data;
 	
 	}
+
+	return $this->moe[$number]['valid'];
 }
 
 
@@ -2494,7 +2581,11 @@ $number = 38;
 $data = $this->mappedData[$this->moe[$number]['LINC Name']];
 
 $this->moe[$number]['valid'] = 'true';
-	$this->moe[$number]['value'] = $data;}
+	$this->moe[$number]['value'] = $data;
+
+
+return $this->moe[$number]['valid'];
+}
 
 
 public function check_39(){$this->moe[39]=array("Content Type"=> 'metacontent', "Field Name"=>"SUBJECT 3", "LINC Name"=>"SUBJECT 3","Field No"=>"39", "Description"=>"Subject being studied at secondary school level","Mandatory"=>"for Year 9 to Year 15 for July return","Type"=>"Controlled value code list"
@@ -2537,6 +2628,7 @@ else {
 	
 }
 	
+return $this->moe[$number]['valid'];
 	}
 
 
@@ -2552,7 +2644,11 @@ $number = 40;
 $data = $this->mappedData[$this->moe[$number]['LINC Name']];
 
 $this->moe[$number]['valid'] = 'true';
-	$this->moe[$number]['value'] = $data;}
+	$this->moe[$number]['value'] = $data;
+
+
+return $this->moe[$number]['valid'];
+}
 
 
 public function check_41(){$this->moe[41]=array("Content Type"=> 'metacontent', "Field Name"=>"HOURS PER YEAR SUBJECT 3", "LINC Name"=>"HOURS PER YEAR SUBJECT 3","Field No"=>"41", "Description"=>"Approximate number of hours per year that subject 1 at secondary school level will be studied for","Mandatory"=>"for Year 9 – Year 15","Type"=>"Numeric (Natural number)"
@@ -2597,6 +2693,8 @@ else if ($this->rmonth=="J" && $data >310){
 	$this->moe[$number]['value'] = $data;
 	
 	}
+
+	return $this->moe[$number]['valid'];
 }
 
 
@@ -2612,7 +2710,12 @@ $number = 42;
 $data = $this->mappedData[$this->moe[$number]['LINC Name']];
 
 $this->moe[$number]['valid'] = 'true';
-	$this->moe[$number]['value'] = $data;}
+	$this->moe[$number]['value'] = $data;
+
+
+return $this->moe[$number]['valid'];
+
+}
 
 
 public function check_43(){$this->moe[43]=array("Content Type"=> 'metacontent', "Field Name"=>"SUBJECT 4", "LINC Name"=>"SUBJECT 4","Field No"=>"43", "Description"=>"Subject being studied at secondary school level","Mandatory"=>"for Year 9 to Year 15 for July return","Type"=>"Controlled value code list"
@@ -2656,6 +2759,8 @@ else {
 	
 }
 
+
+return $this->moe[$number]['valid'];
 }
 
 
@@ -2671,7 +2776,11 @@ $number = 44;
 $data = $this->mappedData[$this->moe[$number]['LINC Name']];
 
 $this->moe[$number]['valid'] = 'true';
-	$this->moe[$number]['value'] = $data;}
+	$this->moe[$number]['value'] = $data;
+
+
+return $this->moe[$number]['valid'];
+}
 
 
 public function check_45(){$this->moe[45]=array("Content Type"=> 'metacontent', "Field Name"=>"HOURS PER YEAR SUBJECT 4", "LINC Name"=>"HOURS PER YEAR SUBJECT 4","Field No"=>"45", "Description"=>"Approximate number of hours per year that subject 1 at secondary school level will be studied for","Mandatory"=>"for Year 9 – Year 15","Type"=>"Numeric (Natural number)"
@@ -2716,6 +2825,8 @@ else if ($this->rmonth=="J" && $data >310){
 	$this->moe[$number]['value'] = $data;
 	
 	}
+
+	return $this->moe[$number]['valid'];
 }
 
 
@@ -2774,6 +2885,8 @@ else {
 	$this->moe[$number]['value'] = $data;
 	
 }
+
+return $this->moe[$number]['valid'];
 }
 
 
@@ -2789,7 +2902,11 @@ $number = 48;
 $data = $this->mappedData[$this->moe[$number]['LINC Name']];
 
 $this->moe[$number]['valid'] = 'true';
-	$this->moe[$number]['value'] = $data;}
+	$this->moe[$number]['value'] = $data;
+
+
+return $this->moe[$number]['valid'];
+}
 
 
 public function check_49(){$this->moe[49]=array("Content Type"=> 'metacontent', "Field Name"=>"HOURS PER YEAR SUBJECT 5", "LINC Name"=>"HOURS PER YEAR SUBJECT 5","Field No"=>"49", "Description"=>"Approximate number of hours per year that subject 1 at secondary school level will be studied for","Mandatory"=>"for Year 9 – Year 15","Type"=>"Numeric (Natural number)"
@@ -2834,6 +2951,8 @@ else if ($this->rmonth=="J" && $data >310){
 	$this->moe[$number]['value'] = $data;
 	
 	}
+
+	return $this->moe[$number]['valid'];
 }
 
 

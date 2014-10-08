@@ -275,7 +275,7 @@ class validator_1_PERSON_Test extends PHPUnit_Framework_TestCase {
 		
 	}
 
-	
+
 
 	public function testStartDateAtThisSchool() {
 				
@@ -303,6 +303,79 @@ class validator_1_PERSON_Test extends PHPUnit_Framework_TestCase {
 		$this->assertSame($valid, 'true');
 		
 	}
+
+	public function testEthnicity2() {
+				
+		
+		$moe = new MOEValidator(MOECodeSets::$students[2756], 'M', MOECodeSets::$schools[1234]);
+		$valid = $moe->check_11();
+		$this->assertSame($valid, 'true');
+		
+	}
+
+	public function testEthnicity3() {
+				
+		
+		$moe = new MOEValidator(MOECodeSets::$students[2756], 'M', MOECodeSets::$schools[1234]);
+		$valid = $moe->check_12();
+		$this->assertSame($valid, 'true');
+		
+	}
+
+	public function testIWI1() {
+				
+		
+		$moe = new MOEValidator(MOECodeSets::$students[2756], 'M', MOECodeSets::$schools[1234]);
+		$valid = $moe->check_13();
+		$this->assertSame($valid, 'true');
+		
+	}
+
+	public function testIWI2() {
+				
+		
+		$moe = new MOEValidator(MOECodeSets::$students[2756], 'M', MOECodeSets::$schools[1234]);
+		$valid = $moe->check_14();
+		$this->assertSame($valid, 'true');
+		
+	}
+
+	public function testIWI3() {
+				
+		
+		$moe = new MOEValidator(MOECodeSets::$students[2756], 'M', MOECodeSets::$schools[1234]);
+		$valid = $moe->check_15();
+		$this->assertSame($valid, 'true');
+		
+	}
+
+	public function testORRS() {
+				
+		
+		$moe = new MOEValidator(MOECodeSets::$students[2756], 'M', MOECodeSets::$schools[1234]);
+		$valid = $moe->check_16();
+		$this->assertSame($valid, 'true');
+		
+	}
+
+	public function testFundingYearLevel() {
+				
+		
+		$moe = new MOEValidator(MOECodeSets::$students[2756], 'M', MOECodeSets::$schools[1234]);
+		$valid = $moe->check_17();
+		$this->assertSame($valid, 'true');
+		
+	}
+
+	public function testStudentType() {
+				
+		
+		$moe = new MOEValidator(MOECodeSets::$students[2756], 'M', MOECodeSets::$schools[1234]);
+		$valid = $moe->check_18();
+		$this->assertSame($valid, 'true');
+		
+	}
+
 
 
 
