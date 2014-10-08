@@ -30,191 +30,183 @@ class validator_1_PERSON_Test extends PHPUnit_Framework_TestCase {
 		//Set up schools for validation
 		//I'm inventing a structure here based on 
 		//http://www.educationcounts.govt.nz/__data/assets/excel_doc/0007/145645/School-Name-and-Numbers-2014-01.xls
-		MOECodeSets::addSchool(array('school_id' => '1234', 'school_type'=>'20', 'enrollmentScheme'=>'Y', 'enrollmentSchemeDate'=>''));
-		MOECodeSets::addSchool(array('school_id' => '3338', 'school_type'=>'20', 'enrollmentScheme'=>'Y', 'enrollmentSchemeDate'=>''));
+		MOECodeSets::addSchool(array('school_id' => '1234', 'school_type'=>'20', 'enrollmentScheme'=>'false', 'enrollmentSchemeDate'=>''));
+		MOECodeSets::addSchool(array('school_id' => '3338', 'school_type'=>'20', 'enrollmentScheme'=>'false', 'enrollmentSchemeDate'=>''));
 		MOECodeSets::addStudent(array
-			(
-				'person_id'=>'2756',
-			    'dob'=>'2003-02-28',
-			    'start_date'=>'2014-02-04',
-			    'gender'=>'M',
-			    'first_name'=>'Sam',
-			    'last_name'=>'Parkes',
-			    'nsn'=>'132627179',
-			    'sms_id'=>'0',
-			    'vacated'=>'0',
-			    'pid'=>'2756',
-			    'field_2'=>'',
-			    'field_3'=>'',
-			    'field_4'=>'',
-			    'field_5'=>'',
-			    'field_6'=>'',
-			    'field_7'=>'',
-			    'field_8'=>'',
-			    'field_9'=>'2014-03-04',
-			    'field_10'=>'111',
-			    'field_11'=>'',
-			    'field_12'=>'',
-			    'field_16'=>'',
-			    'field_17'=>'6',
-			    'field_18'=>'RE',
-			    'field_19'=>'3451',
-			    'field_20'=>'INZN',
-			    'field_21'=>'NZL',
-			    'field_22'=>'',
-			    'field_23'=>'1',
-			    'field_24'=>'N/A',
-			    'field_26'=>'',
-			    'field_27'=>'',
-			    'field_28'=>'',
-			    'field_29'=>'',
-			    'field_30'=>'',
-			    'field_31'=>'',
-			    'field_32'=>'',
-			    'field_33'=>'',
-			    'field_34'=>'',
-			    'field_35'=>'',
-			    'field_36'=>'',
-			    'field_37'=>'',
-			    'field_38'=>'',
-			    'field_39'=>'',
-			    'field_40'=>'',
-			    'field_41'=>'',
-			    'field_42'=>'',
-			    'field_43'=>'',
-			    'field_44'=>'',
-			    'field_45'=>'',
-			    'field_46'=>'',
-			    'field_47'=>'',
-			    'field_48'=>'',
-			    'field_49'=>'',
-			    'field_50'=>'',
-			    'field_51'=>'',
-			    'field_52'=>'',
-			    'field_53'=>'',
-			    'field_54'=>'',
-			    'field_55'=>'',
-			    'field_56'=>'',
-			    'field_57'=>'',
-			    'field_58'=>'',
-			    'field_59'=>'',
-			    'field_60'=>'',
-			    'field_61'=>'',
-			    'field_62'=>'',
-			    'field_63'=>'',
-			    'field_64'=>'',
-			    'field_65'=>'',
-			    'field_66'=>'',
-			    'field_67'=>'',
-			    'field_68'=>'',
-			    'field_69'=>'',
-			    'field_70'=>'',
-			    'field_71'=>'',
-			    'field_72'=>'',
-			    'field_73'=>'',
-			    'field_74'=>'',
-			    'field_75'=>'',
-			    'field_76'=>'',
-			    'field_77'=>'',
-			    'field_78'=>'',
-			    'field_79'=>'',
-			    'field_80'=>'',
-			    'field_81'=>'',
-			    'field_82'=>'',
-			    'field_83'=>'',
-			    'field_84'=>'',
-			    'field_85'=>'',
-			    'field_86'=>'',
-			    'field_87'=>'',
-			    'field_88'=>'',
-			    'field_89'=>'',
-			    'field_90'=>'',
-			    'field_91'=>'',
-			    'field_92'=>'',
-			    'field_93'=>'',
-			    'field_94'=>'',
-			    'field_95'=>'',
-			    'field_96'=>'57 Weka Street',
-			    'field_97'=>'Fendalton',
-			    'field_98'=>'Christchurch',
-			    'field_99'=>'',
-			    'field_100'=>'',
-			    'field_101'=>'',
-			    'field_102'=>'',
-			    'field_103'=>'6',
-			    'field_104'=>'',
-			    'field_106'=>'',
-			    'field_107'=>'Sam',
-			    'field_108'=>'Parkes',
-			    'field_109'=>'',
-			    'field_110'=>'',
-			    'field_111'=>'',
-			    'field_112'=>'3418515',
-			    'field_113'=>'0274424418 call first',
-			    'field_114'=>'',
-			    'field_115'=>'dolcevita@xtra.co.nz',
-			    'field_116'=>'Vincent',
-			    'field_117'=>'Nicola',
-			    'field_118'=>'',
-			    'field_119'=>'',
-			    'field_120'=>'',
-			    'field_121'=>'',
-			    'field_122'=>'',
-			    'field_123'=>'0274424418',
-			    'field_124'=>'',
-			    'field_125'=>'',
-			    'field_126'=>'',
-			    'field_127'=>'',
-			    'field_128'=>'',
-			    'field_129'=>'',
-			    'field_130'=>'',
-			    'field_131'=>'',
-			    'field_2000'=>'mother',
-			    'field_2001'=>'',
-			    'field_2002'=>'',
-			    'field_2003'=>'',
-			    'field_2004'=>'',
-			    'field_2005'=>'yes',
-			    'field_2006'=>'',
-			    'field_2007'=>'',
-			    'field_2008'=>'',
-			    'field_2009'=>'',
-			    'field_2010'=>'',
-			    'field_2011'=>'',
-			    'field_2012'=>'',
-			    'field_2013'=>'',
-			    'field_2014'=>'',
-			    'field_2015'=>'',
-			    'field_2016'=>'',
-			    'field_2017'=>'',
-			    'field_2018'=>'',
-			    'field_2019'=>'',
-			    'field_2020'=>'',
-			    'field_2021'=>'',
-			    'field_2022'=>'',
-			    'field_2023'=>'',
-			    'field_2024'=>'',
-			    'field_2025'=>'',
-			    'field_2026'=>'',
-			    'field_2027'=>'dolcevita@xtra.co.nz',
-			    'field_2028'=>'',
-			    'field_2029'=>'',
-			    'field_2030'=>'Yes',
-			    'field_2031'=>'',
-			    'field_2032'=>'',
-			    'field_2033'=>'',
-			    'field_2034'=>'',
-			    'field_2035'=>'',
-			    'field_2036'=>'',
-			    'field_2037'=>'',
-			    'field_2038'=>'',
-			    'field_2039'=>'',
-			    'field_2040'=>'',
-			    'field_2041'=>'',
-			    'field_2042'=>'',
-			    'field_2043'=>'',
-			    'field_2044'=>'')
-);
+		(
+    'person_id' => '353',
+    'dob' => '2003-08-29',
+    'start_date' => '2008-08-29',
+    'gender' => 'Male',
+    'first_name' => 'Jack',
+    'last_name' => 'Harding',
+    'nsn' => '132416486',
+    'sms_id' => '866',
+    'vacated' => '0',
+    'pid' => '353',
+    'first_schooling' => '2008-08-29',
+    'ethnic_origin' => '111',
+    'ethnic_origin2' => '0',
+    'ethnic_origin3' => '',
+    'ORS and Section 9' => '',
+    'funding_year_level' => '6',
+    'TYPE' => 'RE',
+    'previous_school' => 'Unknown',
+    'zoning' => '',
+    'citizenship' => 'NZL',
+    'FEE' => '',
+    'FTE' => '1',
+    'MAORI' => 'N/A',
+    'NQF QUAL' => '',
+    'REASON' => '',
+    'ECE' => '',
+    'PACIFIC MEDIUM -LANGUAGE' => '',
+    'PACIFIC MEDIUM - LEVEL' => '',
+    'SUBJECT 1' => '',
+    'MODE OF INSTRUCTION SUBJECT 1' => '',
+    'HOURS PER YEAR SUBJECT 1' => '',
+    'INSTRUCTIONAL YEAR LEVEL SUBJECT 1' => '',
+    'SUBJECT 2' => '',
+    'MODE OF INSTRUCTION SUBJECT 2' => '',
+    'HOURS PER YEAR SUBJECT 2' => '',
+    'INSTRUCTIONAL YEAR LEVEL SUBJECT 2' => '',
+    'SUBJECT 3' => '',
+    'MODE OF INSTRUCTION SUBJECT 3' => '',
+    'HOURS PER YEAR SUBJECT 3' => '',
+    'INSTRUCTIONAL YEAR LEVEL SUBJECT 3' => '',
+    'SUBJECT 4' => '',
+    'MODE OF INSTRUCTION SUBJECT 4' => '',
+    'HOURS PER YEAR SUBJECT 4' => '',
+    'INSTRUCTIONAL YEAR LEVEL SUBJECT 4' => '',
+    'SUBJECT 5' => '',
+    'MODE OF INSTRUCTION SUBJECT 5' => '',
+    'HOURS PER YEAR SUBJECT 5' => '',
+    'INSTRUCTIONAL YEAR LEVEL SUBJECT 5' => '',
+    'SUBJECT 6' => '',
+    'MODE OF INSTRUCTION SUBJECT 6' => '',
+    'HOURS PER YEAR SUBJECT 6' => '',
+    'INSTRUCTIONAL YEAR LEVEL SUBJECT 6' => '',
+    'SUBJECT 7' => '',
+    'MODE OF INSTRUCTION SUBJECT 7' => '',
+    'HOURS PER YEAR SUBJECT 7' => '',
+    'INSTRUCTIONAL YEAR LEVEL SUBJECT 7' => '',
+    'SUBJECT 8' => '',
+    'MODE OF INSTRUCTION SUBJECT 8' => '',
+    'HOURS PER YEAR SUBJECT 8' => '',
+    'INSTRUCTIONAL YEAR LEVEL SUBJECT 8' => '',
+    'SUBJECT 9' => '',
+    'MODE OF INSTRUCTION SUBJECT 9' => '',
+    'HOURS PER YEAR SUBJECT 9' => '',
+    'INSTRUCTIONAL YEAR LEVEL SUBJECT 9' => '',
+    'SUBJECT 10' => '',
+    'MODE OF INSTRUCTION SUBJECT 10' => '',
+    'HOURS PER YEAR SUBJECT 10' => '',
+    'INSTRUCTIONAL YEAR LEVEL SUBJECT 10' => '',
+    'SUBJECT 11' => '',
+    'MODE OF INSTRUCTION SUBJECT 11' => '',
+    'HOURS PER YEAR SUBJECT 11' => '',
+    'INSTRUCTIONAL YEAR LEVEL SUBJECT 11' => '',
+    'SUBJECT 12' => '',
+    'MODE OF INSTRUCTION SUBJECT 12' => '',
+    'HOURS PER YEAR SUBJECT 12' => '',
+    'INSTRUCTIONAL YEAR LEVEL SUBJECT 12' => '',
+    'SUBJECT 13' => '',
+    'MODE OF INSTRUCTION SUBJECT 13' => '',
+    'HOURS PER YEAR SUBJECT 13' => '',
+    'INSTRUCTIONAL YEAR LEVEL SUBJECT 13' => '',
+    'SUBJECT 14' => '',
+    'MODE OF INSTRUCTION SUBJECT 14' => '',
+    'HOURS PER YEAR SUBJECT 14' => '',
+    'INSTRUCTIONAL YEAR LEVEL SUBJECT 14' => '',
+    'SUBJECT 15' => '',
+    'MODE OF INSTRUCTION SUBJECT 15' => '',
+    'HOURS PER YEAR SUBJECT 15' => '',
+    'INSTRUCTIONAL YEAR LEVEL SUBJECT 15' => '',
+    'TUITION WEEKS' => '',
+    'NON-NQF QUAL' => '',
+    'UE' => '',
+    'EXCHANGE SCHEME' => '',
+    'BOARDING STATUS' => '',
+    'Address1' => '4 Heathfield Avenue',
+    'Address2' => '',
+    'Address3' => '8014',
+    'Address4' => '',
+    'ELIGIBILITY CRITERIA' => '',
+    'VERIFICATION DOCUMENT' => '',
+    'SERIAL NUMBER' => '',
+    'current_year_level' => '6',
+    'POST-SCHOOL ACTIVITY' => '',
+    'middle_name' => '',
+    'preferred_name' => 'Jack',
+    'preferred_last_name' => '',
+    'EXPIRY DATE' => '',
+    'STP' => '',
+    'WITHHOLD CONTACT DETAILS' => '',
+    'Phone' => '3519654',
+    'mobile_phone' => '0272821737',
+    'ALTERNATIVE PHONE NUMBER' => '',
+    'email_address' => 'ultimateforceltd@xtra.co.nz',
+    'contact_1_last_name' => 'Harding',
+    'contact_1_first_name' => 'Tracey',
+    'contact_1_address1' => '4 Heathfield Avenue',
+    'contact_1_address2' => 'Fendalton',
+    'contact_1_address3' => 'Christchurch 8014',
+    'contact_1_address4' => '',
+    'contact_1_address5' => '',
+    'contact_1_mobile' => '0272821737',
+    'contact_2_last_name' => 'Harding',
+    'contact_2_first_name' => 'Kevin',
+    'contact_2_address1' => '4 Heathfield Avenue',
+    'contact_2_address2' => 'Fendalton',
+    'contact_2_address3' => 'Christchurch 8014',
+    'contact_2_address4' => '',
+    'contact_2_address5' => '',
+    'contact_2_mobile' => '0275821737',
+    'contact_1_type' => '',
+    'contact_2_type' => 'father',
+    'liveswith' => '',
+    'caregiver_comment' => '',
+    'access_arrangements' => '',
+    'digital_safety' => 'Yes',
+    'digital_comment' => '',
+    'trip_permission_term_1' => '',
+    'trip_permission_term_2' => '',
+    'emergency1_first' => 'Alison',
+    'emergency1_last' => 'Warren',
+    'emergency1_phone' => '0',
+    'emergency1_mobile' => '',
+    'emergency2_first' => '',
+    'emergency2_last' => '',
+    'emergency2_phone' => '',
+    'emergency2_mobile' => '',
+    'medical_notes' => '',
+    'medical_condition' => '',
+    'medical_treatment' => '',
+    'allergy' => '',
+    'esol_number' => '',
+    'critical_info' => '',
+    'trip_permission_term_3' => '',
+    'trip_permission_term_4' => '',
+    'camp_permission' => '',
+    'swimming_permission' => '',
+    'contact_1_email' => 'ultimateforceltd@xtra.co.nz',
+    'contact_2_email' => '0',
+    'religious_education' => 'Yes',
+    'trip_permission' => 'Yes',
+    'immunisations' => '',
+    'contact_3_email' => '',
+    'contact_3_first_name' => '',
+    'contact_3_last_name' => '',
+    'contact_3_type' => '',
+    'contact_3_address1' => '',
+    'contact_3_address2' => '',
+    'contact_3_address3' => '',
+    'contact_3_address4' => '',
+    'contact_3_address5' => '',
+    'contact_3_phone' => '',
+    'contact_3_mobile' => '',
+    'emergency1_comment' => '',
+    'emergency2_comment' => '' ));
 			 
 }
 
@@ -226,7 +218,7 @@ class validator_1_PERSON_Test extends PHPUnit_Framework_TestCase {
 	public function testStudentId() {
 				
 		
-		$moe = new MOEValidator(MOECodeSets::$students[2756], 'M', MOECodeSets::$schools[1234]);
+		$moe = new MOEValidator(MOECodeSets::$students[353], 'M', MOECodeSets::$schools[1234]);
 		$valid = $moe->check_2();
 		$this->assertSame($valid, 'true');
 		
@@ -235,7 +227,7 @@ class validator_1_PERSON_Test extends PHPUnit_Framework_TestCase {
 	public function testnsn() {
 				
 		
-		$moe = new MOEValidator(MOECodeSets::$students[2756], 'M', MOECodeSets::$schools[1234]);
+		$moe = new MOEValidator(MOECodeSets::$students[353], 'M', MOECodeSets::$schools[1234]);
 		$valid = $moe->check_3();
 		$this->assertSame($valid, 'true');
 		
@@ -244,7 +236,7 @@ class validator_1_PERSON_Test extends PHPUnit_Framework_TestCase {
 	public function testlast_name() {
 				
 		
-		$moe = new MOEValidator(MOECodeSets::$students[2756], 'M', MOECodeSets::$schools[1234]);
+		$moe = new MOEValidator(MOECodeSets::$students[353], 'M', MOECodeSets::$schools[1234]);
 		$valid = $moe->check_4();
 		$this->assertSame($valid, 'true');
 		
@@ -253,7 +245,7 @@ class validator_1_PERSON_Test extends PHPUnit_Framework_TestCase {
 	public function testfirst_name() {
 				
 		
-		$moe = new MOEValidator(MOECodeSets::$students[2756], 'M', MOECodeSets::$schools[1234]);
+		$moe = new MOEValidator(MOECodeSets::$students[353], 'M', MOECodeSets::$schools[1234]);
 		$valid = $moe->check_5();
 		$this->assertSame($valid, 'true');
 		
@@ -262,7 +254,7 @@ class validator_1_PERSON_Test extends PHPUnit_Framework_TestCase {
 	public function testGender() {
 				
 		
-		$moe = new MOEValidator(MOECodeSets::$students[2756], 'M', MOECodeSets::$schools[1234]);
+		$moe = new MOEValidator(MOECodeSets::$students[353], 'M', MOECodeSets::$schools[1234]);
 		$valid = $moe->check_6();
 		$this->assertSame($valid, 'true');
 		
@@ -271,7 +263,7 @@ class validator_1_PERSON_Test extends PHPUnit_Framework_TestCase {
 	public function testDOB() {
 				
 		
-		$moe = new MOEValidator(MOECodeSets::$students[2756], 'M', MOECodeSets::$schools[1234]);
+		$moe = new MOEValidator(MOECodeSets::$students[353], 'M', MOECodeSets::$schools[1234]);
 		$valid = $moe->check_7();
 		$this->assertSame($valid, 'true');
 		
@@ -282,7 +274,7 @@ class validator_1_PERSON_Test extends PHPUnit_Framework_TestCase {
 	public function testStartDateAtThisSchool() {
 				
 		
-		$moe = new MOEValidator(MOECodeSets::$students[2756], 'M', MOECodeSets::$schools[1234]);
+		$moe = new MOEValidator(MOECodeSets::$students[353], 'M', MOECodeSets::$schools[1234]);
 		$valid = $moe->check_8();
 		$this->assertSame($valid, 'true');
 		
@@ -291,7 +283,7 @@ class validator_1_PERSON_Test extends PHPUnit_Framework_TestCase {
 	public function testStartDateAtAnySchool() {
 				
 		
-		$moe = new MOEValidator(MOECodeSets::$students[2756], 'M', MOECodeSets::$schools[1234]);
+		$moe = new MOEValidator(MOECodeSets::$students[353], 'M', MOECodeSets::$schools[1234]);
 		$valid = $moe->check_9();
 		$this->assertSame($valid, 'true');
 		
@@ -300,7 +292,7 @@ class validator_1_PERSON_Test extends PHPUnit_Framework_TestCase {
 	public function testEthnicity1() {
 				
 		
-		$moe = new MOEValidator(MOECodeSets::$students[2756], 'M', MOECodeSets::$schools[1234]);
+		$moe = new MOEValidator(MOECodeSets::$students[353], 'M', MOECodeSets::$schools[1234]);
 		$valid = $moe->check_10();
 		$this->assertSame($valid, 'true');
 		
@@ -309,7 +301,7 @@ class validator_1_PERSON_Test extends PHPUnit_Framework_TestCase {
 	public function testEthnicity2() {
 				
 		
-		$moe = new MOEValidator(MOECodeSets::$students[2756], 'M', MOECodeSets::$schools[1234]);
+		$moe = new MOEValidator(MOECodeSets::$students[353], 'M', MOECodeSets::$schools[1234]);
 		$valid = $moe->check_11();
 		$this->assertSame($valid, 'true');
 		
@@ -318,7 +310,7 @@ class validator_1_PERSON_Test extends PHPUnit_Framework_TestCase {
 	public function testEthnicity3() {
 				
 		
-		$moe = new MOEValidator(MOECodeSets::$students[2756], 'M', MOECodeSets::$schools[1234]);
+		$moe = new MOEValidator(MOECodeSets::$students[353], 'M', MOECodeSets::$schools[1234]);
 		$valid = $moe->check_12();
 		$this->assertSame($valid, 'true');
 		
@@ -327,7 +319,7 @@ class validator_1_PERSON_Test extends PHPUnit_Framework_TestCase {
 	public function testIWI1() {
 				
 		
-		$moe = new MOEValidator(MOECodeSets::$students[2756], 'M', MOECodeSets::$schools[1234]);
+		$moe = new MOEValidator(MOECodeSets::$students[353], 'M', MOECodeSets::$schools[1234]);
 		$valid = $moe->check_13();
 		$this->assertSame($valid, 'true');
 		
@@ -336,7 +328,7 @@ class validator_1_PERSON_Test extends PHPUnit_Framework_TestCase {
 	public function testIWI2() {
 				
 		
-		$moe = new MOEValidator(MOECodeSets::$students[2756], 'M', MOECodeSets::$schools[1234]);
+		$moe = new MOEValidator(MOECodeSets::$students[353], 'M', MOECodeSets::$schools[1234]);
 		$valid = $moe->check_14();
 		$this->assertSame($valid, 'true');
 		
@@ -345,7 +337,7 @@ class validator_1_PERSON_Test extends PHPUnit_Framework_TestCase {
 	public function testIWI3() {
 				
 		
-		$moe = new MOEValidator(MOECodeSets::$students[2756], 'M', MOECodeSets::$schools[1234]);
+		$moe = new MOEValidator(MOECodeSets::$students[353], 'M', MOECodeSets::$schools[1234]);
 		$valid = $moe->check_15();
 		$this->assertSame($valid, 'true');
 		
@@ -354,7 +346,7 @@ class validator_1_PERSON_Test extends PHPUnit_Framework_TestCase {
 	public function testORRS() {
 				
 		
-		$moe = new MOEValidator(MOECodeSets::$students[2756], 'M', MOECodeSets::$schools[1234]);
+		$moe = new MOEValidator(MOECodeSets::$students[353], 'M', MOECodeSets::$schools[1234]);
 		$valid = $moe->check_16();
 		$this->assertSame($valid, 'true');
 		
@@ -363,7 +355,7 @@ class validator_1_PERSON_Test extends PHPUnit_Framework_TestCase {
 	public function testFundingYearLevel() {
 				
 		
-		$moe = new MOEValidator(MOECodeSets::$students[2756], 'M', MOECodeSets::$schools[1234]);
+		$moe = new MOEValidator(MOECodeSets::$students[353], 'M', MOECodeSets::$schools[1234]);
 		$valid = $moe->check_17();
 		$this->assertSame($valid, 'true');
 		
@@ -371,7 +363,7 @@ class validator_1_PERSON_Test extends PHPUnit_Framework_TestCase {
 
 	public function testStudentType() {
 		
-		$moe = new MOEValidator(MOECodeSets::$students[2756], 'M', MOECodeSets::$schools[1234]);
+		$moe = new MOEValidator(MOECodeSets::$students[353], 'M', MOECodeSets::$schools[1234]);
 		$valid = $moe->check_18();
 		$this->assertSame($valid, 'true');
 		
@@ -382,6 +374,14 @@ class validator_1_PERSON_Test extends PHPUnit_Framework_TestCase {
 		$schoolCodes = MOECodes::$schoolCodes;
 		$valid = array_key_exists(MOECodeSets::$schools[3338]['school_id'], $schoolCodes);
 		$this->assertSame($valid, true);
+
+	}
+
+	public function testZoningStatus(){
+
+		$moe = new MOEValidator(MOECodeSets::$students[353], 'M', MOECodeSets::$schools[1234]);
+		$valid = $moe->check_20();
+		$this->assertSame($valid, 'true');
 
 	}
 }

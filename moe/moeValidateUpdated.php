@@ -30,7 +30,7 @@ public $checkAgetoStart;
 public $returnAgeOnJan01;
 public $ageOnJuly1 = '';
 public $codes = '';
-public $mappedData= array();
+public $mappedData;
 	
 	public function __construct($data, $rmonth, $school){
 		
@@ -43,16 +43,9 @@ public $mappedData= array();
 		$this->last_name = $data['last_name'];
 		$this->vacated = $data['vacated'];
 		
+	
+		$this->mappedData = $data;
 		
-		$fieldList = MOECodes::$fieldList;
-		
-		$mappedData = array();
-		foreach ($fieldList as $key=>$map){
-			// The data passed to the class is in the form of e.g. 'field_12'(key) => student data(value). This can be mapped to the correct field name based on the static area in the MoeCodes class.
-			$fieldLabel = 'field_'.$key;
-			$this->mappedData[$map] = $data[$fieldLabel];
-			
-		}
 		 
 		$this->school_type =  $school['school_type'];	
 		$this->EnrolmentScheme =  $school['enrolment_scheme'];
@@ -718,9 +711,11 @@ public function check_8(){
 
 $data = $this->start_date;
 
+
+
 $convert = date('Ymd', strtotime($data));
 	
-			if (isset($data)){	
+			if (isset($convert)){	
 			
 				 if (preg_match("/^\d{8}$/", $convert)) {
 					 //IF FIRST ATTENDANCE is < FIRST SCHOOLING
@@ -959,10 +954,10 @@ $number = 11;
 
 		$array = $this->codes->ethnicityCodes();
 
-		if ($data==''){
+		if ($data=='' || $data==0){
 
 			$this->moe[$number]['valid'] = 'true';
-			$this->moe[$number]['value'] = $data;
+			$this->moe[$number]['value'] = '';
 		}
 		else { // field is not blank so must be checked for validity
 		
@@ -1035,10 +1030,10 @@ public function check_12(){
 
 $array = $this->codes->ethnicityCodes();
 	
-		if ($data==''){
+		if ($data=='' || $data==0){
 
 			$this->moe[$number]['valid'] = 'true';
-			$this->moe[$number]['value'] = $data;
+			$this->moe[$number]['value'] = '';
 		}
 		else { // field is not blank so must be checked for validity
 		
@@ -1730,6 +1725,9 @@ $this->moe[$number]['input_field'] = '<input type="number" class="'.$this->moe[$
 
 
 public function check_20(){
+
+if ( $this->EnrolmentScheme == 'true'){	
+
 	$number = 20;
 	$this->moe[$number]=array("Field Name"=>"ZONING STATUS", "Field Label"=>"Zone", "LINC Name"=>"zoning", "Field No"=>$number, "Description"=>"Indication of whether the student resided in or out of the School Zone at date of first attendance at the school",
 	"Mandatory"=>"for full time regular students if enrolment scheme",
@@ -1754,7 +1752,7 @@ if ($this->mappedData['TYPE'] == "RE" && $this->EnrolmentScheme == 'true'){
 $data = $this->mappedData[$this->moe[$number]['LINC Name']];
 //If value not in [INZN, OUTZ, NAPP] (this test applies to all students to ensure only 1 of the 3 valid codes can be entered) and [Rmonth in [M,J] or Funding Year Level >=9]
 
-if (!in_array($data, array('INZN', 'OUTZ', 'NAPP')) && (in_array($this->rmonth, array('M', 'J'))|| $this->mappedData['funding_year_level'] >=9) ){
+if (!in_array($data, array('INZN', 'OUTZ', 'NAPP')) && (in_array($this->rmonth, array('M', 'J'))|| $this->mappedData['funding_year_level'] >=9)  ){
 	
 	$this->moe[$number]['valid'] = 'false';
 	$this->moe[$number]['value'] = '300 - Code for zoning status is incorrect';
@@ -1799,6 +1797,12 @@ if ($this->moe[$number]['valid']=='false'){
 				$this->moe[$number]['input_field'] .= '</fieldset>';	
 
 				return $this->moe[$number]['valid'];
+			}
+			else {
+
+				return 'true';
+			}
+
 }
 
 
