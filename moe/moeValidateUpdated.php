@@ -5324,7 +5324,9 @@ else {
 return $this->moe[$number]['valid'];
 }
 
-public function check_93(){$this->moe[93]=array("Content Type"=> 'metacontent', "Field Name"=>"UE","LINC Name"=>"UE","Field No"=>"93", "Description"=>"University Entrance","Mandatory"=>"for Fulltime students Year 9+","Type"=>"Alpha (Yes or No)"
+public function check_93(){
+
+	$this->moe[93]=array("Content Type"=> 'metacontent', "Field Name"=>"UE","LINC Name"=>"UE","Field No"=>"93", "Description"=>"University Entrance","Mandatory"=>"for Fulltime students Year 9+","Type"=>"Alpha (Yes or No)"
 , 'valid'=>'',
 'value' =>'', 'message' =>'',
 'input_field'=>'',
@@ -5347,11 +5349,14 @@ else {
 	$this->moe[$number]['value'] = $data;
 	
 	}
+	return $this->moe[$number]['valid'];
 }
 
 
 
-public function check_94(){$this->moe[94]=array("Content Type"=> 'metacontent', "Field Name"=>"EXCHANGE SCHEME", "LINC Name"=>"EXCHANGE SCHEME","Field No"=>"94", "Description"=>"Type of scheme or agreement an exchange student is affiliated to","Mandatory"=>"for Exchange Students","Type"=>"Controlled value code list"
+public function check_94(){
+
+	$this->moe[94]=array("Content Type"=> 'metacontent', "Field Name"=>"EXCHANGE SCHEME", "LINC Name"=>"EXCHANGE SCHEME","Field No"=>"94", "Description"=>"Type of scheme or agreement an exchange student is affiliated to","Mandatory"=>"for Exchange Students","Type"=>"Controlled value code list"
 , 'valid'=>'',
 'value' =>'', 'message' =>'',
 'input_field'=>'',
@@ -5374,6 +5379,8 @@ else {
 	$this->moe[$number]['value'] = $data;
 	
 	}
+	return $this->moe[$number]['valid'];
+
 }
 
 
@@ -5404,6 +5411,8 @@ else {
 $this->moe[$number]['valid'] = 'true';
 	$this->moe[$number]['value'] = $data;
 	}
+
+	return $this->moe[$number]['valid'];
 }
 
 public function check_96(){$this->moe[96]=array("Content Type"=> 'metacontent', "ICON" => "envelop", "Field Name"=>"ADDRESS1", "Field Label"=>"Address line 1 (Required)", "LINC Name"=>"Address1","Field No"=>"96", "Description"=>"Students home address","Mandatory"=>"YES","Type"=>"Alpha-Numeric"
