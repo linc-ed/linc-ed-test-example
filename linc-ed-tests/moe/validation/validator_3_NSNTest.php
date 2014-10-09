@@ -5,7 +5,7 @@
  * Natural number, Mandatory , unless the student has left the school or has the STUDENT TYPE = EM or NF
  */
 
-error_reporting(E_ALL&~E_NOTICE);
+error_reporting(E_ALL);
 date_default_timezone_set('Pacific/Auckland');
 require_once(dirname(__FILE__).'/../../../moe/MOEValidateUpdated.php');
 require_once(dirname(__FILE__).'/../../../moe/moe_test.php');
