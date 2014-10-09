@@ -2487,7 +2487,7 @@ $this->moe[$number]['input_field'] = '<select name="select-'.$this->moe[$number]
 public function check_30(){
 	
 	$data = $this->mappedData['PACIFIC MEDIUM - LEVEL'];
-	if (isset($data)|| $this->test==true){	
+	
 	
 	$this->moe[30]=array("Content Type"=> 'metacontent', "Field Name"=>"PACIFIC MEDIUM - LEVEL", "LINC Name"=>"PACIFIC MEDIUM - LEVEL", "Field No"=>"30", "Description"=>"The highest Level of Pacific Language Learning the student is involved in","Mandatory"=>"where PACIFIC MEDIUM LANGUAGE field is populated","Type"=>"Controlled value code list"
 , 'valid'=>'',
@@ -2501,6 +2501,13 @@ $number = 30;
 $data = $this->mappedData[$this->moe[$number]['LINC Name']];
 
 //If value not in [Null,1,2,3,4] and [Rmonth in [M,J] or Funding Year Level >=9]
+
+if ($data==''){
+	$this->moe[$number]['valid'] = 'true';
+	$this->moe[$number]['value'] = $data;
+
+}
+else {
 
 if (!in_array($data, array('[Null]', '1', '2', '3', '4')) && (in_array($this->rmonth, array('M', 'J'))|| $this->mappedData['funding_year_level'] >=9)){
 	$this->moe[$number]['valid'] = 'false';
@@ -2520,6 +2527,45 @@ $this->moe[$number]['valid'] = 'true';
 	
 	}
 }
+	$array = array('Null'=>'Student not involved in Pacific Medium Education',
+'1'=>'Student is taught in the specified Pacific Language for more than 20 and up to 25 hrs per week (81-100% of total time)',
+'2'=>'Student is taught in the specified Pacific Language for more than 12.5 and up to 20 hrs per week (51-80% of total time)',
+'3'=>'Student is taught in the specified Pacific Language for more than 7.5 and up to 12.5 hrs per week (31-50% of total time)',
+'4'=>'Student is taught in the specified Pacific Language for more than 3 and up to 7.5 hrs per week (12-30% of total time)');
+	if ($this->moe[$number]['valid']=='false'){
+	if ($this->moe[$number]['Mandatory']=="YES"){
+		$warning = 'warning-2';	
+	}
+	else {
+		$warning = 'warning';	
+	}
+	
+	$this->moe[$number]['input_label'] = '<label id="'.$this->moe[$number]['LINC Name'] .$this->person_id.'_label" for="'.$this->moe[$number]['LINC Name'] .$this->person_id.'"><span class="error"><i class="font-'.$this->moe[$number]['ICON'] .'"  ></i> '.$this->moe[$number]['Field Label'] .': <i class="font-'. $warning .'"  ></i></span>'.linc_popupmessage( $this->moe[$number]['LINC Name'],  $this->moe[$number]['Field Label'], $this->moe[$number]['Description']).'</label>';
+				
+		}
+		else if ($this->moe[$number]['valid']=='true'){
+
+		$this->moe[$number]['input_label'] =  '<label  id="'.$this->moe[$number]['LINC Name'].$this->person_id.'_label" for="'.$this->moe[$number]['LINC Name'] .$this->person_id.'"><span class="valid"><i class="font-'.$this->moe[$number]['ICON'].'"  ></i> '.$this->moe[$number]['Field Label'].': <i class="font-checkmark-3"  ></i></span></label>';
+			
+		}
+
+$this->moe[$number]['input_field'] = '<select name="select-'.$this->moe[$number]['LINC Name'].'" id="select-'.$this->moe[$number]['LINC Name'].$this->person_id.'" data-native-menu="false" data-inline="true" data-icon="grid" data-theme="b" data-iconpos="left" class="optionMenu">';
+					
+			$this->moe[$number]['input_field'] .= '<option>Select an option</option>';
+					 $array = MOECodes::$pacific;
+							   foreach ($array as $key=> $code){
+									   
+									$this->moe[$number]['input_field'] .= '<option ';
+										if ($key == $this->moe[$number]['value'] ){
+										
+									$this->moe[$number]['input_field'] .= 'selected=selected';	
+										}
+										
+			$this->moe[$number]['input_field'].= ' value="'.$key.'" data-arraypos="'.$this->moe[$number]['Field No'].'" data-id="'.$this->person_id.'" data-value="'.$key.'" name="'.$this->moe[$number]['LINC Name'].'" data-id="'.$this->person_id.'">'.$code.'</option>';	
+								}
+							
+			$this->moe[$number]['input_field'] .= '</select>';	
+
 
 return $this->moe[$number]['valid'];
 }
