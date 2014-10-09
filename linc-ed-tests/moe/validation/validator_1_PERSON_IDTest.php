@@ -1,5 +1,5 @@
 <?php
-
+error_reporting(E_ALL);
 /**
  * Our first test for the SCHOOL_ID field.
  * The specification describes that it is mandatory, and that
