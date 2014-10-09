@@ -136,7 +136,7 @@ class validator_1_PERSON_Test extends PHPUnit_Framework_TestCase {
     'VERIFICATION DOCUMENT' => '',
     'SERIAL NUMBER' => '',
     'current_year_level' => '6',
-    'POST-SCHOOL ACTIVITY' => '',
+    'POST-SCHOOL ACTIVITY' => '10',
     'middle_name' => '',
     'preferred_name' => 'Jack',
     'preferred_last_name' => '',
