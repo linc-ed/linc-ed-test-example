@@ -5759,9 +5759,41 @@ public function check_102(){
 $number = 102;
 
 $data = $this->mappedData[$this->moe[$number]['LINC Name']];
-
-$this->moe[$number]['valid'] = 'true';
+	
+if ($data!='' && !ctype_digit($data)){
+	$this->moe[$number]['valid'] = 'false';
 	$this->moe[$number]['value'] = $data;
+
+}	
+else {
+	$this->moe[$number]['valid'] = 'true';
+	$this->moe[$number]['value'] = $data;
+}
+
+if ($this->moe[$number]['valid']=='false'){
+	if ($this->moe[$number]['Mandatory']=="YES"){
+		$warning = 'warning-2';	
+	}
+	else {
+		$warning = 'warning';	
+	}
+	
+	$this->moe[$number]['input_label'] = '<label id="'.$this->moe[$number]['LINC Name'] .$this->person_id.'_label" for="'.$this->moe[$number]['LINC Name'] .$this->person_id.'"><span class="error"><i class="font-'.$this->moe[$number]['ICON'] .'"  ></i> '.$this->moe[$number]['Field Label'] .': <i class="font-'. $warning .'"  ></i></span>'.linc_popupmessage( $this->moe[$number]['LINC Name'],  $this->moe[$number]['Field Label'], $this->moe[$number]['Description']).'</label>';
+				
+		}
+		else if ($this->moe[$number]['valid']=='true'){
+
+		$this->moe[$number]['input_label'] =  '<label  id="'.$this->moe[$number]['LINC Name'].$this->person_id.'_label" for="'.$this->moe[$number]['LINC Name'] .$this->person_id.'"><span class="valid"><i class="font-'.$this->moe[$number]['ICON'].'"  ></i> '.$this->moe[$number]['Field Label'].': <i class="font-checkmark-3"  ></i></span></label>';
+			
+		}
+		$this->moe[$number]['input_field'] = '<form>
+    <div data-role="fieldcontain" class="ui-hide-label">
+        <input data-theme="b" type="number" data-arraypos="'.$this->moe[$number]['Field No'].'" name="'.$this->moe[$number]['LINC Name'].'" data-id="'.$this->person_id.'" id="'.$this->moe[$number]['LINC Name'].$this->person_id.'" value="'.$this->moe[$number]['value'].'" data-theme="'.$theme.'" class="'.$this->moe[$number]['Content Type'].'"  >
+    </div>
+</form>';
+
+return $this->moe[$number]['valid'] ;
+
 
 }
 
