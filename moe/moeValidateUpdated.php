@@ -6009,7 +6009,9 @@ if ($this->moe[$number]['valid']=='false'){
 
 
 }
-public function check_106(){$this->moe[106]=array("Content Type"=> 'metacontent', "Field Name"=>"MIDDLE NAME(S)", "LINC Name"=>"middle_name","Field No"=>"106", "Description"=>"Student's Middle Name(s)","Mandatory"=>"NO","Type"=>"ASCII plus macronised vowels"
+public function check_106(){
+
+	$this->moe[106]=array("Content Type"=> 'metacontent', "Field Name"=>"MIDDLE NAME(S)", "LINC Name"=>"middle_name","Field No"=>"106", "Description"=>"Student's Middle Name(s)","Mandatory"=>"NO","Type"=>"ASCII plus macronised vowels"
 , 'valid'=>'',
 'value' =>'', 'message' =>'',
 'input_field'=>'',
@@ -6020,8 +6022,31 @@ $number = 106;
 
 $data = $this->mappedData[$this->moe[$number]['LINC Name']];
 
-$this->moe[$number]['valid'] = 'true';
-	$this->moe[$number]['value'] = $data;}
+	$this->moe[$number]['valid'] = 'true';
+	$this->moe[$number]['value'] = $data;
+	
+if ($this->moe[$number]['valid']=='false'){
+	if ($this->moe[$number]['Mandatory']=="YES"){
+		$warning = 'warning-2';	
+	}
+	else {
+		$warning = 'warning';	
+	}
+	
+	$this->moe[$number]['input_label'] = '<label id="'.$this->moe[$number]['LINC Name'] .$this->person_id.'_label" for="'.$this->moe[$number]['LINC Name'] .$this->person_id.'"><span class="error"><i class="font-'.$this->moe[$number]['ICON'] .'"  ></i> '.$this->moe[$number]['Field Label'] .': <i class="font-'. $warning .'"  ></i></span>'.linc_popupmessage( $this->moe[$number]['LINC Name'],  $this->moe[$number]['Field Label'], $this->moe[$number]['Description']).'</label>';
+				
+		}
+		else if ($this->moe[$number]['valid']=='true'){
+
+		$this->moe[$number]['input_label'] =  '<label  id="'.$this->moe[$number]['LINC Name'].$this->person_id.'_label" for="'.$this->moe[$number]['LINC Name'] .$this->person_id.'"><span class="valid"><i class="font-'.$this->moe[$number]['ICON'].'"  ></i> '.$this->moe[$number]['Field Label'].': <i class="font-checkmark-3"  ></i></span></label>';
+			
+		}
+		
+	
+$this->moe[$number]['input_field'] = '<input type="text" class="'.$this->moe[$number]['Content Type'].'" data-arraypos="'.$this->moe[$number]['Field No'].'" name="'.$this->moe[$number]['LINC Name'].'" data-id="'.$this->person_id.'" id="'.$this->moe[$number]['LINC Name'].$this->person_id.'" value="'.$this->moe[$number]['value'].'" data-theme="'.$theme.'" placeholder="'.$this->moe[$number]['Placeholder'].'"/>';
+return $this->moe[$number]['valid'] ;	
+
+}
 
 
 public function check_107(){$this->moe[107]=array( "Field Name"=>"PREFERRED FIRST NAME",  "ICON"=>"user-plus","Content Type"=> 'metacontent' ,"Field Label"=>"Preferred First Name",  "Placeholder"=>"Preferred first name...", "LINC Name"=>"preferred_name","Field No"=>"107", "Description"=>"May not be the legal name","Mandatory"=>"NO","Type"=>"ASCII plus macronised vowels"
@@ -6101,7 +6126,9 @@ return $this->moe[$number]['valid'] ;
 	}
 
 
-public function check_109(){$this->moe[109]=array("Field Name"=>"EXPIRY DATE","Field No"=>"109", "Description"=>"Verification Document Expiry Date","Mandatory"=>"NO","Type"=>"Date"
+public function check_109(){
+
+	$this->moe[109]=array("Field Name"=>"EXPIRY DATE","Field No"=>"109", "Description"=>"Verification Document Expiry Date","Mandatory"=>"NO","Type"=>"Date"
 , 'valid'=>'',
 'value' =>'', 'message' =>'',
 'input_field'=>'',
@@ -6160,9 +6187,13 @@ else {
 	$this->moe[$number]['value'] = $data;
 	
 	}
+
+
 }
 
-public function check_110(){$this->moe[110]=array("Field Name"=>"STP", "LINC Name"=>"STP","Field No"=>"110", "Description"=>"Indicates which Secondary Tertiary Programme the student is attending","Mandatory"=>"NO","Type"=>"Controlled value code list"
+public function check_110(){
+
+	$this->moe[110]=array("Field Name"=>"STP", "LINC Name"=>"STP","Field No"=>"110", "Description"=>"Indicates which Secondary Tertiary Programme the student is attending","Mandatory"=>"NO","Type"=>"Controlled value code list"
 , 'valid'=>'',
 'value' =>'', 'message' =>'',
 'input_field'=>'',
@@ -6332,7 +6363,9 @@ return $this->moe[$number]['valid'] ;
 	}
 
 
-public function check_115(){$this->moe[115]=array("Field Name"=>"EMAIL ADDRESS",  "ICON"=> "mail", "Field Label"=>"Primary email address", "Content Type"=> 'metacontent',  "Placeholder"=>"Main contact email address", "LINC Name"=>"email_address","Field No"=>"115", "Description"=>"Student's email address (out of school email where possible)","Mandatory"=>"NO","Type"=>"ASCII"
+public function check_115(){
+
+	$this->moe[115]=array("Field Name"=>"EMAIL ADDRESS",  "ICON"=> "mail", "Field Label"=>"Primary email address", "Content Type"=> 'metacontent',  "Placeholder"=>"Main contact email address", "LINC Name"=>"email_address","Field No"=>"115", "Description"=>"Student's email address (out of school email where possible)","Mandatory"=>"NO","Type"=>"ASCII"
 , 'valid'=>'',
 'value' =>'', 'message' =>'Email addresses are useful to have stored. They are not however required by the Ministry of Education'
 );
@@ -6342,7 +6375,7 @@ $number = 115;
 $data = $this->mappedData[$this->moe[$number]['LINC Name']];
 
 if (is_email($data)){
-$this->moe[$number]['valid'] = 'true';
+	$this->moe[$number]['valid'] = 'true';
 	$this->moe[$number]['value'] = $data;
 	
 }
@@ -6371,6 +6404,8 @@ if ($this->moe[$number]['valid']=='false'){
 		
 	
 $this->moe[$number]['input_field'] = '<input type="text" class="'.$this->moe[$number]['Content Type'].'" data-arraypos="'.$this->moe[$number]['Field No'].'" name="'.$this->moe[$number]['LINC Name'].'" data-id="'.$this->person_id.'" id="'.$this->moe[$number]['LINC Name'].$this->person_id.'" value="'.$this->moe[$number]['value'].'" data-theme="'.$theme.'" placeholder="'.$this->moe[$number]['Placeholder'].'"/>';
+
+return $this->moe[$number]['valid'] ;	
 
 	}
 
@@ -6455,6 +6490,12 @@ public function check_118(){$this->moe[118]=array("Field Name"=>"CONTACT 1 ADDRE
 );
 
 $number = 118;
+
+if (strpos($data, '"' >0)){
+
+	
+
+}
 
 $data = $this->mappedData[$this->moe[$number]['LINC Name']];
 
