@@ -1697,11 +1697,12 @@ public function check_19(){
 
 
 $number = 19;
-
+$array = MOECodes::$schoolCodes;
 $data = $this->mappedData[$this->moe[$number]['LINC Name']];
 
 $this->moe[$number]['valid'] = 'true';
 	$this->moe[$number]['value'] = $data;
+
 if ($this->moe[$number]['valid']=='false'){
 	if ($this->moe[$number]['Mandatory']=="YES"){
 		$warning = 'warning-2';	
@@ -1718,8 +1719,24 @@ if ($this->moe[$number]['valid']=='false'){
 		$this->moe[$number]['input_label'] =  '<label  id="'.$this->moe[$number]['LINC Name'].$this->person_id.'_label" for="'.$this->moe[$number]['LINC Name'] .$this->person_id.'"><span class="valid"><i class="font-'.$this->moe[$number]['ICON'].'"  ></i> '.$this->moe[$number]['Field Label'].': <i class="font-checkmark-3"  ></i></span></label>';
 			
 		}
-		
-$this->moe[$number]['input_field'] = '<input type="number" class="'.$this->moe[$number]['Content Type'].'" data-arraypos="'.$this->moe[$number]['Field No'].'" name="'.$this->moe[$number]['LINC Name'].'" data-id="'.$this->person_id.'" id="'.$this->moe[$number]['LINC Name'].$this->person_id.'" value="'.$this->moe[$number]['value'].'" data-theme="'.$theme.'" placeholder="'.$this->moe[$number]['Placeholder'].'"/>';
+$this->moe[$number]['input_field'] = '<select name="select-'.$this->moe[$number]['LINC Name'].'" id="select-'.$this->moe[$number]['LINC Name'].$this->person_id.'" data-native-menu="false" data-inline="true" data-icon="grid" data-theme="b" data-iconpos="left" class="optionMenu">';
+					
+			$this->moe[$number]['input_field'] .= '<option>'.$this->moe[$number]['Description'].'</option>';
+					 
+							   foreach ($array as $key=> $code){
+									   
+									$this->moe[$number]['input_field'] .= '<option ';
+										if ($key == $this->moe[$number]['value'] ){
+										
+									$this->moe[$number]['input_field'] .= 'selected=selected';	
+										}
+										
+			$this->moe[$number]['input_field'].= ' value="'.$key.'" data-arraypos="'.$this->moe[$number]['Field No'].'" data-id="'.$this->person_id.'" data-value="'.$key.'" name="'.$this->moe[$number]['LINC Name'].'" data-id="'.$this->person_id.'">'.$code.'</option>';	
+								}
+							
+			$this->moe[$number]['input_field'] .= '</select>';
+
+			return $this->moe[$number]['valid'];
 }
 
 
@@ -2163,7 +2180,7 @@ if ($this->mappedData['funding_year_level'] >= 9){
 
 public function check_27(){
 
-if ($this->mappedData['LAST ATTENDANCE'] !=''){	
+if ($this->mappedData['vacated']==1){	
 	
 			$this->moe[27]=array("Content Type"=> 'metacontent', "Field Name"=>"REASON", "LINC Name"=>"REASON", "Field No"=>"27", "Description"=>"Student's reason for leaving their present school","Mandatory"=>"where LAST ATTENDANCE DATE is populated","Type"=>"Controlled value code list"
 		, 'valid'=>'',
@@ -2208,8 +2225,12 @@ if ($this->mappedData['LAST ATTENDANCE'] !=''){
 			$this->moe[$number]['value'] = $data;
 		}
 }
-}
 return $this->moe[$number]['valid'];
+}
+else {
+	return 'true'; //return true for testing as this field is not required as student has not left.
+}
+
 }
 
 

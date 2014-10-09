@@ -42,7 +42,7 @@ class validator_1_PERSON_Test extends PHPUnit_Framework_TestCase {
     'last_name' => 'Harding',
     'nsn' => '132416486',
     'sms_id' => '866',
-    'vacated' => '0',
+    'vacated' => '1',
     'pid' => '353',
     'first_schooling' => '2008-08-29',
     'ethnic_origin' => '111',
@@ -57,6 +57,7 @@ class validator_1_PERSON_Test extends PHPUnit_Framework_TestCase {
     'FEE' => '',
     'FTE' => '1',
     'MAORI' => 'N/A',
+    'LAST ATTENDANCE'=>'2011-09-09',
     'NQF QUAL' => '',
     'REASON' => '',
     'ECE' => '',
@@ -369,6 +370,14 @@ class validator_1_PERSON_Test extends PHPUnit_Framework_TestCase {
 		
 	}
 
+	public function testPreviousSchool() {
+		
+		$moe = new MOEValidator(MOECodeSets::$students[353], 'M', MOECodeSets::$schools[1234]);
+		$valid = $moe->check_19();
+		$this->assertSame($valid, 'true');
+		
+	}
+
 	public function testSchoolName(){
 
 		$schoolCodes = MOECodes::$schoolCodes;
@@ -430,6 +439,14 @@ class validator_1_PERSON_Test extends PHPUnit_Framework_TestCase {
 
 		$moe = new MOEValidator(MOECodeSets::$students[353], 'M', MOECodeSets::$schools[1234]);
 		$valid = $moe->check_26();
+		$this->assertSame($valid, 'true');
+
+	}
+
+	public function testReasonForLeaving(){
+
+		$moe = new MOEValidator(MOECodeSets::$students[353], 'M', MOECodeSets::$schools[1234]);
+		$valid = $moe->check_27();
 		$this->assertSame($valid, 'true');
 
 	}
