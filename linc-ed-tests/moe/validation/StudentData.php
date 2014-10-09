@@ -17,6 +17,10 @@ class StudentData {
 			'ethnic_origin' => '111',
 			'ethnic_origin2' => '0',
 			'ethnic_origin3' => '',
+			'IWI1'=>'',
+			'IWI2'=>'',
+			'IWI3'=>'',
+
 			'ORS and Section 9' => '',
 			'funding_year_level' => '6',
 			'TYPE' => 'RE',

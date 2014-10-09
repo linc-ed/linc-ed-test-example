@@ -8,7 +8,7 @@
  * and FIRST ATTENDANCE>1 Jan 2003
  * Iwi2 and Iwi3 is optional
  */
-// error_reporting(E_ALL);
+error_reporting(E_ALL);
 date_default_timezone_set('Pacific/Auckland');
 require_once(dirname(__FILE__).'/../../../moe/MOEValidateUpdated.php');
 require_once(dirname(__FILE__).'/../../../moe/moe_test.php');
@@ -25,6 +25,7 @@ class validator_13_14_15_IWITest extends PHPUnit_Framework_TestCase {
 	public function setUp() {
 		$this->student = StudentData::getStudent();
 		$this->school = SchoolData::getSchool();
+
 	}
 
 	public function testNotMandatory() {
@@ -45,7 +46,7 @@ class validator_13_14_15_IWITest extends PHPUnit_Framework_TestCase {
 		$moe = new MOEValidator($this->student, 'M', $this->school);
 		$valid = $moe->check_13();
 		$this->assertSame($valid, 'true');
-
+		$this->student['ethnic_origin'] = '211';
 		$this->student['IWI1'] = 'a';
 		$moe = new MOEValidator($this->student, 'M', $this->school);
 		$valid = $moe->check_13();
@@ -58,7 +59,7 @@ class validator_13_14_15_IWITest extends PHPUnit_Framework_TestCase {
 		$moe = new MOEValidator($this->student, 'M', $this->school);
 		$valid = $moe->check_14();
 		$this->assertSame($valid, 'true');
-
+		$this->student['ethnic_origin'] = '211';
 		$this->student['IWI2'] = 'a';
 		$moe = new MOEValidator($this->student, 'M', $this->school);
 		$valid = $moe->check_14();
@@ -71,7 +72,7 @@ class validator_13_14_15_IWITest extends PHPUnit_Framework_TestCase {
 		$moe = new MOEValidator($this->student, 'M', $this->school);
 		$valid = $moe->check_15();
 		$this->assertSame($valid, 'true');
-
+		$this->student['ethnic_origin'] = '211';
 		$this->student['IWI3'] = 'a';
 		$moe = new MOEValidator($this->student, 'M', $this->school);
 		$valid = $moe->check_15();
@@ -89,13 +90,14 @@ class validator_13_14_15_IWITest extends PHPUnit_Framework_TestCase {
 
 	public function testNoIWIDuplicates() {
 		//1 and 2
+		$this->student['ethnic_origin'] = '211';
 		$this->student['IWI1'] = '0100';
 		$this->student['IWI2'] = '0100';
 		$this->student['IWI3'] = '0101';
 		$moe = new MOEValidator($this->student, 'M', $this->school);
 		$valid = $moe->check_13();
 		$this->assertSame($valid, 'false');
-
+		
 		//1 and 3
 		$this->student['IWI1'] = '0100';
 		$this->student['IWI2'] = '0101';
