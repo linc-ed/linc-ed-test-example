@@ -708,6 +708,12 @@ public function check_9(){
 
 //If School Type in [20, 21, 32] and FIRST SCHOOLING=<DOB + 4.9 years and [Rmonth in [M,J] or FUNDING YEAR LEVEL >=9] 132 - Student started before age 5
 
+if ($this->mappedData['funding_year_level']>=10){
+								$this->moe[$number]['valid'] = 'true';
+								$this->moe[$number]['value'] = "Start date is not required for students in year 10 or above.";
+				}
+				else {
+
 if (in_array($this->school_type, array(20,21,32)) ){
 
 $data = $this->mappedData['first_schooling'];
@@ -728,12 +734,14 @@ $convert = date('Ymd', strtotime($data));
 				
 				 if (preg_match("/^\d{8}$/", $convert)) {
 					 
-					 $checkAgetoStart = $this->returnAgeToStart($this->DoB, $data);
+					 $checkAgetoStart = $this->returnAgeToStart($this->dob, $data);
 					
 							$weeks = round(($checkAgetoStart)/7,0); //total weeks since started school.
+							
 							if ($weeks < 254){
+
 								$this->moe[$number]['valid'] = 'false';
-							$this->moe[$number]['value'] = "132 - Student started before age 5";
+								$this->moe[$number]['value'] = "132 - Student started before age 5";
 								
 							}
 							else {
@@ -751,6 +759,8 @@ $convert = date('Ymd', strtotime($data));
 						}
 				}
 			else {
+
+				
 				
 				$this->moe[$number]['valid'] = 'false';
 				$this->moe[$number]['value'] = date('Ymd', strtotime($data));
@@ -758,39 +768,19 @@ $convert = date('Ymd', strtotime($data));
 				
 		}
 	}
-if ($this->moe[$number]['valid']=='false'){
-	if ($this->moe[$number]['Mandatory']=="YES"){
-		$warning = 'warning-2';	
-	}
-	else {
-		$warning = 'warning';	
-	}
-	
-	$this->moe[$number]['input_label'] = '<label id="'.$this->moe[$number]['LINC Name'] .$this->person_id.'_label" for="'.$this->moe[$number]['LINC Name'] .$this->person_id.'"><span class="error"><i class="font-'.$this->moe[$number]['ICON'] .'"  ></i> '.$this->moe[$number]['Field Label'] .': <i class="font-'. $warning .'"  ></i></span>'.linc_popupmessage( $this->moe[$number]['LINC Name'],  $this->moe[$number]['Field Label'], $this->moe[$number]['Description']).'</label>';
-				
-		}
-		else if ($this->moe[$number]['valid']=='true'){
 
-		$this->moe[$number]['input_label'] =  '<label  id="'.$this->moe[$number]['LINC Name'].$this->person_id.'_label" for="'.$this->moe[$number]['LINC Name'] .$this->person_id.'"><span class="valid"><i class="font-'.$this->moe[$number]['ICON'].'"  ></i> '.$this->moe[$number]['Field Label'].': <i class="font-checkmark-3"  ></i></span></label>';
 			
-		}
-		
-		 if ($this->moe[$number]['value']){  
-								 $d = date('Y-m-d', strtotime($this->moe[$number]['value']));
-								 } else { 
-								 $d='';
-								 };
-		
-	$this->moe[$number]['input_field'] .= '<input class="'.$this->moe[$number]['Content Type'].'" name="'.$this->moe[$number]['LINC Name'].'"  type="date" data-role="datebox" value="'.$d.'" data-arraypos="'.$this->moe[$number]['Field No'].'" data-id="'.$this->person_id.'" id="'.$this->moe[$number]['LINC Name'].$this->person_id.'" >';
-											
-				
-return $this->moe[$number]['valid'] ;
+			return $this->moe[$number]['valid'] ;
 	}
 	else {
 
 		return 'true'; // school type indicates that this field is not required.
 	}
 
+}
+
+	
+			return $this->moe[$number]['valid'] ;
 	
 	
 
