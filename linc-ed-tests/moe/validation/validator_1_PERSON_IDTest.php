@@ -71,55 +71,55 @@ class validator_1_PERSON_Test extends PHPUnit_Framework_TestCase {
     'MODE OF INSTRUCTION SUBJECT 2' => '',
     'HOURS PER YEAR SUBJECT 2' => '',
     'INSTRUCTIONAL YEAR LEVEL SUBJECT 2' => '',
-    'SUBJECT 3' => '',
-    'MODE OF INSTRUCTION SUBJECT 3' => '',
+    'SUBJECT 3' => 'COSC',
+    'MODE OF INSTRUCTION SUBJECT 3' => 'COSC',
     'HOURS PER YEAR SUBJECT 3' => '',
     'INSTRUCTIONAL YEAR LEVEL SUBJECT 3' => '',
-    'SUBJECT 4' => '',
+    'SUBJECT 4' => 'COSC',
     'MODE OF INSTRUCTION SUBJECT 4' => '',
     'HOURS PER YEAR SUBJECT 4' => '',
     'INSTRUCTIONAL YEAR LEVEL SUBJECT 4' => '',
-    'SUBJECT 5' => '',
+    'SUBJECT 5' => 'PHED',
     'MODE OF INSTRUCTION SUBJECT 5' => '',
     'HOURS PER YEAR SUBJECT 5' => '',
     'INSTRUCTIONAL YEAR LEVEL SUBJECT 5' => '',
-    'SUBJECT 6' => '',
+    'SUBJECT 6' => 'PHED',
     'MODE OF INSTRUCTION SUBJECT 6' => '',
     'HOURS PER YEAR SUBJECT 6' => '',
     'INSTRUCTIONAL YEAR LEVEL SUBJECT 6' => '',
-    'SUBJECT 7' => '',
+    'SUBJECT 7' => 'PHED',
     'MODE OF INSTRUCTION SUBJECT 7' => '',
     'HOURS PER YEAR SUBJECT 7' => '',
     'INSTRUCTIONAL YEAR LEVEL SUBJECT 7' => '',
-    'SUBJECT 8' => '',
+    'SUBJECT 8' => 'PHED',
     'MODE OF INSTRUCTION SUBJECT 8' => '',
     'HOURS PER YEAR SUBJECT 8' => '',
     'INSTRUCTIONAL YEAR LEVEL SUBJECT 8' => '',
-    'SUBJECT 9' => '',
+    'SUBJECT 9' => 'PHED',
     'MODE OF INSTRUCTION SUBJECT 9' => '',
     'HOURS PER YEAR SUBJECT 9' => '',
     'INSTRUCTIONAL YEAR LEVEL SUBJECT 9' => '',
-    'SUBJECT 10' => '',
+    'SUBJECT 10' => 'PHED',
     'MODE OF INSTRUCTION SUBJECT 10' => '',
     'HOURS PER YEAR SUBJECT 10' => '',
     'INSTRUCTIONAL YEAR LEVEL SUBJECT 10' => '',
-    'SUBJECT 11' => '',
+    'SUBJECT 11' => 'PHED',
     'MODE OF INSTRUCTION SUBJECT 11' => '',
     'HOURS PER YEAR SUBJECT 11' => '',
     'INSTRUCTIONAL YEAR LEVEL SUBJECT 11' => '',
-    'SUBJECT 12' => '',
+    'SUBJECT 12' => 'PHED',
     'MODE OF INSTRUCTION SUBJECT 12' => '',
     'HOURS PER YEAR SUBJECT 12' => '',
     'INSTRUCTIONAL YEAR LEVEL SUBJECT 12' => '',
-    'SUBJECT 13' => '',
+    'SUBJECT 13' => 'PHED',
     'MODE OF INSTRUCTION SUBJECT 13' => '',
     'HOURS PER YEAR SUBJECT 13' => '',
     'INSTRUCTIONAL YEAR LEVEL SUBJECT 13' => '',
-    'SUBJECT 14' => '',
+    'SUBJECT 14' => 'PHED',
     'MODE OF INSTRUCTION SUBJECT 14' => '',
     'HOURS PER YEAR SUBJECT 14' => '',
     'INSTRUCTIONAL YEAR LEVEL SUBJECT 14' => '',
-    'SUBJECT 15' => '',
+    'SUBJECT 15' => 'PHED',
     'MODE OF INSTRUCTION SUBJECT 15' => '',
     'HOURS PER YEAR SUBJECT 15' => '',
     'INSTRUCTIONAL YEAR LEVEL SUBJECT 15' => '',
@@ -490,7 +490,102 @@ class validator_1_PERSON_Test extends PHPUnit_Framework_TestCase {
 		$this->assertSame($valid, 'true');
 
 	}
-	
+
+	public function testSubject3(){
+
+		$moe = new MOEValidator(MOECodeSets::$students[353], 'M', MOECodeSets::$schools[1234]);
+		$valid = $moe->check_39();
+		$this->assertSame($valid, 'true');
+
+	}
+
+	public function testSubject4(){
+
+		$moe = new MOEValidator(MOECodeSets::$students[353], 'M', MOECodeSets::$schools[1234]);
+		$valid = $moe->check_43();
+		$this->assertSame($valid, 'true');
+
+	}
+
+	public function testSubject5(){
+
+		$moe = new MOEValidator(MOECodeSets::$students[353], 'M', MOECodeSets::$schools[1234]);
+		$valid = $moe->check_47();
+		$this->assertSame($valid, 'true');
+
+	}
+
+	public function testSubject6(){
+
+		$moe = new MOEValidator(MOECodeSets::$students[353], 'M', MOECodeSets::$schools[1234]);
+		$valid = $moe->check_51();
+		$this->assertSame($valid, 'true');
+
+	}	
+	public function testSubject7(){
+
+		$moe = new MOEValidator(MOECodeSets::$students[353], 'M', MOECodeSets::$schools[1234]);
+		$valid = $moe->check_55();
+		$this->assertSame($valid, 'true');
+
+	}
+	public function testSubject8(){
+
+		$moe = new MOEValidator(MOECodeSets::$students[353], 'M', MOECodeSets::$schools[1234]);
+		$valid = $moe->check_59();
+		$this->assertSame($valid, 'true');
+
+	}
+	public function testSubject9(){
+
+		$moe = new MOEValidator(MOECodeSets::$students[353], 'M', MOECodeSets::$schools[1234]);
+		$valid = $moe->check_63();
+		$this->assertSame($valid, 'true');
+
+	}
+
+	public function testSubject10(){
+
+		$moe = new MOEValidator(MOECodeSets::$students[353], 'M', MOECodeSets::$schools[1234]);
+		$valid = $moe->check_67();
+		$this->assertSame($valid, 'true');
+
+	}
+	public function testSubject11(){
+
+		$moe = new MOEValidator(MOECodeSets::$students[353], 'M', MOECodeSets::$schools[1234]);
+		$valid = $moe->check_71();
+		$this->assertSame($valid, 'true');
+
+	}
+	public function testSubject12(){
+
+		$moe = new MOEValidator(MOECodeSets::$students[353], 'M', MOECodeSets::$schools[1234]);
+		$valid = $moe->check_75();
+		$this->assertSame($valid, 'true');
+
+	}
+	public function testSubject13(){
+
+		$moe = new MOEValidator(MOECodeSets::$students[353], 'M', MOECodeSets::$schools[1234]);
+		$valid = $moe->check_79();
+		$this->assertSame($valid, 'true');
+
+	}
+	public function testSubject14(){
+
+		$moe = new MOEValidator(MOECodeSets::$students[353], 'M', MOECodeSets::$schools[1234]);
+		$valid = $moe->check_83();
+		$this->assertSame($valid, 'true');
+
+	}
+	public function testSubject15(){
+
+		$moe = new MOEValidator(MOECodeSets::$students[353], 'M', MOECodeSets::$schools[1234]);
+		$valid = $moe->check_87();
+		$this->assertSame($valid, 'true');
+
+	}
 
 }
 
