@@ -2124,7 +2124,7 @@ $convert = date('Ymd', strtotime($data));
 public function check_26(){
 	
 	$data = $this->mappedData['NQF QUAL'];
-	if (isset($data)|| $this->test==true){	
+
 	
 	$this->moe[26]=array("Content Type"=> 'metacontent', "Field Name"=>"NQF QUAL", "LINC Name"=>"NQF QUAL", "Field No"=>"26", "Description"=>"Highest NQF secondary school attainment of a student on leaving school","Mandatory"=>"for Fulltime students Year 9+","Type"=>"Controlled value code list"
 , 'valid'=>'',
@@ -2134,28 +2134,36 @@ public function check_26(){
 ); 
 
 //Mandatory for secondary aged students (RE, FF, TPRE, TPREOM) and Adult (AD, TPAD, TPRAE, RA, TPRAOM) students who are leaving the NZ schooling sector and where REASON in [L, E, O, X, C]
-	
+if ($this->mappedData['funding_year_level'] >= 9){
 
-$code = $this->codes->checkKey($data, $this->codes->NQF_codes());
-	
-	if($code){
-								$this->moe[$number]['valid'] = 'true';
-								$this->moe[$number]['value'] = $data;
-							
-							
-						}
-						else {
-							
-							$this->moe[$number]['valid'] = 'false';
-							$this->moe[$number]['value'] = "Incorrect code for NQF Qual";
-			}	
-	}
+				$code = $this->codes->checkKey($data, $this->codes->NQF_codes());
+					
+					if($code){
+												$this->moe[$number]['valid'] = 'true';
+												$this->moe[$number]['value'] = $data;
+											
+											
+										}
+										else {
+											
+											$this->moe[$number]['valid'] = 'false';
+											$this->moe[$number]['value'] = "Incorrect code for NQF Qual";
+							}	
+
+			return $this->moe[$number]['valid'];
+			
+		}
+		else {
+
+				return "true";
+			}
+
 
 }
 
 public function check_27(){
 
-if ($this->mappedData['LAST ATTENDANCE'] || $this->test==true){	
+if ($this->mappedData['LAST ATTENDANCE'] !=''){	
 	
 			$this->moe[27]=array("Content Type"=> 'metacontent', "Field Name"=>"REASON", "LINC Name"=>"REASON", "Field No"=>"27", "Description"=>"Student's reason for leaving their present school","Mandatory"=>"where LAST ATTENDANCE DATE is populated","Type"=>"Controlled value code list"
 		, 'valid'=>'',
