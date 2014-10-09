@@ -2571,6 +2571,8 @@ return $this->moe[$number]['valid'];
 }
 
 public function check_31(){
+	
+
 	$this->moe[31]=array("Content Type"=> 'metacontent', "Field Name"=>"SUBJECT 1", "LINC Name"=>"SUBJECT 1", "Field No"=>"31", "Description"=>"Subject being studied at secondary school level","Mandatory"=>"for Year 9 to Year 15 for July return","Type"=>"Controlled value code list"
 , 'valid'=>'',
 'value' =>'', 'message' =>'',
@@ -2580,41 +2582,81 @@ public function check_31(){
 
 $number = 31;
 
+if ($this->school_type != 30){
+ return 'true';
+}
+else {
+
 $data = $this->mappedData[$this->moe[$number]['LINC Name']];
 
+$array = MOECodes::$subjectCodes;
+$code = $this->codes->checkKey($data, $array);
 
-$code = $this->codes->checkKey($data, $this->codes->subjectCodes());
 
+			if (!$code) {
+				
+				$this->moe[$number]['valid'] = 'false';
+				$this->moe[$number]['value'] = '241 - Subject code ['.$data.'] is incorrect';
 
-if (!$code) {
+			}
+			 // If Subject = "STPR" and Student Type is not "SF" and STP = NULL
+			else if ($data == "STPR" && $this->mappedData['TYPE'] !="SF" && is_null($this->mappedData['STP'])){
+				
+				$this->moe[$number]['valid'] = 'false';
+				$this->moe[$number]['value'] = '665 - Student needs to be on a Secondary Tertiary Programme to have Subject "Secondary Tertiary Programme"';
+
+			}
+
+			// If Rmonth="J" and TYPE not in [AE, EM, NA,NF, SA, SF, TPRE,TPRAE] and STP=NULL and Reason=Null and FTE<1 and FUNDING YEAR LEVEL>=9 and SUBJECT 1 to SUBJECT 15=Null
+			else if ($thus->rmonth =="J" && !in_array($this->mappedData['TYPE'], array('AE', 'EM', 'NA', 'NF', 'SA', 'SF', 'TPRE', 'TPRAE')) && is_null($this->mappedData['STP']) && is_null($this->mappedData['REASON']) && $this->mappedData['funding_year_level'] >=9 && is_null($data)){
+				$this->moe[$number]['valid'] = 'true';
+				$this->moe[$number]['value'] = $data;
+				$this->moe[$number]['message'] = '243 - Warning - Part-time student with no subjects';
+			}
+
+			else {
+				
+				$this->moe[$number]['valid'] = 'true';
+				$this->moe[$number]['value'] = $data;
+				
+			}
+		if ($this->moe[$number]['valid']=='false'){
+	if ($this->moe[$number]['Mandatory']=="YES"){
+		$warning = 'warning-2';	
+	}
+	else {
+		$warning = 'warning';	
+	}
 	
-	$this->moe[$number]['valid'] = 'false';
-	$this->moe[$number]['value'] = '241 - Subject code ['.$data.'] is incorrect';
+	$this->moe[$number]['input_label'] = '<label id="'.$this->moe[$number]['LINC Name'] .$this->person_id.'_label" for="'.$this->moe[$number]['LINC Name'] .$this->person_id.'"><span class="error"><i class="font-'.$this->moe[$number]['ICON'] .'"  ></i> '.$this->moe[$number]['Field Label'] .': <i class="font-'. $warning .'"  ></i></span>'.linc_popupmessage( $this->moe[$number]['LINC Name'],  $this->moe[$number]['Field Label'], $this->moe[$number]['Description']).'</label>';
+				
+		}
+		else if ($this->moe[$number]['valid']=='true'){
 
-}
- // If Subject = "STPR" and Student Type is not "SF" and STP = NULL
-else if ($data == "STPR" && $this->mappedData['TYPE'] !="SF" && is_null($this->mappedData['STP'])){
-	
-	$this->moe[$number]['valid'] = 'false';
-	$this->moe[$number]['value'] = '665 - Student needs to be on a Secondary Tertiary Programme to have Subject "Secondary Tertiary Programme"';
+		$this->moe[$number]['input_label'] =  '<label  id="'.$this->moe[$number]['LINC Name'].$this->person_id.'_label" for="'.$this->moe[$number]['LINC Name'] .$this->person_id.'"><span class="valid"><i class="font-'.$this->moe[$number]['ICON'].'"  ></i> '.$this->moe[$number]['Field Label'].': <i class="font-checkmark-3"  ></i></span></label>';
+			
+		}
 
-}
+$this->moe[$number]['input_field'] = '<select name="select-'.$this->moe[$number]['LINC Name'].'" id="select-'.$this->moe[$number]['LINC Name'].$this->person_id.'" data-native-menu="false" data-inline="true" data-icon="grid" data-theme="b" data-iconpos="left" class="optionMenu">';
+					
+			$this->moe[$number]['input_field'] .= '<option>Select an option</option>';
+					 
+							   foreach ($array as $key=> $code){
+									   
+									$this->moe[$number]['input_field'] .= '<option ';
+										if ($key == $this->moe[$number]['value'] ){
+										
+									$this->moe[$number]['input_field'] .= 'selected=selected';	
+										}
+										
+			$this->moe[$number]['input_field'].= ' value="'.$key.'" data-arraypos="'.$this->moe[$number]['Field No'].'" data-id="'.$this->person_id.'" data-value="'.$key.'" name="'.$this->moe[$number]['LINC Name'].'" data-id="'.$this->person_id.'">'.$code.'</option>';	
+								}
+							
+			$this->moe[$number]['input_field'] .= '</select>';			
 
-// If Rmonth="J" and TYPE not in [AE, EM, NA,NF, SA, SF, TPRE,TPRAE] and STP=NULL and Reason=Null and FTE<1 and FUNDING YEAR LEVEL>=9 and SUBJECT 1 to SUBJECT 15=Null
-else if ($thus->rmonth =="J" && !in_array($this->mappedData['TYPE'], array('AE', 'EM', 'NA', 'NF', 'SA', 'SF', 'TPRE', 'TPRAE')) && is_null($this->mappedData['STP']) && is_null($this->mappedData['REASON']) && $this->mappedData['funding_year_level'] >=9 && is_null($data)){
-	$this->moe[$number]['valid'] = 'true';
-	$this->moe[$number]['value'] = $data;
-	$this->moe[$number]['message'] = '243 - Warning - Part-time student with no subjects';
-}
 
-else {
-	
-	$this->moe[$number]['valid'] = 'true';
-	$this->moe[$number]['value'] = $data;
-	
-}
-	
-	return $this->moe[$number]['valid'];
+				return $this->moe[$number]['valid'];
+			}
 
 	}
 
@@ -2729,41 +2771,81 @@ public function check_35(){$this->moe[35]=array("Content Type"=> 'metacontent', 
 );
 
 $number = 35;
+if ($this->school_type != 30){
+ return 'true';
+}
+else {
 
 $data = $this->mappedData[$this->moe[$number]['LINC Name']];
 
+$array = MOECodes::$subjectCodes;
+$code = $this->codes->checkKey($data, $array);
 
-$code = $this->codes->checkKey($data, $this->codes->subjectCodes());
 
+			if (!$code) {
+				
+				$this->moe[$number]['valid'] = 'false';
+				$this->moe[$number]['value'] = '241 - Subject code ['.$data.'] is incorrect';
 
-if (!$code) {
+			}
+			 // If Subject = "STPR" and Student Type is not "SF" and STP = NULL
+			else if ($data == "STPR" && $this->mappedData['TYPE'] !="SF" && is_null($this->mappedData['STP'])){
+				
+				$this->moe[$number]['valid'] = 'false';
+				$this->moe[$number]['value'] = '665 - Student needs to be on a Secondary Tertiary Programme to have Subject "Secondary Tertiary Programme"';
+
+			}
+
+			// If Rmonth="J" and TYPE not in [AE, EM, NA,NF, SA, SF, TPRE,TPRAE] and STP=NULL and Reason=Null and FTE<1 and FUNDING YEAR LEVEL>=9 and SUBJECT 1 to SUBJECT 15=Null
+			else if ($thus->rmonth =="J" && !in_array($this->mappedData['TYPE'], array('AE', 'EM', 'NA', 'NF', 'SA', 'SF', 'TPRE', 'TPRAE')) && is_null($this->mappedData['STP']) && is_null($this->mappedData['REASON']) && $this->mappedData['funding_year_level'] >=9 && is_null($data)){
+				$this->moe[$number]['valid'] = 'true';
+				$this->moe[$number]['value'] = $data;
+				$this->moe[$number]['message'] = '243 - Warning - Part-time student with no subjects';
+			}
+
+			else {
+				
+				$this->moe[$number]['valid'] = 'true';
+				$this->moe[$number]['value'] = $data;
+				
+			}
+		if ($this->moe[$number]['valid']=='false'){
+	if ($this->moe[$number]['Mandatory']=="YES"){
+		$warning = 'warning-2';	
+	}
+	else {
+		$warning = 'warning';	
+	}
 	
-	$this->moe[$number]['valid'] = 'false';
-	$this->moe[$number]['value'] = '241 - Subject code ['.$data.'] is incorrect';
+	$this->moe[$number]['input_label'] = '<label id="'.$this->moe[$number]['LINC Name'] .$this->person_id.'_label" for="'.$this->moe[$number]['LINC Name'] .$this->person_id.'"><span class="error"><i class="font-'.$this->moe[$number]['ICON'] .'"  ></i> '.$this->moe[$number]['Field Label'] .': <i class="font-'. $warning .'"  ></i></span>'.linc_popupmessage( $this->moe[$number]['LINC Name'],  $this->moe[$number]['Field Label'], $this->moe[$number]['Description']).'</label>';
+				
+		}
+		else if ($this->moe[$number]['valid']=='true'){
 
-}
- // If Subject = "STPR" and Student Type is not "SF" and STP = NULL
-else if ($data == "STPR" && $this->mappedData['TYPE'] !="SF" && is_null($this->mappedData['STP'])){
-	
-	$this->moe[$number]['valid'] = 'false';
-	$this->moe[$number]['value'] = '665 - Student needs to be on a Secondary Tertiary Programme to have Subject "Secondary Tertiary Programme"';
+		$this->moe[$number]['input_label'] =  '<label  id="'.$this->moe[$number]['LINC Name'].$this->person_id.'_label" for="'.$this->moe[$number]['LINC Name'] .$this->person_id.'"><span class="valid"><i class="font-'.$this->moe[$number]['ICON'].'"  ></i> '.$this->moe[$number]['Field Label'].': <i class="font-checkmark-3"  ></i></span></label>';
+			
+		}
 
-}
-// If Rmonth="J" and TYPE not in [AE, EM, NA,NF, SA, SF, TPRE,TPRAE] and STP=NULL and Reason=Null and FTE<1 and FUNDING YEAR LEVEL>=9 and SUBJECT 1 to SUBJECT 15=Null
-else if ($thus->rmonth =="J" && !in_array($this->mappedData['TYPE'], array('AE', 'EM', 'NA', 'NF', 'SA', 'SF', 'TPRE', 'TPRAE')) && is_null($this->mappedData['STP']) && is_null($this->mappedData['REASON']) && $this->mappedData['funding_year_level'] >=9 && is_null($data)){
-	$this->moe[$number]['valid'] = 'true';
-	$this->moe[$number]['value'] = $data;
-	$this->moe[$number]['message'] = '243 - Warning - Part-time student with no subjects';
-}
-else {
-	
-	$this->moe[$number]['valid'] = 'true';
-	$this->moe[$number]['value'] = $data;
-	
-}
+$this->moe[$number]['input_field'] = '<select name="select-'.$this->moe[$number]['LINC Name'].'" id="select-'.$this->moe[$number]['LINC Name'].$this->person_id.'" data-native-menu="false" data-inline="true" data-icon="grid" data-theme="b" data-iconpos="left" class="optionMenu">';
+					
+			$this->moe[$number]['input_field'] .= '<option>Select an option</option>';
+					 
+							   foreach ($array as $key=> $code){
+									   
+									$this->moe[$number]['input_field'] .= '<option ';
+										if ($key == $this->moe[$number]['value'] ){
+										
+									$this->moe[$number]['input_field'] .= 'selected=selected';	
+										}
+										
+			$this->moe[$number]['input_field'].= ' value="'.$key.'" data-arraypos="'.$this->moe[$number]['Field No'].'" data-id="'.$this->person_id.'" data-value="'.$key.'" name="'.$this->moe[$number]['LINC Name'].'" data-id="'.$this->person_id.'">'.$code.'</option>';	
+								}
+							
+			$this->moe[$number]['input_field'] .= '</select>';			
 
 
-return $this->moe[$number]['valid'];
+				return $this->moe[$number]['valid'];
+			}
 }
 
 
@@ -2862,7 +2944,8 @@ $number = 39;
 $data = $this->mappedData[$this->moe[$number]['LINC Name']];
 
 
-$code = $this->codes->checkKey($data, $this->codes->subjectCodes());
+$array = MOECodes::$subjectCodes;
+$code = $this->codes->checkKey($data, $array);
 
 
 if (!$code) {
@@ -2992,7 +3075,8 @@ $number = 43;
 $data = $this->mappedData[$this->moe[$number]['LINC Name']];
 
 
-$code = $this->codes->checkKey($data, $this->codes->subjectCodes());
+$array = MOECodes::$subjectCodes;
+$code = $this->codes->checkKey($data, $array);
 
 
 if (!$code) {
@@ -3119,7 +3203,8 @@ $number = 47;
 $data = $this->mappedData[$this->moe[$number]['LINC Name']];
 
 
-$code = $this->codes->checkKey($data, $this->codes->subjectCodes());
+$array = MOECodes::$subjectCodes;
+$code = $this->codes->checkKey($data, $array);
 
 
 if (!$code) {
@@ -3247,7 +3332,8 @@ $number = 51;
 $data = $this->mappedData[$this->moe[$number]['LINC Name']];
 
 
-$code = $this->codes->checkKey($data, $this->codes->subjectCodes());
+$array = MOECodes::$subjectCodes;
+$code = $this->codes->checkKey($data, $array);
 
 
 if (!$code) {
@@ -3365,7 +3451,8 @@ $number = 55;
 $data = $this->mappedData[$this->moe[$number]['LINC Name']];
 
 
-$code = $this->codes->checkKey($data, $this->codes->subjectCodes());
+$array = MOECodes::$subjectCodes;
+$code = $this->codes->checkKey($data, $array);
 
 
 if (!$code) {
@@ -3483,7 +3570,8 @@ $number = 59;
 $data = $this->mappedData[$this->moe[$number]['LINC Name']];
 
 
-$code = $this->codes->checkKey($data, $this->codes->subjectCodes());
+$array = MOECodes::$subjectCodes;
+$code = $this->codes->checkKey($data, $array);
 
 
 if (!$code) {
@@ -3600,7 +3688,8 @@ $number = 63;
 
 $data = $this->mappedData[$this->moe[$number]['LINC Name']];
 
-$code = $this->codes->checkKey($data, $this->codes->subjectCodes());
+$array = MOECodes::$subjectCodes;
+$code = $this->codes->checkKey($data, $array);
 
 
 if (!$code) {
@@ -3712,7 +3801,8 @@ $number = 67;
 $data = $this->mappedData[$this->moe[$number]['LINC Name']];
 
 
-$code = $this->codes->checkKey($data, $this->codes->subjectCodes());
+$array = MOECodes::$subjectCodes;
+$code = $this->codes->checkKey($data, $array);
 
 
 if (!$code) {
@@ -3829,7 +3919,8 @@ $number = 71;
 
 $data = $this->mappedData[$this->moe[$number]['LINC Name']];
 
-$code = $this->codes->checkKey($data, $this->codes->subjectCodes());
+$array = MOECodes::$subjectCodes;
+$code = $this->codes->checkKey($data, $array);
 
 
 if (!$code) {
@@ -3941,7 +4032,8 @@ $number = 75;
 $data = $this->mappedData[$this->moe[$number]['LINC Name']];
 
 
-$code = $this->codes->checkKey($data, $this->codes->subjectCodes());
+$array = MOECodes::$subjectCodes;
+$code = $this->codes->checkKey($data, $array);
 
 
 if (!$code) {
@@ -4059,7 +4151,8 @@ $number = 79;
 $data = $this->mappedData[$this->moe[$number]['LINC Name']];
 
 
-$code = $this->codes->checkKey($data, $this->codes->subjectCodes());
+$array = MOECodes::$subjectCodes;
+$code = $this->codes->checkKey($data, $array);
 
 
 if (!$code) {
@@ -4176,7 +4269,8 @@ $number = 83;
 $data = $this->mappedData[$this->moe[$number]['LINC Name']];
 
 
-$code = $this->codes->checkKey($data, $this->codes->subjectCodes());
+$array = MOECodes::$subjectCodes;
+$code = $this->codes->checkKey($data, $array);
 
 
 if (!$code) {
@@ -4294,7 +4388,8 @@ $number = 87;
 $data = $this->mappedData[$this->moe[$number]['LINC Name']];
 
 
-$code = $this->codes->checkKey($data, $this->codes->subjectCodes());
+$array = MOECodes::$subjectCodes;
+$code = $this->codes->checkKey($data, $array);
 
 
 if (!$code) {

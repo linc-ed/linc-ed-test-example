@@ -626,9 +626,7 @@ $iwi = array( '0100' =>'Te Tai Tokerau/Tāmaki-makaurau (Northland/Auckland) Reg
 	
 }
 
-public function subjectCodes(){
-	
-	$codes = array (
+public static $subjectCodes  = array (
 	'CHIN'=>'Chinese', 
 'COMM'=>'Communication skills', 
 'COOK '=>'Cook Island Maori', 
@@ -721,12 +719,11 @@ public function subjectCodes(){
 'STDY'=>'Study skills', 
 'TRAN'=>'Transition/pre-employment', 
 'THTR'=>'Travel, Hospitality, Tourism', 
+'NAPP'=>'Not Applicable'
 	);
 	
-	return $codes;
 	
 	
-}
 
 public static $pacific =array(
 'CIM'=>'Cook Island Maori',
