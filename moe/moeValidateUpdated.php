@@ -853,11 +853,15 @@ if ($this->moe[$number]['valid']=='false'){
 	$this->moe[$number]['input_field'] .= '<input class="'.$this->moe[$number]['Content Type'].'" name="'.$this->moe[$number]['LINC Name'].'"  type="date" data-role="datebox" value="'.$d.'" data-arraypos="'.$this->moe[$number]['Field No'].'" data-id="'.$this->person_id.'" id="'.$this->moe[$number]['LINC Name'].$this->person_id.'" >';
 											
 				
+return $this->moe[$number]['valid'] ;
+	}
+	else {
 
+		return 'true'; // school type indicates that this field is not required.
 	}
 
 	
-return $this->moe[$number]['valid'] ;	
+	
 
 }
 

@@ -30,8 +30,8 @@ class validator_1_PERSON_Test extends PHPUnit_Framework_TestCase {
 		//Set up schools for validation
 		//I'm inventing a structure here based on 
 		//http://www.educationcounts.govt.nz/__data/assets/excel_doc/0007/145645/School-Name-and-Numbers-2014-01.xls
-		MOECodeSets::addSchool(array('school_id' => '1234', 'school_type'=>'30', 'enrollmentScheme'=>'false', 'enrollmentSchemeDate'=>''));
-		MOECodeSets::addSchool(array('school_id' => '3338', 'school_type'=>'30', 'enrollmentScheme'=>'false', 'enrollmentSchemeDate'=>''));
+		MOECodeSets::addSchool(array('school_id' => '1234', 'school_type'=>'20', 'enrollmentScheme'=>'false', 'enrollmentSchemeDate'=>''));
+		MOECodeSets::addSchool(array('school_id' => '3338', 'school_type'=>'20', 'enrollmentScheme'=>'false', 'enrollmentSchemeDate'=>''));
 		MOECodeSets::addStudent(array
 		(
     'person_id' => '353',
@@ -58,18 +58,18 @@ class validator_1_PERSON_Test extends PHPUnit_Framework_TestCase {
     'FTE' => '1',
     'MAORI' => 'N/A',
     'LAST ATTENDANCE'=>'2011-09-09',
-    'NQF QUAL' => '',
+    'NQF QUAL' => '55',
     'REASON' => 'H',
     'ECE' => '',
     'PACIFIC MEDIUM -LANGUAGE' => '',
     'PACIFIC MEDIUM - LEVEL' => '',
     'SUBJECT 1' => 'PHED',
     'MODE OF INSTRUCTION SUBJECT 1' => 'PHED',
-    'HOURS PER YEAR SUBJECT 1' => '',
-    'INSTRUCTIONAL YEAR LEVEL SUBJECT 1' => '',
+    'HOURS PER YEAR SUBJECT 1' => '12',
+    'INSTRUCTIONAL YEAR LEVEL SUBJECT 1' => 'ZN08',
     'SUBJECT 2' => 'MATH',
     'MODE OF INSTRUCTION SUBJECT 2' => '',
-    'HOURS PER YEAR SUBJECT 2' => '',
+    'HOURS PER YEAR SUBJECT 2' => '18',
     'INSTRUCTIONAL YEAR LEVEL SUBJECT 2' => '',
     'SUBJECT 3' => 'COSC',
     'MODE OF INSTRUCTION SUBJECT 3' => 'COSC',
@@ -599,6 +599,14 @@ class validator_1_PERSON_Test extends PHPUnit_Framework_TestCase {
 
 		$moe = new MOEValidator(MOECodeSets::$students[353], 'J', MOECodeSets::$schools[1234]);
 		$valid = $moe->check_37();
+		$this->assertSame($valid, 'true');
+
+
+	}
+	public function testSubject1Level(){
+
+		$moe = new MOEValidator(MOECodeSets::$students[353], 'J', MOECodeSets::$schools[1234]);
+		$valid = $moe->check_34();
 		$this->assertSame($valid, 'true');
 		
 
