@@ -24,34 +24,34 @@ class validator_5_FIRSTNAMETest extends PHPUnit_Framework_TestCase {
 		$this->school = SchoolData::getSchool();
 	}
 
-	public function testValidSurname() {
+	public function testValidFirstname() {
 		$moe = new MOEValidator($this->student, 'M', $this->school);
 		$valid = $moe->check_5();
 		$this->assertSame($valid, 'true');
 	}
 
-	public function testSurnameIsMandatory() {
+	public function testFirstnameIsMandatory() {
 		$this->student['first_name'] = '';
 		$moe = new MOEValidator($this->student, 'M', $this->school);
 		$valid = $moe->check_5();
 		$this->assertSame($valid, 'false');
 	}
 
-	public function testSurnameDoesNotContainBrackets() {
+	public function testFirstnameDoesNotContainBrackets() {
 		$this->student['first_name'] = 'a(b)';
 		$moe = new MOEValidator($this->student, 'M', $this->school);
 		$valid = $moe->check_5();
 		$this->assertSame($valid, 'false');
 	}
 
-	public function testSurnameDoesNotContainCommas() {
+	public function testFirstnameDoesNotContainCommas() {
 		$this->student['first_name'] = 'a,b';
 		$moe = new MOEValidator($this->student, 'M', $this->school);
 		$valid = $moe->check_5();
 		$this->assertSame($valid, 'false');
 	}
 
-	public function testSurnameMultipleSpacesWithHyphen() {
+	public function testFirstnameMultipleSpacesWithHyphen() {
 		//one space
 		$this->student['first_name'] = 'a - b';
 		$moe = new MOEValidator($this->student, 'M', $this->school);
@@ -71,7 +71,7 @@ class validator_5_FIRSTNAMETest extends PHPUnit_Framework_TestCase {
 		$this->assertSame($valid, 'false');
 	}
 
-	public function testSurnameMultipleSpacesWithApostrophie() {
+	public function testFirstnameMultipleSpacesWithApostrophie() {
 		//one space
 		$this->student['first_name'] = 'a \' b';
 		$moe = new MOEValidator($this->student, 'M', $this->school);
