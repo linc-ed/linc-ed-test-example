@@ -47,13 +47,13 @@ class validator_10_11_12_ETHNICITYTest extends PHPUnit_Framework_TestCase {
 		//ETHNIC2
 		$this->student['ethnic_origin2'] = '2';
 		$moe = new MOEValidator($this->student, 'M', $this->school);
-		$valid = $moe->check_10();
+		$valid = $moe->check_11();
 		$this->assertSame($valid, 'false');
 
 		//ETHNIC3
 		$this->student['ethnic_origin3'] = '3';
 		$moe = new MOEValidator($this->student, 'M', $this->school);
-		$valid = $moe->check_10();
+		$valid = $moe->check_12();
 		$this->assertSame($valid, 'false');
 	}
 
@@ -65,10 +65,39 @@ class validator_10_11_12_ETHNICITYTest extends PHPUnit_Framework_TestCase {
 		$this->assertSame($valid, 'true');
 	}
 
-		public function testEthnicityNotMandatoryForMonth() {
+	public function testEthnicityNotMandatoryForMonth() {
 		$this->student['ethnic_origin'] = '';
 		$moe = new MOEValidator($this->student, 'E', $this->school);
 		$valid = $moe->check_10();
 		$this->assertSame($valid, 'true');
+	}
+
+	public function testEthnicityNotDuplicated() {
+		//1 and 2 duplicate
+		$this->student['ethnic_origin'] = '111';
+		$this->student['ethnic_origin2'] = '111';
+		$this->student['ethnic_origin3'] = '121';
+
+		$moe = new MOEValidator($this->student, 'M', $this->school);
+		$valid = $moe->check_10();
+		$this->assertSame($valid, 'false');
+
+		//1 and 3 duplicate
+		$this->student['ethnic_origin'] = '111';
+		$this->student['ethnic_origin2'] = '121';
+		$this->student['ethnic_origin3'] = '111';
+
+		$moe = new MOEValidator($this->student, 'M', $this->school);
+		$valid = $moe->check_10();
+		$this->assertSame($valid, 'false');
+
+		//2 and 3 duplicate
+		$this->student['ethnic_origin'] = '111';
+		$this->student['ethnic_origin2'] = '121';
+		$this->student['ethnic_origin3'] = '121';
+
+		$moe = new MOEValidator($this->student, 'M', $this->school);
+		$valid = $moe->check_11();
+		$this->assertSame($valid, 'false');
 	}
 }
