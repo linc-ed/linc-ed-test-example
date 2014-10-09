@@ -2072,7 +2072,7 @@ public function check_25(){
 
 $data = $this->mappedData['LAST ATTENDANCE'];
 		
-if ((isset($data) && $data != '[Null]') ){	
+
 	
 	$this->moe[25]=array("Content Type"=> 'metacontent', "Field Name"=>"LAST ATTENDANCE","LINC Name"=>"LAST ATTENDANCE","Field No"=>"25", "Description"=>"Date of student's last attendance for tuition","Mandatory"=>"YES","Type"=>"Controlled value code list"
 , 'valid'=>'',
@@ -2085,10 +2085,11 @@ $number = 25;
 
 $convert = date('Ymd', strtotime($data));
 		
+		if ($this->mappedData['vacated'] == 1){ // Only need to have a last attended date if student has left the school.
 				 if (preg_match("/^\d{8}$/", $convert)) {
 					 
 					 //If LAST ATTENDANCE is not Null but REASON =Null and [Rmonth in [M,J] or Funding Year Level >=9]
-					 if ((is_null($this->mappedData['REASON'])|| $this->mappedData['REASON']=="0" ) && (in_array($this->rmonth, array('M', 'J'))|| $this->mappedData['funding_year_level'] >=9)){
+					 if (($this->mappedData['REASON'] ==''|| $this->mappedData['REASON']=="0" ) && (in_array($this->rmonth, array('M', 'J'))|| $this->mappedData['funding_year_level'] >=9)){
 						 
 							$this->moe[$number]['valid'] = 'false';
 							$this->moe[$number]['value'] = "252 - Date in LAST ATTENDANCE field but no reason";
@@ -2108,10 +2109,14 @@ $convert = date('Ymd', strtotime($data));
 							$this->moe[$number]['value'] = "251 - Date of Last Attendance format is incorrect";
 							
 						}
+
+						return $this->moe[$number]['valid'];
+				}
+				else {
+
+					return "true";
 				}
 				
-				
-return $this->moe[$number]['valid'];
 
 }
 
