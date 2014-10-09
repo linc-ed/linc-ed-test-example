@@ -24,28 +24,28 @@ class validator_4_SURNAMETest extends PHPUnit_Framework_TestCase {
 	}
 
 	public function testValidSurname() {
-		$moe = new MOEValidator($this->student, 'M', $school);
+		$moe = new MOEValidator($this->student, 'M', $this->school);
 		$valid = $moe->check_3();
 		$this->assertSame($valid, 'true');
 	}
 
 	public function testSurnameIsMandatory() {
 		$this->student['last_name'] = '';
-		$moe = new MOEValidator($this->student, 'M', $school);
+		$moe = new MOEValidator($this->student, 'M', $this->school);
 		$valid = $moe->check_3();
 		$this->assertSame($valid, 'false');
 	}
 
 	public function testSurnameDoesNotContainBrackets() {
 		$this->student['last_name'] = 'a(b)';
-		$moe = new MOEValidator($this->student, 'M', $school);
+		$moe = new MOEValidator($this->student, 'M', $this->school);
 		$valid = $moe->check_3();
 		$this->assertSame($valid, 'false');
 	}
 
 	public function testSurnameDoesNotContainCommas() {
 		$this->student['last_name'] = 'a,b';
-		$moe = new MOEValidator($this->student, 'M', $school);
+		$moe = new MOEValidator($this->student, 'M', $this->school);
 		$valid = $moe->check_3();
 		$this->assertSame($valid, 'false');
 	}
@@ -53,19 +53,19 @@ class validator_4_SURNAMETest extends PHPUnit_Framework_TestCase {
 	public function testSurnameMultipleSpacesWithHyphen() {
 		//one space
 		$this->student['last_name'] = 'a - b';
-		$moe = new MOEValidator($this->student, 'M', $school);
+		$moe = new MOEValidator($this->student, 'M', $this->school);
 		$valid = $moe->check_3();
 		$this->assertSame($valid, 'true');
 
 		//two space before
 		$this->student['last_name'] = 'a  - b';
-		$moe = new MOEValidator($this->student, 'M', $school);
+		$moe = new MOEValidator($this->student, 'M', $this->school);
 		$valid = $moe->check_3();
 		$this->assertSame($valid, 'false');
 
 		//two space after
 		$this->student['last_name'] = 'a -  b';
-		$moe = new MOEValidator($this->student, 'M', $school);
+		$moe = new MOEValidator($this->student, 'M', $this->school);
 		$valid = $moe->check_3();
 		$this->assertSame($valid, 'false');
 	}
@@ -73,19 +73,19 @@ class validator_4_SURNAMETest extends PHPUnit_Framework_TestCase {
 	public function testSurnameMultipleSpacesWithApostrophie() {
 		//one space
 		$this->student['last_name'] = 'a \' b';
-		$moe = new MOEValidator($this->student, 'M', $school);
+		$moe = new MOEValidator($this->student, 'M', $this->school);
 		$valid = $moe->check_3();
 		$this->assertSame($valid, 'true');
 
 		//two space before
 		$this->student['last_name'] = 'a  \' b';
-		$moe = new MOEValidator($this->student, 'M', $school);
+		$moe = new MOEValidator($this->student, 'M', $this->school);
 		$valid = $moe->check_3();
 		$this->assertSame($valid, 'false');
 
 		//two space after
 		$this->student['last_name'] = 'a \'  b';
-		$moe = new MOEValidator($this->student, 'M', $school);
+		$moe = new MOEValidator($this->student, 'M', $this->school);
 		$valid = $moe->check_3();
 		$this->assertSame($valid, 'false');
 	}

@@ -24,7 +24,7 @@ class validator_3_NSNTest extends PHPUnit_Framework_TestCase {
 	}
 
 	public function testValidNSN() {
-		$moe = new MOEValidator($this->student, 'M', $school);
+		$moe = new MOEValidator($this->student, 'M', $this->school);
 		$valid = $moe->check_3();
 		$this->assertSame($valid, 'true');
 	}
@@ -32,7 +32,7 @@ class validator_3_NSNTest extends PHPUnit_Framework_TestCase {
 	public function testNSNContainsNoCharacters() {
 		//Contains characters
 		$student['nsn'] = '2a';
-		$moe = new MOEValidator($this->student, 'M', $school);
+		$moe = new MOEValidator($this->student, 'M', $this->school);
 		$valid = $moe->check_3();
 		$this->assertSame($valid, 'false');
 	}
@@ -40,7 +40,7 @@ class validator_3_NSNTest extends PHPUnit_Framework_TestCase {
 	public function testNSNIsInteger() {
 		//Floating point
 		$student['nsn'] = '2.0';
-		$moe = new MOEValidator($this->student, 'M', $school);
+		$moe = new MOEValidator($this->student, 'M', $this->school);
 		$valid = $moe->check_3();
 		$this->assertSame($valid, 'false');
 
@@ -49,7 +49,7 @@ class validator_3_NSNTest extends PHPUnit_Framework_TestCase {
 	public function testNSNIsNaturalNumber() {
 		//Negative
 		$student['nsn'] = '-2';
-		$moe = new MOEValidator($this->student, 'M', $school);
+		$moe = new MOEValidator($this->student, 'M', $this->school);
 		$valid = $moe->check_3();
 		$this->assertSame($valid, 'false');
 	}
@@ -57,7 +57,7 @@ class validator_3_NSNTest extends PHPUnit_Framework_TestCase {
 	public function testNSNIsMandatory() {
 		$student['nsn'] = '';
 		$student['TYPE'] = 'RE';
-		$moe = new MOEValidator($this->student, 'M', $school);
+		$moe = new MOEValidator($this->student, 'M', $this->school);
 		$valid = $moe->check_3();
 		$this->assertSame($valid, 'false');
 	}
@@ -66,7 +66,7 @@ class validator_3_NSNTest extends PHPUnit_Framework_TestCase {
 		//Student type EM
 		$student['nsn'] = '';
 		$student['TYPE'] = 'EM';
-		$moe = new MOEValidator($this->student, 'M', $school);
+		$moe = new MOEValidator($this->student, 'M', $this->school);
 		$valid = $moe->check_3();
 		$this->assertSame($valid, 'true');
 	}
@@ -75,7 +75,7 @@ class validator_3_NSNTest extends PHPUnit_Framework_TestCase {
 		//Student type NF
 		$student['nsn'] = '';
 		$student['TYPE'] = 'NF';
-		$moe = new MOEValidator($this->student, 'M', $school);
+		$moe = new MOEValidator($this->student, 'M', $this->school);
 		$valid = $moe->check_3();
 		$this->assertSame($valid, 'true');
 	}

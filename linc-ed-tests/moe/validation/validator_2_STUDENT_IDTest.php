@@ -24,7 +24,7 @@ class validator_2_STUDENT_IDTest extends PHPUnit_Framework_TestCase {
 
 	public function testValidStudentId() {
 
-		$moe = new MOEValidator($this->student, 'M', $school);
+		$moe = new MOEValidator($this->student, 'M', $this->school);
 		$valid = $moe->check_2();
 		$this->assertSame($valid, 'true');
 		
@@ -32,14 +32,14 @@ class validator_2_STUDENT_IDTest extends PHPUnit_Framework_TestCase {
 
 	public function testStudentIdIsAlphanumeric() {
 		$this->student['person_id'] = '!%&';
-		$moe = new MOEValidator($this->student, 'M', $school);
+		$moe = new MOEValidator($this->student, 'M', $this->school);
 		$valid = $moe->check_2();
 		$this->assertSame($valid, 'false');
 	}
 
 	public function testStudentIdIsNotEmpty() {
 		$this->student['person_id'] = '';
-		$moe = new MOEValidator($this->student, 'M', $school);
+		$moe = new MOEValidator($this->student, 'M', $this->school);
 		$valid = $moe->check_2();
 		$this->assertSame($valid, 'false');
 	}
