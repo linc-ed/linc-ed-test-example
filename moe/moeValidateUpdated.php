@@ -1559,7 +1559,9 @@ $this->moe[$number]=array("Content Type"=> 'metacontent', "Field Name"=>"TYPE", 
 ); 
 
 $data = $this->mappedData[$this->moe[$number]['LINC Name']];
-$array = 	array('FF'=>'FF', 'AE'=>'AE', 'EX'=>'EX', 'AD'=>'AD', 'RA'=>'RA', 'RE'=>'RE', 'EM'=>'EM', 'SA'=>'SA', 'NA'=>'NA', 'NF'=>'NF', 'SF'=>'SF', 'TPREOM'=>'TPREOM', 'TPRAOM'=>'TPRAOM', 'TPAD'=>'TPAD', 'TPRE'=>'TPRE', 'TPRAE'=>'TPRAE'	);
+
+$array = 	MOECodes::$student_types;
+$array_keys = array_keys($array);
 
 if (isset($data) && !is_null($data)){
 	
@@ -2135,6 +2137,23 @@ $convert = date('Ymd', strtotime($data));
 							
 						}
 
+						if ($this->moe[$number]['valid']=='false'){
+	if ($this->moe[$number]['Mandatory']=="YES"){
+		$warning = 'warning-2';	
+	}
+	else {
+		$warning = 'warning';	
+	}
+	
+	$this->moe[$number]['input_label'] = '<label id="'.$this->moe[$number]['LINC Name'] .$this->person_id.'_label" for="'.$this->moe[$number]['LINC Name'] .$this->person_id.'"><span class="error"><i class="font-'.$this->moe[$number]['ICON'] .'"  ></i> '.$this->moe[$number]['Field Label'] .': <i class="font-'. $warning .'"  ></i></span>'.linc_popupmessage( $this->moe[$number]['LINC Name'],  $this->moe[$number]['Field Label'], $this->moe[$number]['Description']).'</label>';
+				
+		}
+		else if ($this->moe[$number]['valid']=='true'){
+
+		$this->moe[$number]['input_label'] =  '<label  id="'.$this->moe[$number]['LINC Name'].$this->person_id.'_label" for="'.$this->moe[$number]['LINC Name'] .$this->person_id.'"><span class="valid"><i class="font-'.$this->moe[$number]['ICON'].'"  ></i> '.$this->moe[$number]['Field Label'].': <i class="font-checkmark-3"  ></i></span></label>';
+			
+		}
+
 						return $this->moe[$number]['valid'];
 				}
 				else {
@@ -2175,6 +2194,22 @@ if ($this->mappedData['funding_year_level'] >= 9){
 											$this->moe[$number]['value'] = "Incorrect code for NQF Qual";
 							}	
 
+if ($this->moe[$number]['valid']=='false'){
+	if ($this->moe[$number]['Mandatory']=="YES"){
+		$warning = 'warning-2';	
+	}
+	else {
+		$warning = 'warning';	
+	}
+	
+	$this->moe[$number]['input_label'] = '<label id="'.$this->moe[$number]['LINC Name'] .$this->person_id.'_label" for="'.$this->moe[$number]['LINC Name'] .$this->person_id.'"><span class="error"><i class="font-'.$this->moe[$number]['ICON'] .'"  ></i> '.$this->moe[$number]['Field Label'] .': <i class="font-'. $warning .'"  ></i></span>'.linc_popupmessage( $this->moe[$number]['LINC Name'],  $this->moe[$number]['Field Label'], $this->moe[$number]['Description']).'</label>';
+				
+		}
+		else if ($this->moe[$number]['valid']=='true'){
+
+		$this->moe[$number]['input_label'] =  '<label  id="'.$this->moe[$number]['LINC Name'].$this->person_id.'_label" for="'.$this->moe[$number]['LINC Name'] .$this->person_id.'"><span class="valid"><i class="font-'.$this->moe[$number]['ICON'].'"  ></i> '.$this->moe[$number]['Field Label'].': <i class="font-checkmark-3"  ></i></span></label>';
+			
+		}
 	
 $this->moe[$number]['input_field'] = '<select name="select-'.$this->moe[$number]['LINC Name'].'" id="select-'.$this->moe[$number]['LINC Name'].$this->person_id.'" data-native-menu="false" data-inline="true" data-icon="grid" data-theme="b" data-iconpos="left" class="optionMenu">';
 					
@@ -2251,6 +2286,22 @@ public function check_27(){
 			$this->moe[$number]['value'] = $data;
 		}
 
+if ($this->moe[$number]['valid']=='false'){
+	if ($this->moe[$number]['Mandatory']=="YES"){
+		$warning = 'warning-2';	
+	}
+	else {
+		$warning = 'warning';	
+	}
+	
+	$this->moe[$number]['input_label'] = '<label id="'.$this->moe[$number]['LINC Name'] .$this->person_id.'_label" for="'.$this->moe[$number]['LINC Name'] .$this->person_id.'"><span class="error"><i class="font-'.$this->moe[$number]['ICON'] .'"  ></i> '.$this->moe[$number]['Field Label'] .': <i class="font-'. $warning .'"  ></i></span>'.linc_popupmessage( $this->moe[$number]['LINC Name'],  $this->moe[$number]['Field Label'], $this->moe[$number]['Description']).'</label>';
+				
+		}
+		else if ($this->moe[$number]['valid']=='true'){
+
+		$this->moe[$number]['input_label'] =  '<label  id="'.$this->moe[$number]['LINC Name'].$this->person_id.'_label" for="'.$this->moe[$number]['LINC Name'] .$this->person_id.'"><span class="valid"><i class="font-'.$this->moe[$number]['ICON'].'"  ></i> '.$this->moe[$number]['Field Label'].': <i class="font-checkmark-3"  ></i></span></label>';
+			
+		}
 	
 $this->moe[$number]['input_field'] = '<select name="select-'.$this->moe[$number]['LINC Name'].'" id="select-'.$this->moe[$number]['LINC Name'].$this->person_id.'" data-native-menu="false" data-inline="true" data-icon="grid" data-theme="b" data-iconpos="left" class="optionMenu">';
 					
@@ -2281,9 +2332,9 @@ else {
 public function check_28(){
 	
 	$data = $this->mappedData['ECE'];
-	if ($data || $this->test==true){	
+
 	
-	$this->moe[28]=array("Content Type"=> 'metacontent', "Field Name"=>"ECE", "LINC Name"=>"ECE", "Field No"=>"28", "Description"=>"Identifier of the student's participation in Early Childhood Education","Mandatory"=>"NO","Type"=>"Controlled value code list"
+	$this->moe[28]=array("Content Type"=> 'metacontent', "Field Name"=>"ECE", "LINC Name"=>"ECE", "Field No"=>"28", "Field Label"=>"Identifier of the student's participation in Early Childhood Education", "Description"=>"Identifier of the student's participation in Early Childhood Education","Mandatory"=>"NO","Type"=>"Controlled value code list"
 , 'valid'=>'',
 'value' =>'', 'message' =>'',
 'input_field'=>'',
@@ -2293,21 +2344,43 @@ public function check_28(){
 
 $number = 28;
 
-
-
 $code = $this->codes->checkKey($data, MOECodes::$ECE_codes);
 
-if (!$code){
+if ($data==''){
+	
+	$this->moe[$number]['valid'] = 'true';
+	$this->moe[$number]['value'] = $data;
 
-	$this->moe[$number]['valid'] = 'false';
-	$this->moe[$number]['value'] = 'ECE code is incorrect.';
 }
 else {
-$this->moe[$number]['valid'] = 'true';
-	$this->moe[$number]['value'] = $data;
-}
-	}
 
+		if (!$code){
+
+			$this->moe[$number]['valid'] = 'false';
+			$this->moe[$number]['value'] = 'ECE code is incorrect.';
+		}
+		else {
+			$this->moe[$number]['valid'] = 'true';
+			$this->moe[$number]['value'] = $data;
+		}
+}
+
+if ($this->moe[$number]['valid']=='false'){
+	if ($this->moe[$number]['Mandatory']=="YES"){
+		$warning = 'warning-2';	
+	}
+	else {
+		$warning = 'warning';	
+	}
+	
+	$this->moe[$number]['input_label'] = '<label id="'.$this->moe[$number]['LINC Name'] .$this->person_id.'_label" for="'.$this->moe[$number]['LINC Name'] .$this->person_id.'"><span class="error"><i class="font-'.$this->moe[$number]['ICON'] .'"  ></i> '.$this->moe[$number]['Field Label'] .': <i class="font-'. $warning .'"  ></i></span>'.linc_popupmessage( $this->moe[$number]['LINC Name'],  $this->moe[$number]['Field Label'], $this->moe[$number]['Description']).'</label>';
+				
+		}
+		else if ($this->moe[$number]['valid']=='true'){
+
+		$this->moe[$number]['input_label'] =  '<label  id="'.$this->moe[$number]['LINC Name'].$this->person_id.'_label" for="'.$this->moe[$number]['LINC Name'] .$this->person_id.'"><span class="valid"><i class="font-'.$this->moe[$number]['ICON'].'"  ></i> '.$this->moe[$number]['Field Label'].': <i class="font-checkmark-3"  ></i></span></label>';
+			
+		}
 
 $this->moe[$number]['input_field'] = '<select name="select-'.$this->moe[$number]['LINC Name'].'" id="select-'.$this->moe[$number]['LINC Name'].$this->person_id.'" data-native-menu="false" data-inline="true" data-icon="grid" data-theme="b" data-iconpos="left" class="optionMenu">';
 					
@@ -2325,7 +2398,7 @@ $this->moe[$number]['input_field'] = '<select name="select-'.$this->moe[$number]
 								}
 							
 			$this->moe[$number]['input_field'] .= '</select>';	
-			
+
 
 	return $this->moe[$number]['valid'];
 }
@@ -2333,9 +2406,9 @@ $this->moe[$number]['input_field'] = '<select name="select-'.$this->moe[$number]
 public function check_29(){
 	
 	$data = $this->mappedData['PACIFIC MEDIUM -LANGUAGE'];
-	if (isset($data)|| $this->test==true){	
 	
-	$this->moe[29]=array("Content Type"=> 'metacontent', "Field Name"=>"PACIFIC MEDIUM -LANGUAGE", "LINC Name"=>"PACIFIC MEDIUM -LANGUAGE","Field No"=>"29", "Description"=>"Particular Pacific Island Language in which immersion or bilingual education is provided","Mandatory"=>"PACIFIC MEDIUM LEVEL field is populated","Type"=>"Controlled value code list"
+	
+	$this->moe[29]=array("Content Type"=> 'metacontent', "Field Name"=>"PACIFIC MEDIUM -LANGUAGE", "Field Label"=>"PACIFIC MEDIUM -LANGUAGE", "LINC Name"=>"PACIFIC MEDIUM -LANGUAGE","Field No"=>"29", "Description"=>"Particular Pacific Island Language in which immersion or bilingual education is provided","Mandatory"=>"PACIFIC MEDIUM LEVEL field is populated","Type"=>"Controlled value code list"
 , 'valid'=>'',
 'value' =>'', 'message' =>'',
 'input_field'=>'',
@@ -2346,7 +2419,12 @@ public function check_29(){
 
 $number = 29;
 
+if ($data==''){
+	$this->moe[$number]['valid'] = 'true';
+	$this->moe[$number]['value'] = $data;
 
+}
+else{
 
 // If value not in [Null, CIM, FIJ, NIU, SAO, TOK, TON,PIL] and [Rmonth in [M,J] or Funding Year Level >=9]
 
@@ -2364,8 +2442,43 @@ else {
 
 $this->moe[$number]['valid'] = 'true';
 	$this->moe[$number]['value'] = $data;
+		}
+	
 }
+if ($this->moe[$number]['valid']=='false'){
+	if ($this->moe[$number]['Mandatory']=="YES"){
+		$warning = 'warning-2';	
 	}
+	else {
+		$warning = 'warning';	
+	}
+	
+	$this->moe[$number]['input_label'] = '<label id="'.$this->moe[$number]['LINC Name'] .$this->person_id.'_label" for="'.$this->moe[$number]['LINC Name'] .$this->person_id.'"><span class="error"><i class="font-'.$this->moe[$number]['ICON'] .'"  ></i> '.$this->moe[$number]['Field Label'] .': <i class="font-'. $warning .'"  ></i></span>'.linc_popupmessage( $this->moe[$number]['LINC Name'],  $this->moe[$number]['Field Label'], $this->moe[$number]['Description']).'</label>';
+				
+		}
+		else if ($this->moe[$number]['valid']=='true'){
+
+		$this->moe[$number]['input_label'] =  '<label  id="'.$this->moe[$number]['LINC Name'].$this->person_id.'_label" for="'.$this->moe[$number]['LINC Name'] .$this->person_id.'"><span class="valid"><i class="font-'.$this->moe[$number]['ICON'].'"  ></i> '.$this->moe[$number]['Field Label'].': <i class="font-checkmark-3"  ></i></span></label>';
+			
+		}
+
+$this->moe[$number]['input_field'] = '<select name="select-'.$this->moe[$number]['LINC Name'].'" id="select-'.$this->moe[$number]['LINC Name'].$this->person_id.'" data-native-menu="false" data-inline="true" data-icon="grid" data-theme="b" data-iconpos="left" class="optionMenu">';
+					
+			$this->moe[$number]['input_field'] .= '<option>Select an option</option>';
+					 $array = MOECodes::$pacific;
+							   foreach ($array as $key=> $code){
+									   
+									$this->moe[$number]['input_field'] .= '<option ';
+										if ($key == $this->moe[$number]['value'] ){
+										
+									$this->moe[$number]['input_field'] .= 'selected=selected';	
+										}
+										
+			$this->moe[$number]['input_field'].= ' value="'.$key.'" data-arraypos="'.$this->moe[$number]['Field No'].'" data-id="'.$this->person_id.'" data-value="'.$key.'" name="'.$this->moe[$number]['LINC Name'].'" data-id="'.$this->person_id.'">'.$code.'</option>';	
+								}
+							
+			$this->moe[$number]['input_field'] .= '</select>';	
+
 
 	return $this->moe[$number]['valid'];
 }

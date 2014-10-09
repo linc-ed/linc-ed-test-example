@@ -728,6 +728,33 @@ public function subjectCodes(){
 	
 }
 
+public static $pacific =array(
+'CIM'=>'Cook Island Maori',
+'FIJ'=>'Fijian',
+'NIU'=>'Niuean',
+'SAO'=>'Samoan',
+'TOK'=>'Tokelauan',
+'TON'=>'Tongan',
+'PIL'=>'Other Pacific Languages');
+
+public static $student_types= array(
+'FF'=>'International fee-paying student',
+'AE'=>'Student in Alternative Education',
+'EX'=>'International Exchange student',
+'NF'=>'Not Funded',
+'AD'=>'Returning Adult student',
+'RA'=>'Adult student',
+'RE'=>'Regular student',
+'TPREOM'=>'Teen Parent Regular Student over max. roll',
+'TPRAOM'=>'Teen Parent Adult Student over max. roll',
+'TPAD'=>'Teen Parent Other Adult Student',
+'TPRE'=>'Teen Parent Eligible and Enrolled Regular Student',
+'TPRAE'=>'Teen Parent Enrolled Continuing Adult Student',
+'EM'=>'External student',
+'SA'=>'Student in a Satellite class of a Special School',
+'NA'=>'Not attending',
+'SF'=>'Student in a separately funded unit');
+
 public static $NQF_codes =array(
 	'56'=>array ('314'=>
 '30+ Credits at Level 3 or above'),
