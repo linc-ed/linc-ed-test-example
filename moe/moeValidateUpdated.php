@@ -5889,9 +5889,14 @@ $array = array ('10' => 'Further education or training',
 '13'=>'Other',
 '88'=>'unknown');
 $check = $this->codes->checkKey($data, $array);
-if ($data!='' && !$check){
+
+
+
+//If REASON in [L, E, O, X] and FUNDING YEAR LEVEL >=9 and POST-SCHOOL ACTIVITY not in Ministry code list
+if (!$check && in_array($this->mappedData['REASON'], array('L', 'E', 'O', 'X')) && $this->mappedData['funding_year_level']>=9){ 
 	$this->moe[$number]['valid'] = 'false';
-	$this->moe[$number]['value'] = $data;
+	$this->moe[$number]['value'] = '643 - Student permanently Leaving school must have Post-School activity recorded';
+
 }
 else {
 	$this->moe[$number]['valid'] = 'true';
@@ -5940,8 +5945,8 @@ return $this->moe[$number]['valid'] ;
 
 
 public function check_105(){
-	$data = $this->mappedData[$this->moe[$number]['LINC Name']];
-	if ($data ){
+	
+
 	$this->moe[105]=array("Content Type"=> 'metacontent', "Field Name"=>"PRIVACY INDICATOR", "LINC Name"=>"PRIVACY INDICATOR","Field No"=>"105", "Description"=>"Indicates that the student address is suppressed due to privacy reasons","Mandatory"=>"NO","Type"=>"Alpha"
 , 'valid'=>'',
 'value' =>'', 'message' =>'',
@@ -5950,25 +5955,59 @@ public function check_105(){
 );
 
 $number = 105;
+$data = $this->mappedData['PRIVACY INDICATOR'];
 
-
-
-//If REASON in [L, E, O, X] and FUNDING YEAR LEVEL >=9 and POST-SCHOOL ACTIVITY not in Ministry code list
-if (!in_array ($data, array()) && in_array($this->mappedData['REASON'], array('L', 'E', 'O', 'X')) && $this->mappedData['funding_year_level']>=9){ // need the code lists.
-	$this->moe[$number]['valid'] = 'false';
-	$this->moe[$number]['value'] = '643 - Student permanently Leaving school must have Post-School activity recorded';
-}
 // If PRIVACY INDICATOR is not NULL or 'Y'
-else if (!is_null($data) || $data != 'y' || $data != 'Y'){
-$this->moe[$number]['valid'] = 'false';
+ if (!is_null($data) && $data !='' && $data != 'y' && $data != 'Y'){
+	$this->moe[$number]['valid'] = 'false';
 	$this->moe[$number]['value'] = '650 - Privacy Indicator value is incorrect';
 }
 
 else {
-$this->moe[$number]['valid'] = 'true';
+	$this->moe[$number]['valid'] = 'true';
 	$this->moe[$number]['value'] = $data;
 	}
-}
+
+
+if ($this->moe[$number]['valid']=='false'){
+	if ($this->moe[$number]['Mandatory']=="YES"){
+		$warning = 'warning-2';	
+	}
+	else {
+		$warning = 'warning';	
+	}
+	
+	$this->moe[$number]['input_label'] = '<label id="'.$this->moe[$number]['LINC Name'] .$this->person_id.'_label" for="'.$this->moe[$number]['LINC Name'] .$this->person_id.'"><span class="error"><i class="font-'.$this->moe[$number]['ICON'] .'"  ></i> '.$this->moe[$number]['Field Label'] .': <i class="font-'. $warning .'"  ></i></span>'.linc_popupmessage( $this->moe[$number]['LINC Name'],  $this->moe[$number]['Field Label'], $this->moe[$number]['Description']).'</label>';
+				
+		}
+		else if ($this->moe[$number]['valid']=='true'){
+
+		$this->moe[$number]['input_label'] =  '<label  id="'.$this->moe[$number]['LINC Name'].$this->person_id.'_label" for="'.$this->moe[$number]['LINC Name'] .$this->person_id.'"><span class="valid"><i class="font-'.$this->moe[$number]['ICON'].'"  ></i> '.$this->moe[$number]['Field Label'].': <i class="font-checkmark-3"  ></i></span></label>';
+			
+		}
+		
+	$this->moe[$number]['input_field'] .= '<fieldset data-role="controlgroup"  data-theme="b" data-type="horizontal">';
+					$options=array(
+							array('value'=>'YES', 'label'=>'Y'),
+							array('value'=>'NO', 'label'=>'NULL')
+	);	
+						foreach ($options as $option){
+										
+			$this->moe[$number]['input_field'] .= '<input data-theme="b" data-arraypos="'.$number.'" class="radioButton" type="radio" data-id="'.$this->person_id.'" data-value="'.$option['value'].'" name="'.$this->moe[$number]['LINC Name'].'" id="radio-'.$this->moe[$number]['LINC Name'].'-'.$option['value'].'" value="'.$option['value'].'"  ';
+										if ($this->moe[$number]['value'] == $option['value']){
+											$this->moe[$number]['input_field'] .= "checked='checked'";
+										}
+					$this->moe[$number]['input_field'] .= '/>';
+					$this->moe[$number]['input_field'] .= '<label data-theme="b" for="radio-'.$this->moe[$number]['LINC Name'].'-'.$option['value'].'">'.$option ['label'].'</label>';
+					
+										
+						}
+										
+				$this->moe[$number]['input_field'] .= '</fieldset>';	
+
+				return $this->moe[$number]['valid'];
+
+
 }
 public function check_106(){$this->moe[106]=array("Content Type"=> 'metacontent', "Field Name"=>"MIDDLE NAME(S)", "LINC Name"=>"middle_name","Field No"=>"106", "Description"=>"Student's Middle Name(s)","Mandatory"=>"NO","Type"=>"ASCII plus macronised vowels"
 , 'valid'=>'',

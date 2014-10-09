@@ -98,6 +98,7 @@ class MOECodes {
 				'102' =>  'SERIAL NUMBER',  
 				'103' =>  'current_year_level', 
 				'104' =>  'POST-SCHOOL ACTIVITY',  
+				'105'=>'PRIVACY INDICATOR',
 				'106' =>  'middle_name',  
 				'107' =>  'preferred_name', 
 				'108' =>  'preferred_last_name', 

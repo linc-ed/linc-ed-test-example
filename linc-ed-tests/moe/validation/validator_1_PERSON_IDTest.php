@@ -136,7 +136,8 @@ class validator_1_PERSON_Test extends PHPUnit_Framework_TestCase {
     'VERIFICATION DOCUMENT' => '',
     'SERIAL NUMBER' => '',
     'current_year_level' => '6',
-    'POST-SCHOOL ACTIVITY' => '10',
+    'PRIVACY INDICATOR'=>'',
+    'POST-SCHOOL ACTIVITY' => '',
     'middle_name' => '',
     'preferred_name' => 'Jack',
     'preferred_last_name' => '',
@@ -723,6 +724,15 @@ class validator_1_PERSON_Test extends PHPUnit_Framework_TestCase {
 
 		$moe = new MOEValidator(MOECodeSets::$students[353], 'M', MOECodeSets::$schools[1234]);
 		$valid = $moe->check_104();
+		$this->assertSame($valid, 'true');
+		
+
+	}
+
+	public function testPrivacy(){
+
+		$moe = new MOEValidator(MOECodeSets::$students[353], 'M', MOECodeSets::$schools[1234]);
+		$valid = $moe->check_105();
 		$this->assertSame($valid, 'true');
 		
 
