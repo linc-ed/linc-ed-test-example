@@ -49,7 +49,7 @@ class validator_1_PERSON_Test extends PHPUnit_Framework_TestCase {
     'ethnic_origin2' => '0',
     'ethnic_origin3' => '',
     'ORS and Section 9' => '',
-    'funding_year_level' => '10',
+    'funding_year_level' => '6',
     'TYPE' => 'RE',
     'previous_school' => 'Unknown',
     'zoning' => '',
@@ -59,7 +59,7 @@ class validator_1_PERSON_Test extends PHPUnit_Framework_TestCase {
     'MAORI' => 'N/A',
     'LAST ATTENDANCE'=>'2011-09-09',
     'NQF QUAL' => '55',
-    'REASON' => 'H',
+    'REASON' => '',
     'ECE' => '',
     'PACIFIC MEDIUM -LANGUAGE' => '',
     'PACIFIC MEDIUM - LEVEL' => '',
@@ -130,7 +130,7 @@ class validator_1_PERSON_Test extends PHPUnit_Framework_TestCase {
     'BOARDING STATUS' => '',
     'Address1' => '4 Heathfield Avenue',
     'Address2' => '',
-    'Address3' => '8014',
+    'Address3' => '8965',
     'Address4' => '',
     'ELIGIBILITY CRITERIA' => '',
     'VERIFICATION DOCUMENT' => '',
@@ -651,6 +651,33 @@ class validator_1_PERSON_Test extends PHPUnit_Framework_TestCase {
 
 		$moe = new MOEValidator(MOECodeSets::$students[353], 'J', MOECodeSets::$schools[1234]);
 		$valid = $moe->check_96();
+		$this->assertSame($valid, 'true');
+		
+
+	}
+
+	public function testAddress2(){
+
+		$moe = new MOEValidator(MOECodeSets::$students[353], 'J', MOECodeSets::$schools[1234]);
+		$valid = $moe->check_97();
+		$this->assertSame($valid, 'true');
+		
+
+	}
+
+	public function testAddress3(){
+
+		$moe = new MOEValidator(MOECodeSets::$students[353], 'J', MOECodeSets::$schools[1234]);
+		$valid = $moe->check_98();
+		$this->assertSame($valid, 'true');
+		
+
+	}
+
+	public function testAddress4(){
+
+		$moe = new MOEValidator(MOECodeSets::$students[353], 'M', MOECodeSets::$schools[1234]);
+		$valid = $moe->check_99();
 		$this->assertSame($valid, 'true');
 		
 

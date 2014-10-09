@@ -5468,7 +5468,9 @@ return $this->moe[$number]['valid'];
 }
 
 
-public function check_97(){$this->moe[97]=array("Content Type"=> 'metacontent', "ICON" => "envelop", "Field Name"=>"ADDRESS2", "Field Label"=>"Address line 2", "LINC Name"=>"Address2","Field No"=>"97", "Description"=>"Students home address","Mandatory"=>"NO","Type"=>"Alpha-Numeric"
+public function check_97(){
+
+	$this->moe[97]=array("Content Type"=> 'metacontent', "ICON" => "envelop", "Field Name"=>"ADDRESS2", "Field Label"=>"Address line 2", "LINC Name"=>"Address2","Field No"=>"97", "Description"=>"Students home address","Mandatory"=>"NO","Type"=>"Alpha-Numeric"
 , 'valid'=>'',
 'value' =>'', 'message' =>'',
 'input_field'=>'',
@@ -5508,7 +5510,9 @@ if ($this->moe[$number]['valid']=='false'){
 		
 	
 $this->moe[$number]['input_field'] = '<input type="text" class="'.$this->moe[$number]['Content Type'].'" data-arraypos="'.$this->moe[$number]['Field No'].'" name="'.$this->moe[$number]['LINC Name'].'" data-id="'.$this->person_id.'" id="'.$this->moe[$number]['LINC Name'].$this->person_id.'" value="'.$this->moe[$number]['value'].'" data-theme="'.$theme.'" placeholder="'.$this->moe[$number]['Placeholder'].'"/>';
-return $this->moe[$number]['valid'] ;	}
+return $this->moe[$number]['valid'] ;	
+
+}
 
 
 public function check_98(){$this->moe[98]=array("Content Type"=> 'metacontent', "ICON" => "envelop", "Field Name"=>"ADDRESS3", "Field Label"=>"Address line 3 (Required)", "LINC Name"=>"Address3","Field No"=>"98", "Description"=>"Students home address","Mandatory"=>"YES","Type"=>"Alpha-Numeric"
@@ -5523,11 +5527,11 @@ $number =98;
 $data = $this->mappedData[$this->moe[$number]['LINC Name']];
 
 
-if ((is_null($data) || $data == '' || $data =='0') && is_null($this->mappedData['REASON']) && is_null($this->mappedData['PRIVACY INDICATOR']) && (in_array($this->rmonth, array('M', 'J'))|| $this->mappedData['funding_year_level'] >=9)){
+if ((is_null($data) || $data == '' || $data =='0') && $this->mappedData['REASON']=='' && $this->mappedData['PRIVACY INDICATOR']=='' && (in_array($this->rmonth, array('M', 'J'))|| $this->mappedData['funding_year_level'] >=9)){
 	$this->moe[$number]['valid'] = 'false';
 	$this->moe[$number]['value'] = '626 - Third Address field is mandatory';
 }
-else if (strpos($data, ',')===true && is_null($this->mappedData['REASON'])){
+else if (strpos($data, ',')===true && $this->mappedData['REASON']==''){
 	
 	$this->moe[$number]['valid'] = 'false';
 	$this->moe[$number]['value'] = '629 - Address fields cannot contain commas';
@@ -5556,7 +5560,9 @@ if ($this->moe[$number]['valid']=='false'){
 		
 	
 $this->moe[$number]['input_field'] = '<input type="text" class="'.$this->moe[$number]['Content Type'].'" data-arraypos="'.$this->moe[$number]['Field No'].'" name="'.$this->moe[$number]['LINC Name'].'" data-id="'.$this->person_id.'" id="'.$this->moe[$number]['LINC Name'].$this->person_id.'" value="'.$this->moe[$number]['value'].'" data-theme="'.$theme.'" placeholder="'.$this->moe[$number]['Placeholder'].'"/>';
-return $this->moe[$number]['valid'] ;}
+return $this->moe[$number]['valid'] 
+
+;}
 
 
 public function check_99(){$this->moe[99]=array("Content Type"=> 'metacontent', "ICON" => "envelop", "Field Name"=>"ADDRESS4", "Field Label"=>"Postcode", "LINC Name"=>"Address4","Field No"=>"99", "Description"=>"Students home address – Postcode only","Mandatory"=>"NO","Type"=>"Numeric"
