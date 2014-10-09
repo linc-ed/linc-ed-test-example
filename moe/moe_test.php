@@ -842,6 +842,16 @@ public static $NQF_codes =array(
 '100'=>
 'No Formal Attainment'));
 
+public static $eligibilityCriteria = array(
+'60001'=>'NZ Citizen',
+'60003'=>'NZ Resident',
+'60002'=>'Australian Citizen',
+'60006'=>'Domestic Time-bound',
+'60004'=>'International Fee Paying',
+'60005'=>'Student on Government Approved Exchange Scheme',
+'60010'=>'28 Day Waiver',
+'60011'=>'Extended 28 Day Waiver',
+'60007'=>'MOE Approved');
 
 public static $NON_NQF_codes = 	array ('60'=>array('rank'=>'124', 'meaning'=>'International Baccalaureate (prep year) Year 11'),
 '61'=>array('rank'=>'224', 'meaning'=>'International Baccalaureate Year 12'),
