@@ -31,7 +31,7 @@ class validator_3_NSNTest extends PHPUnit_Framework_TestCase {
 
 	public function testNSNContainsNoCharacters() {
 		//Contains characters
-		$student['nsn'] = '2a';
+		$this->student['nsn'] = '2a';
 		$moe = new MOEValidator($this->student, 'M', $this->school);
 		$valid = $moe->check_3();
 		$this->assertSame($valid, 'false');
@@ -39,7 +39,7 @@ class validator_3_NSNTest extends PHPUnit_Framework_TestCase {
 
 	public function testNSNIsInteger() {
 		//Floating point
-		$student['nsn'] = '2.0';
+		$this->student['nsn'] = '2.0';
 		$moe = new MOEValidator($this->student, 'M', $this->school);
 		$valid = $moe->check_3();
 		$this->assertSame($valid, 'false');
@@ -48,14 +48,14 @@ class validator_3_NSNTest extends PHPUnit_Framework_TestCase {
 
 	public function testNSNIsNaturalNumber() {
 		//Negative
-		$student['nsn'] = '-2';
+		$this->student['nsn'] = '-2';
 		$moe = new MOEValidator($this->student, 'M', $this->school);
 		$valid = $moe->check_3();
 		$this->assertSame($valid, 'false');
 	}
 
 	public function testNSNIsMandatory() {
-		$student['nsn'] = '';
+		$this->student['nsn'] = '';
 		$student['TYPE'] = 'RE';
 		$moe = new MOEValidator($this->student, 'M', $this->school);
 		$valid = $moe->check_3();
@@ -64,8 +64,8 @@ class validator_3_NSNTest extends PHPUnit_Framework_TestCase {
 
 	public function testNSNIsNotMandatoryForEM() {
 		//Student type EM
-		$student['nsn'] = '';
-		$student['TYPE'] = 'EM';
+		$this->student['nsn'] = '';
+		$this->student['TYPE'] = 'EM';
 		$moe = new MOEValidator($this->student, 'M', $this->school);
 		$valid = $moe->check_3();
 		$this->assertSame($valid, 'true');
@@ -73,8 +73,8 @@ class validator_3_NSNTest extends PHPUnit_Framework_TestCase {
 
 	public function testNSNIsNotMandatoryForNF() {
 		//Student type NF
-		$student['nsn'] = '';
-		$student['TYPE'] = 'NF';
+		$this->student['nsn'] = '';
+		$this->student['TYPE'] = 'NF';
 		$moe = new MOEValidator($this->student, 'M', $this->school);
 		$valid = $moe->check_3();
 		$this->assertSame($valid, 'true');

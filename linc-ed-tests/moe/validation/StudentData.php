@@ -26,7 +26,7 @@ class StudentData {
 			'FEE' => '',
 			'FTE' => '1',
 			'MAORI' => 'N/A',
-			'LAST ATTENDANCE'=>'2011-09-09',
+			'LAST ATTENDANCE'=>'',
 			'NQF QUAL' => '55',
 			'REASON' => '',
 			'ECE' => '',

@@ -5,8 +5,8 @@ class SchoolData {
 		return array(
 			'school_id' => '1234', 
 			'school_type'=>'20', 
-			'enrollmentScheme'=>'false', 
-			'enrollmentSchemeDate'=>''
+			'enrolment_scheme'=>'false', 
+			'enrolment_scheme_date'=>''
 		);
 	}
 }
