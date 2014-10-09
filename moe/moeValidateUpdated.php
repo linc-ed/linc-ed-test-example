@@ -5759,16 +5759,9 @@ public function check_102(){
 $number = 102;
 
 $data = $this->mappedData[$this->moe[$number]['LINC Name']];
-	
-if ($data!='' && !ctype_digit($data)){
-	$this->moe[$number]['valid'] = 'false';
-	$this->moe[$number]['value'] = $data;
 
-}	
-else {
 	$this->moe[$number]['valid'] = 'true';
 	$this->moe[$number]['value'] = $data;
-}
 
 if ($this->moe[$number]['valid']=='false'){
 	if ($this->moe[$number]['Mandatory']=="YES"){
@@ -5798,7 +5791,9 @@ return $this->moe[$number]['valid'] ;
 }
 
 
-public function check_103(){$this->moe[103]=array("Content Type"=> 'metacontent', "Field Name"=>"CURRENT YEAR LEVEL", "Field Label"=>"Current Year Level", "LINC Name"=>"current_year_level","Field No"=>"103", "Description"=>"The student's class year level","Mandatory"=>"YES","Type"=>"Integer"
+public function check_103(){
+
+	$this->moe[103]=array("Content Type"=> 'metacontent', "Field Name"=>"CURRENT YEAR LEVEL", "Field Label"=>"Current Year Level", "LINC Name"=>"current_year_level","Field No"=>"103", "Description"=>"The student's class year level","Mandatory"=>"YES","Type"=>"Integer"
 , 'valid'=>'',
 'value' =>'', 'message' =>'',
 'input_field'=>'',
@@ -5869,9 +5864,15 @@ if ($this->moe[$number]['valid']=='false'){
         <input data-theme="b" type="range"data-arraypos="'.$this->moe[$number]['Field No'].'" name="'.$this->moe[$number]['LINC Name'].'" data-id="'.$this->person_id.'" id="'.$this->moe[$number]['LINC Name'].$this->person_id.'" value="'.$this->moe[$number]['value'].'" data-theme="'.$theme.'" class="'.$this->moe[$number]['Content Type'].'"  min="0" max="15" >
     </div>
 </form>';
+
+return $this->moe[$number]['valid'] ;
+
+
 }
 
-public function check_104(){$this->moe[104]=array("Content Type"=> 'metacontent', "Field Name"=>"POST-SCHOOL ACTIVITY", "LINC Name"=>"POST-SCHOOL ACTIVITY","Field No"=>"104", "Description"=>"Activity reported for students permanently leaving school","Mandatory"=>"for leavers with reason in [L,E,X,O]","Type"=>"Controlled value code list"
+public function check_104(){
+
+	$this->moe[104]=array("Content Type"=> 'metacontent', "Field Name"=>"POST-SCHOOL ACTIVITY", "LINC Name"=>"POST-SCHOOL ACTIVITY","Field No"=>"104", "Description"=>"Activity reported for students permanently leaving school","Mandatory"=>"for leavers with reason in [L,E,X,O]","Type"=>"Controlled value code list"
 , 'valid'=>'',
 'value' =>'', 'message' =>'',
 'input_field'=>'',
@@ -5880,10 +5881,14 @@ public function check_104(){$this->moe[104]=array("Content Type"=> 'metacontent'
 
 $number = 104;
 
-$data = $this->mappedData['PRIVACY INDICATOR'];
+$data = $this->mappedData['POST-SCHOOL ACTIVITY'];
 
 $this->moe[$number]['valid'] = 'true';
-	$this->moe[$number]['value'] = $data;}
+	$this->moe[$number]['value'] = $data;
+
+
+return $this->moe[$number]['valid'] ;
+}
 
 
 public function check_105(){

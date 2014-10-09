@@ -842,13 +842,21 @@ public static $NQF_codes =array(
 '100'=>
 'No Formal Attainment'));
 
-public static $verificationDocuments=array('61001'=>'NZ Birth Certificate',
-'61002'=>'NZ Passport',
-'61003'=>'Australian Passport',
-'61004'=>'NZ Citizenship Certificate',
-'61021'=>'Residency Permit',
-'61023'=>'Visa Domestic',
-'61024'=>'Visa with conditions of study');
+public static $verificationDocuments=array('60001'=>'NZ Citizen',
+'60003'=>'NZ Resident',
+'60002'=>'Australian Citizen',
+'60006'=>'Domestic Time-bound',
+'60004'=>'International Fee Paying',
+'60005'=>'Student on Government Approved Exchange Scheme',
+'60010'=>'28 Day Waiver',
+'60011'=>'Extended 28 Day Waiver',
+'60007'=>'MOE Approved',
+'61011'=>'Birth Certificate (Cook Is., Tokelau, Niue)',
+'61012'=>'Certification of Naturalisation (Cook Is., Tokelau, Niue)',
+'61013'=>'Certification of Registration (Cook Is., Tokelau, Niue)',
+'61014'=>'Letter of Confirmation (Cook Is. Tokelau, Niue)',
+'61031'=>'Principal Discretion',
+'61032'=>'MoE Approval');
 
 public static $eligibilityCriteria = array(
 '60001'=>'NZ Citizen',

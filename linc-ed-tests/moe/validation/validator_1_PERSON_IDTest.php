@@ -133,7 +133,7 @@ class validator_1_PERSON_Test extends PHPUnit_Framework_TestCase {
     'Address3' => '8965',
     'Address4' => '',
     'ELIGIBILITY CRITERIA' => '',
-    'VERIFICATION DOCUMENT' => '61002',
+    'VERIFICATION DOCUMENT' => '',
     'SERIAL NUMBER' => '',
     'current_year_level' => '6',
     'POST-SCHOOL ACTIVITY' => '',
@@ -705,6 +705,24 @@ class validator_1_PERSON_Test extends PHPUnit_Framework_TestCase {
 
 		$moe = new MOEValidator(MOECodeSets::$students[353], 'M', MOECodeSets::$schools[1234]);
 		$valid = $moe->check_102();
+		$this->assertSame($valid, 'true');
+		
+
+	}
+
+	public function testCurrentYearLevel(){
+
+		$moe = new MOEValidator(MOECodeSets::$students[353], 'M', MOECodeSets::$schools[1234]);
+		$valid = $moe->check_103();
+		$this->assertSame($valid, 'true');
+		
+
+	}
+
+	public function testPostSchoolActivity(){
+
+		$moe = new MOEValidator(MOECodeSets::$students[353], 'M', MOECodeSets::$schools[1234]);
+		$valid = $moe->check_104();
 		$this->assertSame($valid, 'true');
 		
 
