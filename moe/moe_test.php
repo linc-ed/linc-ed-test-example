@@ -842,6 +842,14 @@ public static $NQF_codes =array(
 '100'=>
 'No Formal Attainment'));
 
+public static $verificationDocuments=array('61001'=>'NZ Birth Certificate',
+'61002'=>'NZ Passport',
+'61003'=>'Australian Passport',
+'61004'=>'NZ Citizenship Certificate',
+'61021'=>'Residency Permit',
+'61023'=>'Visa Domestic',
+'61024'=>'Visa with conditions of study');
+
 public static $eligibilityCriteria = array(
 '60001'=>'NZ Citizen',
 '60003'=>'NZ Resident',

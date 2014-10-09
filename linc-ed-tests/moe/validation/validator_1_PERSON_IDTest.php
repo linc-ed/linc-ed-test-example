@@ -692,6 +692,15 @@ class validator_1_PERSON_Test extends PHPUnit_Framework_TestCase {
 
 	}
 
+		public function testVerificationDocuments(){
+
+		$moe = new MOEValidator(MOECodeSets::$students[353], 'M', MOECodeSets::$schools[1234]);
+		$valid = $moe->check_101();
+		$this->assertSame($valid, 'true');
+		
+
+	}
+
 }
 
 ?>

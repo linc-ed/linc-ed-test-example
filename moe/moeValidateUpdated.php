@@ -2466,7 +2466,7 @@ if ($this->moe[$number]['valid']=='false'){
 			
 		}
 
-$this->moe[$number]['input_field'] = '<select name="select-'.$this->moe[$number]['LINC Name'].'" id="select-'.$this->moe[$number]['LINC Name'].$this->person_id.'" data-native-menu="false" data-inline="true" data-icon="grid" data-theme="b" data-iconpos="left" class="optionMenu">';
+$this->moe[$number]['input_field'] = '<select name="select-pacific" id="select-pacific'.$this->person_id.'" data-native-menu="false" data-inline="true" data-icon="grid" data-theme="b" data-iconpos="left" class="optionMenu">';
 					
 			$this->moe[$number]['input_field'] .= '<option>Select an option</option>';
 					 $array = MOECodes::$pacific;
@@ -2553,7 +2553,7 @@ $this->moe[$number]['valid'] = 'true';
 			
 		}
 
-$this->moe[$number]['input_field'] = '<select name="select-'.$this->moe[$number]['LINC Name'].'" id="select-'.$this->moe[$number]['LINC Name'].$this->person_id.'" data-native-menu="false" data-inline="true" data-icon="grid" data-theme="b" data-iconpos="left" class="optionMenu">';
+$this->moe[$number]['input_field'] = '<select name="select-pacific-language" id="select-pacific-language'.$this->person_id.'" data-native-menu="false" data-inline="true" data-icon="grid" data-theme="b" data-iconpos="left" class="optionMenu">';
 					
 			$this->moe[$number]['input_field'] .= '<option>Select an option</option>';
 					 $array = MOECodes::$pacific;
@@ -5683,7 +5683,9 @@ $this->moe[$number]['input_field'] = '<select name="select-'.$this->moe[$number]
 	return $this->moe[$number]['valid'] ;
 }
 
-public function check_101(){$this->moe[101]=array("Content Type"=> 'metacontent', "Field Name"=>"VERIFICATION DOCUMENT", "LINC Name"=>"VERIFICATION DOCUMENT","Field No"=>"101", "Description"=>"Document used to verify the students name, DoB and eligibility status","Mandatory"=>"NO","Type"=>"Controlled value code list"
+public function check_101(){
+
+	$this->moe[101]=array("Content Type"=> 'metacontent', "Field Name"=>"VERIFICATION DOCUMENT", "LINC Name"=>"VERIFICATION DOCUMENT","Field No"=>"101", "Description"=>"Document used to verify the students name, DoB and eligibility status","Mandatory"=>"NO","Type"=>"Controlled value code list"
 , 'valid'=>'',
 'value' =>'', 'message' =>'',
 'input_field'=>'',
@@ -5693,8 +5695,11 @@ public function check_101(){$this->moe[101]=array("Content Type"=> 'metacontent'
 $number = 101;
 
 $data = $this->mappedData[$this->moe[$number]['LINC Name']];
+$array = MOECodes::$verificationDocuments;
+$check = $this->codes->checkKey($data, $array);
+
 // If VERIFICATION DOCUMENT is not NULL and not in Ministry code list and [Rmonth in [M,J] or Funding Year Level >=9]
-if (!is_null($data) && !in_array($data, array())  && (in_array($this->rmonth, array('M', 'J'))|| $this->mappedData['funding_year_level'] >=9)){ // need the code list
+if ($data!='' && !$check && (in_array($this->rmonth, array('M', 'J'))|| $this->mappedData['funding_year_level'] >=9)){ // need the code list
 	$this->moe[$number]['valid'] = 'false';
 	$this->moe[$number]['value'] = "645 - Student's Eligibility verification document is incorrect";
 }
@@ -5703,11 +5708,48 @@ else {
 	$this->moe[$number]['valid'] = 'true';
 	$this->moe[$number]['value'] = $data;
 	}
+
+	if ($this->moe[$number]['valid']=='false'){
+	if ($this->moe[$number]['Mandatory']=="YES"){
+		$warning = 'warning-2';	
+	}
+	else {
+		$warning = 'warning';	
+	}
 	
+	$this->moe[$number]['input_label'] = '<label id="'.$this->moe[$number]['LINC Name'] .$this->person_id.'_label" for="'.$this->moe[$number]['LINC Name'] .$this->person_id.'"><span class="error"><i class="font-'.$this->moe[$number]['ICON'] .'"  ></i> '.$this->moe[$number]['Field Label'] .': <i class="font-'. $warning .'"  ></i></span>'.linc_popupmessage( $this->moe[$number]['LINC Name'],  $this->moe[$number]['Field Label'], $this->moe[$number]['Description']).'</label>';
+				
+		}
+		else if ($this->moe[$number]['valid']=='true'){
+
+		$this->moe[$number]['input_label'] =  '<label  id="'.$this->moe[$number]['LINC Name'].$this->person_id.'_label" for="'.$this->moe[$number]['LINC Name'] .$this->person_id.'"><span class="valid"><i class="font-'.$this->moe[$number]['ICON'].'"  ></i> '.$this->moe[$number]['Field Label'].': <i class="font-checkmark-3"  ></i></span></label>';
+			
+		}
+
+$this->moe[$number]['input_field'] = '<select name="select-'.$this->moe[$number]['LINC Name'].'" id="select-'.$this->moe[$number]['LINC Name'].$this->person_id.'" data-native-menu="false" data-inline="true" data-icon="grid" data-theme="b" data-iconpos="left" class="optionMenu">';
+					
+			$this->moe[$number]['input_field'] .= '<option>Select an option</option>';
+					 
+							   foreach ($array as $key=> $code){
+									   
+									$this->moe[$number]['input_field'] .= '<option ';
+										if ($key == $this->moe[$number]['value'] ){
+										
+									$this->moe[$number]['input_field'] .= 'selected=selected';	
+										}
+										
+			$this->moe[$number]['input_field'].= ' value="'.$key.'" data-arraypos="'.$this->moe[$number]['Field No'].'" data-id="'.$this->person_id.'" data-value="'.$key.'" name="'.$this->moe[$number]['LINC Name'].'" data-id="'.$this->person_id.'">'.$code.'</option>';	
+								}
+							
+			$this->moe[$number]['input_field'] .= '</select>';	
+
+		return $this->moe[$number]['valid'] ;
 }
 
 
-public function check_102(){$this->moe[102]=array("Content Type"=> 'metacontent', "Field Name"=>"SERIAL NUMBER", "LINC Name"=>"SERIAL NUMBER","Field No"=>"102", "Description"=>"Verification document serial number","Mandatory"=>"NO","Type"=>"Alpha-Numeric"
+public function check_102(){
+
+	$this->moe[102]=array("Content Type"=> 'metacontent', "Field Name"=>"SERIAL NUMBER", "LINC Name"=>"SERIAL NUMBER","Field No"=>"102", "Description"=>"Verification document serial number","Mandatory"=>"NO","Type"=>"Alpha-Numeric"
 , 'valid'=>'',
 'value' =>'', 'message' =>'',
 'input_field'=>'',
@@ -5719,7 +5761,9 @@ $number = 102;
 $data = $this->mappedData[$this->moe[$number]['LINC Name']];
 
 $this->moe[$number]['valid'] = 'true';
-	$this->moe[$number]['value'] = $data;}
+	$this->moe[$number]['value'] = $data;
+
+}
 
 
 public function check_103(){$this->moe[103]=array("Content Type"=> 'metacontent', "Field Name"=>"CURRENT YEAR LEVEL", "Field Label"=>"Current Year Level", "LINC Name"=>"current_year_level","Field No"=>"103", "Description"=>"The student's class year level","Mandatory"=>"YES","Type"=>"Integer"
