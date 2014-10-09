@@ -1719,22 +1719,17 @@ if ($this->moe[$number]['valid']=='false'){
 		$this->moe[$number]['input_label'] =  '<label  id="'.$this->moe[$number]['LINC Name'].$this->person_id.'_label" for="'.$this->moe[$number]['LINC Name'] .$this->person_id.'"><span class="valid"><i class="font-'.$this->moe[$number]['ICON'].'"  ></i> '.$this->moe[$number]['Field Label'].': <i class="font-checkmark-3"  ></i></span></label>';
 			
 		}
-$this->moe[$number]['input_field'] = '<select name="select-'.$this->moe[$number]['LINC Name'].'" id="select-'.$this->moe[$number]['LINC Name'].$this->person_id.'" data-native-menu="false" data-inline="true" data-icon="grid" data-theme="b" data-iconpos="left" class="optionMenu">';
+		
+$this->moe[$number]['input_field'] = '<ul data-role="listview" data-inset="true" data-filter="true" data-filter-reveal="true" data-filter-placeholder="'.$array[$this->moe[$number]['value']]['name'].'" name="select-'.$this->moe[$number]['LINC Name'].'" id="select-'.$this->moe[$number]['LINC Name'].$this->person_id.'" data-native-menu="false" data-theme="b" data-inline="true" value="'.$array[$this->moe[$number]['value']]['name'].'">';
 					
-			$this->moe[$number]['input_field'] .= '<option>'.$this->moe[$number]['Description'].'</option>';
-					 
 							   foreach ($array as $key=> $code){
 									   
-									$this->moe[$number]['input_field'] .= '<option ';
-										if ($key == $this->moe[$number]['value'] ){
+								$this->moe[$number]['input_field'].= '<li><a href="#" class="setMetaFromList" data-id="'.$this->person_id.'" data-value="'.$key.'" data-key="'.$this->moe[$number]['LINC Name'].'">'.$code['name'].'</a></li>';	
 										
-									$this->moe[$number]['input_field'] .= 'selected=selected';	
-										}
-										
-			$this->moe[$number]['input_field'].= ' value="'.$key.'" data-arraypos="'.$this->moe[$number]['Field No'].'" data-id="'.$this->person_id.'" data-value="'.$key.'" name="'.$this->moe[$number]['LINC Name'].'" data-id="'.$this->person_id.'">'.$code.'</option>';	
+		//	$this->moe[$number]['input_field'].= ' value="'.$key.'" data-arraypos="'.$this->moe[$number]['Field No'].'" data-id="'.$this->person_id.'" data-value="'.$key.'" name="'.$this->moe[$number]['LINC Name'].'" data-id="'.$this->person_id.'">'.$code.'</li>';	
 								}
 							
-			$this->moe[$number]['input_field'] .= '</select>';
+			$this->moe[$number]['input_field'] .= '</ul>';
 
 			return $this->moe[$number]['valid'];
 }
