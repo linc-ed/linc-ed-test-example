@@ -71,7 +71,7 @@ public $mappedData;
 		// use the dob field (field number 7) to calculate age on the return date and on 1 July.
 	
 		$date = explode("-", $this->dob);
-		var_dump($date);
+	
 		$year =  $date[0];
 		$month = $date[1];
 		$day = $date[2];
@@ -648,7 +648,8 @@ public function check_8(){
 
 $data = $this->start_date;
 
-
+$check = $this->validateDate($data);
+	if ($check){
 
 $convert = date('Ymd', strtotime($data));
 	
@@ -656,7 +657,7 @@ $convert = date('Ymd', strtotime($data));
 			
 				 if (preg_match("/^\d{8}$/", $convert)) {
 					 //IF FIRST ATTENDANCE is < FIRST SCHOOLING
-					 	if (date('Ymd', strtotime($data)) < date('Ymd', strtotime($this->mappedData['FIRST SCHOOLING']))){
+					 	if ($convert < date('Ymd', strtotime($this->mappedData['first_schooling']))){
 							$this->moe[$number]['valid'] = 'false';
 							$this->moe[$number]['value'] = "642 - Student cannot have a first attendance date before first day at any school";
 						}
@@ -679,31 +680,13 @@ $convert = date('Ymd', strtotime($data));
 				$this->moe[$number]['value'] = "121 - Date first attended at this school is missing";
 				
 		}
-		
-if ($this->moe[$number]['valid']=='false'){
-	if ($this->moe[$number]['Mandatory']=="YES"){
-		$warning = 'warning-2';	
 	}
 	else {
-		$warning = 'warning';	
-	}
-	
-	$this->moe[$number]['input_label'] = '<label id="'.$this->moe[$number]['LINC Name'] .$this->person_id.'_label" for="'.$this->moe[$number]['LINC Name'] .$this->person_id.'"><span class="error"><i class="font-'.$this->moe[$number]['ICON'] .'"  ></i> '.$this->moe[$number]['Field Label'] .': <i class="font-'. $warning .'"  ></i></span>'.linc_popupmessage( $this->moe[$number]['LINC Name'],  $this->moe[$number]['Field Label'], $this->moe[$number]['Description']).'</label>';
-				
-		}
-		else if ($this->moe[$number]['valid']=='true'){
+			$this->moe[$number]['valid'] = 'false';
+			$this->moe[$number]['value'] = "122 - Format of date first attended this school is incorrect";
 
-		$this->moe[$number]['input_label'] =  '<label  id="'.$this->moe[$number]['LINC Name'].$this->person_id.'_label" for="'.$this->moe[$number]['LINC Name'] .$this->person_id.'"><span class="valid"><i class="font-'.$this->moe[$number]['ICON'].'"  ></i> '.$this->moe[$number]['Field Label'].': <i class="font-checkmark-3"  ></i></span></label>';
-			
-		}
-		
-		 if ($this->moe[$number]['value']){  
-								 $d = date('Y-m-d', strtotime($this->moe[$number]['value']));
-								 } else { 
-								 $d='';
-								 };
-		
-	$this->moe[$number]['input_field'] .= '<input class="'.$this->moe[$number]['Content Type'].'" name="'.$this->moe[$number]['LINC Name'].'"  type="date" data-role="datebox" value="'.$d.'" data-arraypos="'.$this->moe[$number]['Field No'].'" data-id="'.$this->person_id.'" id="'.$this->moe[$number]['LINC Name'].$this->person_id.'" >';
+	}
+
 											
 				
 return $this->moe[$number]['valid'] ;		
