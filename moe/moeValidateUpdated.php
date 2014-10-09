@@ -5415,7 +5415,9 @@ $this->moe[$number]['valid'] = 'true';
 	return $this->moe[$number]['valid'];
 }
 
-public function check_96(){$this->moe[96]=array("Content Type"=> 'metacontent', "ICON" => "envelop", "Field Name"=>"ADDRESS1", "Field Label"=>"Address line 1 (Required)", "LINC Name"=>"Address1","Field No"=>"96", "Description"=>"Students home address","Mandatory"=>"YES","Type"=>"Alpha-Numeric"
+public function check_96(){
+
+	$this->moe[96]=array("Content Type"=> 'metacontent', "ICON" => "envelop", "Field Name"=>"ADDRESS1", "Field Label"=>"Address line 1 (Required)", "LINC Name"=>"Address1","Field No"=>"96", "Description"=>"Students home address","Mandatory"=>"YES","Type"=>"Alpha-Numeric"
 , 'valid'=>'',
 'value' =>'', 'message' =>'',
 'input_field'=>'',
@@ -5461,7 +5463,9 @@ if ($this->moe[$number]['valid']=='false'){
 		
 	
 $this->moe[$number]['input_field'] = '<input type="text" class="'.$this->moe[$number]['Content Type'].'" data-arraypos="'.$this->moe[$number]['Field No'].'" name="'.$this->moe[$number]['LINC Name'].'" data-id="'.$this->person_id.'" id="'.$this->moe[$number]['LINC Name'].$this->person_id.'" value="'.$this->moe[$number]['value'].'" data-theme="'.$theme.'" placeholder="'.$this->moe[$number]['Placeholder'].'"/>';
-return $this->moe[$number]['valid'] ;}
+return $this->moe[$number]['valid'];
+
+}
 
 
 public function check_97(){$this->moe[97]=array("Content Type"=> 'metacontent', "ICON" => "envelop", "Field Name"=>"ADDRESS2", "Field Label"=>"Address line 2", "LINC Name"=>"Address2","Field No"=>"97", "Description"=>"Students home address","Mandatory"=>"NO","Type"=>"Alpha-Numeric"
