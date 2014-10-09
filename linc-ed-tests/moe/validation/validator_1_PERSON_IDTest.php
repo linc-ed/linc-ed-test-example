@@ -49,7 +49,7 @@ class validator_1_PERSON_Test extends PHPUnit_Framework_TestCase {
     'ethnic_origin2' => '0',
     'ethnic_origin3' => '',
     'ORS and Section 9' => '',
-    'funding_year_level' => '6',
+    'funding_year_level' => '10',
     'TYPE' => 'RE',
     'previous_school' => 'Unknown',
     'zoning' => '',
@@ -584,6 +584,23 @@ class validator_1_PERSON_Test extends PHPUnit_Framework_TestCase {
 		$moe = new MOEValidator(MOECodeSets::$students[353], 'M', MOECodeSets::$schools[1234]);
 		$valid = $moe->check_87();
 		$this->assertSame($valid, 'true');
+
+	}
+
+	public function testSubject1Hours(){
+
+		$moe = new MOEValidator(MOECodeSets::$students[353], 'J', MOECodeSets::$schools[1234]);
+		$valid = $moe->check_33();
+		$this->assertSame($valid, 'true');
+
+	}
+
+	public function testSubject2Hours(){
+
+		$moe = new MOEValidator(MOECodeSets::$students[353], 'J', MOECodeSets::$schools[1234]);
+		$valid = $moe->check_37();
+		$this->assertSame($valid, 'true');
+		
 
 	}
 

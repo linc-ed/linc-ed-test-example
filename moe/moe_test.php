@@ -724,6 +724,14 @@ public static $subjectCodes  = array (
 	
 	
 	
+public static $subjectYearLevels= array('ZN07'=>'Instructional year level Y7',
+'ZN08'=>'Instructional year level Y8',
+'ZN09'=>'Instructional year level Y9',
+'ZN10'=>'Instructional year level Y10',
+'ZN11'=>'Instructional year level Y11',
+'ZN12'=>'Instructional year level Y12',
+'ZN13'=>'Instructional year level Y13 and above',
+'ZNAD'=>'Instructional year level Advanced');	
 
 public static $pacific =array(
 'CIM'=>'Cook Island Maori',
