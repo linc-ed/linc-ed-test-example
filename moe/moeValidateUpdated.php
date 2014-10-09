@@ -5179,7 +5179,9 @@ $this->moe[$number]['input_field'] = '<select name="select-'.$this->moe[$number]
 
 
 
-public function check_88(){$this->moe[88]=array("Content Type"=> 'metacontent', "Field Name"=>"MODE OF INSTRUCTION SUBJECT 15","LINC Name"=>"MODE OF INSTRUCTION SUBJECT 15","Field No"=>"88", "Description"=>"Predominant mode of curriculum delivery of subject 1 being studied","Mandatory"=>"Not being collected","Type"=>"-"
+public function check_88(){
+
+	$this->moe[88]=array("Content Type"=> 'metacontent', "Field Name"=>"MODE OF INSTRUCTION SUBJECT 15","LINC Name"=>"MODE OF INSTRUCTION SUBJECT 15","Field No"=>"88", "Description"=>"Predominant mode of curriculum delivery of subject 1 being studied","Mandatory"=>"Not being collected","Type"=>"-"
 , 'valid'=>'',
 'value' =>'', 'message' =>'',
 'input_field'=>'',
@@ -5272,7 +5274,9 @@ $code = $this->codes->checkKey($data, $array);
 }
 
 
-public function check_91(){$this->moe[91]=array("Content Type"=> 'metacontent', "Field Name"=>"TUITION WEEKS","LINC Name"=>"TUITION WEEKS","Field No"=>"91", "Description"=>"Number of weeks FF students are enrolled","Mandatory"=>"No","Type"=>"Numeric (Natural number)"
+public function check_91(){
+
+	$this->moe[91]=array("Content Type"=> 'metacontent', "Field Name"=>"TUITION WEEKS","LINC Name"=>"TUITION WEEKS","Field No"=>"91", "Description"=>"Number of weeks FF students are enrolled","Mandatory"=>"No","Type"=>"Numeric (Natural number)"
 , 'valid'=>'',
 'value' =>'', 'message' =>'',
 'input_field'=>'',
@@ -5284,7 +5288,9 @@ $number = 91;
 $data = $this->mappedData[$this->moe[$number]['LINC Name']];
 
 $this->moe[$number]['valid'] = 'true';
-	$this->moe[$number]['value'] = $data;}
+	$this->moe[$number]['value'] = $data;
+
+}
 
 
 public function check_92(){
@@ -5314,6 +5320,8 @@ else {
 	
 	}
 }
+
+return $this->moe[$number]['valid'];
 }
 
 public function check_93(){$this->moe[93]=array("Content Type"=> 'metacontent', "Field Name"=>"UE","LINC Name"=>"UE","Field No"=>"93", "Description"=>"University Entrance","Mandatory"=>"for Fulltime students Year 9+","Type"=>"Alpha (Yes or No)"

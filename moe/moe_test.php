@@ -760,6 +760,8 @@ public static $student_types= array(
 'NA'=>'Not attending',
 'SF'=>'Student in a separately funded unit');
 
+
+
 public static $NQF_codes =array(
 	'56'=>array ('314'=>
 '30+ Credits at Level 3 or above'),
@@ -841,26 +843,20 @@ public static $NQF_codes =array(
 'No Formal Attainment'));
 
 
-public function NON_NQF_codes(){
+public static $NON_NQF_codes = 	array ('60'=>array('rank'=>'124', 'meaning'=>'International Baccalaureate (prep year) Year 11'),
+'61'=>array('rank'=>'224', 'meaning'=>'International Baccalaureate Year 12'),
+'62'=>array('rank'=>'324', 'meaning'=>'International Baccalaureate Year 13 or UE'),
+'70'=> array('rank'=>'100', 'meaning'=>'Cambridge International Exams Year 11'),
+'71'=> array('rank'=>'218', 'meaning'=>'Cambridge International Exams Year 12'),
+'72'=> array('rank'=>'318', 'meaning'=>'Cambridge International Exams Year 13 or UE'),
+'80'=> array('rank'=>'122', 'meaning'=>'Accelerated Christian Education Year 11'),
+'81'=> array('rank'=>'222', 'meaning'=>'Accelerated Christian Education Year 12'),
+'82'=> array('rank'=>'322', 'meaning'=>'Accelerated Christian Education Year 13 or UE'),
+'90'=> array('rank'=>'120', 'meaning'=>'Other Overseas Awards Year 11'),
+'91'=> array('rank'=>'220', 'meaning'=>'Other Overseas Awards Year 12'),
+'92'=> array('rank'=>'320', 'meaning'=>'Other Overseas Awards Year 13'),
+'00'=> array('rank'=>'100', 'meaning'=>'No formal Attainment'));
 	
-	$codes = array();
-	
-	$codes[124] = array('60' => 'International Baccalaureate (prep year) Year 11');
-	$codes[224] = array('61'=>'International Baccalaureate Year 12');
-	$codes[324] = array('62'=>'International Baccalaureate Year 13 or UE');
-	$codes[118] = array('70'=>'Cambridge International Exams Year 11');
-	$codes[218] = array('71'=>'Cambridge International Exams Year 12');
-	$codes[318] = array('72'=>'Cambridge International Exams Year 13 or UE');
-	$codes[122] = array('80'=>'Accelerated Christian Education Year 11');
-	$codes[222] = array('81'=>'Accelerated Christian Education Year 12');
-	$codes[322] = array('82'=>'Accelerated Christian Education Year 13 or UE');
-	$codes[120] = array('90'=>'Other Overseas Awards Year 11');
-	$codes[220] = array('91'=>'Other Overseas Awards Year 12');
-	$codes[320] = array('92'=>'Other Overseas Awards Year 13');
-	$codes[100] = array('00'=>'No formal Attainment');
-	
-	return $codes;
-}
 
 public static $ECE_codes = array ("EKR"=>"Attended Kohanga Reo", 
 	"EPC"=> "Attended Playcentre",
