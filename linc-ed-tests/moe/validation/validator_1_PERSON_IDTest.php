@@ -11,6 +11,7 @@ date_default_timezone_set('Pacific/Auckland');
 require_once(dirname(__FILE__).'/../../../moe/MOEValidateUpdated.php');
 require_once(dirname(__FILE__).'/../../../moe/moe_test.php');
 require_once(dirname(__FILE__).'/../../../moe/MOECodeSets.php');
+require_once(dirname(__FILE__).'/StudentData.php');
 
 function linc_popupmessage(){
 
@@ -32,161 +33,31 @@ class validator_1_PERSON_Test extends PHPUnit_Framework_TestCase {
 		//http://www.educationcounts.govt.nz/__data/assets/excel_doc/0007/145645/School-Name-and-Numbers-2014-01.xls
 		MOECodeSets::addSchool(array('school_id' => '1234', 'school_type'=>'20', 'enrollmentScheme'=>'false', 'enrollmentSchemeDate'=>''));
 		MOECodeSets::addSchool(array('school_id' => '3338', 'school_type'=>'20', 'enrollmentScheme'=>'false', 'enrollmentSchemeDate'=>''));
-		MOECodeSets::addStudent(array
-			(
-			    'person_id' => '353',
-			    'dob' => '2003-08-29',
-			    'start_date' => '2008-08-29',
-			    'gender' => 'Male',
-			    'first_name' => 'Jack',
-			    'last_name' => 'Harding',
-			    'nsn' => '132416486',
-			    'sms_id' => '866',
-			    'vacated' => '0',
-			    'pid' => '353',
-			    'first_schooling' => '2008-08-29',
-			    'ethnic_origin' => '111',
-			    'ethnic_origin2' => '0',
-			    'ethnic_origin3' => '',
-			    'ORS and Section 9' => '',
-			    'funding_year_level' => '6',
-			    'TYPE' => 'RE',
-			    'previous_school' => 'Unknown',
-			    'zoning' => '',
-			    'citizenship' => 'NZL',
-			    'FEE' => '',
-			    'FTE' => '1',
-			    'MAORI' => 'N/A',
-			    'LAST ATTENDANCE'=>'2011-09-09',
-			    'NQF QUAL' => '55',
-			    'REASON' => '',
-			    'ECE' => '',
-			    'PACIFIC MEDIUM -LANGUAGE' => '',
-			    'PACIFIC MEDIUM - LEVEL' => '',
-			    'SUBJECT 1' => 'PHED',
-			    'MODE OF INSTRUCTION SUBJECT 1' => 'PHED',
-			    'HOURS PER YEAR SUBJECT 1' => '12',
-			    'INSTRUCTIONAL YEAR LEVEL SUBJECT 1' => 'ZN08',
-			    'SUBJECT 2' => 'MATH',
-			    'MODE OF INSTRUCTION SUBJECT 2' => '',
-			    'HOURS PER YEAR SUBJECT 2' => '18',
-			    'INSTRUCTIONAL YEAR LEVEL SUBJECT 2' => '',
-			    'SUBJECT 3' => 'COSC',
-			    'MODE OF INSTRUCTION SUBJECT 3' => 'COSC',
-			    'HOURS PER YEAR SUBJECT 3' => '',
-			    'INSTRUCTIONAL YEAR LEVEL SUBJECT 3' => '',
-			    'SUBJECT 4' => 'COSC',
-			    'MODE OF INSTRUCTION SUBJECT 4' => '',
-			    'HOURS PER YEAR SUBJECT 4' => '',
-			    'INSTRUCTIONAL YEAR LEVEL SUBJECT 4' => '',
-			    'SUBJECT 5' => 'PHED',
-			    'MODE OF INSTRUCTION SUBJECT 5' => '',
-			    'HOURS PER YEAR SUBJECT 5' => '',
-			    'INSTRUCTIONAL YEAR LEVEL SUBJECT 5' => '',
-			    'SUBJECT 6' => 'PHED',
-			    'MODE OF INSTRUCTION SUBJECT 6' => '',
-			    'HOURS PER YEAR SUBJECT 6' => '',
-			    'INSTRUCTIONAL YEAR LEVEL SUBJECT 6' => '',
-			    'SUBJECT 7' => 'PHED',
-			    'MODE OF INSTRUCTION SUBJECT 7' => '',
-			    'HOURS PER YEAR SUBJECT 7' => '',
-			    'INSTRUCTIONAL YEAR LEVEL SUBJECT 7' => '',
-			    'SUBJECT 8' => 'PHED',
-			    'MODE OF INSTRUCTION SUBJECT 8' => '',
-			    'HOURS PER YEAR SUBJECT 8' => '',
-			    'INSTRUCTIONAL YEAR LEVEL SUBJECT 8' => '',
-			    'SUBJECT 9' => 'PHED',
-			    'MODE OF INSTRUCTION SUBJECT 9' => '',
-			    'HOURS PER YEAR SUBJECT 9' => '',
-			    'INSTRUCTIONAL YEAR LEVEL SUBJECT 9' => '',
-			    'SUBJECT 10' => 'PHED',
-			    'MODE OF INSTRUCTION SUBJECT 10' => '',
-			    'HOURS PER YEAR SUBJECT 10' => '',
-			    'INSTRUCTIONAL YEAR LEVEL SUBJECT 10' => '',
-			    'SUBJECT 11' => 'PHED',
-			    'MODE OF INSTRUCTION SUBJECT 11' => '',
-			    'HOURS PER YEAR SUBJECT 11' => '',
-			    'INSTRUCTIONAL YEAR LEVEL SUBJECT 11' => '',
-			    'SUBJECT 12' => 'PHED',
-			    'MODE OF INSTRUCTION SUBJECT 12' => '',
-			    'HOURS PER YEAR SUBJECT 12' => '',
-			    'INSTRUCTIONAL YEAR LEVEL SUBJECT 12' => '',
-			    'SUBJECT 13' => 'PHED',
-			    'MODE OF INSTRUCTION SUBJECT 13' => '',
-			    'HOURS PER YEAR SUBJECT 13' => '',
-			    'INSTRUCTIONAL YEAR LEVEL SUBJECT 13' => '',
-			    'SUBJECT 14' => 'PHED',
-			    'MODE OF INSTRUCTION SUBJECT 14' => '',
-			    'HOURS PER YEAR SUBJECT 14' => '',
-			    'INSTRUCTIONAL YEAR LEVEL SUBJECT 14' => '',
-			    'SUBJECT 15' => 'PHED',
-			    'MODE OF INSTRUCTION SUBJECT 15' => '',
-			    'HOURS PER YEAR SUBJECT 15' => '',
-			    'INSTRUCTIONAL YEAR LEVEL SUBJECT 15' => '',
-			    'TUITION WEEKS' => '',
-			    'NON-NQF QUAL' => '',
-			    'UE' => '',
-			    'EXCHANGE SCHEME' => '',
-			    'BOARDING STATUS' => '',
-			    'Address1' => '4 Heathfield Avenue',
-			    'Address2' => '',
-			    'Address3' => '8965',
-			    'Address4' => '',
-			    'ELIGIBILITY CRITERIA' => '',
-			    'VERIFICATION DOCUMENT' => '',
-			    'SERIAL NUMBER' => '',
-			    'current_year_level' => '6',
-			    'PRIVACY INDICATOR'=>'',
-			    'POST-SCHOOL ACTIVITY' => '',
-			    'middle_name' => '',
-			    'preferred_name' => 'Jack',
-			    'preferred_last_name' => '',
-			    'EXPIRY DATE' => '',
-			    'STP' => '',
-			    'WITHHOLD CONTACT DETAILS' => '',
-			    'Phone' => '3519654',
-			    'mobile_phone' => '0272821737',
-			    'ALTERNATIVE PHONE NUMBER' => '',
-			    'email_address' => 'ultimateforceltd@xtra.co.nz',
-			    'contact_1_last_name' => 'Harding',
-			    'contact_1_first_name' => 'Tracey',
-			    'contact_1_address1' => '4 Heathfield Avenue',
-			    'contact_1_address2' => 'Fendalton',
-			    'contact_1_address3' => 'Christchurch 8014',
-			    'contact_1_address4' => '',
-			    'contact_1_address5' => '',
-			    'contact_1_mobile' => '0272821737',
-			    'contact_2_last_name' => 'Harding',
-			    'contact_2_first_name' => 'Kevin',
-			    'contact_2_address1' => '4 Heathfield Avenue',
-			    'contact_2_address2' => 'Fendalton',
-			    'contact_2_address3' => 'Christchurch 8014',
-			    'contact_2_address4' => '',
-			    'contact_2_address5' => ''
-			  
-			    
-			  ));
-			 
-}
+	}
+
+	private $student;
+
+	//Reset the student data before each test method
+	public function setUp() {
+		$this->student = StudentData::getStudent();
+	}
 
 	//Naming the function testName allows it to be called by phpunit
 	//(We could also use an annotation @test)
-
-	//This test may be redundant - if the validator is allways passed
-	//a string.
 	public function testStudentId() {
-				
-		
-		$moe = new MOEValidator(MOECodeSets::$students[353], 'M', MOECodeSets::$schools[1234]);
+
+		$moe = new MOEValidator($this->student, 'M', MOECodeSets::$schools[1234]);
 		$valid = $moe->check_2();
 		$this->assertSame($valid, 'true');
 		
 	}
 
+
+
 	public function testnsn() {
 				
 		
-		$moe = new MOEValidator(MOECodeSets::$students[353], 'M', MOECodeSets::$schools[1234]);
+		$moe = new MOEValidator($this->student, 'M', MOECodeSets::$schools[1234]);
 		$valid = $moe->check_3();
 		$this->assertSame($valid, 'true');
 		
@@ -195,7 +66,7 @@ class validator_1_PERSON_Test extends PHPUnit_Framework_TestCase {
 	public function testlast_name() {
 				
 		
-		$moe = new MOEValidator(MOECodeSets::$students[353], 'M', MOECodeSets::$schools[1234]);
+		$moe = new MOEValidator($this->student, 'M', MOECodeSets::$schools[1234]);
 		$valid = $moe->check_4();
 		$this->assertSame($valid, 'true');
 		
@@ -204,7 +75,7 @@ class validator_1_PERSON_Test extends PHPUnit_Framework_TestCase {
 	public function testfirst_name() {
 				
 		
-		$moe = new MOEValidator(MOECodeSets::$students[353], 'M', MOECodeSets::$schools[1234]);
+		$moe = new MOEValidator($this->student, 'M', MOECodeSets::$schools[1234]);
 		$valid = $moe->check_5();
 		$this->assertSame($valid, 'true');
 		
@@ -213,7 +84,7 @@ class validator_1_PERSON_Test extends PHPUnit_Framework_TestCase {
 	public function testGender() {
 				
 		
-		$moe = new MOEValidator(MOECodeSets::$students[353], 'M', MOECodeSets::$schools[1234]);
+		$moe = new MOEValidator($this->student, 'M', MOECodeSets::$schools[1234]);
 		$valid = $moe->check_6();
 		$this->assertSame($valid, 'true');
 		
@@ -222,7 +93,7 @@ class validator_1_PERSON_Test extends PHPUnit_Framework_TestCase {
 	public function testDOB() {
 				
 		
-		$moe = new MOEValidator(MOECodeSets::$students[353], 'M', MOECodeSets::$schools[1234]);
+		$moe = new MOEValidator($this->student, 'M', MOECodeSets::$schools[1234]);
 		$valid = $moe->check_7();
 		$this->assertSame($valid, 'true');
 		
@@ -233,7 +104,7 @@ class validator_1_PERSON_Test extends PHPUnit_Framework_TestCase {
 	public function testStartDateAtThisSchool() {
 				
 		
-		$moe = new MOEValidator(MOECodeSets::$students[353], 'M', MOECodeSets::$schools[1234]);
+		$moe = new MOEValidator($this->student, 'M', MOECodeSets::$schools[1234]);
 		$valid = $moe->check_8();
 		$this->assertSame($valid, 'true');
 		
@@ -242,7 +113,7 @@ class validator_1_PERSON_Test extends PHPUnit_Framework_TestCase {
 	public function testStartDateAtAnySchool() {
 				
 		
-		$moe = new MOEValidator(MOECodeSets::$students[353], 'M', MOECodeSets::$schools[1234]);
+		$moe = new MOEValidator($this->student, 'M', MOECodeSets::$schools[1234]);
 		$valid = $moe->check_9();
 		$this->assertSame($valid, 'true');
 		
@@ -251,7 +122,7 @@ class validator_1_PERSON_Test extends PHPUnit_Framework_TestCase {
 	public function testEthnicity1() {
 				
 		
-		$moe = new MOEValidator(MOECodeSets::$students[353], 'M', MOECodeSets::$schools[1234]);
+		$moe = new MOEValidator($this->student, 'M', MOECodeSets::$schools[1234]);
 		$valid = $moe->check_10();
 		$this->assertSame($valid, 'true');
 		
@@ -260,7 +131,7 @@ class validator_1_PERSON_Test extends PHPUnit_Framework_TestCase {
 	public function testEthnicity2() {
 				
 		
-		$moe = new MOEValidator(MOECodeSets::$students[353], 'M', MOECodeSets::$schools[1234]);
+		$moe = new MOEValidator($this->student, 'M', MOECodeSets::$schools[1234]);
 		$valid = $moe->check_11();
 		$this->assertSame($valid, 'true');
 		
@@ -269,7 +140,7 @@ class validator_1_PERSON_Test extends PHPUnit_Framework_TestCase {
 	public function testEthnicity3() {
 				
 		
-		$moe = new MOEValidator(MOECodeSets::$students[353], 'M', MOECodeSets::$schools[1234]);
+		$moe = new MOEValidator($this->student, 'M', MOECodeSets::$schools[1234]);
 		$valid = $moe->check_12();
 		$this->assertSame($valid, 'true');
 		
@@ -278,7 +149,7 @@ class validator_1_PERSON_Test extends PHPUnit_Framework_TestCase {
 	public function testIWI1() {
 				
 		
-		$moe = new MOEValidator(MOECodeSets::$students[353], 'M', MOECodeSets::$schools[1234]);
+		$moe = new MOEValidator($this->student, 'M', MOECodeSets::$schools[1234]);
 		$valid = $moe->check_13();
 		$this->assertSame($valid, 'true');
 		
@@ -287,7 +158,7 @@ class validator_1_PERSON_Test extends PHPUnit_Framework_TestCase {
 	public function testIWI2() {
 				
 		
-		$moe = new MOEValidator(MOECodeSets::$students[353], 'M', MOECodeSets::$schools[1234]);
+		$moe = new MOEValidator($this->student, 'M', MOECodeSets::$schools[1234]);
 		$valid = $moe->check_14();
 		$this->assertSame($valid, 'true');
 		
@@ -296,7 +167,7 @@ class validator_1_PERSON_Test extends PHPUnit_Framework_TestCase {
 	public function testIWI3() {
 				
 		
-		$moe = new MOEValidator(MOECodeSets::$students[353], 'M', MOECodeSets::$schools[1234]);
+		$moe = new MOEValidator($this->student, 'M', MOECodeSets::$schools[1234]);
 		$valid = $moe->check_15();
 		$this->assertSame($valid, 'true');
 		
@@ -305,7 +176,7 @@ class validator_1_PERSON_Test extends PHPUnit_Framework_TestCase {
 	public function testORRS() {
 				
 		
-		$moe = new MOEValidator(MOECodeSets::$students[353], 'M', MOECodeSets::$schools[1234]);
+		$moe = new MOEValidator($this->student, 'M', MOECodeSets::$schools[1234]);
 		$valid = $moe->check_16();
 		$this->assertSame($valid, 'true');
 		
@@ -314,7 +185,7 @@ class validator_1_PERSON_Test extends PHPUnit_Framework_TestCase {
 	public function testFundingYearLevel() {
 				
 		
-		$moe = new MOEValidator(MOECodeSets::$students[353], 'M', MOECodeSets::$schools[1234]);
+		$moe = new MOEValidator($this->student, 'M', MOECodeSets::$schools[1234]);
 		$valid = $moe->check_17();
 		$this->assertSame($valid, 'true');
 		
@@ -322,7 +193,7 @@ class validator_1_PERSON_Test extends PHPUnit_Framework_TestCase {
 
 	public function testStudentType() {
 		
-		$moe = new MOEValidator(MOECodeSets::$students[353], 'M', MOECodeSets::$schools[1234]);
+		$moe = new MOEValidator($this->student, 'M', MOECodeSets::$schools[1234]);
 		$valid = $moe->check_18();
 		$this->assertSame($valid, 'true');
 		
@@ -330,7 +201,7 @@ class validator_1_PERSON_Test extends PHPUnit_Framework_TestCase {
 
 	public function testPreviousSchool() {
 		
-		$moe = new MOEValidator(MOECodeSets::$students[353], 'M', MOECodeSets::$schools[1234]);
+		$moe = new MOEValidator($this->student, 'M', MOECodeSets::$schools[1234]);
 		$valid = $moe->check_19();
 		$this->assertSame($valid, 'true');
 		
@@ -346,7 +217,7 @@ class validator_1_PERSON_Test extends PHPUnit_Framework_TestCase {
 
 	public function testZoningStatus(){
 
-		$moe = new MOEValidator(MOECodeSets::$students[353], 'M', MOECodeSets::$schools[1234]);
+		$moe = new MOEValidator($this->student, 'M', MOECodeSets::$schools[1234]);
 		$valid = $moe->check_20();
 		$this->assertSame($valid, 'true');
 
@@ -354,7 +225,7 @@ class validator_1_PERSON_Test extends PHPUnit_Framework_TestCase {
 
 	public function testCitizendship(){
 
-		$moe = new MOEValidator(MOECodeSets::$students[353], 'M', MOECodeSets::$schools[1234]);
+		$moe = new MOEValidator($this->student, 'M', MOECodeSets::$schools[1234]);
 		$valid = $moe->check_21();
 		$this->assertSame($valid, 'true');
 
@@ -363,7 +234,7 @@ class validator_1_PERSON_Test extends PHPUnit_Framework_TestCase {
 
 	public function testTuitionField(){
 
-		$moe = new MOEValidator(MOECodeSets::$students[353], 'M', MOECodeSets::$schools[1234]);
+		$moe = new MOEValidator($this->student, 'M', MOECodeSets::$schools[1234]);
 		$valid = $moe->check_22();
 		$this->assertSame($valid, 'true');
 
@@ -371,7 +242,7 @@ class validator_1_PERSON_Test extends PHPUnit_Framework_TestCase {
 
 	public function testFullTimeEquivalent(){
 
-		$moe = new MOEValidator(MOECodeSets::$students[353], 'M', MOECodeSets::$schools[1234]);
+		$moe = new MOEValidator($this->student, 'M', MOECodeSets::$schools[1234]);
 		$valid = $moe->check_23();
 		$this->assertSame($valid, 'true');
 
@@ -379,7 +250,7 @@ class validator_1_PERSON_Test extends PHPUnit_Framework_TestCase {
 
 	public function testMaoriLanhguageLevel(){
 
-		$moe = new MOEValidator(MOECodeSets::$students[353], 'M', MOECodeSets::$schools[1234]);
+		$moe = new MOEValidator($this->student, 'M', MOECodeSets::$schools[1234]);
 		$valid = $moe->check_24();
 		$this->assertSame($valid, 'true');
 
@@ -387,7 +258,7 @@ class validator_1_PERSON_Test extends PHPUnit_Framework_TestCase {
 
 	public function testLastAttendanceDate(){
 
-		$moe = new MOEValidator(MOECodeSets::$students[353], 'M', MOECodeSets::$schools[1234]);
+		$moe = new MOEValidator($this->student, 'M', MOECodeSets::$schools[1234]);
 		$valid = $moe->check_25();
 		$this->assertSame($valid, 'true');
 
@@ -395,7 +266,7 @@ class validator_1_PERSON_Test extends PHPUnit_Framework_TestCase {
 
 	public function testNZQ(){
 
-		$moe = new MOEValidator(MOECodeSets::$students[353], 'M', MOECodeSets::$schools[1234]);
+		$moe = new MOEValidator($this->student, 'M', MOECodeSets::$schools[1234]);
 		$valid = $moe->check_26();
 		$this->assertSame($valid, 'true');
 
@@ -403,7 +274,7 @@ class validator_1_PERSON_Test extends PHPUnit_Framework_TestCase {
 
 	public function testReasonForLeaving(){
 
-		$moe = new MOEValidator(MOECodeSets::$students[353], 'M', MOECodeSets::$schools[1234]);
+		$moe = new MOEValidator($this->student, 'M', MOECodeSets::$schools[1234]);
 		$valid = $moe->check_27();
 		$this->assertSame($valid, 'true');
 
@@ -411,7 +282,7 @@ class validator_1_PERSON_Test extends PHPUnit_Framework_TestCase {
 
 	public function testECE(){
 
-		$moe = new MOEValidator(MOECodeSets::$students[353], 'M', MOECodeSets::$schools[1234]);
+		$moe = new MOEValidator($this->student, 'M', MOECodeSets::$schools[1234]);
 		$valid = $moe->check_28();
 		$this->assertSame($valid, 'true');
 
@@ -419,7 +290,7 @@ class validator_1_PERSON_Test extends PHPUnit_Framework_TestCase {
 
 	public function testPacific(){
 
-		$moe = new MOEValidator(MOECodeSets::$students[353], 'M', MOECodeSets::$schools[1234]);
+		$moe = new MOEValidator($this->student, 'M', MOECodeSets::$schools[1234]);
 		$valid = $moe->check_29();
 		$this->assertSame($valid, 'true');
 
@@ -427,7 +298,7 @@ class validator_1_PERSON_Test extends PHPUnit_Framework_TestCase {
 
 	public function testPacificLang(){
 
-		$moe = new MOEValidator(MOECodeSets::$students[353], 'M', MOECodeSets::$schools[1234]);
+		$moe = new MOEValidator($this->student, 'M', MOECodeSets::$schools[1234]);
 		$valid = $moe->check_30();
 		$this->assertSame($valid, 'true');
 
@@ -435,7 +306,7 @@ class validator_1_PERSON_Test extends PHPUnit_Framework_TestCase {
 
 	public function testSubject1(){
 
-		$moe = new MOEValidator(MOECodeSets::$students[353], 'M', MOECodeSets::$schools[1234]);
+		$moe = new MOEValidator($this->student, 'M', MOECodeSets::$schools[1234]);
 		$valid = $moe->check_31();
 		$this->assertSame($valid, 'true');
 
@@ -443,7 +314,7 @@ class validator_1_PERSON_Test extends PHPUnit_Framework_TestCase {
 
 	public function testSubject2(){
 
-		$moe = new MOEValidator(MOECodeSets::$students[353], 'M', MOECodeSets::$schools[1234]);
+		$moe = new MOEValidator($this->student, 'M', MOECodeSets::$schools[1234]);
 		$valid = $moe->check_35();
 		$this->assertSame($valid, 'true');
 
@@ -451,7 +322,7 @@ class validator_1_PERSON_Test extends PHPUnit_Framework_TestCase {
 
 	public function testSubject3(){
 
-		$moe = new MOEValidator(MOECodeSets::$students[353], 'M', MOECodeSets::$schools[1234]);
+		$moe = new MOEValidator($this->student, 'M', MOECodeSets::$schools[1234]);
 		$valid = $moe->check_39();
 		$this->assertSame($valid, 'true');
 
@@ -459,7 +330,7 @@ class validator_1_PERSON_Test extends PHPUnit_Framework_TestCase {
 
 	public function testSubject4(){
 
-		$moe = new MOEValidator(MOECodeSets::$students[353], 'M', MOECodeSets::$schools[1234]);
+		$moe = new MOEValidator($this->student, 'M', MOECodeSets::$schools[1234]);
 		$valid = $moe->check_43();
 		$this->assertSame($valid, 'true');
 
@@ -467,7 +338,7 @@ class validator_1_PERSON_Test extends PHPUnit_Framework_TestCase {
 
 	public function testSubject5(){
 
-		$moe = new MOEValidator(MOECodeSets::$students[353], 'M', MOECodeSets::$schools[1234]);
+		$moe = new MOEValidator($this->student, 'M', MOECodeSets::$schools[1234]);
 		$valid = $moe->check_47();
 		$this->assertSame($valid, 'true');
 
@@ -475,28 +346,28 @@ class validator_1_PERSON_Test extends PHPUnit_Framework_TestCase {
 
 	public function testSubject6(){
 
-		$moe = new MOEValidator(MOECodeSets::$students[353], 'M', MOECodeSets::$schools[1234]);
+		$moe = new MOEValidator($this->student, 'M', MOECodeSets::$schools[1234]);
 		$valid = $moe->check_51();
 		$this->assertSame($valid, 'true');
 
 	}	
 	public function testSubject7(){
 
-		$moe = new MOEValidator(MOECodeSets::$students[353], 'M', MOECodeSets::$schools[1234]);
+		$moe = new MOEValidator($this->student, 'M', MOECodeSets::$schools[1234]);
 		$valid = $moe->check_55();
 		$this->assertSame($valid, 'true');
 
 	}
 	public function testSubject8(){
 
-		$moe = new MOEValidator(MOECodeSets::$students[353], 'M', MOECodeSets::$schools[1234]);
+		$moe = new MOEValidator($this->student, 'M', MOECodeSets::$schools[1234]);
 		$valid = $moe->check_59();
 		$this->assertSame($valid, 'true');
 
 	}
 	public function testSubject9(){
 
-		$moe = new MOEValidator(MOECodeSets::$students[353], 'M', MOECodeSets::$schools[1234]);
+		$moe = new MOEValidator($this->student, 'M', MOECodeSets::$schools[1234]);
 		$valid = $moe->check_63();
 		$this->assertSame($valid, 'true');
 
@@ -504,42 +375,42 @@ class validator_1_PERSON_Test extends PHPUnit_Framework_TestCase {
 
 	public function testSubject10(){
 
-		$moe = new MOEValidator(MOECodeSets::$students[353], 'M', MOECodeSets::$schools[1234]);
+		$moe = new MOEValidator($this->student, 'M', MOECodeSets::$schools[1234]);
 		$valid = $moe->check_67();
 		$this->assertSame($valid, 'true');
 
 	}
 	public function testSubject11(){
 
-		$moe = new MOEValidator(MOECodeSets::$students[353], 'M', MOECodeSets::$schools[1234]);
+		$moe = new MOEValidator($this->student, 'M', MOECodeSets::$schools[1234]);
 		$valid = $moe->check_71();
 		$this->assertSame($valid, 'true');
 
 	}
 	public function testSubject12(){
 
-		$moe = new MOEValidator(MOECodeSets::$students[353], 'M', MOECodeSets::$schools[1234]);
+		$moe = new MOEValidator($this->student, 'M', MOECodeSets::$schools[1234]);
 		$valid = $moe->check_75();
 		$this->assertSame($valid, 'true');
 
 	}
 	public function testSubject13(){
 
-		$moe = new MOEValidator(MOECodeSets::$students[353], 'M', MOECodeSets::$schools[1234]);
+		$moe = new MOEValidator($this->student, 'M', MOECodeSets::$schools[1234]);
 		$valid = $moe->check_79();
 		$this->assertSame($valid, 'true');
 
 	}
 	public function testSubject14(){
 
-		$moe = new MOEValidator(MOECodeSets::$students[353], 'M', MOECodeSets::$schools[1234]);
+		$moe = new MOEValidator($this->student, 'M', MOECodeSets::$schools[1234]);
 		$valid = $moe->check_83();
 		$this->assertSame($valid, 'true');
 
 	}
 	public function testSubject15(){
 
-		$moe = new MOEValidator(MOECodeSets::$students[353], 'M', MOECodeSets::$schools[1234]);
+		$moe = new MOEValidator($this->student, 'M', MOECodeSets::$schools[1234]);
 		$valid = $moe->check_87();
 		$this->assertSame($valid, 'true');
 
@@ -547,7 +418,7 @@ class validator_1_PERSON_Test extends PHPUnit_Framework_TestCase {
 
 	public function testSubject1Hours(){
 
-		$moe = new MOEValidator(MOECodeSets::$students[353], 'J', MOECodeSets::$schools[1234]);
+		$moe = new MOEValidator($this->student, 'J', MOECodeSets::$schools[1234]);
 		$valid = $moe->check_33();
 		$this->assertSame($valid, 'true');
 
@@ -555,7 +426,7 @@ class validator_1_PERSON_Test extends PHPUnit_Framework_TestCase {
 
 	public function testSubject2Hours(){
 
-		$moe = new MOEValidator(MOECodeSets::$students[353], 'J', MOECodeSets::$schools[1234]);
+		$moe = new MOEValidator($this->student, 'J', MOECodeSets::$schools[1234]);
 		$valid = $moe->check_37();
 		$this->assertSame($valid, 'true');
 
@@ -563,7 +434,7 @@ class validator_1_PERSON_Test extends PHPUnit_Framework_TestCase {
 	}
 	public function testSubject1Level(){
 
-		$moe = new MOEValidator(MOECodeSets::$students[353], 'J', MOECodeSets::$schools[1234]);
+		$moe = new MOEValidator($this->student, 'J', MOECodeSets::$schools[1234]);
 		$valid = $moe->check_34();
 		$this->assertSame($valid, 'true');
 		
@@ -572,7 +443,7 @@ class validator_1_PERSON_Test extends PHPUnit_Framework_TestCase {
 
 	public function testNONNQF(){
 
-		$moe = new MOEValidator(MOECodeSets::$students[353], 'J', MOECodeSets::$schools[1234]);
+		$moe = new MOEValidator($this->student, 'J', MOECodeSets::$schools[1234]);
 		$valid = $moe->check_92();
 		$this->assertSame($valid, 'true');
 		
@@ -581,7 +452,7 @@ class validator_1_PERSON_Test extends PHPUnit_Framework_TestCase {
 
 	public function testUniversityEntrance(){
 
-		$moe = new MOEValidator(MOECodeSets::$students[353], 'J', MOECodeSets::$schools[1234]);
+		$moe = new MOEValidator($this->student, 'J', MOECodeSets::$schools[1234]);
 		$valid = $moe->check_93();
 		$this->assertSame($valid, 'true');
 		
@@ -590,7 +461,7 @@ class validator_1_PERSON_Test extends PHPUnit_Framework_TestCase {
 
 	public function testExchangeScheme(){
 
-		$moe = new MOEValidator(MOECodeSets::$students[353], 'J', MOECodeSets::$schools[1234]);
+		$moe = new MOEValidator($this->student, 'J', MOECodeSets::$schools[1234]);
 		$valid = $moe->check_94();
 		$this->assertSame($valid, 'true');
 		
@@ -599,7 +470,7 @@ class validator_1_PERSON_Test extends PHPUnit_Framework_TestCase {
 
 	public function testBoardingStatus(){
 
-		$moe = new MOEValidator(MOECodeSets::$students[353], 'J', MOECodeSets::$schools[1234]);
+		$moe = new MOEValidator($this->student, 'J', MOECodeSets::$schools[1234]);
 		$valid = $moe->check_95();
 		$this->assertSame($valid, 'true');
 		
@@ -607,7 +478,7 @@ class validator_1_PERSON_Test extends PHPUnit_Framework_TestCase {
 	}
 	public function testAddress1(){
 
-		$moe = new MOEValidator(MOECodeSets::$students[353], 'J', MOECodeSets::$schools[1234]);
+		$moe = new MOEValidator($this->student, 'J', MOECodeSets::$schools[1234]);
 		$valid = $moe->check_96();
 		$this->assertSame($valid, 'true');
 		
@@ -616,7 +487,7 @@ class validator_1_PERSON_Test extends PHPUnit_Framework_TestCase {
 
 	public function testAddress2(){
 
-		$moe = new MOEValidator(MOECodeSets::$students[353], 'J', MOECodeSets::$schools[1234]);
+		$moe = new MOEValidator($this->student, 'J', MOECodeSets::$schools[1234]);
 		$valid = $moe->check_97();
 		$this->assertSame($valid, 'true');
 		
@@ -625,7 +496,7 @@ class validator_1_PERSON_Test extends PHPUnit_Framework_TestCase {
 
 	public function testAddress3(){
 
-		$moe = new MOEValidator(MOECodeSets::$students[353], 'J', MOECodeSets::$schools[1234]);
+		$moe = new MOEValidator($this->student, 'J', MOECodeSets::$schools[1234]);
 		$valid = $moe->check_98();
 		$this->assertSame($valid, 'true');
 		
@@ -634,7 +505,7 @@ class validator_1_PERSON_Test extends PHPUnit_Framework_TestCase {
 
 	public function testAddress4(){
 
-		$moe = new MOEValidator(MOECodeSets::$students[353], 'M', MOECodeSets::$schools[1234]);
+		$moe = new MOEValidator($this->student, 'M', MOECodeSets::$schools[1234]);
 		$valid = $moe->check_99();
 		$this->assertSame($valid, 'true');
 		
@@ -643,7 +514,7 @@ class validator_1_PERSON_Test extends PHPUnit_Framework_TestCase {
 
 	public function testEligibilityCriteria(){
 
-		$moe = new MOEValidator(MOECodeSets::$students[353], 'M', MOECodeSets::$schools[1234]);
+		$moe = new MOEValidator($this->student, 'M', MOECodeSets::$schools[1234]);
 		$valid = $moe->check_100();
 		$this->assertSame($valid, 'true');
 		
@@ -652,7 +523,7 @@ class validator_1_PERSON_Test extends PHPUnit_Framework_TestCase {
 
 		public function testVerificationDocuments(){
 
-		$moe = new MOEValidator(MOECodeSets::$students[353], 'M', MOECodeSets::$schools[1234]);
+		$moe = new MOEValidator($this->student, 'M', MOECodeSets::$schools[1234]);
 		$valid = $moe->check_101();
 		$this->assertSame($valid, 'true');
 		
@@ -661,7 +532,7 @@ class validator_1_PERSON_Test extends PHPUnit_Framework_TestCase {
 
 	public function testVerificationSerialNumber(){
 
-		$moe = new MOEValidator(MOECodeSets::$students[353], 'M', MOECodeSets::$schools[1234]);
+		$moe = new MOEValidator($this->student, 'M', MOECodeSets::$schools[1234]);
 		$valid = $moe->check_102();
 		$this->assertSame($valid, 'true');
 		
@@ -670,7 +541,7 @@ class validator_1_PERSON_Test extends PHPUnit_Framework_TestCase {
 
 	public function testCurrentYearLevel(){
 
-		$moe = new MOEValidator(MOECodeSets::$students[353], 'M', MOECodeSets::$schools[1234]);
+		$moe = new MOEValidator($this->student, 'M', MOECodeSets::$schools[1234]);
 		$valid = $moe->check_103();
 		$this->assertSame($valid, 'true');
 		
@@ -679,7 +550,7 @@ class validator_1_PERSON_Test extends PHPUnit_Framework_TestCase {
 
 	public function testPostSchoolActivity(){
 
-		$moe = new MOEValidator(MOECodeSets::$students[353], 'M', MOECodeSets::$schools[1234]);
+		$moe = new MOEValidator($this->student, 'M', MOECodeSets::$schools[1234]);
 		$valid = $moe->check_104();
 		$this->assertSame($valid, 'true');
 		
@@ -688,7 +559,7 @@ class validator_1_PERSON_Test extends PHPUnit_Framework_TestCase {
 
 	public function testPrivacy(){
 
-		$moe = new MOEValidator(MOECodeSets::$students[353], 'M', MOECodeSets::$schools[1234]);
+		$moe = new MOEValidator($this->student, 'M', MOECodeSets::$schools[1234]);
 		$valid = $moe->check_105();
 		$this->assertSame($valid, 'true');
 		
