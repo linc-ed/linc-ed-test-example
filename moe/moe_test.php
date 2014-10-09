@@ -172,11 +172,21 @@ class MOECodes {
 				);
 
 
-	
-public function countryCodes(){
-	
+public static $reasons = array(
 
-$codes = array (
+'S' =>'Transferred to another school in New Zealand',
+'H' =>'Transferring to home-schooling',
+'O' =>'Gone Overseas',
+'D'=>'Deceased',
+'X'=>'Expulsion',
+'L'=>'End of Schooling',
+'E'=>'Granted Early Exemption (applies to those <16yrs old)',
+'K'=> 'Exclusion (applies to those <16yrs old)',
+'C'=>'Continuous Absence',
+'J'=>'Eligibility Expired'
+	);
+	
+public static $countryCodes = array (
 "AFG"=>"Afghanistan",
 "ALB"=>"Albania",
 "DZA"=>"Algeria",
@@ -375,9 +385,7 @@ $codes = array (
 "ZWE"=>"Zimbabwe",
 );	
 
-return $codes;
 	
-}
 
 public function checkKey($value, $array){
 	
@@ -720,91 +728,86 @@ public function subjectCodes(){
 	
 }
 
-public function NQF_codes(){
+public static $NQF_codes =array(
+	'56'=>array ('314'=>
+'30+ Credits at Level 3 or above'),
 
-$codes = array();
-
-$codes[56]=array ('314'=>
-'30+ Credits at Level 3 or above');
-
-$codes[55] = array('214'=>
-'30+ Credits at Level 2 or above');
-$codes[54] = array(
+'55' =>array('214'=>
+'30+ Credits at Level 2 or above'),
+'54' =>array(
 '128'=>
-'40+ Credits at any Level including Level 1 literacy & numeracy credits');
-$code[53]= array(
+'40+ Credits at any Level including Level 1 literacy & numeracy credits'),
+'53'=>array(
 '126'=>
-'40+ Credits at any Level without Level 1 literacy & numeracy credits');
-$codes[52]= array(
+'40+ Credits at any Level without Level 1 literacy & numeracy credits'),
+'52'=>array(
 '116'=>
-'14-39 Credits at any Level including Level 1 literacy & numeracy credits');
-$codes[51]= array(
+'14-39 Credits at any Level including Level 1 literacy & numeracy credits'),
+'51'=>array(
 '114'=>
-'14-39 Credits at any Level without Level 1 literacy & numeracy credits');
-$codes[43]= array(
+'14-39 Credits at any Level without Level 1 literacy & numeracy credits'),
+'43'=>array(
 '402'=>
-'National Certificate at Level 4');
-$codes[40]= array(
+'National Certificate at Level 4'),
+'40'=>array(
 '400'=>
-'NZ Scholarship award (3 or more scholarship subjects)');
-$codes[37]= array(
+'NZ Scholarship award (3 or more scholarship subjects)'),
+'37'=>array(
 '345'=>
-'NCEA Level 3 (with Excellence)');
-$codes[36]= array(
+'NCEA Level 3 (with Excellence)'),
+'36'=>array(
 '344'=>
-'NCEA Level 3 (with Merit)');
-$codes[35]= array(
+'NCEA Level 3 (with Merit)'),
+'35'=>array(
 '343'=>
-'NCEA Level 3 (Achieved)');
-$codes[34]= array(
+'NCEA Level 3 (Achieved)'),
+'34'=>array(
 '342'=>
-'NCEA Level 3');
-$codes[33]= array(
+'NCEA Level 3'),
+'33'=>array(
 '340'=>
-'Other Level 3 NQF Qualification');
-$codes[30]= array(
+'Other Level 3 NQF Qualification'),
+'30'=>array(
 '106'=>
-'1-13 Credits at Level 3');
-$codes[27]= array('245'=>
-'NCEA Level 2 (with Excellence)');
-$codes[26]= array(
+'1-13 Credits at Level 3'),
+'27'=>array('245'=>
+'NCEA Level 2 (with Excellence)'),
+'26'=>array(
 '244'=>
-'NCEA Level 2 (with Merit)');
-$codes[25]= array(
+'NCEA Level 2 (with Merit)'),
+'25'=>array(
 '243'=>
-'NCEA Level 2 (Achieved)');
-$codes[24]= array(
+'NCEA Level 2 (Achieved)'),
+'24'=>array(
 '242'=>
-'NCEA Level 2');
-$codes[20]= array(
+'NCEA Level 2'),
+'20'=>array(
 '104'=>
-'1-13 Credits at Level 2');
-$codes[17]= array(
+'1-13 Credits at Level 2'),
+'17'=>array(
 '145'=>
-'NCEA Level 1 (with Excellence)');
-$codes[16]= array(
+'NCEA Level 1 (with Excellence)'),
+'16'=>array(
 '144'=>
-'NCEA Level 1 (with Merit)');
-$codes[15]= array(
+'NCEA Level 1 (with Merit)'),
+'15'=>array(
 '143'=>
-'NCEA Level 1 (Achieved)');
-$codes[14]= array(
+'NCEA Level 1 (Achieved)'),
+'14'=>array(
 '142'=>
-'NCEA Level 1');
-$codes[13]= array( '140'=>
-'Other Level 1 NQF qualification');
-$codes[10]= array(
+'NCEA Level 1'),
+'13'=>array( '140'=>
+'Other Level 1 NQF qualification'),
+'10'=>array(
 '102'=>
-'1-13 Credits at Level 1');
-$codes[04]= array(
+'1-13 Credits at Level 1'),
+'04'=>array(
 '240'=>
-'Other Level 2 NQF Qualification');
-$codes[00]= array(
+'Other Level 2 NQF Qualification'),
+'00'=>array(
 '100'=>
-'No Formal Attainment');
-	
-	return  $codes;
-}
+'No Formal Attainment'));
+
 
 public function NON_NQF_codes(){
 	
@@ -827,9 +830,7 @@ public function NON_NQF_codes(){
 	return $codes;
 }
 
-public function ECE_codes(){
-
-	$codes = array ("EKR"=>"Attended Kohanga Reo", 
+public static $ECE_codes = array ("EKR"=>"Attended Kohanga Reo", 
 	"EPC"=> "Attended Playcentre",
 	"EKE"=> "Attended Kindergarten or Education & Care",
 	"EHB"=> "Attended Home Based Service",
@@ -840,9 +841,6 @@ public function ECE_codes(){
 	"ENA"=> "Did not attend",
 	"EUN"=> "Unable to establish if attended or not");	
 	
-	return $codes;
-	
-}
 
 public static $schoolCodes = array 
 (

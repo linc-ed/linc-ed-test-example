@@ -115,14 +115,14 @@ private function validateDate($date, $format = 'Y-m-d')
     return $d && $d->format($format) == $date;
 }
 	
-public function returnAgeOnDate($date){
+public function returnAgeOnDate($checkdate){
 		
 		$date = explode("-", $this->dob);
 		$year =  $date[0];
 		$month = $date[1];
 		$day = $date[2];
 		
-		$date1 = explode("-", $date);
+		$date1 = explode("-", $checkdate);
 		$year1 =  $date1[0];
 		$month1 = $date1[1];
 		$day1 = $date1[2];
@@ -1719,7 +1719,7 @@ if ($this->moe[$number]['valid']=='false'){
 		$this->moe[$number]['input_label'] =  '<label  id="'.$this->moe[$number]['LINC Name'].$this->person_id.'_label" for="'.$this->moe[$number]['LINC Name'] .$this->person_id.'"><span class="valid"><i class="font-'.$this->moe[$number]['ICON'].'"  ></i> '.$this->moe[$number]['Field Label'].': <i class="font-checkmark-3"  ></i></span></label>';
 			
 		}
-		
+
 $this->moe[$number]['input_field'] = '<ul data-role="listview" data-inset="true" data-filter="true" data-filter-reveal="true" data-filter-placeholder="'.$array[$this->moe[$number]['value']]['name'].'" name="select-'.$this->moe[$number]['LINC Name'].'" id="select-'.$this->moe[$number]['LINC Name'].$this->person_id.'" data-native-menu="false" data-theme="b" data-inline="true" value="'.$array[$this->moe[$number]['value']]['name'].'">';
 					
 							   foreach ($array as $key=> $code){
@@ -1831,8 +1831,8 @@ public function check_21(){
 $data = $this->mappedData[$this->moe[$number]['LINC Name']];
 
 
-$array = $this->codes->countryCodes();
-if ($this->codes->checkKey($data, $this->codes->countryCodes())){
+$array = MOECodes::$countryCodes;
+if ($this->codes->checkKey($data, $array)){
 	//If TYPE in [FF] and COUNTRY of CITIZENSHIP in [NZL, AUS] and [Rmonth in [M,J] or Funding Year Level >=9]
 	if ($this->mappedData['TYPE'] == "FF" && in_array ($data, array ( "NZL", "AUS")) && (in_array($this->rmonth, array('M', 'J'))|| $this->mappedData['funding_year_level'] >=9) ){ //INCOMPLETE
 	$this->moe[$number]['valid'] = 'false';
@@ -2039,7 +2039,7 @@ $data = $this->mappedData[$this->moe[$number]['LINC Name']];
 
 // Value not in [Null, A, B, C, D, E, F, G, H] and [Rmonth in [M,J] or Funding Year Level >=9]
 
-if (!in_array($data, array('[Null]', 'A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'N/A')) && (in_array($this->rmonth, array('M', 'J'))|| $this->mappedData['funding_year_level'] >=9) ){
+if (!in_array($data, array('[Null]', 'A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'N/A', '')) && (in_array($this->rmonth, array('M', 'J'))|| $this->mappedData['funding_year_level'] >=9) ){
 	
 	$this->moe[$number]['valid'] = 'false';
 	$this->moe[$number]['value'] = '231 - Māori-medium / Māori language learning code is incorrect';
@@ -2071,9 +2071,22 @@ if ($this->moe[$number]['valid']=='false'){
 			
 		}
 		
-
-	
-$this->moe[$number]['input_field'] = '<input type="text" class="'.$this->moe[$number]['Content Type'].'" data-arraypos="'.$this->moe[$number]['Field No'].'" name="'.$this->moe[$number]['LINC Name'].'" data-id="'.$this->person_id.'" id="'.$this->moe[$number]['LINC Name'].$this->person_id.'" value="'.$this->moe[$number]['value'].'" data-theme="'.$theme.'" placeholder="'.$this->moe[$number]['Placeholder'].'"/>';
+$this->moe[$number]['input_field'] = '<select name="select-'.$this->moe[$number]['LINC Name'].'" id="select-'.$this->moe[$number]['LINC Name'].$this->person_id.'" data-native-menu="false" data-inline="true" data-icon="grid" data-theme="b" data-iconpos="left" class="optionMenu">';
+					
+			$this->moe[$number]['input_field'] .= '<option>'.$this->moe[$number]['Description'].'</option>';
+					 $array = array('[Null]'=>'Student not involved in Māori Language Learning', 'A'=>'Student is learning Taha Māori', 'B'=>'Student is learning Te Reo Māori as a separate subject for less than 3 hours per week', 'C'=>'Student is learning Te Reo Māori as a separate subject for at least 3 hours per week', 'D'=>'Curriculum is taught in Māori 12% - 30% of total time', 'E'=>'Curriculum is taught in Māori 31 – 50% of total time', 'F'=>'Curriculum is taught in Māori 51 – 80% of total time', 'G'=>'Curriculum is taught in Māori 81 – 99% of total time', 'H'=>'Curriculum is taught in Māori 100% of time,');
+							   foreach ($array as $key=> $code){
+									   
+									$this->moe[$number]['input_field'] .= '<option ';
+										if ($key == $this->moe[$number]['value'] ){
+										
+									$this->moe[$number]['input_field'] .= 'selected=selected';	
+										}
+										
+			$this->moe[$number]['input_field'].= ' value="'.$key.'" data-arraypos="'.$this->moe[$number]['Field No'].'" data-id="'.$this->person_id.'" data-value="'.$key.'" name="'.$this->moe[$number]['LINC Name'].'" data-id="'.$this->person_id.'">'.$code.'</option>';	
+								}
+							
+			$this->moe[$number]['input_field'] .= '</select>';	
 
 return $this->moe[$number]['valid'];
 }
@@ -2148,7 +2161,7 @@ public function check_26(){
 //Mandatory for secondary aged students (RE, FF, TPRE, TPREOM) and Adult (AD, TPAD, TPRAE, RA, TPRAOM) students who are leaving the NZ schooling sector and where REASON in [L, E, O, X, C]
 if ($this->mappedData['funding_year_level'] >= 9){
 
-				$code = $this->codes->checkKey($data, $this->codes->NQF_codes());
+				$code = $this->codes->checkKey($data, MOECodes::$NQF_codes);
 					
 					if($code){
 												$this->moe[$number]['valid'] = 'true';
@@ -2161,6 +2174,24 @@ if ($this->mappedData['funding_year_level'] >= 9){
 											$this->moe[$number]['valid'] = 'false';
 											$this->moe[$number]['value'] = "Incorrect code for NQF Qual";
 							}	
+
+	
+$this->moe[$number]['input_field'] = '<select name="select-'.$this->moe[$number]['LINC Name'].'" id="select-'.$this->moe[$number]['LINC Name'].$this->person_id.'" data-native-menu="false" data-inline="true" data-icon="grid" data-theme="b" data-iconpos="left" class="optionMenu">';
+					
+			$this->moe[$number]['input_field'] .= '<option>'.$this->moe[$number]['Description'].'</option>';
+					 $array = MOECodes::$NQF_codes;
+							   foreach ($array as $key=> $code){
+									   
+									$this->moe[$number]['input_field'] .= '<option ';
+										if ($key == $this->moe[$number]['value'] ){
+										
+									$this->moe[$number]['input_field'] .= 'selected=selected';	
+										}
+										
+			$this->moe[$number]['input_field'].= ' value="'.$key.'" data-arraypos="'.$this->moe[$number]['Field No'].'" data-id="'.$this->person_id.'" data-value="'.$key.'" name="'.$this->moe[$number]['LINC Name'].'" data-id="'.$this->person_id.'">'.$code.'</option>';	
+								}
+							
+			$this->moe[$number]['input_field'] .= '</select>';	
 
 			return $this->moe[$number]['valid'];
 			
@@ -2175,7 +2206,7 @@ if ($this->mappedData['funding_year_level'] >= 9){
 
 public function check_27(){
 
-if ($this->mappedData['vacated']==1){	
+
 	
 			$this->moe[27]=array("Content Type"=> 'metacontent', "Field Name"=>"REASON", "LINC Name"=>"REASON", "Field No"=>"27", "Description"=>"Student's reason for leaving their present school","Mandatory"=>"where LAST ATTENDANCE DATE is populated","Type"=>"Controlled value code list"
 		, 'valid'=>'',
@@ -2184,7 +2215,7 @@ if ($this->mappedData['vacated']==1){
 'input_label'=>''
 		); 
 		
-		if ($this->person){
+	if ($this->mappedData['vacated']==1){		
 		$number = 27;
 		$age = $this->returnAgeOnDate(date('Y-m-d', strtotime($this->mappedData['LAST ATTENDANCE'])));
 		$data = $this->mappedData[$this->moe[$number]['LINC Name']];
@@ -2219,8 +2250,8 @@ if ($this->mappedData['vacated']==1){
 			$this->moe[$number]['valid'] = 'true';
 			$this->moe[$number]['value'] = $data;
 		}
-}
-return $this->moe[$number]['valid'];
+
+		return $this->moe[$number]['valid'];
 }
 else {
 	return 'true'; //return true for testing as this field is not required as student has not left.
@@ -2246,7 +2277,7 @@ $number = 28;
 
 
 
-$code = $this->codes->checkKey($data, $this->codes->ECE_codes());
+$code = $this->codes->checkKey($data, MOECodes::$ECE_codes);
 
 if (!$code){
 
