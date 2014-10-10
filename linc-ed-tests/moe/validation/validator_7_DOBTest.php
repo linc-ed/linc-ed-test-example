@@ -4,7 +4,7 @@
  * Field number: 7
  * Format YYYYMMDD, mandatory
  */
-error_reporting(E_ALL);
+//error_reporting(E_ALL);
 date_default_timezone_set('Pacific/Auckland');
 require_once(dirname(__FILE__).'/../../../moe/MOEValidateUpdated.php');
 require_once(dirname(__FILE__).'/../../../moe/moe_test.php');
@@ -29,14 +29,14 @@ class validator_7_DOBTest extends PHPUnit_Framework_TestCase {
 	}
 
 	public function testDOBIsMandatory() {
-		$student['dob'] = '';
+		$this->student['dob'] = '';
 		$moe = new MOEValidator($this->student, 'M', $this->school);
 		$valid = $moe->check_7();
 		$this->assertSame($valid, 'false');
 	}
 
 	public function testBadDOBFormat() {
-		$student['dob'] = 'adfdgsd';
+		$this->student['dob'] = 'adfdgsd';
 		$moe = new MOEValidator($this->student, 'M', $this->school);
 		$valid = $moe->check_7();
 		$this->assertSame($valid, 'false');

@@ -67,23 +67,14 @@ public $mappedData;
 		
 		$this->rollCountDate == date("Y")."0701";
 		break;
-		case "E";	
-		$returnDate = date('Y')."-06-01";
 		
-		$this->rollCountDate == date("Y")."0601";
-		break;
-		case "S";	
-		$returnDate = date('Y')."-09-01";
 		
-		$this->rollCountDate == date("Y")."0901";
-		break;
+		}
 		
-
-	}		
 		// use the dob field (field number 7) to calculate age on the return date and on 1 July.
-	
+		
 		$date = explode("-", $this->dob);
-	
+		
 		$year =  $date[0];
 		$month = $date[1];
 		$day = $date[2];
@@ -146,33 +137,7 @@ public function returnAgeOnDate($checkdate){
 			
 	}
 		
-private function checkStringForIllegalCharacters($string){
 
-	 if (strpos($string, "(")>0){
-		return false;
-		}
-		else if (strpos($string, ")")>0){
-			return false;
-		}
-		else if (strpos($string, ",")>0){
-			return false;
-		}
-		else if (strpos($string, "-  ")>0){
-			return false;
-		}
-		else if (strpos($string, "  -")>0){
-			return false;
-		}
-		else if (strpos($string, "'  ")>0){
-			return false;
-		}
-		else if (strpos($string, "  '")>0){
-			return false;
-		}
-
-return true;
-
-}
 
 	
 public function validate(){
@@ -395,28 +360,22 @@ public function check_2(){
 
 $data = $this->person_id;
 
+if (!$this->test==true){
+if (!isset($data)){
+	
+	$this->moe[2]['valid'] = 'false';
+	$this->moe[2]['value'] = '602  - Student ID is missing for [Surname, First Name] '. $this->last_name.", ".$this->first_name;
+	
+	
 
-		if ($data ==''){
-			
-
-			$this->moe[2]['valid'] = 'false';
-			$this->moe[2]['value'] = '602  - Student ID is missing for [Surname, First Name] '. $this->last_name.", ".$this->first_name;
-			
-			
-
-			}
-		else {
-			if (ctype_alnum ($data)){
-			$this->moe[2]['valid'] = 'true';
-			$this->moe[2]['value'] = $data;
-			}
-			else {
-
-			$this->moe[2]['valid'] = 'false';
-			$this->moe[2]['value'] = 'Student ID can only contain Alpha-Numeric characters';
-			}				
-		}
-
+	}
+else {
+	
+	$this->moe[2]['valid'] = 'true';
+	$this->moe[2]['value'] = $data;
+		
+}
+}
 
 return $this->moe[$number]['valid'] ;
 
@@ -438,7 +397,6 @@ $data = $this->nsn;
 
 		$correct="/^\d{10}$/";
 		$missing = "/^\d{9}$/";
-
 
 			if (preg_match($correct, $data)){
 				if (ctype_digit($data)){
@@ -465,30 +423,46 @@ $data = $this->nsn;
 					
 			}
 		// If [RMonth in J] and NSN=NULL and LAST ATTENDANCE = NULL and TYPE not in [EM, NF]
-		else if (in_array($this->rmonth, array('J')) && $data=='' && $this->mappedData['LAST ATTENDANCE']=='' && !in_array($this->mappedData['TYPE'], array("EM", "NF"))){
+		else if (in_array($this->rmonth, array('J')) && is_null($data) && is_null($this->mappedData['LAST ATTENDANCE']) && !in_array($this->mappedData['TYPE'], array("EM", "NF"))){
 			
 				$this->moe[$number]['valid'] = 'false';
+			
 				$this->moe[$number]['message'] = '668 - Warning - Record missing NSN';
 		}
-		
 		else {
-
-				
-					$this->moe[$number]['valid'] = 'false';
-					$this->moe[$number]['value'] = "631  - This student's NSN is incorrect";
-
+			$this->moe[$number]['valid'] = 'false';
+			$this->moe[$number]['value'] = "631  - This student's NSN is incorrect";
 			
-		}
-
-		 if (in_array($this->mappedData['TYPE'], array("EM", "NF"))){
-
-					$this->moe[$number]['valid'] = 'true';
-					$this->moe[$number]['value'] = 'value';
-					$this->moe[$number]['message'] = "NSN is not mandatory for student type EM or NF.";
-
 		}
 //If two or more students, with LAST ATTENDANCE=NULL, and Student TYPE not in [EM, NF] have the same NSN. 	Duplicate NSN : XXXXXXXXX 
 
+if ($this->moe[$number]['valid']=='false'){
+	if ($this->moe[$number]['Mandatory']=="YES"){
+		$warning = 'warning-2';	
+	}
+	else {
+		$warning = 'warning';	
+	}
+	
+	$this->moe[$number]['input_label'] = '<label id="'.$this->moe[$number]['LINC Name'] .$this->person_id.'_label" for="'.$this->moe[$number]['LINC Name'] .$this->person_id.'"><span class="error"><i class="font-'.$this->moe[$number]['ICON'] .'"  ></i> '.$this->moe[$number]['Field Label'] .': <i class="font-'. $warning .'"  ></i></span>'.linc_popupmessage( $this->moe[$number]['LINC Name'],  $this->moe[$number]['Field Label'], $this->moe[$number]['Description']).'</label>';
+				
+		}
+		else if ($this->moe[$number]['valid']=='true'){
+
+		$this->moe[$number]['input_label'] =  '<label  id="'.$this->moe[$number]['LINC Name'].$this->person_id.'_label" for="'.$this->moe[$number]['LINC Name'] .$this->person_id.'"><span class="valid"><i class="font-'.$this->moe[$number]['ICON'].'"  ></i> '.$this->moe[$number]['Field Label'].': <i class="font-checkmark-3"  ></i></span></label>';
+			
+		}
+		if($GLOBALS['user_level']>8){
+			$disabled = '';
+	}
+	else {
+		$disabled = "disabled='disabled'";
+			
+	}
+	
+$this->moe[$number]['input_field'] = '<input '.$disabled.' type="number" class="'.$this->moe[$number]['Content Type'].'" data-arraypos="'.$this->moe[$number]['Field No'].'" name="'.$this->moe[$number]['LINC Name'].'" data-id="'.$this->person_id.'" id="'.$this->moe[$number]['LINC Name'].$this->person_id.'" value="'.$this->moe[$number]['value'].'" data-theme="'.$theme.'" placeholder="'.$this->moe[$number]['Placeholder'].'"/>';
+								
+		var_dump($this->moe[$number]);
 								
 	return $this->moe[$number]['valid'] ;							
 
@@ -511,12 +485,6 @@ if (!isset($data)|| $data==''){
 	$this->moe[$number]['valid'] = 'false';
 	$this->moe[$number]['value'] = "603 - Student ".$this->person_id." surname is missing";
 }
-else if ($this->checkStringForIllegalCharacters($data)===false){
-
-	$this->moe[$number]['valid'] = 'false';
-	$this->moe[$number]['value'] = "603 - Student surname contains illegal characters.";
-
-}
 else {
 	
 	$this->moe[$number]['valid'] = 'true';
@@ -524,7 +492,26 @@ else {
 	
 }
 
+
+if ($this->moe[$number]['valid']=='false'){
+	if ($this->moe[$number]['Mandatory']=="YES"){
+		$warning = 'warning-2';	
+	}
+	else {
+		$warning = 'warning';	
+	}
 	
+	$this->moe[$number]['input_label'] = '<label id="'.$this->moe[$number]['LINC Name'] .$this->person_id.'_label" for="'.$this->moe[$number]['LINC Name'] .$this->person_id.'"><span class="error"><i class="font-'.$this->moe[$number]['ICON'] .'"  ></i> '.$this->moe[$number]['Field Label'] .': <i class="font-'. $warning .'"  ></i></span>'.linc_popupmessage( $this->moe[$number]['LINC Name'],  $this->moe[$number]['Field Label'], $this->moe[$number]['Description']).'</label>';
+				
+		}
+		else if ($this->moe[$number]['valid']=='true'){
+
+		$this->moe[$number]['input_label'] =  '<label  id="'.$this->moe[$number]['LINC Name'].$this->person_id.'_label" for="'.$this->moe[$number]['LINC Name'] .$this->person_id.'"><span class="valid"><i class="font-'.$this->moe[$number]['ICON'].'"  ></i> '.$this->moe[$number]['Field Label'].': <i class="font-checkmark-3"  ></i></span></label>';
+			
+		}
+		
+	
+$this->moe[$number]['input_field'] = '<input type="text" class="'.$this->moe[$number]['Content Type'].'" data-arraypos="'.$this->moe[$number]['Field No'].'" name="'.$this->moe[$number]['LINC Name'].'" data-id="'.$this->person_id.'" id="'.$this->moe[$number]['LINC Name'].$this->person_id.'" value="'.$this->moe[$number]['value'].'" data-theme="" placeholder="'.$this->moe[$number]['Placeholder'].'"/>';
 
 return $this->moe[$number]['valid'] ;
 
@@ -548,13 +535,6 @@ if (!isset($data)|| $data==''){
 	$this->moe[$number]['valid'] = 'false';
 	$this->moe[$number]['value'] = "604 - Student with no first name";
 }
-
-else if ($this->checkStringForIllegalCharacters($data)===false){
-
-	$this->moe[$number]['valid'] = 'false';
-	$this->moe[$number]['value'] = "603 - Student first name contains illegal characters.";
-
-}
 else {
 	
 	$this->moe[$number]['valid'] = 'true';
@@ -562,7 +542,26 @@ else {
 	
 }
 
+if ($this->moe[$number]['valid']=='false'){
+	if ($this->moe[$number]['Mandatory']=="YES"){
+		$warning = 'warning-2';	
+	}
+	else {
+		$warning = 'warning';	
+	}
 	
+	$this->moe[$number]['input_label'] = '<label id="'.$this->moe[$number]['LINC Name'] .$this->person_id.'_label" for="'.$this->moe[$number]['LINC Name'] .$this->person_id.'"><span class="error"><i class="font-'.$this->moe[$number]['ICON'] .'"  ></i> '.$this->moe[$number]['Field Label'] .': <i class="font-'. $warning .'"  ></i></span>'.linc_popupmessage( $this->moe[$number]['LINC Name'],  $this->moe[$number]['Field Label'], $this->moe[$number]['Description']).'</label>';
+				
+		}
+		else if ($this->moe[$number]['valid']=='true'){
+
+		$this->moe[$number]['input_label'] =  '<label  id="'.$this->moe[$number]['LINC Name'].$this->person_id.'_label" for="'.$this->moe[$number]['LINC Name'] .$this->person_id.'"><span class="valid"><i class="font-'.$this->moe[$number]['ICON'].'"  ></i> '.$this->moe[$number]['Field Label'].': <i class="font-checkmark-3"  ></i></span></label>';
+			
+		}
+		
+	
+$this->moe[$number]['input_field'] = '<input type="text" class="'.$this->moe[$number]['Content Type'].'" data-arraypos="'.$this->moe[$number]['Field No'].'" name="'.$this->moe[$number]['LINC Name'].'" data-id="'.$this->person_id.'" id="'.$this->moe[$number]['LINC Name'].$this->person_id.'" value="'.$this->moe[$number]['value'].'" data-theme="'.$theme.'" placeholder="'.$this->moe[$number]['Placeholder'].'"/>';
+
 return $this->moe[$number]['valid'] ;
 
 }
@@ -582,25 +581,54 @@ array('value'=>'F', 'label'=>'Female')
 
 $data = $this->gender;
 
-if ($data == 'M'){
+if ($data == 'Male' || $data == 'M'){
 	$this->moe[$number]['valid'] = 'true';
 	$this->moe[$number]['value'] = "M";
 	
 }
-else if ( $data == 'F'){
+else if ($data == 'Female'|| $data == 'F'){
 	$this->moe[$number]['valid'] = 'true';
 	$this->moe[$number]['value'] = "F";
 		
 	
 }
-
 else {
 	
 	$this->moe[$number]['valid'] = 'false';
-	$this->moe[$number]['value'] = $data;
-	$this->moe[$number]['message'] = "101 - Gender is not M or F";
+	$this->moe[$number]['value'] = "101 - Gender is not M or F";
 	
 }
+
+if ($this->moe[$number]['valid']=='false'){
+	if ($this->moe[$number]['Mandatory']=="YES"){
+		$warning = 'warning-2';	
+	}
+	else {
+		$warning = 'warning';	
+	}
+	$this->moe[$number]['input_label'] = '<label id="'.$this->moe[$number]['LINC Name'] .$this->person_id.'_label" for="'.$this->moe[$number]['LINC Name'] .$this->person_id.'"><span class="error"><i class="font-'.$this->moe[$number]['ICON'] .'"  ></i> '.$this->moe[$number]['Field Label'] .': <i class="font-'. $warning .'"  ></i></span>'.linc_popupmessage( $this->moe[$number]['LINC Name'],  $this->moe[$number]['Field Label'], $this->moe[$number]['Description']).'</label>';
+				
+		}
+		else if ($this->moe[$number]['valid']=='true'){
+
+		$this->moe[$number]['input_label'] =  '<label  id="'.$this->moe[$number]['LINC Name'].$this->person_id.'_label" for="'.$this->moe[$number]['LINC Name'] .$this->person_id.'"><span class="valid"><i class="font-'.$this->moe[$number]['ICON'].'"  ></i> '.$this->moe[$number]['Field Label'].': <i class="font-checkmark-3"  ></i></span></label>';
+			
+		}
+		
+	$this->moe[$number]['input_field'] .= '<fieldset data-role="controlgroup"  data-theme="b" data-type="horizontal">';
+						foreach ($this->moe[$number]['options'] as $option){
+										
+			$this->moe[$number]['input_field'] .= '<input data-theme="b" data-arraypos="'.$number.'" class="radioButton" type="radio" data-id="'.$this->person_id.'" data-value="'.$option['value'].'" name="'.$this->moe[$number]['LINC Name'].'" id="radio-'.$this->moe[$number]['LINC Name'].'-'.$option['value'].'" value="'.$option['value'].'"  ';
+										if ($this->moe[$number]['value'] == $option['value']){
+										$this->moe[$number]['input_field'] .= "checked='checked'";
+										}
+					$this->moe[$number]['input_field'] .= '/>';
+					$this->moe[$number]['input_field'] .= '<label data-theme="b" for="radio-'.$this->moe[$number]['LINC Name'].'-'.$option['value'].'">'.$option ['label'].'</label>';
+					
+										
+						}
+										
+				$this->moe[$number]['input_field'] .= '</fieldset>';
 		
 	return $this->moe[$number]['valid'] ;
 
@@ -618,15 +646,21 @@ public function check_7(){
 ); 
 $data = $this->dob;
 
-if ($data!=''){
+if (isset($data)){
 	
+
+
 	$convert = date('Y-m-d', strtotime($data));
 	
-	$check = $this->validateDate($data);
+	$date = explode("-", $data);
+		$year =  $date[0];
+		$month = $date[1];
+		$day = $date[2];
+		$check = checkdate($month, $day, $year);
 	if ($check){
 
 		if( strtotime($data) > strtotime('now') ) {
-			$this->moe[$number]['valid'] = 'false';
+				$this->moe[$number]['valid'] = 'false';
             $this->moe[$number]['value'] = 'Date of Birth cannot be later than today';
 		}
 		else {
@@ -648,7 +682,31 @@ else {
 	
 }
 
+if ($this->moe[$number]['valid']=='false'){
+	if ($this->moe[$number]['Mandatory']=="YES"){
+		$warning = 'warning-2';	
+	}
+	else {
+		$warning = 'warning';	
+	}
 	
+	$this->moe[$number]['input_label'] = '<label id="'.$this->moe[$number]['LINC Name'] .$this->person_id.'_label" for="'.$this->moe[$number]['LINC Name'] .$this->person_id.'"><span class="error"><i class="font-'.$this->moe[$number]['ICON'] .'"  ></i> '.$this->moe[$number]['Field Label'] .': <i class="font-'. $warning .'"  ></i></span>'.linc_popupmessage( $this->moe[$number]['LINC Name'],  $this->moe[$number]['Field Label'], $this->moe[$number]['Description']).'</label>';
+				
+		}
+		else if ($this->moe[$number]['valid']=='true'){
+
+		$this->moe[$number]['input_label'] =  '<label  id="'.$this->moe[$number]['LINC Name'].$this->person_id.'_label" for="'.$this->moe[$number]['LINC Name'] .$this->person_id.'"><span class="valid"><i class="font-'.$this->moe[$number]['ICON'].'"  ></i> '.$this->moe[$number]['Field Label'].': <i class="font-checkmark-3"  ></i></span></label>';
+			
+		}
+		
+		 if ($this->moe[$number]['value']){  
+								 $d = date('Y-m-d', strtotime($this->moe[$number]['value']));
+								 } else { 
+								 $d='';
+								 };
+		
+	$this->moe[$number]['input_field'] .= '<input class="'.$this->moe[$number]['Content Type'].'" name="'.$this->moe[$number]['LINC Name'].'"  type="date" data-role="datebox" value="'.$d.'" data-arraypos="'.$this->moe[$number]['Field No'].'" data-id="'.$this->person_id.'" id="'.$this->moe[$number]['LINC Name'].$this->person_id.'" >';
+											
 								
 								
 		return $this->moe[$number]['valid'] ;		
@@ -668,8 +726,7 @@ public function check_8(){
 
 $data = $this->start_date;
 
-$check = $this->validateDate($data);
-	if ($check){
+
 
 $convert = date('Ymd', strtotime($data));
 	
@@ -677,10 +734,9 @@ $convert = date('Ymd', strtotime($data));
 			
 				 if (preg_match("/^\d{8}$/", $convert)) {
 					 //IF FIRST ATTENDANCE is < FIRST SCHOOLING
-					 	if ($convert < date('Ymd', strtotime($this->mappedData['first_schooling']))){
+					 	if (date('Ymd', strtotime($data)) < date('Ymd', strtotime($this->mappedData['FIRST SCHOOLING']))){
 							$this->moe[$number]['valid'] = 'false';
-							$this->moe[$number]['value'] = $data;
-							$this->moe[$number]['message'] = "642 - Student cannot have a first attendance date before first day at any school";
+							$this->moe[$number]['value'] = "642 - Student cannot have a first attendance date before first day at any school";
 						}
 						else {
 							$this->moe[$number]['valid'] = 'true';
@@ -690,8 +746,7 @@ $convert = date('Ymd', strtotime($data));
 						else {
 							
 							$this->moe[$number]['valid'] = 'false';
-							$this->moe[$number]['value'] = $data;
-							$this->moe[$number]['message'] = "122 - Format of date first attended this school is incorrect";
+							$this->moe[$number]['value'] = "122 - Format of date first attended this school is incorrect";
 							
 						}
 					
@@ -699,18 +754,34 @@ $convert = date('Ymd', strtotime($data));
 			else {
 				
 				$this->moe[$number]['valid'] = 'false';
-				$this->moe[$number]['value'] = $data;
-				$this->moe[$number]['message'] = "121 - Date first attended at this school is missing";
+				$this->moe[$number]['value'] = "121 - Date first attended at this school is missing";
 				
 		}
+		
+if ($this->moe[$number]['valid']=='false'){
+	if ($this->moe[$number]['Mandatory']=="YES"){
+		$warning = 'warning-2';	
 	}
 	else {
-			$this->moe[$number]['valid'] = 'false';
-			$this->moe[$number]['value'] = $data;
-			$this->moe[$number]['message'] = "122 - Format of date first attended this school is incorrect";
-
+		$warning = 'warning';	
 	}
+	
+	$this->moe[$number]['input_label'] = '<label id="'.$this->moe[$number]['LINC Name'] .$this->person_id.'_label" for="'.$this->moe[$number]['LINC Name'] .$this->person_id.'"><span class="error"><i class="font-'.$this->moe[$number]['ICON'] .'"  ></i> '.$this->moe[$number]['Field Label'] .': <i class="font-'. $warning .'"  ></i></span>'.linc_popupmessage( $this->moe[$number]['LINC Name'],  $this->moe[$number]['Field Label'], $this->moe[$number]['Description']).'</label>';
+				
+		}
+		else if ($this->moe[$number]['valid']=='true'){
 
+		$this->moe[$number]['input_label'] =  '<label  id="'.$this->moe[$number]['LINC Name'].$this->person_id.'_label" for="'.$this->moe[$number]['LINC Name'] .$this->person_id.'"><span class="valid"><i class="font-'.$this->moe[$number]['ICON'].'"  ></i> '.$this->moe[$number]['Field Label'].': <i class="font-checkmark-3"  ></i></span></label>';
+			
+		}
+		
+		 if ($this->moe[$number]['value']){  
+								 $d = date('Y-m-d', strtotime($this->moe[$number]['value']));
+								 } else { 
+								 $d='';
+								 };
+		
+	$this->moe[$number]['input_field'] .= '<input class="'.$this->moe[$number]['Content Type'].'" name="'.$this->moe[$number]['LINC Name'].'"  type="date" data-role="datebox" value="'.$d.'" data-arraypos="'.$this->moe[$number]['Field No'].'" data-id="'.$this->person_id.'" id="'.$this->moe[$number]['LINC Name'].$this->person_id.'" >';
 											
 				
 return $this->moe[$number]['valid'] ;		
@@ -732,13 +803,6 @@ public function check_9(){
 
 //If School Type in [20, 21, 32] and FIRST SCHOOLING=<DOB + 4.9 years and [Rmonth in [M,J] or FUNDING YEAR LEVEL >=9] 132 - Student started before age 5
 
-if ($this->mappedData['funding_year_level']>=10){
-								$this->moe[$number]['valid'] = 'true';
-								$this->moe[$number]['value'] = $data;
-								$this->moe[$number]['message'] = "Start date is not required for students in year 10 or above.";
-				}	
-				else {
-
 if (in_array($this->school_type, array(20,21,32)) ){
 
 $data = $this->mappedData['first_schooling'];
@@ -759,14 +823,12 @@ $convert = date('Ymd', strtotime($data));
 				
 				 if (preg_match("/^\d{8}$/", $convert)) {
 					 
-					 $checkAgetoStart = $this->returnAgeToStart($this->dob, $data);
+					 $checkAgetoStart = $this->returnAgeToStart($this->DoB, $data);
 					
 							$weeks = round(($checkAgetoStart)/7,0); //total weeks since started school.
-							
 							if ($weeks < 254){
-
 								$this->moe[$number]['valid'] = 'false';
-								$this->moe[$number]['value'] = "132 - Student started before age 5";
+							$this->moe[$number]['value'] = "132 - Student started before age 5";
 								
 							}
 							else {
@@ -784,8 +846,6 @@ $convert = date('Ymd', strtotime($data));
 						}
 				}
 			else {
-
-				
 				
 				$this->moe[$number]['valid'] = 'false';
 				$this->moe[$number]['value'] = date('Ymd', strtotime($data));
@@ -793,19 +853,39 @@ $convert = date('Ymd', strtotime($data));
 				
 		}
 	}
+if ($this->moe[$number]['valid']=='false'){
+	if ($this->moe[$number]['Mandatory']=="YES"){
+		$warning = 'warning-2';	
+	}
+	else {
+		$warning = 'warning';	
+	}
+	
+	$this->moe[$number]['input_label'] = '<label id="'.$this->moe[$number]['LINC Name'] .$this->person_id.'_label" for="'.$this->moe[$number]['LINC Name'] .$this->person_id.'"><span class="error"><i class="font-'.$this->moe[$number]['ICON'] .'"  ></i> '.$this->moe[$number]['Field Label'] .': <i class="font-'. $warning .'"  ></i></span>'.linc_popupmessage( $this->moe[$number]['LINC Name'],  $this->moe[$number]['Field Label'], $this->moe[$number]['Description']).'</label>';
+				
+		}
+		else if ($this->moe[$number]['valid']=='true'){
 
+		$this->moe[$number]['input_label'] =  '<label  id="'.$this->moe[$number]['LINC Name'].$this->person_id.'_label" for="'.$this->moe[$number]['LINC Name'] .$this->person_id.'"><span class="valid"><i class="font-'.$this->moe[$number]['ICON'].'"  ></i> '.$this->moe[$number]['Field Label'].': <i class="font-checkmark-3"  ></i></span></label>';
 			
-			return $this->moe[$number]['valid'] ;
+		}
+		
+		 if ($this->moe[$number]['value']){  
+								 $d = date('Y-m-d', strtotime($this->moe[$number]['value']));
+								 } else { 
+								 $d='';
+								 };
+		
+	$this->moe[$number]['input_field'] .= '<input class="'.$this->moe[$number]['Content Type'].'" name="'.$this->moe[$number]['LINC Name'].'"  type="date" data-role="datebox" value="'.$d.'" data-arraypos="'.$this->moe[$number]['Field No'].'" data-id="'.$this->person_id.'" id="'.$this->moe[$number]['LINC Name'].$this->person_id.'" >';
+											
+				
+return $this->moe[$number]['valid'] ;
 	}
 	else {
 
 		return 'true'; // school type indicates that this field is not required.
 	}
 
-}
-
-	
-			return $this->moe[$number]['valid'] ;
 	
 	
 
@@ -822,54 +902,63 @@ public function check_10(){
 ); 
 $data = $this->mappedData['ethnic_origin'];
 $array = $this->codes->ethnicityCodes();
-
-if ($this->mappedData['funding_year_level']>=10){
+if ($data >0){	
+		
+		if (in_array($data, array(111,121,122, 123 ,124 ,125 ,126, 127,128,129,211,311,321,331,341,351,361,371,411, 412,413,414,421,431,441,442,443,444,511,521, 531,611,999))){
+			
 			$this->moe[$number]['valid'] = 'true';
 			$this->moe[$number]['value'] = $data;
-			$this->moe[$number]['message'] = 'Ethnicity code is not mandatory for students in year 10 or above.';
-
-}
-else if (in_array($this->rmonth, array('E'))){
-$this->moe[$number]['valid'] = 'true';
-$this->moe[$number]['value'] = $data;
-			$this->moe[$number]['message'] = 'Ethnicity code is not mandatory for this period.';
-
-}
-
-else if ($data !=''){	
-			
-			if (in_array($data, array(111,121,122, 123 ,124 ,125 ,126, 127,128,129,211,311,321,331,341,351,361,371,411, 412,413,414,421,431,441,442,443,444,511,521, 531,611,999))){
+			if ($code == 211 ){
+				$this->maori = 'true';
+			}		
+		}
+		
+		else {
+			$this->moe[$number]['valid'] = 'false';
+			$this->moe[$number]['value'] = '142 - Ethnic code is incorrect';
+		
+		}
 				
-				if ($data == $this->mappedData['ethnic_origin2'] || $data == $this->mappedData['ethnic_origin3']){ 
-					$this->moe[$number]['valid'] = 'false';
-					$this->moe[$number]['value'] = '637 - Duplicate code in Ethnicities';
-				}
-				else {
-
-				$this->moe[$number]['valid'] = 'true';
-				$this->moe[$number]['value'] = $data;
-				if ($data == 211 ){
-					$this->maori = 'true';
-				}		
-			}
-			}
-			
-			else {
-				$this->moe[$number]['valid'] = 'false';
-				$this->moe[$number]['value'] = '142 - Ethnic code is incorrect';
-			
-			}
-					
 
 
+}
+else {
+	$this->moe[$number]['valid'] = 'false';
+				$this->moe[$number]['value'] = "141 - Needs ethnic group";
+				
+}
+if ($this->moe[$number]['valid']=='false'){
+	if ($this->moe[$number]['Mandatory']=="YES"){
+		$warning = 'warning-2';	
 	}
-
 	else {
-		$this->moe[$number]['valid'] = 'false';
-		$this->moe[$number]['value'] = "141 - Needs ethnic group";
-					
+		$warning = 'warning';	
 	}
+	
+	$this->moe[$number]['input_label'] = '<label id="'.$this->moe[$number]['LINC Name'] .$this->person_id.'_label" for="'.$this->moe[$number]['LINC Name'] .$this->person_id.'"><span class="error"><i class="font-'.$this->moe[$number]['ICON'] .'"  ></i> '.$this->moe[$number]['Field Label'] .': <i class="font-'. $warning .'"  ></i></span>'.linc_popupmessage( $this->moe[$number]['LINC Name'],  $this->moe[$number]['Field Label'], $this->moe[$number]['Description']).'</label>';
+				
+		}
+		else if ($this->moe[$number]['valid']=='true'){
 
+		$this->moe[$number]['input_label'] =  '<label  id="'.$this->moe[$number]['LINC Name'].$this->person_id.'_label" for="'.$this->moe[$number]['LINC Name'] .$this->person_id.'"><span class="valid"><i class="font-'.$this->moe[$number]['ICON'].'"  ></i> '.$this->moe[$number]['Field Label'].': <i class="font-checkmark-3"  ></i></span></label>';
+			
+		}
+$this->moe[$number]['input_field'] = '<select name="select-'.$this->moe[$number]['LINC Name'].'" id="select-'.$this->moe[$number]['LINC Name'].$this->person_id.'" data-native-menu="false" data-inline="true" data-icon="grid" data-theme="b" data-iconpos="left" class="optionMenu">';
+					
+			$this->moe[$number]['input_field'] .= '<option>'.$this->moe[$number]['Description'].'</option>';
+					 
+							   foreach ($array as $key=> $code){
+									   
+									$this->moe[$number]['input_field'] .= '<option ';
+										if ($key == $this->moe[$number]['value'] ){
+										
+									$this->moe[$number]['input_field'] .= 'selected=selected';	
+										}
+										
+			$this->moe[$number]['input_field'].= ' value="'.$key.'" data-arraypos="'.$this->moe[$number]['Field No'].'" data-id="'.$this->person_id.'" data-value="'.$key.'" name="'.$this->moe[$number]['LINC Name'].'" data-id="'.$this->person_id.'">'.$code.'</option>';	
+								}
+							
+			$this->moe[$number]['input_field'] .= '</select>';	
 
 return $this->moe[$number]['valid'] ;
 
@@ -902,19 +991,13 @@ $number = 11;
 		else { // field is not blank so must be checked for validity
 		
 				if (in_array($data, array(111,121,122, 123 ,124 ,125 ,126, 127,128,129,211,311,321,331,341,351,361,371,411, 412,413,414,421,431,441,442,443,444,511,521, 531,611,999))){
+					
+					$this->moe[$number]['valid'] = 'true';
+					$this->moe[$number]['value'] = $data;
 						
-						if ($data == $this->mappedData['ethnic_origin'] || $data == $this->mappedData['ethnic_origin3']){ 
-							$this->moe[$number]['valid'] = 'false';
-							$this->moe[$number]['value'] = '637 - Duplicate code in Ethnicities';
-						}
-						else {
-
-						$this->moe[$number]['valid'] = 'true';
-						$this->moe[$number]['value'] = $data;
-						if ($data == 211 ){
+						if ($code == 211 ){
 							$this->maori = 'true';
-						}	
-						}	
+					}	
 				}
 				
 				else {
@@ -924,7 +1007,38 @@ $number = 11;
 				}
 	}	
 				
+	if ($this->moe[$number]['valid']=='false'){
+			if ($this->moe[$number]['Mandatory']=="YES"){
+				$warning = 'warning-2';	
+			}
+			else {
+				$warning = 'warning';	
+			}
 	
+	$this->moe[$number]['input_label'] = '<label id="'.$this->moe[$number]['LINC Name'] .$this->person_id.'_label" for="'.$this->moe[$number]['LINC Name'] .$this->person_id.'"><span class="error"><i class="font-'.$this->moe[$number]['ICON'] .'"  ></i> '.$this->moe[$number]['Field Label'] .': <i class="font-'. $warning .'"  ></i></span>'.linc_popupmessage( $this->moe[$number]['LINC Name'],  $this->moe[$number]['Field Label'], $this->moe[$number]['Description']).'</label>';
+				
+		}
+		else if ($this->moe[$number]['valid']=='true'){
+
+		$this->moe[$number]['input_label'] =  '<label  id="'.$this->moe[$number]['LINC Name'].$this->person_id.'_label" for="'.$this->moe[$number]['LINC Name'] .$this->person_id.'"><span class="valid"><i class="font-'.$this->moe[$number]['ICON'].'"  ></i> '.$this->moe[$number]['Field Label'].': <i class="font-checkmark-3"  ></i></span></label>';
+			
+		}
+$this->moe[$number]['input_field'] = '<select name="select-'.$this->moe[$number]['LINC Name'].'" id="select-'.$this->moe[$number]['LINC Name'].$this->person_id.'" data-native-menu="false" data-inline="true" data-icon="grid" data-theme="b" data-iconpos="left" class="optionMenu">';
+					
+			$this->moe[$number]['input_field'] .= '<option>'.$this->moe[$number]['Description'].'</option>';
+					 
+							   foreach ($array as $key=> $code){
+									   
+									$this->moe[$number]['input_field'] .= '<option ';
+										if ($key == $this->moe[$number]['value'] ){
+										
+									$this->moe[$number]['input_field'] .= 'selected=selected';	
+										}
+										
+			$this->moe[$number]['input_field'].= ' value="'.$key.'" data-arraypos="'.$this->moe[$number]['Field No'].'" data-id="'.$this->person_id.'" data-value="'.$key.'" name="'.$this->moe[$number]['LINC Name'].'" data-id="'.$this->person_id.'">'.$code.'</option>';	
+								}
+							
+			$this->moe[$number]['input_field'] .= '</select>';	
 
 			return $this->moe[$number]['valid'] ;
 }
@@ -953,18 +1067,13 @@ $array = $this->codes->ethnicityCodes();
 		else { // field is not blank so must be checked for validity
 		
 				if (in_array($data, array(111,121,122, 123 ,124 ,125 ,126, 127,128,129,211,311,321,331,341,351,361,371,411, 412,413,414,421,431,441,442,443,444,511,521, 531,611,999))){
-						if ($data == $this->mappedData['ethnic_origin'] || $data == $this->mappedData['ethnic_origin2']){ 
-							$this->moe[$number]['valid'] = 'false';
-							$this->moe[$number]['value'] = '637 - Duplicate code in Ethnicities';
-						}
-						else {
-
-						$this->moe[$number]['valid'] = 'true';
-						$this->moe[$number]['value'] = $data;
-						if ($data == 211 ){
+					
+					$this->moe[$number]['valid'] = 'true';
+					$this->moe[$number]['value'] = $data;
+						
+						if ($code == 211 ){
 							$this->maori = 'true';
-						}	
-						}	
+					}	
 				}
 				
 				else {
@@ -973,7 +1082,39 @@ $array = $this->codes->ethnicityCodes();
 				
 				}
 	}	
+				
+if ($this->moe[$number]['valid']=='false'){
+	if ($this->moe[$number]['Mandatory']=="YES"){
+		$warning = 'warning-2';	
+	}
+	else {
+		$warning = 'warning';	
+	}
+	
+	$this->moe[$number]['input_label'] = '<label id="'.$this->moe[$number]['LINC Name'] .$this->person_id.'_label" for="'.$this->moe[$number]['LINC Name'] .$this->person_id.'"><span class="error"><i class="font-'.$this->moe[$number]['ICON'] .'"  ></i> '.$this->moe[$number]['Field Label'] .': <i class="font-'. $warning .'"  ></i></span>'.linc_popupmessage( $this->moe[$number]['LINC Name'],  $this->moe[$number]['Field Label'], $this->moe[$number]['Description']).'</label>';
+				
+		}
+		else if ($this->moe[$number]['valid']=='true'){
 
+		$this->moe[$number]['input_label'] =  '<label  id="'.$this->moe[$number]['LINC Name'].$this->person_id.'_label" for="'.$this->moe[$number]['LINC Name'] .$this->person_id.'"><span class="valid"><i class="font-'.$this->moe[$number]['ICON'].'"  ></i> '.$this->moe[$number]['Field Label'].': <i class="font-checkmark-3"  ></i></span></label>';
+			
+		}
+$this->moe[$number]['input_field'] = '<select name="select-'.$this->moe[$number]['LINC Name'].'" id="select-'.$this->moe[$number]['LINC Name'].$this->person_id.'" data-native-menu="false" data-inline="true" data-icon="grid" data-theme="b" data-iconpos="left" class="optionMenu">';
+					
+			$this->moe[$number]['input_field'] .= '<option>'.$this->moe[$number]['Description'].'</option>';
+					 
+							   foreach ($array as $key=> $code){
+									   
+									$this->moe[$number]['input_field'] .= '<option ';
+										if ($key == $this->moe[$number]['value'] ){
+										
+									$this->moe[$number]['input_field'] .= 'selected=selected';	
+										}
+										
+			$this->moe[$number]['input_field'].= ' value="'.$key.'" data-arraypos="'.$this->moe[$number]['Field No'].'" data-id="'.$this->person_id.'" data-value="'.$key.'" name="'.$this->moe[$number]['LINC Name'].'" data-id="'.$this->person_id.'">'.$code.'</option>';	
+								}
+							
+			$this->moe[$number]['input_field'] .= '</select>';	
 	
 return $this->moe[$number]['valid'] ;
 
@@ -982,7 +1123,10 @@ return $this->moe[$number]['valid'] ;
 
 public function check_13(){
 		
-$data = $this->mappedData['IWI1'];
+
+		if ($this->maori == 'true' ||$this->mappedData['ethnic_origin']==211 ){
+			
+					$data = $this->mappedData['IWI1'];
 					$iwi_codes = $this->codes->iwi_codes();
 				
 					$number=13;
@@ -992,22 +1136,14 @@ $data = $this->mappedData['IWI1'];
 			'input_field'=>'',
 			'input_label'=>''
 			); 
-$check = $this->codes->checkKey($data, $iwi_codes);
-	if ($check){
-
-		if ($data == $this->mappedData['IWI2'] || $data == $this->mappedData['IWI3']){ 
-							$this->moe[$number]['valid'] = 'false';
-							$this->moe[$number]['value'] = '637 - Duplicate code in Ethnicities';
-						}
-						else {
+			
+	if ($this->codes->checkKey($data, $this->codes->iwi_codes())){
 				
-								$this->moe[$number]['valid'] = 'true';
-								$this->moe[$number]['value'] = $data;
-							}
+					$this->moe[$number]['valid'] = 'true';
+					$this->moe[$number]['value'] = $data;
+		
 			}
 			else {
-				if ($this->maori == 'true' ||	$this->mappedData['ethnic_origin']==211 ||$this->mappedData['ethnic_origin2']==211 ||$this->mappedData['ethnic_origin3']==211  ){			
-
 				//Value is not Null and not in Ministry code list and [Rmonth in [M,J] or Funding Year Level >=9]
 
 						if  (in_array($this->rmonth, array('M', 'J'))|| $this->mappedData['funding_year_level'] >=9) {
@@ -1015,27 +1151,53 @@ $check = $this->codes->checkKey($data, $iwi_codes);
 							$this->moe[$number]['value'] = '500 - Iwi code value is not in Ministry code list';
 						}
 						else {
-									
+									if  (in_array($this->rmonth, array('M', 'J'))|| $this->mappedData['funding_year_level'] >=9) {
 											$this->moe[$number]['valid'] = 'false';
 											$this->moe[$number]['value'] = '501 - Māori student who first attended > 1 Jan 2003 must have valid Iwi code in first Iwi field	';
-								}
+									}
 					
-					
-			} // End if identified as Maori.
-			else {
-
-
-											$this->moe[$number]['valid'] = 'true';
-											$this->moe[$number]['value'] = $data;
-											$this->moe[$number]['message'] = 'IWI is not mandatory for students who are not identified as Maori';
-
-			}	// Not Maori.	
-		}// End check was false.
+					}
+		}
 		
-
-
-			return $this->moe[$number]['valid'] ;
 	
+					
+if ($this->moe[$number]['valid']=='false'){
+	if ($this->moe[$number]['Mandatory']=="YES"){
+		$warning = 'warning-2';	
+	}
+	else {
+		$warning = 'warning';	
+	}
+	
+	$this->moe[$number]['input_label'] = '<label id="'.$this->moe[$number]['LINC Name'] .$this->person_id.'_label" for="'.$this->moe[$number]['LINC Name'] .$this->person_id.'"><span class="error"><i class="font-'.$this->moe[$number]['ICON'] .'"  ></i> '.$this->moe[$number]['Field Label'] .': <i class="font-'. $warning .'"  ></i></span>'.linc_popupmessage( $this->moe[$number]['LINC Name'],  $this->moe[$number]['Field Label'], $this->moe[$number]['value']).'</label>';
+				
+		}
+		else if ($this->moe[$number]['valid']=='true'){
+
+		$this->moe[$number]['input_label'] =  '<label  id="'.$this->moe[$number]['LINC Name'].$this->person_id.'_label" for="'.$this->moe[$number]['LINC Name'] .$this->person_id.'"><span class="valid"><i class="font-'.$this->moe[$number]['ICON'].'"  ></i> '.$this->moe[$number]['Field Label'].': <i class="font-checkmark-3"  ></i></span></label>';
+			
+		}
+$this->moe[$number]['input_field'] = '<select name="select-'.$this->moe[$number]['LINC Name'].'" id="select-'.$this->moe[$number]['LINC Name'].$this->person_id.'" data-native-menu="false" data-inline="true" data-icon="grid" data-theme="b" data-iconpos="left" class="optionMenu">';
+					
+			$this->moe[$number]['input_field'] .= '<option>'.$this->moe[$number]['Description'].'</option>';
+					 
+							   foreach ( $iwi_codes as $key=> $code){
+									   
+									$this->moe[$number]['input_field'] .= '<option ';
+										if ($key == $this->moe[$number]['value'] ){
+										
+											$this->moe[$number]['input_field'] .= 'selected=selected';	
+										}
+										
+			$this->moe[$number]['input_field'].= ' value="'.$key.'" data-arraypos="'.$this->moe[$number]['Field No'].'" data-id="'.$this->person_id.'" data-value="'.$key.'" name="'.$this->moe[$number]['LINC Name'].'" data-id="'.$this->person_id.'">'.$code.'</option>';	
+								}
+							
+			$this->moe[$number]['input_field'] .= '</select>';	
+			return $this->moe[$number]['valid'] ;
+}
+else {
+	return 'true' ; // child is not recorded as being NZ Maori so this field is not required. So testing needs to show as 'true'
+}	
 }
 
 public function check_14(){
@@ -1052,18 +1214,11 @@ public function check_14(){
 			'input_label'=>''
 			); 
 			
-	$check = $this->codes->checkKey($data, $iwi_codes);
-	if ($check){
-
-		if ($data == $this->mappedData['IWI1'] || $data == $this->mappedData['IWI3']){ 
-							$this->moe[$number]['valid'] = 'false';
-							$this->moe[$number]['value'] = '637 - Duplicate code in Ethnicities';
-						}
-						else {
+	if ($this->codes->checkKey($data, $this->codes->iwi_codes())){
 				
-								$this->moe[$number]['valid'] = 'true';
-								$this->moe[$number]['value'] = $data;
-							}
+					$this->moe[$number]['valid'] = 'true';
+					$this->moe[$number]['value'] = $data;
+		
 			}
 			else {
 				//Value is not Null and not in Ministry code list and [Rmonth in [M,J] or Funding Year Level >=9]
@@ -1081,6 +1236,39 @@ public function check_14(){
 		}
 		
 	
+					
+if ($this->moe[$number]['valid']=='false'){
+	if ($this->moe[$number]['Mandatory']=="YES"){
+		$warning = 'warning-2';	
+	}
+	else {
+		$warning = 'warning';	
+	}
+	
+	$this->moe[$number]['input_label'] = '<label id="'.$this->moe[$number]['LINC Name'] .$this->person_id.'_label" for="'.$this->moe[$number]['LINC Name'] .$this->person_id.'"><span class="error"><i class="font-'.$this->moe[$number]['ICON'] .'"  ></i> '.$this->moe[$number]['Field Label'] .': <i class="font-'. $warning .'"  ></i></span>'.linc_popupmessage( $this->moe[$number]['LINC Name'],  $this->moe[$number]['Field Label'], $this->moe[$number]['value']).'</label>';
+				
+		}
+		else if ($this->moe[$number]['valid']=='true'){
+
+		$this->moe[$number]['input_label'] =  '<label  id="'.$this->moe[$number]['LINC Name'].$this->person_id.'_label" for="'.$this->moe[$number]['LINC Name'] .$this->person_id.'"><span class="valid"><i class="font-'.$this->moe[$number]['ICON'].'"  ></i> '.$this->moe[$number]['Field Label'].': <i class="font-checkmark-3"  ></i></span></label>';
+			
+		}
+$this->moe[$number]['input_field'] = '<select name="select-'.$this->moe[$number]['LINC Name'].'" id="select-'.$this->moe[$number]['LINC Name'].$this->person_id.'" data-native-menu="false" data-inline="true" data-icon="grid" data-theme="b" data-iconpos="left" class="optionMenu">';
+					
+			$this->moe[$number]['input_field'] .= '<option>'.$this->moe[$number]['Description'].'</option>';
+					 
+							   foreach ( $iwi_codes as $key=> $code){
+									   
+									$this->moe[$number]['input_field'] .= '<option ';
+										if ($key == $this->moe[$number]['value'] ){
+										
+											$this->moe[$number]['input_field'] .= 'selected=selected';	
+										}
+										
+			$this->moe[$number]['input_field'].= ' value="'.$key.'" data-arraypos="'.$this->moe[$number]['Field No'].'" data-id="'.$this->person_id.'" data-value="'.$key.'" name="'.$this->moe[$number]['LINC Name'].'" data-id="'.$this->person_id.'">'.$code.'</option>';	
+								}
+							
+			$this->moe[$number]['input_field'] .= '</select>';	
 return $this->moe[$number]['valid'] ;
 }
 else {
@@ -1103,18 +1291,11 @@ public function check_15(){
 			'input_label'=>''
 			); 
 			
-	$check = $this->codes->checkKey($data, $iwi_codes);
-	if ($check){
-
-		if ($data == $this->mappedData['IWI2'] || $data == $this->mappedData['IWI1']){ 
-							$this->moe[$number]['valid'] = 'false';
-							$this->moe[$number]['value'] = '637 - Duplicate code in Ethnicities';
-						}
-						else {
+	if ($this->codes->checkKey($data, $this->codes->iwi_codes())){
 				
-								$this->moe[$number]['valid'] = 'true';
-								$this->moe[$number]['value'] = $data;
-							}
+					$this->moe[$number]['valid'] = 'true';
+					$this->moe[$number]['value'] = $data;
+		
 			}
 			else {
 				//Value is not Null and not in Ministry code list and [Rmonth in [M,J] or Funding Year Level >=9]
@@ -1132,6 +1313,40 @@ public function check_15(){
 		}
 		
 	
+					
+if ($this->moe[$number]['valid']=='false'){
+	if ($this->moe[$number]['Mandatory']=="YES"){
+		$warning = 'warning-2';	
+	}
+	else {
+		$warning = 'warning';	
+	}
+	
+	$this->moe[$number]['input_label'] = '<label id="'.$this->moe[$number]['LINC Name'] .$this->person_id.'_label" for="'.$this->moe[$number]['LINC Name'] .$this->person_id.'"><span class="error"><i class="font-'.$this->moe[$number]['ICON'] .'"  ></i> '.$this->moe[$number]['Field Label'] .': <i class="font-'. $warning .'"  ></i></span>'.linc_popupmessage( $this->moe[$number]['LINC Name'],  $this->moe[$number]['Field Label'], $this->moe[$number]['value']).'</label>';
+				
+		}
+		else if ($this->moe[$number]['valid']=='true'){
+
+		$this->moe[$number]['input_label'] =  '<label  id="'.$this->moe[$number]['LINC Name'].$this->person_id.'_label" for="'.$this->moe[$number]['LINC Name'] .$this->person_id.'"><span class="valid"><i class="font-'.$this->moe[$number]['ICON'].'"  ></i> '.$this->moe[$number]['Field Label'].': <i class="font-checkmark-3"  ></i></span></label>';
+			
+		}
+$this->moe[$number]['input_field'] = '<select name="select-'.$this->moe[$number]['LINC Name'].'" id="select-'.$this->moe[$number]['LINC Name'].$this->person_id.'" data-native-menu="false" data-inline="true" data-icon="grid" data-theme="b" data-iconpos="left" class="optionMenu">';
+					
+			$this->moe[$number]['input_field'] .= '<option>'.$this->moe[$number]['Description'].'</option>';
+					 
+							   foreach ( $iwi_codes as $key=> $code){
+									   
+									$this->moe[$number]['input_field'] .= '<option ';
+										if ($key == $this->moe[$number]['value'] ){
+										
+											$this->moe[$number]['input_field'] .= 'selected=selected';	
+										}
+										
+			$this->moe[$number]['input_field'].= ' value="'.$key.'" data-arraypos="'.$this->moe[$number]['Field No'].'" data-id="'.$this->person_id.'" data-value="'.$key.'" name="'.$this->moe[$number]['LINC Name'].'" data-id="'.$this->person_id.'">'.$code.'</option>';	
+								}
+							
+			$this->moe[$number]['input_field'] .= '</select>';	
+
 return $this->moe[$number]['valid'] ;
 }
 else {
@@ -1155,22 +1370,37 @@ $data = $this->mappedData[$this->moe[16]['LINC Name']];
 
 // Value not in [N, H, V, S] and [Rmonth in [M,J] or Funding Year Level >=9]
 
-if ($data==''){
-		$this->moe[16]['valid'] = 'true';
-		$this->moe[16]['value'] = 'N';
+
+if ($data && !in_array($data, array('N', 'H', 'V', 'S'))){
+	$this->moe[16]['valid'] = 'false';
+	$this->moe[16]['value'] = "151 - ORS and Section 9 code is incorrect";
 }
 else {
-	if (!in_array($data, array('N', 'H', 'V', 'S')) && in_array($this->rmonth, array('M', 'J')) && $this->mappedData['funding_year_level'] <9){
-		$this->moe[16]['valid'] = 'false';
-		$this->moe[16]['value'] = "151 - ORS and Section 9 code is incorrect";
+	
+	$this->moe[16]['valid'] = 'true';
+	$this->moe[16]['value'] = $data;
+	
+}
+
+if ($this->moe[$number]['valid']=='false'){
+	if ($this->moe[$number]['Mandatory']=="YES"){
+		$warning = 'warning-2';	
 	}
 	else {
-		
-		$this->moe[16]['valid'] = 'true';
-		$this->moe[16]['value'] = $data;
-		
+		$warning = 'warning';	
 	}
-}
+	
+	$this->moe[$number]['input_label'] = '<label id="'.$this->moe[$number]['LINC Name'] .$this->person_id.'_label" for="'.$this->moe[$number]['LINC Name'] .$this->person_id.'"><span class="error"><i class="font-'.$this->moe[$number]['ICON'] .'"  ></i> '.$this->moe[$number]['Field Label'] .': <i class="font-'. $warning .'"  ></i></span>'.linc_popupmessage( $this->moe[$number]['LINC Name'],  $this->moe[$number]['Field Label'], $this->moe[$number]['Description']).'</label>';
+				
+		}
+		else if ($this->moe[$number]['valid']=='true'){
+
+		$this->moe[$number]['input_label'] =  '<label  id="'.$this->moe[$number]['LINC Name'].$this->person_id.'_label" for="'.$this->moe[$number]['LINC Name'] .$this->person_id.'"><span class="valid"><i class="font-'.$this->moe[$number]['ICON'].'"  ></i> '.$this->moe[$number]['Field Label'].': <i class="font-checkmark-3"  ></i></span></label>';
+			
+		}
+		
+	
+$this->moe[$number]['input_field'] = '<input type="text" class="'.$this->moe[$number]['Content Type'].'" data-arraypos="'.$this->moe[$number]['Field No'].'" name="'.$this->moe[$number]['LINC Name'].'" data-id="'.$this->person_id.'" id="'.$this->moe[$number]['LINC Name'].$this->person_id.'" value="'.$this->moe[$number]['value'].'" data-theme="'.$theme.'" placeholder="'.$this->moe[$number]['Placeholder'].'"/>';	
 
 return $this->moe[$number]['valid'];
 
@@ -1233,28 +1463,11 @@ if (isset($data) && !is_null($data) && $data !='' && in_array($data, array(0, 1,
 				
 			}
 			//If School Type=35 and Type is not =EM and FUNDING YEAR LEVEL<7 or >10 and Reason=Null
-
-			else if (in_array($this->school_type, array(35)) && ($data<7 || $data>10) && $this->mappedData['TYPE'] != 'EM' && $this->mappedData['REASON']==''){
+			else if (in_array($this->school_type, array(35)) && ($data<7 || $data>10) && $this->mappedData['TYPE'] != 'EM' && is_null($this->mappedData['REASON'])){
 				
 					$this->moe[$number]['valid'] = 'false';
 					$this->moe[$number]['value'] = '608 - Funding Year Level must be between 7 and 10 inclusive for this school type.';
 				
-			}
-// If age at 1 July(t)<=8 
-	// and FUNDING YEAR LEVEL>=age–3
-			else if ($this->ageOnJuly1 <=8 && $data >= $this->ageOnJuly1-3){
-					$this->moe[$number]['valid'] = 'false';
-					$this->moe[$number]['value'] = '163 - Student age does not match year level.';
-
-			}
-
-			// If ORS and Section 9=N and Reason=Null and age at 1 
-	// July(t) =>8 and <16 and FUNDING YEAR LEVEL < age –6
-	// and [Rmonth in [M,J]
-			else if ( $this->mappedData['REASON']=='' && $this->mappedData['ORS and Section 9'] == 'N' && $this->ageOnJuly1 >=8 &&  $this->ageOnJuly1 <16 && $data <$this->ageOnJuly1 -6 && in_array($this->rmonth, array("M", "J")) ) {
-						$this->moe[$number]['valid'] = 'false';
-					$this->moe[$number]['value'] = '164 - Student age does not match year level.';
-
 			}
 			// If ORS and Section 9=N and FUNDING YEAR LEVEL<9 and age at 1 July (t)>=16
 			else if ( $data<0 && $this->mappedData['ORS and Section 9'] == 'N' && $this->ageOnJuly1 == 16){
@@ -1335,6 +1548,30 @@ else {
 	
 }
 	
+if ($this->moe[$number]['valid']=='false'){
+	if ($this->moe[$number]['Mandatory']=="YES"){
+		$warning = 'warning-2';	
+	}
+	else {
+		$warning = 'warning';	
+	}
+	
+	$this->moe[$number]['input_label'] = '<label id="'.$this->moe[$number]['LINC Name'] .$this->person_id.'_label" for="'.$this->moe[$number]['LINC Name'] .$this->person_id.'"><span class="error"><i class="font-'.$this->moe[$number]['ICON'] .'"  ></i> '.$this->moe[$number]['Field Label'] .': <i class="font-'. $warning .'"  ></i></span>'.linc_popupmessage( $this->moe[$number]['LINC Name'],  $this->moe[$number]['Field Label'], $this->moe[$number]['Description']).'</label>';
+				
+		}
+		else if ($this->moe[$number]['valid']=='true'){
+
+		$this->moe[$number]['input_label'] =  '<label  id="'.$this->moe[$number]['LINC Name'].$this->person_id.'_label" for="'.$this->moe[$number]['LINC Name'] .$this->person_id.'"><span class="valid"><i class="font-'.$this->moe[$number]['ICON'].'"  ></i> '.$this->moe[$number]['Field Label'].': <i class="font-checkmark-3"  ></i></span></label>';
+			
+		}
+		
+
+$this->moe[$number]['input_field'] = '<form>
+    <div data-role="fieldcontain" class="ui-hide-label">
+        <input data-theme="b" type="range"data-arraypos="'.$this->moe[$number]['Field No'].'" name="'.$this->moe[$number]['LINC Name'].'" data-id="'.$this->person_id.'" id="'.$this->moe[$number]['LINC Name'].$this->person_id.'" value="'.$this->moe[$number]['value'].'" data-theme="'.$theme.'" class="'.$this->moe[$number]['Content Type'].'"  min="0" max="15" >
+    </div>
+</form>';
+
 
 return $this->moe[$number]['valid'];
 
@@ -1356,7 +1593,7 @@ $data = $this->mappedData[$this->moe[$number]['LINC Name']];
 $array = 	MOECodes::$student_types;
 $array_keys = array_keys($array);
 
-if ($data!='' && !is_null($data)){
+if (isset($data) && !is_null($data)){
 	
 	//If School Type in [30, 40] and TYPE not in [FF, AE, EX, AD, RA, RE, EM, SA, NA, NF, SF, TPREOM, TPRAOM, TPAD, TPRE, TPRAE]
 	if (in_array($this->school_type, array(30, 40)) && !in_array($data, array('FF', 'AE', 'EX', 'AD', 'RA', 'RE', 'EM', 'SA', 'NA', 'NF', 'SF', 'TPREOM', 'TPRAOM', 'TPAD', 'TPRE', 'TPRAE'))){
@@ -1433,9 +1670,9 @@ if ($data!='' && !is_null($data)){
 	}
 	
 	else {
-		
-		$this->moe[$number]['valid'] = 'true';
-		$this->moe[$number]['value'] = $data;
+	
+	$this->moe[$number]['valid'] = 'true';
+	$this->moe[$number]['value'] = $data;
 	}
 }
 else {
@@ -5186,20 +5423,18 @@ $number = 95;
 
 $data = $this->mappedData[$this->moe[$number]['LINC Name']];
 // If Boarding Status is Null and REASON=Null and [Rmonth in [M,J] or Funding Year Level >=9]
-if ($data=='' && is_null($this->mappedData['REASON']) && (in_array($this->rmonth, array('M', 'J'))|| $this->mappedData['funding_year_level'] >=9)){
-	$this->moe[$number]['valid'] = 'true';
-	$this->moe[$number]['value'] = 'N';
-	$this->moe[$number]['message'] = '634 - Boarding Status has to be Y or N';	
+if (is_null($data) && is_null($this->mappedData['REASON']) && (in_array($this->rmonth, array('M', 'J'))|| $this->mappedData['funding_year_level'] >=9)){
+$this->moe[$number]['valid'] = 'false';
+	$this->moe[$number]['value'] = '634 - Boarding Status has to be Y or N';	
 }
 // If Boarding Status=Y and Zoning Status not NAPP and REASON=Null and [Rmonth in [M,J] or Funding Year Level >=9]
 
 else if ($data == 'Y' && $this->mappedData['ZONING STATUS'] != 'NAPP' && is_null($this->mappedData['REASON'])  && (in_array($this->rmonth, array('M', 'J'))|| $this->mappedData['funding_year_level'] >=9)){
 	$this->moe[$number]['valid'] = 'false';
-	$this->moe[$number]['value'] = 'N';
-	$this->moe[$number]['message'] = '635 - Zoning Status of students boarding at the school hostel must be NAPP';	
+	$this->moe[$number]['value'] = '635 - Zoning Status of students boarding at the school hostel must be NAPP';	
 }
 else {
-	$this->moe[$number]['valid'] = 'true';
+$this->moe[$number]['valid'] = 'true';
 	$this->moe[$number]['value'] = $data;
 	}
 
@@ -5851,20 +6086,29 @@ $number = 107;
 
 $data = $this->mappedData[$this->moe[$number]['LINC Name']];
 
-	
-if ($this->checkStringForIllegalCharacters($data)===false){
-
-	$this->moe[$number]['valid'] = 'false';
-	$this->moe[$number]['value'] = "Prefferred last name contains illegal characters.";
-
-}
-else {
-	
-	$this->moe[$number]['valid'] = 'true';
+$this->moe[$number]['valid'] = 'true';
 	$this->moe[$number]['value'] = $data;
 	
-}
+	
+if ($this->moe[$number]['valid']=='false'){
+	if ($this->moe[$number]['Mandatory']=="YES"){
+		$warning = 'warning-2';	
+	}
+	else {
+		$warning = 'warning';	
+	}
+	
+	$this->moe[$number]['input_label'] = '<label id="'.$this->moe[$number]['LINC Name'] .$this->person_id.'_label" for="'.$this->moe[$number]['LINC Name'] .$this->person_id.'"><span class="error"><i class="font-'.$this->moe[$number]['ICON'] .'"  ></i> '.$this->moe[$number]['Field Label'] .': <i class="font-'. $warning .'"  ></i></span>'.linc_popupmessage( $this->moe[$number]['LINC Name'],  $this->moe[$number]['Field Label'], $this->moe[$number]['Description']).'</label>';
+				
+		}
+		else if ($this->moe[$number]['valid']=='true'){
 
+		$this->moe[$number]['input_label'] =  '<label  id="'.$this->moe[$number]['LINC Name'].$this->person_id.'_label" for="'.$this->moe[$number]['LINC Name'] .$this->person_id.'"><span class="valid"><i class="font-'.$this->moe[$number]['ICON'].'"  ></i> '.$this->moe[$number]['Field Label'].': <i class="font-checkmark-3"  ></i></span></label>';
+			
+		}
+		
+	
+$this->moe[$number]['input_field'] = '<input type="text" class="'.$this->moe[$number]['Content Type'].'" data-arraypos="'.$this->moe[$number]['Field No'].'" name="'.$this->moe[$number]['LINC Name'].'" data-id="'.$this->person_id.'" id="'.$this->moe[$number]['LINC Name'].$this->person_id.'" value="'.$this->moe[$number]['value'].'" data-theme="'.$theme.'" placeholder="'.$this->moe[$number]['Placeholder'].'"/>';
 return $this->moe[$number]['valid'] ;	
 	}
 
@@ -5881,21 +6125,29 @@ $number = 108;
 
 $data = stripslashes($this->mappedData[$this->moe[$number]['LINC Name']]);
 
-if ($this->checkStringForIllegalCharacters($data)===false){
-
-	$this->moe[$number]['valid'] = 'false';
-	$this->moe[$number]['value'] = "Prefferred last name contains illegal characters.";
-
-}
-else {
-	
-	$this->moe[$number]['valid'] = 'true';
+$this->moe[$number]['valid'] = 'true';
 	$this->moe[$number]['value'] = $data;
 	
-}
+	
+if ($this->moe[$number]['valid']=='false'){
+	if ($this->moe[$number]['Mandatory']=="YES"){
+		$warning = 'warning-2';	
+	}
+	else {
+		$warning = 'warning';	
+	}
+	
+	$this->moe[$number]['input_label'] = '<label id="'.$this->moe[$number]['LINC Name'] .$this->person_id.'_label" for="'.$this->moe[$number]['LINC Name'] .$this->person_id.'"><span class="error"><i class="font-'.$this->moe[$number]['ICON'] .'"  ></i> '.$this->moe[$number]['Field Label'] .': <i class="font-'. $warning .'"  ></i></span>'.linc_popupmessage( $this->moe[$number]['LINC Name'],  $this->moe[$number]['Field Label'], $this->moe[$number]['Description']).'</label>';
+				
+		}
+		else if ($this->moe[$number]['valid']=='true'){
 
-
-
+		$this->moe[$number]['input_label'] =  '<label  id="'.$this->moe[$number]['LINC Name'].$this->person_id.'_label" for="'.$this->moe[$number]['LINC Name'] .$this->person_id.'"><span class="valid"><i class="font-'.$this->moe[$number]['ICON'].'"  ></i> '.$this->moe[$number]['Field Label'].': <i class="font-checkmark-3"  ></i></span></label>';
+			
+		}
+		
+	
+$this->moe[$number]['input_field'] = '<input type="text" class="'.$this->moe[$number]['Content Type'].'" data-arraypos="'.$this->moe[$number]['Field No'].'" name="'.$this->moe[$number]['LINC Name'].'" data-id="'.$this->person_id.'" id="'.$this->moe[$number]['LINC Name'].$this->person_id.'" value="'.$this->moe[$number]['value'].'" data-theme="'.$theme.'" placeholder="'.$this->moe[$number]['Placeholder'].'"/>';
 return $this->moe[$number]['valid'] ;	
 	}
 
@@ -6155,10 +6407,29 @@ if (is_email($data)){
 }
 else {
 	$this->moe[$number]['valid'] = 'false';
-	$this->moe[$number]['value'] = $data;
-	
+	$this->moe[$number]['value'] = $this->moe[$number]['message'];	
 }
 
+
+if ($this->moe[$number]['valid']=='false'){
+	if ($this->moe[$number]['Mandatory']=="YES"){
+		$warning = 'warning-2';	
+	}
+	else {
+		$warning = 'warning';	
+	}
+	
+	$this->moe[$number]['input_label'] = '<label id="'.$this->moe[$number]['LINC Name'] .$this->person_id.'_label" for="'.$this->moe[$number]['LINC Name'] .$this->person_id.'"><span class="error"><i class="font-'.$this->moe[$number]['ICON'] .'"  ></i> '.$this->moe[$number]['Field Label'] .': <i class="font-'. $warning .'"  ></i></span>'.linc_popupmessage( $this->moe[$number]['LINC Name'],  $this->moe[$number]['Field Label'], $this->moe[$number]['Description']).'</label>';
+				
+		}
+		else if ($this->moe[$number]['valid']=='true'){
+
+		$this->moe[$number]['input_label'] =  '<label  id="'.$this->moe[$number]['LINC Name'].$this->person_id.'_label" for="'.$this->moe[$number]['LINC Name'] .$this->person_id.'"><span class="valid"><i class="font-'.$this->moe[$number]['ICON'].'"  ></i> '.$this->moe[$number]['Field Label'].': <i class="font-checkmark-3"  ></i></span></label>';
+			
+		}
+		
+	
+$this->moe[$number]['input_field'] = '<input type="text" class="'.$this->moe[$number]['Content Type'].'" data-arraypos="'.$this->moe[$number]['Field No'].'" name="'.$this->moe[$number]['LINC Name'].'" data-id="'.$this->person_id.'" id="'.$this->moe[$number]['LINC Name'].$this->person_id.'" value="'.$this->moe[$number]['value'].'" data-theme="'.$theme.'" placeholder="'.$this->moe[$number]['Placeholder'].'"/>';
 
 return $this->moe[$number]['valid'] ;	
 
@@ -6179,9 +6450,25 @@ $data = $this->mappedData[$this->moe[$number]['LINC Name']];
 $this->moe[$number]['valid'] = 'true';
 	$this->moe[$number]['value'] = $data;
 	
+	if ($this->moe[$number]['valid']=='false'){
+	if ($this->moe[$number]['Mandatory']=="YES"){
+		$warning = 'warning-2';	
+	}
+	else {
+		$warning = 'warning';	
+	}
+	
+	$this->moe[$number]['input_label'] = '<label id="'.$this->moe[$number]['LINC Name'] .$this->person_id.'_label" for="'.$this->moe[$number]['LINC Name'] .$this->person_id.'"><span class="error"><i class="font-'.$this->moe[$number]['ICON'] .'"  ></i> '.$this->moe[$number]['Field Label'] .': <i class="font-'. $warning .'"  ></i></span>'.linc_popupmessage( $this->moe[$number]['LINC Name'],  $this->moe[$number]['Field Label'], $this->moe[$number]['Description']).'</label>';
+				
+		}
+		else if ($this->moe[$number]['valid']=='true'){
 
-
-
+		$this->moe[$number]['input_label'] =  '<label  id="'.$this->moe[$number]['LINC Name'].$this->person_id.'_label" for="'.$this->moe[$number]['LINC Name'] .$this->person_id.'"><span class="valid"><i class="font-'.$this->moe[$number]['ICON'].'"  ></i> '.$this->moe[$number]['Field Label'].': <i class="font-checkmark-3"  ></i></span></label>';
+			
+		}
+		
+	
+$this->moe[$number]['input_field'] = '<input type="text" class="'.$this->moe[$number]['Content Type'].'" data-arraypos="'.$this->moe[$number]['Field No'].'" name="'.$this->moe[$number]['LINC Name'].'" data-id="'.$this->person_id.'" id="'.$this->moe[$number]['LINC Name'].$this->person_id.'" value="'.$this->moe[$number]['value'].'" data-theme="'.$theme.'" placeholder="'.$this->moe[$number]['Placeholder'].'"/>';
 	}
 
 
@@ -6199,7 +6486,25 @@ $data = $this->mappedData[$this->moe[$number]['LINC Name']];
 $this->moe[$number]['valid'] = 'true';
 	$this->moe[$number]['value'] = $data;
 	
+if ($this->moe[$number]['valid']=='false'){
+	if ($this->moe[$number]['Mandatory']=="YES"){
+		$warning = 'warning-2';	
+	}
+	else {
+		$warning = 'warning';	
+	}
+	
+	$this->moe[$number]['input_label'] = '<label id="'.$this->moe[$number]['LINC Name'] .$this->person_id.'_label" for="'.$this->moe[$number]['LINC Name'] .$this->person_id.'"><span class="error"><i class="font-'.$this->moe[$number]['ICON'] .'"  ></i> '.$this->moe[$number]['Field Label'] .': <i class="font-'. $warning .'"  ></i></span>'.linc_popupmessage( $this->moe[$number]['LINC Name'],  $this->moe[$number]['Field Label'], $this->moe[$number]['Description']).'</label>';
+				
+		}
+		else if ($this->moe[$number]['valid']=='true'){
 
+		$this->moe[$number]['input_label'] =  '<label  id="'.$this->moe[$number]['LINC Name'].$this->person_id.'_label" for="'.$this->moe[$number]['LINC Name'] .$this->person_id.'"><span class="valid"><i class="font-'.$this->moe[$number]['ICON'].'"  ></i> '.$this->moe[$number]['Field Label'].': <i class="font-checkmark-3"  ></i></span></label>';
+			
+		}
+		
+	
+$this->moe[$number]['input_field'] = '<input type="text" class="'.$this->moe[$number]['Content Type'].'" data-arraypos="'.$this->moe[$number]['Field No'].'" name="'.$this->moe[$number]['LINC Name'].'" data-id="'.$this->person_id.'" id="'.$this->moe[$number]['LINC Name'].$this->person_id.'" value="'.$this->moe[$number]['value'].'" data-theme="'.$theme.'" placeholder="'.$this->moe[$number]['Placeholder'].'"/>';	
 	}
 
 
@@ -6212,24 +6517,36 @@ public function check_118(){$this->moe[118]=array("Field Name"=>"CONTACT 1 ADDRE
 
 $number = 118;
 
+if (strpos($data, '"' >0)){
+
+	
+
+}
 
 $data = $this->mappedData[$this->moe[$number]['LINC Name']];
 
-
-if (preg_match('/"([^"]+)"/', $data, $m)) {
-	
-	$this->moe[$number]['valid'] = 'false';
-	$this->moe[$number]['value'] = str_replace('"', '"""', $data);
-	$this->moe[$number]['message'] = 'Double quotes';
-}
-else{
-	$this->moe[$number]['valid'] = 'true';
+$this->moe[$number]['valid'] = 'true';
 	$this->moe[$number]['value'] = $data;
-}
+	
+	if ($this->moe[$number]['valid']=='false'){
+	if ($this->moe[$number]['Mandatory']=="YES"){
+		$warning = 'warning-2';	
+	}
+	else {
+		$warning = 'warning';	
+	}
+	
+	$this->moe[$number]['input_label'] = '<label id="'.$this->moe[$number]['LINC Name'] .$this->person_id.'_label" for="'.$this->moe[$number]['LINC Name'] .$this->person_id.'"><span class="error"><i class="font-'.$this->moe[$number]['ICON'] .'"  ></i> '.$this->moe[$number]['Field Label'] .': <i class="font-'. $warning .'"  ></i></span>'.linc_popupmessage( $this->moe[$number]['LINC Name'],  $this->moe[$number]['Field Label'], $this->moe[$number]['Description']).'</label>';
+				
+		}
+		else if ($this->moe[$number]['valid']=='true'){
 
-var_dump($this->moe[$number]);
-return $this->moe[$number]['valid'];
-
+		$this->moe[$number]['input_label'] =  '<label  id="'.$this->moe[$number]['LINC Name'].$this->person_id.'_label" for="'.$this->moe[$number]['LINC Name'] .$this->person_id.'"><span class="valid"><i class="font-'.$this->moe[$number]['ICON'].'"  ></i> '.$this->moe[$number]['Field Label'].': <i class="font-checkmark-3"  ></i></span></label>';
+			
+		}
+		
+	
+$this->moe[$number]['input_field'] = '<input type="text" class="'.$this->moe[$number]['Content Type'].'" data-arraypos="'.$this->moe[$number]['Field No'].'" name="'.$this->moe[$number]['LINC Name'].'" data-id="'.$this->person_id.'" id="'.$this->moe[$number]['LINC Name'].$this->person_id.'" value="'.$this->moe[$number]['value'].'" data-theme="'.$theme.'" placeholder="'.$this->moe[$number]['Placeholder'].'"/>';
 	}
 
 
@@ -6420,24 +6737,27 @@ $number = 124;
 
 $data = $this->mappedData[$this->moe[$number]['LINC Name']];
 
-
-	
-
-if ($this->checkStringForIllegalCharacters($data)===false){
-
-	$this->moe[$number]['valid'] = 'false';
+$this->moe[$number]['valid'] = 'true';
 	$this->moe[$number]['value'] = $data;
-	$this->moe[$number]['message'] = "Contact last name contains illegal characters.";
-
-}
-else {
+	if ($this->moe[$number]['valid']=='false'){
+	if ($this->moe[$number]['Mandatory']=="YES"){
+		$warning = 'warning-2';	
+	}
+	else {
+		$warning = 'warning';	
+	}
 	
-	$this->moe[$number]['valid'] = 'true';
-	$this->moe[$number]['value'] = $data;
-	
-}
-return $this->moe[$number];
+	$this->moe[$number]['input_label'] = '<label id="'.$this->moe[$number]['LINC Name'] .$this->person_id.'_label" for="'.$this->moe[$number]['LINC Name'] .$this->person_id.'"><span class="error"><i class="font-'.$this->moe[$number]['ICON'] .'"  ></i> '.$this->moe[$number]['Field Label'] .': <i class="font-'. $warning .'"  ></i></span>'.linc_popupmessage( $this->moe[$number]['LINC Name'],  $this->moe[$number]['Field Label'], $this->moe[$number]['Description']).'</label>';
+				
+		}
+		else if ($this->moe[$number]['valid']=='true'){
 
+		$this->moe[$number]['input_label'] =  '<label  id="'.$this->moe[$number]['LINC Name'].$this->person_id.'_label" for="'.$this->moe[$number]['LINC Name'] .$this->person_id.'"><span class="valid"><i class="font-'.$this->moe[$number]['ICON'].'"  ></i> '.$this->moe[$number]['Field Label'].': <i class="font-checkmark-3"  ></i></span></label>';
+			
+		}
+		
+	
+$this->moe[$number]['input_field'] = '<input type="text" class="'.$this->moe[$number]['Content Type'].'" data-arraypos="'.$this->moe[$number]['Field No'].'" name="'.$this->moe[$number]['LINC Name'].'" data-id="'.$this->person_id.'" id="'.$this->moe[$number]['LINC Name'].$this->person_id.'" value="'.$this->moe[$number]['value'].'" data-theme="'.$theme.'" placeholder="'.$this->moe[$number]['Placeholder'].'"/>';
 	}
 
 
@@ -6452,23 +6772,28 @@ $number = 125;
 
 $data = $this->mappedData[$this->moe[$number]['LINC Name']];
 
-	
-
-if ($this->checkStringForIllegalCharacters($data)===false){
-
-	$this->moe[$number]['valid'] = 'false';
-	$this->moe[$number]['value'] = $data;
-	$this->moe[$number]['message'] = "Contact last name contains illegal characters.";
-
-}
-else {
-	
-	$this->moe[$number]['valid'] = 'true';
+$this->moe[$number]['valid'] = 'true';
 	$this->moe[$number]['value'] = $data;
 	
-}
-return $this->moe[$number];
+	if ($this->moe[$number]['valid']=='false'){
+	if ($this->moe[$number]['Mandatory']=="YES"){
+		$warning = 'warning-2';	
+	}
+	else {
+		$warning = 'warning';	
+	}
+	
+	$this->moe[$number]['input_label'] = '<label id="'.$this->moe[$number]['LINC Name'] .$this->person_id.'_label" for="'.$this->moe[$number]['LINC Name'] .$this->person_id.'"><span class="error"><i class="font-'.$this->moe[$number]['ICON'] .'"  ></i> '.$this->moe[$number]['Field Label'] .': <i class="font-'. $warning .'"  ></i></span>'.linc_popupmessage( $this->moe[$number]['LINC Name'],  $this->moe[$number]['Field Label'], $this->moe[$number]['Description']).'</label>';
+				
+		}
+		else if ($this->moe[$number]['valid']=='true'){
 
+		$this->moe[$number]['input_label'] =  '<label  id="'.$this->moe[$number]['LINC Name'].$this->person_id.'_label" for="'.$this->moe[$number]['LINC Name'] .$this->person_id.'"><span class="valid"><i class="font-'.$this->moe[$number]['ICON'].'"  ></i> '.$this->moe[$number]['Field Label'].': <i class="font-checkmark-3"  ></i></span></label>';
+			
+		}
+		
+	
+$this->moe[$number]['input_field'] = '<input type="text" class="'.$this->moe[$number]['Content Type'].'" data-arraypos="'.$this->moe[$number]['Field No'].'" name="'.$this->moe[$number]['LINC Name'].'" data-id="'.$this->person_id.'" id="'.$this->moe[$number]['LINC Name'].$this->person_id.'" value="'.$this->moe[$number]['value'].'" data-theme="'.$theme.'" placeholder="'.$this->moe[$number]['Placeholder'].'"/>';
 	}
 
 
