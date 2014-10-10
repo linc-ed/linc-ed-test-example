@@ -26,13 +26,27 @@ class validator_addressFieldsTest extends PHPUnit_Framework_TestCase {
 
 	public function testContact1Address1to4() {
 
-		$this->student['contact_1_address1']='”Taylors Hill” Cornwall Road';
+		$this->student['contact_1_address1']='"Taylors Hill" Cornwall Road';
 		$moe = new MOEValidator($this->student, 'M', $this->school);
 		$valid = $moe->check_118();
 		$this->assertSame($valid, 'false');
+
+		$this->student['contact_1_address2']='"Taylors Hill" Cornwall Road';
+		$moe = new MOEValidator($this->student, 'M', $this->school);
+		$valid = $moe->check_118();
+		$this->assertSame($valid, 'false');
+
+
+	$this->student['contact_1_address3']='"Taylors Hill" Cornwall Road';
+		$moe = new MOEValidator($this->student, 'M', $this->school);
+		$valid = $moe->check_118();
+		$this->assertSame($valid, 'false');
+
+
+	$this->student['contact_1_address4']='"Taylors Hill" Cornwall Road';
+		$moe = new MOEValidator($this->student, 'M', $this->school);
+		$valid = $moe->check_118();
+		$this->assertSame($valid, 'false');
+
 	}
-
-	
-
-	
 }

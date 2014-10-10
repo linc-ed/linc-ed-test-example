@@ -6216,10 +6216,11 @@ $number = 118;
 $data = $this->mappedData[$this->moe[$number]['LINC Name']];
 
 
-if (preg_match('/"([^"]+)"/', $data, $m)) {
+
+if (preg_match('/["]/', $data, $m)) {
 	
 	$this->moe[$number]['valid'] = 'false';
-	$this->moe[$number]['value'] = str_replace('"', '"""', $data);
+	$this->moe[$number]['value'] = str_replace('"', '""', $data);
 	$this->moe[$number]['message'] = 'Double quotes';
 }
 else{
@@ -6227,7 +6228,7 @@ else{
 	$this->moe[$number]['value'] = $data;
 }
 
-var_dump($this->moe[$number]);
+
 return $this->moe[$number]['valid'];
 
 	}
@@ -6244,28 +6245,23 @@ $number = 119;
 
 $data = $this->mappedData[$this->moe[$number]['LINC Name']];
 
-$this->moe[$number]['valid'] = 'true';
-	$this->moe[$number]['value'] = $data;
-	if ($this->moe[$number]['valid']=='false'){
-	if ($this->moe[$number]['Mandatory']=="YES"){
-		$warning = 'warning-2';	
-	}
-	else {
-		$warning = 'warning';	
-	}
-	
-	$this->moe[$number]['input_label'] = '<label id="'.$this->moe[$number]['LINC Name'] .$this->person_id.'_label" for="'.$this->moe[$number]['LINC Name'] .$this->person_id.'"><span class="error"><i class="font-'.$this->moe[$number]['ICON'] .'"  ></i> '.$this->moe[$number]['Field Label'] .': <i class="font-'. $warning .'"  ></i></span>'.linc_popupmessage( $this->moe[$number]['LINC Name'],  $this->moe[$number]['Field Label'], $this->moe[$number]['Description']).'</label>';
-				
-		}
-		else if ($this->moe[$number]['valid']=='true'){
 
-		$this->moe[$number]['input_label'] =  '<label  id="'.$this->moe[$number]['LINC Name'].$this->person_id.'_label" for="'.$this->moe[$number]['LINC Name'] .$this->person_id.'"><span class="valid"><i class="font-'.$this->moe[$number]['ICON'].'"  ></i> '.$this->moe[$number]['Field Label'].': <i class="font-checkmark-3"  ></i></span></label>';
-			
-		}
-		
+
+if (preg_match('/["]/', $data, $m)) {
 	
-$this->moe[$number]['input_field'] = '<input type="text" class="'.$this->moe[$number]['Content Type'].'" data-arraypos="'.$this->moe[$number]['Field No'].'" name="'.$this->moe[$number]['LINC Name'].'" data-id="'.$this->person_id.'" id="'.$this->moe[$number]['LINC Name'].$this->person_id.'" value="'.$this->moe[$number]['value'].'" data-theme="'.$theme.'" placeholder="'.$this->moe[$number]['Placeholder'].'"/>';
-	}
+	$this->moe[$number]['valid'] = 'false';
+	$this->moe[$number]['value'] = str_replace('"', '""', $data);
+	$this->moe[$number]['message'] = 'Double quotes';
+}
+else{
+	$this->moe[$number]['valid'] = 'true';
+	$this->moe[$number]['value'] = $data;
+}
+
+
+return $this->moe[$number]['valid'];
+
+}
 
 
 public function check_120(){$this->moe[120]=array("Content Type"=> 'metacontent',  "ICON"=> "envelop", "Field Label"=>"First Contact Address line 3","Field Name"=>"CONTACT 1 ADDRESS3", "LINC Name"=>"contact_1_address3","Field No"=>"120", "Description"=>"Third address line of the first contact person or primary care giver.","Mandatory"=>"NO","Type"=>"ASCII"
