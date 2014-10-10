@@ -1,9 +1,18 @@
 <?php
 /**
- * Field name: SUBJECTS
- *  fields 31,35,39,43,47,51,55,59,63,67,71,75,79,83 and 87)
+ * Field name: SUBJECT 1 to SUBJECT 15
+ * Field number: [31,35,39,43,47,51,55,59,63,67,71,75,79,83,87]
+ *
+ * Controlled list
+ * Mandatory to have at least one subject for fulltime student
+ *
+ * Invalid if:
+ *
+ * 674
+ * If one or more SUBJECT code = ‘NAPP’ and some 
+ * SUBJECT codes NOT in [‘NAPP’,’Blank’]
  */
-// error_reporting(E_ALL);
+error_reporting(E_ALL);
 date_default_timezone_set('Pacific/Auckland');
 require_once(dirname(__FILE__).'/../../../moe/MOEValidateUpdated.php');
 require_once(dirname(__FILE__).'/../../../moe/moe_test.php');
@@ -12,9 +21,10 @@ require_once(dirname(__FILE__).'/SchoolData.php');
 require_once(dirname(__FILE__).'/functionStubs.php');
 
 class validator_SUBJECTSTest extends PHPUnit_Framework_TestCase {
-
+	
 	private $student;
 	private $school;
+	private $fieldNumbers = [31,35,39,43,47,51,55,59,63,67,71,75,79,83,87];
 
 	//Reset the student and school data before each test method
 	public function setUp() {
@@ -22,116 +32,40 @@ class validator_SUBJECTSTest extends PHPUnit_Framework_TestCase {
 		$this->school = SchoolData::getSchool();
 	}
 
-	
-	public function testSubjectIsNull() {
-		$this->student['SUBJECT 1'] = '[Null]';
-		
+	public function testValidSubject() {
+		for($i = 1; $i <= 15; $i++) {
+			$fieldName = 'SUBJECT ' . $i;
+			$this->student[$fieldName] = 'invalid';
+		}
 		$moe = new MOEValidator($this->student, 'M', $this->school);
-		$valid = $moe->check_31();
-		$this->assertSame($valid, 'true');
-
-		$this->student['SUBJECT 2'] = '[Null]';
-		
-		$moe = new MOEValidator($this->student, 'M', $this->school);
-		$valid = $moe->check_35();
-		$this->assertSame($valid, 'true');
-
-		$this->student['SUBJECT 3'] = '[Null]';
-		
-		$moe = new MOEValidator($this->student, 'M', $this->school);
-		$valid = $moe->check_39();
-		$this->assertSame($valid, 'true');
-
-		$this->student['SUBJECT 4'] = '[Null]';		
-		$moe = new MOEValidator($this->student, 'M', $this->school);
-		$valid = $moe->check_43();
-		$this->assertSame($valid, 'true');
-
-		$this->student['SUBJECT 5'] = '[Null]';		
-		$moe = new MOEValidator($this->student, 'M', $this->school);
-		$valid = $moe->check_47();
-		$this->assertSame($valid, 'true');
-
-		$this->student['SUBJECT 6'] = '[Null]';		
-		$moe = new MOEValidator($this->student, 'M', $this->school);
-		$valid = $moe->check_51();
-		$this->assertSame($valid, 'true');
-
-
-		$this->student['SUBJECT 7'] = '[Null]';		
-		$moe = new MOEValidator($this->student, 'M', $this->school);
-		$valid = $moe->check_55();
-		$this->assertSame($valid, 'true');
-
-
-
-		$this->student['SUBJECT 8'] = '[Null]';		
-		$moe = new MOEValidator($this->student, 'M', $this->school);
-		$valid = $moe->check_59();
-		$this->assertSame($valid, 'true');
-
-
-
-		$this->student['SUBJECT 9'] = '[Null]';		
-		$moe = new MOEValidator($this->student, 'M', $this->school);
-		$valid = $moe->check_63();
-		$this->assertSame($valid, 'true');
-
-
-
-		$this->student['SUBJECT 10'] = '[Null]';		
-		$moe = new MOEValidator($this->student, 'M', $this->school);
-		$valid = $moe->check_67();
-		$this->assertSame($valid, 'true');
-
-
-
-		$this->student['SUBJECT 11'] = '[Null]';		
-		$moe = new MOEValidator($this->student, 'M', $this->school);
-		$valid = $moe->check_71();
-		$this->assertSame($valid, 'true');
-
-
-
-		$this->student['SUBJECT 12'] = '[Null]';		
-		$moe = new MOEValidator($this->student, 'M', $this->school);
-		$valid = $moe->check_75();
-		$this->assertSame($valid, 'true');
-
-
-
-		$this->student['SUBJECT 13'] = '[Null]';		
-		$moe = new MOEValidator($this->student, 'M', $this->school);
-		$valid = $moe->check_79();
-		$this->assertSame($valid, 'true');
-
-
-
-		$this->student['SUBJECT 14'] = '[Null]';		
-		$moe = new MOEValidator($this->student, 'M', $this->school);
-		$valid = $moe->check_83();
-		$this->assertSame($valid, 'true');
-
-
-
-		$this->student['SUBJECT 15'] = '[Null]';		
-		$moe = new MOEValidator($this->student, 'M', $this->school);
-		$valid = $moe->check_87();
-		$this->assertSame($valid, 'true');
-
+		foreach ($this->fieldNumbers as $fieldNumber) {
+			$validator = 'check_'.$fieldNumber;
+			$valid = $moe->$validator();
+			$this->assertSame($valid, 'false');
+		}
 	}
 
-
-	public function testSubjectInstructionalYearLevelIsNull() {
-		$this->student['INSTRUCTIONAL YEAR LEVEL SUBJECT 2'] = '[Null]';
-		
+	public function testFulltimeStudentSubjectMandatory() {
+		for($i = 1; $i <= 15; $i++) {
+			$fieldName = 'SUBJECT ' . $i;
+			$this->student[$fieldName] = '';
+		}
+		$this->student['funding_year_level'] = '10';
+		$this->student['ORS and Section 9'] = 'N';
 		$moe = new MOEValidator($this->student, 'M', $this->school);
-		$valid = $moe->check_38();
-		$this->assertSame($valid, 'true');
-
+		$valid = $valid = $moe->check_31();
+		$this->assertSame($valid, 'false');
 	}
-	
 
-	
+	// 674
+	// If one or more SUBJECT code = ‘NAPP’ and some 
+	// SUBJECT codes NOT in [‘NAPP’,’Blank’]
 
+	public function testNoNAPPSubjects() {
+		$this->student['SUBJECT 1'] = 'NAPP';
+		$this->student['SUBJECT 2'] = 'PHED';
+		$moe = new MOEValidator($this->student, 'M', $this->school);
+		$valid = $valid = $moe->check_31();
+		$this->assertSame($valid, 'false');
+	}
 }
