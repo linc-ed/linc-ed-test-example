@@ -524,7 +524,7 @@ else {
 	
 }
 
-	var_dump($this->moe[$number]);
+	
 
 return $this->moe[$number]['valid'] ;
 
@@ -597,7 +597,8 @@ else if ( $data == 'F'){
 else {
 	
 	$this->moe[$number]['valid'] = 'false';
-	$this->moe[$number]['value'] = "101 - Gender is not M or F";
+	$this->moe[$number]['value'] = $data;
+	$this->moe[$number]['message'] = "101 - Gender is not M or F";
 	
 }
 		
@@ -647,7 +648,7 @@ else {
 	
 }
 
-			var_dump($this->moe[$number]);
+	
 								
 								
 		return $this->moe[$number]['valid'] ;		
@@ -678,7 +679,8 @@ $convert = date('Ymd', strtotime($data));
 					 //IF FIRST ATTENDANCE is < FIRST SCHOOLING
 					 	if ($convert < date('Ymd', strtotime($this->mappedData['first_schooling']))){
 							$this->moe[$number]['valid'] = 'false';
-							$this->moe[$number]['value'] = "642 - Student cannot have a first attendance date before first day at any school";
+							$this->moe[$number]['value'] = $data;
+							$this->moe[$number]['message'] = "642 - Student cannot have a first attendance date before first day at any school";
 						}
 						else {
 							$this->moe[$number]['valid'] = 'true';
@@ -688,7 +690,8 @@ $convert = date('Ymd', strtotime($data));
 						else {
 							
 							$this->moe[$number]['valid'] = 'false';
-							$this->moe[$number]['value'] = "122 - Format of date first attended this school is incorrect";
+							$this->moe[$number]['value'] = $data;
+							$this->moe[$number]['message'] = "122 - Format of date first attended this school is incorrect";
 							
 						}
 					
@@ -696,13 +699,15 @@ $convert = date('Ymd', strtotime($data));
 			else {
 				
 				$this->moe[$number]['valid'] = 'false';
-				$this->moe[$number]['value'] = "121 - Date first attended at this school is missing";
+				$this->moe[$number]['value'] = $data;
+				$this->moe[$number]['message'] = "121 - Date first attended at this school is missing";
 				
 		}
 	}
 	else {
 			$this->moe[$number]['valid'] = 'false';
-			$this->moe[$number]['value'] = "122 - Format of date first attended this school is incorrect";
+			$this->moe[$number]['value'] = $data;
+			$this->moe[$number]['message'] = "122 - Format of date first attended this school is incorrect";
 
 	}
 
@@ -1027,7 +1032,7 @@ $check = $this->codes->checkKey($data, $iwi_codes);
 			}	// Not Maori.	
 		}// End check was false.
 		
-var_dump($this->codes->checkKey($data, $iwi_codes));
+
 
 			return $this->moe[$number]['valid'] ;
 	
@@ -1151,7 +1156,7 @@ $data = $this->mappedData[$this->moe[16]['LINC Name']];
 // Value not in [N, H, V, S] and [Rmonth in [M,J] or Funding Year Level >=9]
 
 if ($data==''){
-		$this->moe[16]['valid'] = 'false';
+		$this->moe[16]['valid'] = 'true';
 		$this->moe[16]['value'] = 'N';
 }
 else {
@@ -1166,7 +1171,7 @@ else {
 		
 	}
 }
-var_dump($this->moe[$number]);
+
 return $this->moe[$number]['valid'];
 
 }
@@ -5181,18 +5186,20 @@ $number = 95;
 
 $data = $this->mappedData[$this->moe[$number]['LINC Name']];
 // If Boarding Status is Null and REASON=Null and [Rmonth in [M,J] or Funding Year Level >=9]
-if (is_null($data) && is_null($this->mappedData['REASON']) && (in_array($this->rmonth, array('M', 'J'))|| $this->mappedData['funding_year_level'] >=9)){
-$this->moe[$number]['valid'] = 'false';
-	$this->moe[$number]['value'] = '634 - Boarding Status has to be Y or N';	
+if ($data=='' && is_null($this->mappedData['REASON']) && (in_array($this->rmonth, array('M', 'J'))|| $this->mappedData['funding_year_level'] >=9)){
+	$this->moe[$number]['valid'] = 'true';
+	$this->moe[$number]['value'] = 'N';
+	$this->moe[$number]['message'] = '634 - Boarding Status has to be Y or N';	
 }
 // If Boarding Status=Y and Zoning Status not NAPP and REASON=Null and [Rmonth in [M,J] or Funding Year Level >=9]
 
 else if ($data == 'Y' && $this->mappedData['ZONING STATUS'] != 'NAPP' && is_null($this->mappedData['REASON'])  && (in_array($this->rmonth, array('M', 'J'))|| $this->mappedData['funding_year_level'] >=9)){
 	$this->moe[$number]['valid'] = 'false';
-	$this->moe[$number]['value'] = '635 - Zoning Status of students boarding at the school hostel must be NAPP';	
+	$this->moe[$number]['value'] = 'N';
+	$this->moe[$number]['message'] = '635 - Zoning Status of students boarding at the school hostel must be NAPP';	
 }
 else {
-$this->moe[$number]['valid'] = 'true';
+	$this->moe[$number]['valid'] = 'true';
 	$this->moe[$number]['value'] = $data;
 	}
 
@@ -6165,29 +6172,10 @@ if (is_email($data)){
 }
 else {
 	$this->moe[$number]['valid'] = 'false';
-	$this->moe[$number]['value'] = $this->moe[$number]['message'];	
+	$this->moe[$number]['value'] = $data;
+	
 }
 
-
-if ($this->moe[$number]['valid']=='false'){
-	if ($this->moe[$number]['Mandatory']=="YES"){
-		$warning = 'warning-2';	
-	}
-	else {
-		$warning = 'warning';	
-	}
-	
-	$this->moe[$number]['input_label'] = '<label id="'.$this->moe[$number]['LINC Name'] .$this->person_id.'_label" for="'.$this->moe[$number]['LINC Name'] .$this->person_id.'"><span class="error"><i class="font-'.$this->moe[$number]['ICON'] .'"  ></i> '.$this->moe[$number]['Field Label'] .': <i class="font-'. $warning .'"  ></i></span>'.linc_popupmessage( $this->moe[$number]['LINC Name'],  $this->moe[$number]['Field Label'], $this->moe[$number]['Description']).'</label>';
-				
-		}
-		else if ($this->moe[$number]['valid']=='true'){
-
-		$this->moe[$number]['input_label'] =  '<label  id="'.$this->moe[$number]['LINC Name'].$this->person_id.'_label" for="'.$this->moe[$number]['LINC Name'] .$this->person_id.'"><span class="valid"><i class="font-'.$this->moe[$number]['ICON'].'"  ></i> '.$this->moe[$number]['Field Label'].': <i class="font-checkmark-3"  ></i></span></label>';
-			
-		}
-		
-	
-$this->moe[$number]['input_field'] = '<input type="text" class="'.$this->moe[$number]['Content Type'].'" data-arraypos="'.$this->moe[$number]['Field No'].'" name="'.$this->moe[$number]['LINC Name'].'" data-id="'.$this->person_id.'" id="'.$this->moe[$number]['LINC Name'].$this->person_id.'" value="'.$this->moe[$number]['value'].'" data-theme="'.$theme.'" placeholder="'.$this->moe[$number]['Placeholder'].'"/>';
 
 return $this->moe[$number]['valid'] ;	
 
