@@ -86,7 +86,6 @@ class validator_17_FUNDING_YEAR_LEVELTest extends PHPUnit_Framework_TestCase {
 	//Known valid funding_year_level
 	public function testFundingYearLevel() {
 		$moe = new MOEValidator($this->student, 'M', $this->school);
-		$moe = new MOEValidator($this->student, 'M', $this->school);
 		$valid = $moe->check_17();
 		$this->assertSame($valid, 'true');
 		
@@ -204,35 +203,104 @@ class validator_17_FUNDING_YEAR_LEVELTest extends PHPUnit_Framework_TestCase {
 	// If ORS AND SECTION 9=N and FUNDING YEAR LEVEL<9 
 	// and age at 1 July (t)>=16 
 
-	public function testFundingYearError609() {
-
+	public function testFundingYearError610() {
+		$this->student['ORS and Section 9'] = 'N';
+		$this->student['funding_year_level'] = '8';
+		$this->student['dob'] = '1980-01-01'; // old student
+		$moe = new MOEValidator($this->student, 'M', $this->school);
+		$valid = $moe->check_17();
+		$this->assertSame($valid, 'false');
 	}
 
-  // If ORS AND SECTION 9 = N and REASON = NULL and age 
-  // at 1 July(t) <= 6 and FIRST_ATTENDANCE <= 1 July(t) 
-  // and FIRST SCHOOLING > 1 July (t-1) and STUDENT TYPE 
-  // in [‘RE’,’FF’,’EX’] and FUNDING YEAR LEVEL is NOT= 1
-  // And Rmonth in [M,J]
- // 
-  // If ORS AND SECTION 9 = N and REASON = NULL and 
-  // FIRST SCHOOLING <= 1 July (t-1) and STUDENT TYPE in 
-  // [‘RE’,’FF’,’EX’] and FUNDING YEAR LEVEL < 2
-  // and [Rmonth in [M,J] 
- // 
-  // If ORS AND SECTION 9 = N and REASON = NULL and (age 
-  // at 1 July (t) – FUNDING YEAR LEVEL) < 2 and STUDENT 
-  // TYPE in [‘RE’,’FF’,’EX’]
-  // and [Rmonth in [M,J]
- // 
-  // If ORS AND SECTION 9 = N and REASON = NULL and age 
-  // at July(t) < 17 and STUDENT TYPE in [‘RE’,’FF’,’EX’] and 
- // (age at 1 July (t) – FUNDING YEAR LEVEL) > 6 
-  // and [Rmonth in [M,J] 
- // 
-  // If ORS AND SECTION 9 = N and REASON = NULL and 
-  // School Type in (‘20’,’21’) and STUDENT TYPE in 
-  // [‘RE’,’FF’,’EX’] and FUNDING YEAR LEVEL>6 and 
-  // Reason=Null
+	// If ORS AND SECTION 9 = N and REASON = NULL and age 
+	// at 1 July(t) <= 6 and FIRST_ATTENDANCE <= 1 July(t) 
+	// and FIRST SCHOOLING > 1 July (t-1) and STUDENT TYPE 
+	// in [‘RE’,’FF’,’EX’] and FUNDING YEAR LEVEL is NOT= 1
+	// And Rmonth in [M,J]
 
+	public function testFundingYearError675() {
+		$this->student['ORS and Section 9'] = 'N';
+		$this->student['REASON'] = '';
+		$currentYear = date('Y');
+		$birthYear = date('Y') - 5;
+		$this->student['dob'] = $birthYear . '-01-01';
+		$this->student['first_attendance'] = $currentYear . '-01-01';
+		$this->student['first_schooling'] = $currentYear . '-01-01';
+		$this->student['TYPE'] = 'RE';
+		$this->student['funding_year_level'] = '2';
+		$moe = new MOEValidator($this->student, 'M', $this->school);
+		$valid = $moe->check_17();
+		$this->assertSame($valid, 'false');
+	}
 
+	// 
+	// If ORS AND SECTION 9 = N and REASON = NULL and 
+	// FIRST SCHOOLING <= 1 July (t-1) and STUDENT TYPE in 
+	// [‘RE’,’FF’,’EX’] and FUNDING YEAR LEVEL < 2
+	// and [Rmonth in [M,J] 
+
+	public function testFundingYearError676() {
+		$this->student['ORS and Section 9'] = 'N';
+		$this->student['REASON'] = '';
+		$lastYear = date('Y') - 1;
+		$this->student['first_schooling'] = $lastYear .'-01-01';
+		$this->student['TYPE'] = 'RE';
+		$this->student['funding_year_level'] = '1';
+		$moe = new MOEValidator($this->student, 'M', $this->school);
+		$valid = $moe->check_17();
+		$this->assertSame($valid, 'false');
+	}
+
+	// If ORS AND SECTION 9 = N and REASON = NULL and (age 
+	// at 1 July (t) – FUNDING YEAR LEVEL) < 2 and STUDENT 
+	// TYPE in [‘RE’,’FF’,’EX’]
+	// and [Rmonth in [M,J]
+
+	public function testFundingYearError677() {
+		$this->student['ORS and Section 9'] = 'N';
+		$this->student['REASON'] = '';
+		$birthYear = date('Y') - 10;
+		$this->student['dob'] = $birthYear . '-01-01';
+		$this->student['funding_year_level'] = '10';
+		$this->student['TYPE'] = 'RE';
+		$moe = new MOEValidator($this->student, 'M', $this->school);
+		$valid = $moe->check_17();
+		$this->assertSame($valid, 'false');
+	}
+
+	// If ORS AND SECTION 9 = N and REASON = NULL and age 
+	// at July(t) < 17 and STUDENT TYPE in [‘RE’,’FF’,’EX’] and 
+	// (age at 1 July (t) – FUNDING YEAR LEVEL) > 6 
+	// and [Rmonth in [M,J] 
+
+	public function testFundingYearError678() {
+		$this->student['ORS and Section 9'] = 'N';
+		$this->student['REASON'] = '';
+		$birthYear = date('Y') - 15;
+		$this->student['dob'] = $birthYear . '-01-01';
+		$this->student['funding_year_level'] = '3';
+		$this->student['TYPE'] = 'RE';
+		$moe = new MOEValidator($this->student, 'M', $this->school);
+		$valid = $moe->check_17();
+		$this->assertSame($valid, 'false');
+	}
+
+	// If ORS AND SECTION 9 = N and REASON = NULL and 
+	// School Type in (‘20’,’21’) and STUDENT TYPE in 
+	// [‘RE’,’FF’,’EX’] and FUNDING YEAR LEVEL>6 and 
+	// Reason=Null
+
+	public function testFundingYearError679() {
+		$this->student['ORS and Section 9'] = 'N';
+		$this->student['REASON'] = '';
+		$this->school['school_type'] = '20';
+		$this->student['TYPE'] = 'RE';
+		$this->student['funding_year_level'] = '8';
+		$this->student['REASON'] = '';
+		$moe = new MOEValidator($this->student, 'M', $this->school);
+		$valid = $moe->check_17();
+		$this->assertSame($valid, 'false');
+	}
+
+	
 }
