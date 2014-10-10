@@ -33,19 +33,45 @@ class validator_addressFieldsTest extends PHPUnit_Framework_TestCase {
 
 		$this->student['contact_1_address2']='"Taylors Hill" Cornwall Road';
 		$moe = new MOEValidator($this->student, 'M', $this->school);
-		$valid = $moe->check_118();
+		$valid = $moe->check_119();
 		$this->assertSame($valid, 'false');
 
 
 	$this->student['contact_1_address3']='"Taylors Hill" Cornwall Road';
 		$moe = new MOEValidator($this->student, 'M', $this->school);
-		$valid = $moe->check_118();
+		$valid = $moe->check_120();
 		$this->assertSame($valid, 'false');
 
 
 	$this->student['contact_1_address4']='"Taylors Hill" Cornwall Road';
 		$moe = new MOEValidator($this->student, 'M', $this->school);
-		$valid = $moe->check_118();
+		$valid = $moe->check_121();
+		$this->assertSame($valid, 'false');
+
+	}
+
+		public function testContact2Address1to4() {
+
+		$this->student['contact_2_address1']='"Taylors Hill" Cornwall Road';
+		$moe = new MOEValidator($this->student, 'M', $this->school);
+		$valid = $moe->check_126();
+		$this->assertSame($valid, 'false');
+
+		$this->student['contact_2_address2']='"Taylors Hill" Cornwall Road';
+		$moe = new MOEValidator($this->student, 'M', $this->school);
+		$valid = $moe->check_127();
+		$this->assertSame($valid, 'false');
+
+
+	$this->student['contact_2_address3']='"Taylors Hill" Cornwall Road';
+		$moe = new MOEValidator($this->student, 'M', $this->school);
+		$valid = $moe->check_128();
+		$this->assertSame($valid, 'false');
+
+
+	$this->student['contact_2_address4']='"Taylors Hill" Cornwall Road';
+		$moe = new MOEValidator($this->student, 'M', $this->school);
+		$valid = $moe->check_129();
 		$this->assertSame($valid, 'false');
 
 	}

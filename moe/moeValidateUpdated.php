@@ -1443,38 +1443,7 @@ else {
 	$this->moe[$number]['valid'] = 'false';
 	$this->moe[$number]['value'] = '171 - Student type is missing';
 }
-if ($this->moe[$number]['valid']=='false'){
-	if ($this->moe[$number]['Mandatory']=="YES"){
-		$warning = 'warning-2';	
-	}
-	else {
-		$warning = 'warning';	
-	}
-	
-	$this->moe[$number]['input_label'] = '<label id="'.$this->moe[$number]['LINC Name'] .$this->person_id.'_label" for="'.$this->moe[$number]['LINC Name'] .$this->person_id.'"><span class="error"><i class="font-'.$this->moe[$number]['ICON'] .'"  ></i> '.$this->moe[$number]['Field Label'] .': <i class="font-'. $warning .'"  ></i></span>'.linc_popupmessage( $this->moe[$number]['LINC Name'],  $this->moe[$number]['Field Label'], $this->moe[$number]['Description']).'</label>';
-				
-		}
-		else if ($this->moe[$number]['valid']=='true'){
-
-		$this->moe[$number]['input_label'] =  '<label  id="'.$this->moe[$number]['LINC Name'].$this->person_id.'_label" for="'.$this->moe[$number]['LINC Name'] .$this->person_id.'"><span class="valid"><i class="font-'.$this->moe[$number]['ICON'].'"  ></i> '.$this->moe[$number]['Field Label'].': <i class="font-checkmark-3"  ></i></span></label>';
-			
-		}
-$this->moe[$number]['input_field'] = '<select name="select-'.$this->moe[$number]['LINC Name'].'" id="select-'.$this->moe[$number]['LINC Name'].$this->person_id.'" data-native-menu="false" data-inline="true" data-icon="grid" data-theme="b" data-iconpos="left" class="optionMenu">';
-					
-			$this->moe[$number]['input_field'] .= '<option>'.$this->moe[$number]['Description'].'</option>';
-					 
-							   foreach ($array as $key=> $code){
-									   
-									$this->moe[$number]['input_field'] .= '<option ';
-										if ($key == $this->moe[$number]['value'] ){
-										
-									$this->moe[$number]['input_field'] .= 'selected=selected';	
-										}
-										
-			$this->moe[$number]['input_field'].= ' value="'.$key.'" data-arraypos="'.$this->moe[$number]['Field No'].'" data-id="'.$this->person_id.'" data-value="'.$key.'" name="'.$this->moe[$number]['LINC Name'].'" data-id="'.$this->person_id.'">'.$code.'</option>';	
-								}
-							
-			$this->moe[$number]['input_field'] .= '</select>';
+ 
 
 			return $this->moe[$number]['valid'];	
 }
@@ -1661,38 +1630,7 @@ $this->moe[$number]['valid'] = 'false';
 }
 
 				
-if ($this->moe[$number]['valid']=='false'){
-	if ($this->moe[$number]['Mandatory']=="YES"){
-		$warning = 'warning-2';	
-	}
-	else {
-		$warning = 'warning';	
-	}
-	
-	$this->moe[$number]['input_label'] = '<label id="'.$this->moe[$number]['LINC Name'] .$this->person_id.'_label" for="'.$this->moe[$number]['LINC Name'] .$this->person_id.'"><span class="error"><i class="font-'.$this->moe[$number]['ICON'] .'"  ></i> '.$this->moe[$number]['Field Label'] .': <i class="font-'. $warning .'"  ></i></span>'.linc_popupmessage( $this->moe[$number]['LINC Name'],  $this->moe[$number]['Field Label'], $this->moe[$number]['value']).'</label>';
-				
-		}
-		else if ($this->moe[$number]['valid']=='true'){
 
-		$this->moe[$number]['input_label'] =  '<label  id="'.$this->moe[$number]['LINC Name'].$this->person_id.'_label" for="'.$this->moe[$number]['LINC Name'] .$this->person_id.'"><span class="valid"><i class="font-'.$this->moe[$number]['ICON'].'"  ></i> '.$this->moe[$number]['Field Label'].': <i class="font-checkmark-3"  ></i></span></label>';
-			
-		}
-$this->moe[$number]['input_field'] = '<select name="select-'.$this->moe[$number]['LINC Name'].'" id="select-'.$this->moe[$number]['LINC Name'].$this->person_id.'" data-native-menu="false" data-inline="true" data-icon="grid" data-theme="b" data-iconpos="left" class="optionMenu">';
-					
-			$this->moe[$number]['input_field'] .= '<option>'.$this->moe[$number]['Description'].'</option>';
-					 
-							   foreach ($array as $key=> $code){
-									   
-									$this->moe[$number]['input_field'] .= '<option ';
-										if ($key == $this->moe[$number]['value'] ){
-										
-									$this->moe[$number]['input_field'] .= 'selected=selected';	
-										}
-										
-			$this->moe[$number]['input_field'].= ' value="'.$key.'" data-arraypos="'.$this->moe[$number]['Field No'].'" data-id="'.$this->person_id.'" data-value="'.$key.'" name="'.$this->moe[$number]['LINC Name'].'" data-id="'.$this->person_id.'">'.$code.'</option>';	
-								}
-							
-			$this->moe[$number]['input_field'] .= '</select>';	
 
 			return $this->moe[$number]['valid'];
 }
@@ -1723,25 +1661,7 @@ else {
 	$this->moe[22]['value'] = $data;
 }
 
-if ($this->moe[$number]['valid']=='false'){
-	if ($this->moe[$number]['Mandatory']=="YES"){
-		$warning = 'warning-2';	
-	}
-	else {
-		$warning = 'warning';	
-	}
-	
-	$this->moe[$number]['input_label'] = '<label id="'.$this->moe[$number]['LINC Name'] .$this->person_id.'_label" for="'.$this->moe[$number]['LINC Name'] .$this->person_id.'"><span class="error"><i class="font-'.$this->moe[$number]['ICON'] .'"  ></i> '.$this->moe[$number]['Field Label'] .': <i class="font-'. $warning .'"  ></i></span>'.linc_popupmessage( $this->moe[$number]['LINC Name'],  $this->moe[$number]['Field Label'], $this->moe[$number]['Description']).'</label>';
-				
-		}
-		else if ($this->moe[$number]['valid']=='true'){
 
-		$this->moe[$number]['input_label'] =  '<label  id="'.$this->moe[$number]['LINC Name'].$this->person_id.'_label" for="'.$this->moe[$number]['LINC Name'] .$this->person_id.'"><span class="valid"><i class="font-'.$this->moe[$number]['ICON'].'"  ></i> '.$this->moe[$number]['Field Label'].': <i class="font-checkmark-3"  ></i></span></label>';
-			
-		}
-		
-	
-$this->moe[$number]['input_field'] = '<input type="number" class="'.$this->moe[$number]['Content Type'].'" data-arraypos="'.$this->moe[$number]['Field No'].'" name="'.$this->moe[$number]['LINC Name'].'" data-id="'.$this->person_id.'" id="'.$this->moe[$number]['LINC Name'].$this->person_id.'" value="'.$this->moe[$number]['value'].'" data-theme="'.$theme.'" placeholder="'.$this->moe[$number]['Placeholder'].'"/>';
 return $this->moe[$number]['valid'];
 
 }
@@ -1796,25 +1716,6 @@ else {
 	$this->moe[$number]['value'] = $data;
 }
 
-if ($this->moe[$number]['valid']=='false'){
-	if ($this->moe[$number]['Mandatory']=="YES"){
-		$warning = 'warning-2';	
-	}
-	else {
-		$warning = 'warning';	
-	}
-	
-	$this->moe[$number]['input_label'] = '<label id="'.$this->moe[$number]['LINC Name'] .$this->person_id.'_label" for="'.$this->moe[$number]['LINC Name'] .$this->person_id.'"><span class="error"><i class="font-'.$this->moe[$number]['ICON'] .'"  ></i> '.$this->moe[$number]['Field Label'] .': <i class="font-'. $warning .'"  ></i></span>'.linc_popupmessage( $this->moe[$number]['LINC Name'],  $this->moe[$number]['Field Label'], $this->moe[$number]['Description']).'</label>';
-				
-		}
-		else if ($this->moe[$number]['valid']=='true'){
-
-		$this->moe[$number]['input_label'] =  '<label  id="'.$this->moe[$number]['LINC Name'].$this->person_id.'_label" for="'.$this->moe[$number]['LINC Name'] .$this->person_id.'"><span class="valid"><i class="font-'.$this->moe[$number]['ICON'].'"  ></i> '.$this->moe[$number]['Field Label'].': <i class="font-checkmark-3"  ></i></span></label>';
-			
-		}
-		
-	
-$this->moe[$number]['input_field'] = '<input type="number" class="'.$this->moe[$number]['Content Type'].'" data-arraypos="'.$this->moe[$number]['Field No'].'" name="'.$this->moe[$number]['LINC Name'].'" data-id="'.$this->person_id.'" id="'.$this->moe[$number]['LINC Name'].$this->person_id.'" value="'.$this->moe[$number]['value'].'" data-theme="'.$theme.'" placeholder="'.$this->moe[$number]['Placeholder'].'"/>';
 
 return $this->moe[$number]['valid'];
 }
@@ -1849,39 +1750,7 @@ if ($data=='N/A'){
 	$this->moe[$number]['value'] = 'Null';
 }
 
-if ($this->moe[$number]['valid']=='false'){
-	if ($this->moe[$number]['Mandatory']=="YES"){
-		$warning = 'warning-2';	
-	}
-	else {
-		$warning = 'warning';	
-	}
-	
-	$this->moe[$number]['input_label'] = '<label id="'.$this->moe[$number]['LINC Name'] .$this->person_id.'_label" for="'.$this->moe[$number]['LINC Name'] .$this->person_id.'"><span class="error"><i class="font-'.$this->moe[$number]['ICON'] .'"  ></i> '.$this->moe[$number]['Field Label'] .': <i class="font-'. $warning .'"  ></i></span>'.linc_popupmessage( $this->moe[$number]['LINC Name'],  $this->moe[$number]['Field Label'], $this->moe[$number]['Description']).'</label>';
-				
-		}
-		else if ($this->moe[$number]['valid']=='true'){
 
-		$this->moe[$number]['input_label'] =  '<label  id="'.$this->moe[$number]['LINC Name'].$this->person_id.'_label" for="'.$this->moe[$number]['LINC Name'] .$this->person_id.'"><span class="valid"><i class="font-'.$this->moe[$number]['ICON'].'"  ></i> '.$this->moe[$number]['Field Label'].': <i class="font-checkmark-3"  ></i></span></label>';
-			
-		}
-		
-$this->moe[$number]['input_field'] = '<select name="select-'.$this->moe[$number]['LINC Name'].'" id="select-'.$this->moe[$number]['LINC Name'].$this->person_id.'" data-native-menu="false" data-inline="true" data-icon="grid" data-theme="b" data-iconpos="left" class="optionMenu">';
-					
-			$this->moe[$number]['input_field'] .= '<option>'.$this->moe[$number]['Description'].'</option>';
-					 $array = array('[Null]'=>'Student not involved in Māori Language Learning', 'A'=>'Student is learning Taha Māori', 'B'=>'Student is learning Te Reo Māori as a separate subject for less than 3 hours per week', 'C'=>'Student is learning Te Reo Māori as a separate subject for at least 3 hours per week', 'D'=>'Curriculum is taught in Māori 12% - 30% of total time', 'E'=>'Curriculum is taught in Māori 31 – 50% of total time', 'F'=>'Curriculum is taught in Māori 51 – 80% of total time', 'G'=>'Curriculum is taught in Māori 81 – 99% of total time', 'H'=>'Curriculum is taught in Māori 100% of time,');
-							   foreach ($array as $key=> $code){
-									   
-									$this->moe[$number]['input_field'] .= '<option ';
-										if ($key == $this->moe[$number]['value'] ){
-										
-									$this->moe[$number]['input_field'] .= 'selected=selected';	
-										}
-										
-			$this->moe[$number]['input_field'].= ' value="'.$key.'" data-arraypos="'.$this->moe[$number]['Field No'].'" data-id="'.$this->person_id.'" data-value="'.$key.'" name="'.$this->moe[$number]['LINC Name'].'" data-id="'.$this->person_id.'">'.$code.'</option>';	
-								}
-							
-			$this->moe[$number]['input_field'] .= '</select>';	
 
 return $this->moe[$number]['valid'];
 }
@@ -1987,39 +1856,7 @@ if ($this->mappedData['funding_year_level'] >= 9){
 											$this->moe[$number]['value'] = "Incorrect code for NQF Qual";
 							}	
 
-if ($this->moe[$number]['valid']=='false'){
-	if ($this->moe[$number]['Mandatory']=="YES"){
-		$warning = 'warning-2';	
-	}
-	else {
-		$warning = 'warning';	
-	}
-	
-	$this->moe[$number]['input_label'] = '<label id="'.$this->moe[$number]['LINC Name'] .$this->person_id.'_label" for="'.$this->moe[$number]['LINC Name'] .$this->person_id.'"><span class="error"><i class="font-'.$this->moe[$number]['ICON'] .'"  ></i> '.$this->moe[$number]['Field Label'] .': <i class="font-'. $warning .'"  ></i></span>'.linc_popupmessage( $this->moe[$number]['LINC Name'],  $this->moe[$number]['Field Label'], $this->moe[$number]['Description']).'</label>';
-				
-		}
-		else if ($this->moe[$number]['valid']=='true'){
 
-		$this->moe[$number]['input_label'] =  '<label  id="'.$this->moe[$number]['LINC Name'].$this->person_id.'_label" for="'.$this->moe[$number]['LINC Name'] .$this->person_id.'"><span class="valid"><i class="font-'.$this->moe[$number]['ICON'].'"  ></i> '.$this->moe[$number]['Field Label'].': <i class="font-checkmark-3"  ></i></span></label>';
-			
-		}
-	
-$this->moe[$number]['input_field'] = '<select name="select-'.$this->moe[$number]['LINC Name'].'" id="select-'.$this->moe[$number]['LINC Name'].$this->person_id.'" data-native-menu="false" data-inline="true" data-icon="grid" data-theme="b" data-iconpos="left" class="optionMenu">';
-					
-			$this->moe[$number]['input_field'] .= '<option>'.$this->moe[$number]['Description'].'</option>';
-					 $array = MOECodes::$NQF_codes;
-							   foreach ($array as $key=> $code){
-									   
-									$this->moe[$number]['input_field'] .= '<option ';
-										if ($key == $this->moe[$number]['value'] ){
-										
-									$this->moe[$number]['input_field'] .= 'selected=selected';	
-										}
-										
-			$this->moe[$number]['input_field'].= ' value="'.$key.'" data-arraypos="'.$this->moe[$number]['Field No'].'" data-id="'.$this->person_id.'" data-value="'.$key.'" name="'.$this->moe[$number]['LINC Name'].'" data-id="'.$this->person_id.'">'.$code.'</option>';	
-								}
-							
-			$this->moe[$number]['input_field'] .= '</select>';	
 
 			return $this->moe[$number]['valid'];
 			
@@ -2079,39 +1916,7 @@ public function check_27(){
 			$this->moe[$number]['value'] = $data;
 		}
 
-if ($this->moe[$number]['valid']=='false'){
-	if ($this->moe[$number]['Mandatory']=="YES"){
-		$warning = 'warning-2';	
-	}
-	else {
-		$warning = 'warning';	
-	}
-	
-	$this->moe[$number]['input_label'] = '<label id="'.$this->moe[$number]['LINC Name'] .$this->person_id.'_label" for="'.$this->moe[$number]['LINC Name'] .$this->person_id.'"><span class="error"><i class="font-'.$this->moe[$number]['ICON'] .'"  ></i> '.$this->moe[$number]['Field Label'] .': <i class="font-'. $warning .'"  ></i></span>'.linc_popupmessage( $this->moe[$number]['LINC Name'],  $this->moe[$number]['Field Label'], $this->moe[$number]['Description']).'</label>';
-				
-		}
-		else if ($this->moe[$number]['valid']=='true'){
 
-		$this->moe[$number]['input_label'] =  '<label  id="'.$this->moe[$number]['LINC Name'].$this->person_id.'_label" for="'.$this->moe[$number]['LINC Name'] .$this->person_id.'"><span class="valid"><i class="font-'.$this->moe[$number]['ICON'].'"  ></i> '.$this->moe[$number]['Field Label'].': <i class="font-checkmark-3"  ></i></span></label>';
-			
-		}
-	
-$this->moe[$number]['input_field'] = '<select name="select-'.$this->moe[$number]['LINC Name'].'" id="select-'.$this->moe[$number]['LINC Name'].$this->person_id.'" data-native-menu="false" data-inline="true" data-icon="grid" data-theme="b" data-iconpos="left" class="optionMenu">';
-					
-			$this->moe[$number]['input_field'] .= '<option>'.$this->moe[$number]['Description'].'</option>';
-					 $array = MOECodes::$reasons;
-							   foreach ($array as $key=> $code){
-									   
-									$this->moe[$number]['input_field'] .= '<option ';
-										if ($key == $this->moe[$number]['value'] ){
-										
-									$this->moe[$number]['input_field'] .= 'selected=selected';	
-										}
-										
-			$this->moe[$number]['input_field'].= ' value="'.$key.'" data-arraypos="'.$this->moe[$number]['Field No'].'" data-id="'.$this->person_id.'" data-value="'.$key.'" name="'.$this->moe[$number]['LINC Name'].'" data-id="'.$this->person_id.'">'.$code.'</option>';	
-								}
-							
-			$this->moe[$number]['input_field'] .= '</select>';	
 
 		return $this->moe[$number]['valid'];
 }
@@ -2158,39 +1963,7 @@ else {
 		}
 }
 
-if ($this->moe[$number]['valid']=='false'){
-	if ($this->moe[$number]['Mandatory']=="YES"){
-		$warning = 'warning-2';	
-	}
-	else {
-		$warning = 'warning';	
-	}
-	
-	$this->moe[$number]['input_label'] = '<label id="'.$this->moe[$number]['LINC Name'] .$this->person_id.'_label" for="'.$this->moe[$number]['LINC Name'] .$this->person_id.'"><span class="error"><i class="font-'.$this->moe[$number]['ICON'] .'"  ></i> '.$this->moe[$number]['Field Label'] .': <i class="font-'. $warning .'"  ></i></span>'.linc_popupmessage( $this->moe[$number]['LINC Name'],  $this->moe[$number]['Field Label'], $this->moe[$number]['Description']).'</label>';
-				
-		}
-		else if ($this->moe[$number]['valid']=='true'){
 
-		$this->moe[$number]['input_label'] =  '<label  id="'.$this->moe[$number]['LINC Name'].$this->person_id.'_label" for="'.$this->moe[$number]['LINC Name'] .$this->person_id.'"><span class="valid"><i class="font-'.$this->moe[$number]['ICON'].'"  ></i> '.$this->moe[$number]['Field Label'].': <i class="font-checkmark-3"  ></i></span></label>';
-			
-		}
-
-$this->moe[$number]['input_field'] = '<select name="select-'.$this->moe[$number]['LINC Name'].'" id="select-'.$this->moe[$number]['LINC Name'].$this->person_id.'" data-native-menu="false" data-inline="true" data-icon="grid" data-theme="b" data-iconpos="left" class="optionMenu">';
-					
-			$this->moe[$number]['input_field'] .= '<option>'.$this->moe[$number]['Description'].'</option>';
-					 $array = MOECodes::$ECE_codes;
-							   foreach ($array as $key=> $code){
-									   
-									$this->moe[$number]['input_field'] .= '<option ';
-										if ($key == $this->moe[$number]['value'] ){
-										
-									$this->moe[$number]['input_field'] .= 'selected=selected';	
-										}
-										
-			$this->moe[$number]['input_field'].= ' value="'.$key.'" data-arraypos="'.$this->moe[$number]['Field No'].'" data-id="'.$this->person_id.'" data-value="'.$key.'" name="'.$this->moe[$number]['LINC Name'].'" data-id="'.$this->person_id.'">'.$code.'</option>';	
-								}
-							
-			$this->moe[$number]['input_field'] .= '</select>';	
 
 
 	return $this->moe[$number]['valid'];
@@ -2238,39 +2011,7 @@ $this->moe[$number]['valid'] = 'true';
 		}
 	
 }
-if ($this->moe[$number]['valid']=='false'){
-	if ($this->moe[$number]['Mandatory']=="YES"){
-		$warning = 'warning-2';	
-	}
-	else {
-		$warning = 'warning';	
-	}
-	
-	$this->moe[$number]['input_label'] = '<label id="'.$this->moe[$number]['LINC Name'] .$this->person_id.'_label" for="'.$this->moe[$number]['LINC Name'] .$this->person_id.'"><span class="error"><i class="font-'.$this->moe[$number]['ICON'] .'"  ></i> '.$this->moe[$number]['Field Label'] .': <i class="font-'. $warning .'"  ></i></span>'.linc_popupmessage( $this->moe[$number]['LINC Name'],  $this->moe[$number]['Field Label'], $this->moe[$number]['Description']).'</label>';
-				
-		}
-		else if ($this->moe[$number]['valid']=='true'){
 
-		$this->moe[$number]['input_label'] =  '<label  id="'.$this->moe[$number]['LINC Name'].$this->person_id.'_label" for="'.$this->moe[$number]['LINC Name'] .$this->person_id.'"><span class="valid"><i class="font-'.$this->moe[$number]['ICON'].'"  ></i> '.$this->moe[$number]['Field Label'].': <i class="font-checkmark-3"  ></i></span></label>';
-			
-		}
-
-$this->moe[$number]['input_field'] = '<select name="select-pacific" id="select-pacific'.$this->person_id.'" data-native-menu="false" data-inline="true" data-icon="grid" data-theme="b" data-iconpos="left" class="optionMenu">';
-					
-			$this->moe[$number]['input_field'] .= '<option>Select an option</option>';
-					 $array = MOECodes::$pacific;
-							   foreach ($array as $key=> $code){
-									   
-									$this->moe[$number]['input_field'] .= '<option ';
-										if ($key == $this->moe[$number]['value'] ){
-										
-									$this->moe[$number]['input_field'] .= 'selected=selected';	
-										}
-										
-			$this->moe[$number]['input_field'].= ' value="'.$key.'" data-arraypos="'.$this->moe[$number]['Field No'].'" data-id="'.$this->person_id.'" data-value="'.$key.'" name="'.$this->moe[$number]['LINC Name'].'" data-id="'.$this->person_id.'">'.$code.'</option>';	
-								}
-							
-			$this->moe[$number]['input_field'] .= '</select>';	
 
 
 	return $this->moe[$number]['valid'];
@@ -2320,45 +2061,7 @@ $this->moe[$number]['valid'] = 'true';
 	
 	}
 }
-	$array = array('Null'=>'Student not involved in Pacific Medium Education',
-'1'=>'Student is taught in the specified Pacific Language for more than 20 and up to 25 hrs per week (81-100% of total time)',
-'2'=>'Student is taught in the specified Pacific Language for more than 12.5 and up to 20 hrs per week (51-80% of total time)',
-'3'=>'Student is taught in the specified Pacific Language for more than 7.5 and up to 12.5 hrs per week (31-50% of total time)',
-'4'=>'Student is taught in the specified Pacific Language for more than 3 and up to 7.5 hrs per week (12-30% of total time)');
-	if ($this->moe[$number]['valid']=='false'){
-	if ($this->moe[$number]['Mandatory']=="YES"){
-		$warning = 'warning-2';	
-	}
-	else {
-		$warning = 'warning';	
-	}
 	
-	$this->moe[$number]['input_label'] = '<label id="'.$this->moe[$number]['LINC Name'] .$this->person_id.'_label" for="'.$this->moe[$number]['LINC Name'] .$this->person_id.'"><span class="error"><i class="font-'.$this->moe[$number]['ICON'] .'"  ></i> '.$this->moe[$number]['Field Label'] .': <i class="font-'. $warning .'"  ></i></span>'.linc_popupmessage( $this->moe[$number]['LINC Name'],  $this->moe[$number]['Field Label'], $this->moe[$number]['Description']).'</label>';
-				
-		}
-		else if ($this->moe[$number]['valid']=='true'){
-
-		$this->moe[$number]['input_label'] =  '<label  id="'.$this->moe[$number]['LINC Name'].$this->person_id.'_label" for="'.$this->moe[$number]['LINC Name'] .$this->person_id.'"><span class="valid"><i class="font-'.$this->moe[$number]['ICON'].'"  ></i> '.$this->moe[$number]['Field Label'].': <i class="font-checkmark-3"  ></i></span></label>';
-			
-		}
-
-$this->moe[$number]['input_field'] = '<select name="select-pacific-language" id="select-pacific-language'.$this->person_id.'" data-native-menu="false" data-inline="true" data-icon="grid" data-theme="b" data-iconpos="left" class="optionMenu">';
-					
-			$this->moe[$number]['input_field'] .= '<option>Select an option</option>';
-					 $array = MOECodes::$pacific;
-							   foreach ($array as $key=> $code){
-									   
-									$this->moe[$number]['input_field'] .= '<option ';
-										if ($key == $this->moe[$number]['value'] ){
-										
-									$this->moe[$number]['input_field'] .= 'selected=selected';	
-										}
-										
-			$this->moe[$number]['input_field'].= ' value="'.$key.'" data-arraypos="'.$this->moe[$number]['Field No'].'" data-id="'.$this->person_id.'" data-value="'.$key.'" name="'.$this->moe[$number]['LINC Name'].'" data-id="'.$this->person_id.'">'.$code.'</option>';	
-								}
-							
-			$this->moe[$number]['input_field'] .= '</select>';	
-
 
 return $this->moe[$number]['valid'];
 }
@@ -2413,39 +2116,8 @@ $code = $this->codes->checkKey($data, $array);
 				$this->moe[$number]['value'] = $data;
 				
 			}
-		if ($this->moe[$number]['valid']=='false'){
-	if ($this->moe[$number]['Mandatory']=="YES"){
-		$warning = 'warning-2';	
-	}
-	else {
-		$warning = 'warning';	
-	}
-	
-	$this->moe[$number]['input_label'] = '<label id="'.$this->moe[$number]['LINC Name'] .$this->person_id.'_label" for="'.$this->moe[$number]['LINC Name'] .$this->person_id.'"><span class="error"><i class="font-'.$this->moe[$number]['ICON'] .'"  ></i> '.$this->moe[$number]['Field Label'] .': <i class="font-'. $warning .'"  ></i></span>'.linc_popupmessage( $this->moe[$number]['LINC Name'],  $this->moe[$number]['Field Label'], $this->moe[$number]['Description']).'</label>';
-				
-		}
-		else if ($this->moe[$number]['valid']=='true'){
 
-		$this->moe[$number]['input_label'] =  '<label  id="'.$this->moe[$number]['LINC Name'].$this->person_id.'_label" for="'.$this->moe[$number]['LINC Name'] .$this->person_id.'"><span class="valid"><i class="font-'.$this->moe[$number]['ICON'].'"  ></i> '.$this->moe[$number]['Field Label'].': <i class="font-checkmark-3"  ></i></span></label>';
-			
-		}
-
-$this->moe[$number]['input_field'] = '<select name="select-'.$this->moe[$number]['LINC Name'].'" id="select-'.$this->moe[$number]['LINC Name'].$this->person_id.'" data-native-menu="false" data-inline="true" data-icon="grid" data-theme="b" data-iconpos="left" class="optionMenu">';
-					
-			$this->moe[$number]['input_field'] .= '<option>Select an option</option>';
-					 
-							   foreach ($array as $key=> $code){
-									   
-									$this->moe[$number]['input_field'] .= '<option ';
-										if ($key == $this->moe[$number]['value'] ){
-										
-									$this->moe[$number]['input_field'] .= 'selected=selected';	
-										}
-										
-			$this->moe[$number]['input_field'].= ' value="'.$key.'" data-arraypos="'.$this->moe[$number]['Field No'].'" data-id="'.$this->person_id.'" data-value="'.$key.'" name="'.$this->moe[$number]['LINC Name'].'" data-id="'.$this->person_id.'">'.$code.'</option>';	
-								}
-							
-			$this->moe[$number]['input_field'] .= '</select>';			
+		
 
 
 				return $this->moe[$number]['valid'];
@@ -2604,39 +2276,7 @@ $code = $this->codes->checkKey($data, $array);
 				$this->moe[$number]['value'] = $data;
 				
 			}
-		if ($this->moe[$number]['valid']=='false'){
-	if ($this->moe[$number]['Mandatory']=="YES"){
-		$warning = 'warning-2';	
-	}
-	else {
-		$warning = 'warning';	
-	}
-	
-	$this->moe[$number]['input_label'] = '<label id="'.$this->moe[$number]['LINC Name'] .$this->person_id.'_label" for="'.$this->moe[$number]['LINC Name'] .$this->person_id.'"><span class="error"><i class="font-'.$this->moe[$number]['ICON'] .'"  ></i> '.$this->moe[$number]['Field Label'] .': <i class="font-'. $warning .'"  ></i></span>'.linc_popupmessage( $this->moe[$number]['LINC Name'],  $this->moe[$number]['Field Label'], $this->moe[$number]['Description']).'</label>';
-				
-		}
-		else if ($this->moe[$number]['valid']=='true'){
-
-		$this->moe[$number]['input_label'] =  '<label  id="'.$this->moe[$number]['LINC Name'].$this->person_id.'_label" for="'.$this->moe[$number]['LINC Name'] .$this->person_id.'"><span class="valid"><i class="font-'.$this->moe[$number]['ICON'].'"  ></i> '.$this->moe[$number]['Field Label'].': <i class="font-checkmark-3"  ></i></span></label>';
 			
-		}
-
-$this->moe[$number]['input_field'] = '<select name="select-'.$this->moe[$number]['LINC Name'].'" id="select-'.$this->moe[$number]['LINC Name'].$this->person_id.'" data-native-menu="false" data-inline="true" data-icon="grid" data-theme="b" data-iconpos="left" class="optionMenu">';
-					
-			$this->moe[$number]['input_field'] .= '<option>Select an option</option>';
-					 
-							   foreach ($array as $key=> $code){
-									   
-									$this->moe[$number]['input_field'] .= '<option ';
-										if ($key == $this->moe[$number]['value'] ){
-										
-									$this->moe[$number]['input_field'] .= 'selected=selected';	
-										}
-										
-			$this->moe[$number]['input_field'].= ' value="'.$key.'" data-arraypos="'.$this->moe[$number]['Field No'].'" data-id="'.$this->person_id.'" data-value="'.$key.'" name="'.$this->moe[$number]['LINC Name'].'" data-id="'.$this->person_id.'">'.$code.'</option>';	
-								}
-							
-			$this->moe[$number]['input_field'] .= '</select>';			
 
 
 				return $this->moe[$number]['valid'];
@@ -2785,39 +2425,7 @@ $code = $this->codes->checkKey($data, $array);
 				$this->moe[$number]['value'] = $data;
 				
 			}
-		if ($this->moe[$number]['valid']=='false'){
-	if ($this->moe[$number]['Mandatory']=="YES"){
-		$warning = 'warning-2';	
-	}
-	else {
-		$warning = 'warning';	
-	}
-	
-	$this->moe[$number]['input_label'] = '<label id="'.$this->moe[$number]['LINC Name'] .$this->person_id.'_label" for="'.$this->moe[$number]['LINC Name'] .$this->person_id.'"><span class="error"><i class="font-'.$this->moe[$number]['ICON'] .'"  ></i> '.$this->moe[$number]['Field Label'] .': <i class="font-'. $warning .'"  ></i></span>'.linc_popupmessage( $this->moe[$number]['LINC Name'],  $this->moe[$number]['Field Label'], $this->moe[$number]['Description']).'</label>';
-				
-		}
-		else if ($this->moe[$number]['valid']=='true'){
-
-		$this->moe[$number]['input_label'] =  '<label  id="'.$this->moe[$number]['LINC Name'].$this->person_id.'_label" for="'.$this->moe[$number]['LINC Name'] .$this->person_id.'"><span class="valid"><i class="font-'.$this->moe[$number]['ICON'].'"  ></i> '.$this->moe[$number]['Field Label'].': <i class="font-checkmark-3"  ></i></span></label>';
-			
-		}
-
-$this->moe[$number]['input_field'] = '<select name="select-'.$this->moe[$number]['LINC Name'].'" id="select-'.$this->moe[$number]['LINC Name'].$this->person_id.'" data-native-menu="false" data-inline="true" data-icon="grid" data-theme="b" data-iconpos="left" class="optionMenu">';
-					
-			$this->moe[$number]['input_field'] .= '<option>Select an option</option>';
-					 
-							   foreach ($array as $key=> $code){
-									   
-									$this->moe[$number]['input_field'] .= '<option ';
-										if ($key == $this->moe[$number]['value'] ){
-										
-									$this->moe[$number]['input_field'] .= 'selected=selected';	
-										}
-										
-			$this->moe[$number]['input_field'].= ' value="'.$key.'" data-arraypos="'.$this->moe[$number]['Field No'].'" data-id="'.$this->person_id.'" data-value="'.$key.'" name="'.$this->moe[$number]['LINC Name'].'" data-id="'.$this->person_id.'">'.$code.'</option>';	
-								}
-							
-			$this->moe[$number]['input_field'] .= '</select>';			
+	  		
 
 
 				return $this->moe[$number]['valid'];
@@ -2967,39 +2575,7 @@ $code = $this->codes->checkKey($data, $array);
 				$this->moe[$number]['value'] = $data;
 				
 			}
-		if ($this->moe[$number]['valid']=='false'){
-	if ($this->moe[$number]['Mandatory']=="YES"){
-		$warning = 'warning-2';	
-	}
-	else {
-		$warning = 'warning';	
-	}
-	
-	$this->moe[$number]['input_label'] = '<label id="'.$this->moe[$number]['LINC Name'] .$this->person_id.'_label" for="'.$this->moe[$number]['LINC Name'] .$this->person_id.'"><span class="error"><i class="font-'.$this->moe[$number]['ICON'] .'"  ></i> '.$this->moe[$number]['Field Label'] .': <i class="font-'. $warning .'"  ></i></span>'.linc_popupmessage( $this->moe[$number]['LINC Name'],  $this->moe[$number]['Field Label'], $this->moe[$number]['Description']).'</label>';
-				
-		}
-		else if ($this->moe[$number]['valid']=='true'){
-
-		$this->moe[$number]['input_label'] =  '<label  id="'.$this->moe[$number]['LINC Name'].$this->person_id.'_label" for="'.$this->moe[$number]['LINC Name'] .$this->person_id.'"><span class="valid"><i class="font-'.$this->moe[$number]['ICON'].'"  ></i> '.$this->moe[$number]['Field Label'].': <i class="font-checkmark-3"  ></i></span></label>';
-			
-		}
-
-$this->moe[$number]['input_field'] = '<select name="select-'.$this->moe[$number]['LINC Name'].'" id="select-'.$this->moe[$number]['LINC Name'].$this->person_id.'" data-native-menu="false" data-inline="true" data-icon="grid" data-theme="b" data-iconpos="left" class="optionMenu">';
-					
-			$this->moe[$number]['input_field'] .= '<option>Select an option</option>';
-					 
-							   foreach ($array as $key=> $code){
-									   
-									$this->moe[$number]['input_field'] .= '<option ';
-										if ($key == $this->moe[$number]['value'] ){
-										
-									$this->moe[$number]['input_field'] .= 'selected=selected';	
-										}
-										
-			$this->moe[$number]['input_field'].= ' value="'.$key.'" data-arraypos="'.$this->moe[$number]['Field No'].'" data-id="'.$this->person_id.'" data-value="'.$key.'" name="'.$this->moe[$number]['LINC Name'].'" data-id="'.$this->person_id.'">'.$code.'</option>';	
-								}
-							
-			$this->moe[$number]['input_field'] .= '</select>';			
+	 		
 
 
 				return $this->moe[$number]['valid'];
@@ -3150,39 +2726,7 @@ $code = $this->codes->checkKey($data, $array);
 				$this->moe[$number]['value'] = $data;
 				
 			}
-		if ($this->moe[$number]['valid']=='false'){
-	if ($this->moe[$number]['Mandatory']=="YES"){
-		$warning = 'warning-2';	
-	}
-	else {
-		$warning = 'warning';	
-	}
-	
-	$this->moe[$number]['input_label'] = '<label id="'.$this->moe[$number]['LINC Name'] .$this->person_id.'_label" for="'.$this->moe[$number]['LINC Name'] .$this->person_id.'"><span class="error"><i class="font-'.$this->moe[$number]['ICON'] .'"  ></i> '.$this->moe[$number]['Field Label'] .': <i class="font-'. $warning .'"  ></i></span>'.linc_popupmessage( $this->moe[$number]['LINC Name'],  $this->moe[$number]['Field Label'], $this->moe[$number]['Description']).'</label>';
-				
-		}
-		else if ($this->moe[$number]['valid']=='true'){
-
-		$this->moe[$number]['input_label'] =  '<label  id="'.$this->moe[$number]['LINC Name'].$this->person_id.'_label" for="'.$this->moe[$number]['LINC Name'] .$this->person_id.'"><span class="valid"><i class="font-'.$this->moe[$number]['ICON'].'"  ></i> '.$this->moe[$number]['Field Label'].': <i class="font-checkmark-3"  ></i></span></label>';
-			
-		}
-
-$this->moe[$number]['input_field'] = '<select name="select-'.$this->moe[$number]['LINC Name'].'" id="select-'.$this->moe[$number]['LINC Name'].$this->person_id.'" data-native-menu="false" data-inline="true" data-icon="grid" data-theme="b" data-iconpos="left" class="optionMenu">';
-					
-			$this->moe[$number]['input_field'] .= '<option>Select an option</option>';
-					 
-							   foreach ($array as $key=> $code){
-									   
-									$this->moe[$number]['input_field'] .= '<option ';
-										if ($key == $this->moe[$number]['value'] ){
-										
-									$this->moe[$number]['input_field'] .= 'selected=selected';	
-										}
-										
-			$this->moe[$number]['input_field'].= ' value="'.$key.'" data-arraypos="'.$this->moe[$number]['Field No'].'" data-id="'.$this->person_id.'" data-value="'.$key.'" name="'.$this->moe[$number]['LINC Name'].'" data-id="'.$this->person_id.'">'.$code.'</option>';	
-								}
-							
-			$this->moe[$number]['input_field'] .= '</select>';			
+	 		
 
 
 				return $this->moe[$number]['valid'];
@@ -3334,39 +2878,7 @@ $code = $this->codes->checkKey($data, $array);
 				$this->moe[$number]['value'] = $data;
 				
 			}
-		if ($this->moe[$number]['valid']=='false'){
-	if ($this->moe[$number]['Mandatory']=="YES"){
-		$warning = 'warning-2';	
-	}
-	else {
-		$warning = 'warning';	
-	}
-	
-	$this->moe[$number]['input_label'] = '<label id="'.$this->moe[$number]['LINC Name'] .$this->person_id.'_label" for="'.$this->moe[$number]['LINC Name'] .$this->person_id.'"><span class="error"><i class="font-'.$this->moe[$number]['ICON'] .'"  ></i> '.$this->moe[$number]['Field Label'] .': <i class="font-'. $warning .'"  ></i></span>'.linc_popupmessage( $this->moe[$number]['LINC Name'],  $this->moe[$number]['Field Label'], $this->moe[$number]['Description']).'</label>';
-				
-		}
-		else if ($this->moe[$number]['valid']=='true'){
-
-		$this->moe[$number]['input_label'] =  '<label  id="'.$this->moe[$number]['LINC Name'].$this->person_id.'_label" for="'.$this->moe[$number]['LINC Name'] .$this->person_id.'"><span class="valid"><i class="font-'.$this->moe[$number]['ICON'].'"  ></i> '.$this->moe[$number]['Field Label'].': <i class="font-checkmark-3"  ></i></span></label>';
-			
-		}
-
-$this->moe[$number]['input_field'] = '<select name="select-'.$this->moe[$number]['LINC Name'].'" id="select-'.$this->moe[$number]['LINC Name'].$this->person_id.'" data-native-menu="false" data-inline="true" data-icon="grid" data-theme="b" data-iconpos="left" class="optionMenu">';
-					
-			$this->moe[$number]['input_field'] .= '<option>Select an option</option>';
-					 
-							   foreach ($array as $key=> $code){
-									   
-									$this->moe[$number]['input_field'] .= '<option ';
-										if ($key == $this->moe[$number]['value'] ){
-										
-									$this->moe[$number]['input_field'] .= 'selected=selected';	
-										}
-										
-			$this->moe[$number]['input_field'].= ' value="'.$key.'" data-arraypos="'.$this->moe[$number]['Field No'].'" data-id="'.$this->person_id.'" data-value="'.$key.'" name="'.$this->moe[$number]['LINC Name'].'" data-id="'.$this->person_id.'">'.$code.'</option>';	
-								}
-							
-			$this->moe[$number]['input_field'] .= '</select>';			
+	  		
 
 
 				return $this->moe[$number]['valid'];
@@ -3511,39 +3023,9 @@ $code = $this->codes->checkKey($data, $array);
 				$this->moe[$number]['value'] = $data;
 				
 			}
-		if ($this->moe[$number]['valid']=='false'){
-	if ($this->moe[$number]['Mandatory']=="YES"){
-		$warning = 'warning-2';	
-	}
-	else {
-		$warning = 'warning';	
-	}
-	
-	$this->moe[$number]['input_label'] = '<label id="'.$this->moe[$number]['LINC Name'] .$this->person_id.'_label" for="'.$this->moe[$number]['LINC Name'] .$this->person_id.'"><span class="error"><i class="font-'.$this->moe[$number]['ICON'] .'"  ></i> '.$this->moe[$number]['Field Label'] .': <i class="font-'. $warning .'"  ></i></span>'.linc_popupmessage( $this->moe[$number]['LINC Name'],  $this->moe[$number]['Field Label'], $this->moe[$number]['Description']).'</label>';
-				
-		}
-		else if ($this->moe[$number]['valid']=='true'){
+	 
 
-		$this->moe[$number]['input_label'] =  '<label  id="'.$this->moe[$number]['LINC Name'].$this->person_id.'_label" for="'.$this->moe[$number]['LINC Name'] .$this->person_id.'"><span class="valid"><i class="font-'.$this->moe[$number]['ICON'].'"  ></i> '.$this->moe[$number]['Field Label'].': <i class="font-checkmark-3"  ></i></span></label>';
-			
-		}
 
-$this->moe[$number]['input_field'] = '<select name="select-'.$this->moe[$number]['LINC Name'].'" id="select-'.$this->moe[$number]['LINC Name'].$this->person_id.'" data-native-menu="false" data-inline="true" data-icon="grid" data-theme="b" data-iconpos="left" class="optionMenu">';
-					
-			$this->moe[$number]['input_field'] .= '<option>Select an option</option>';
-					 
-							   foreach ($array as $key=> $code){
-									   
-									$this->moe[$number]['input_field'] .= '<option ';
-										if ($key == $this->moe[$number]['value'] ){
-										
-									$this->moe[$number]['input_field'] .= 'selected=selected';	
-										}
-										
-			$this->moe[$number]['input_field'].= ' value="'.$key.'" data-arraypos="'.$this->moe[$number]['Field No'].'" data-id="'.$this->person_id.'" data-value="'.$key.'" name="'.$this->moe[$number]['LINC Name'].'" data-id="'.$this->person_id.'">'.$code.'</option>';	
-								}
-							
-			$this->moe[$number]['input_field'] .= '</select>';			
 
 
 				return $this->moe[$number]['valid'];
@@ -3689,39 +3171,9 @@ $code = $this->codes->checkKey($data, $array);
 				$this->moe[$number]['value'] = $data;
 				
 			}
-		if ($this->moe[$number]['valid']=='false'){
-	if ($this->moe[$number]['Mandatory']=="YES"){
-		$warning = 'warning-2';	
-	}
-	else {
-		$warning = 'warning';	
-	}
 	
-	$this->moe[$number]['input_label'] = '<label id="'.$this->moe[$number]['LINC Name'] .$this->person_id.'_label" for="'.$this->moe[$number]['LINC Name'] .$this->person_id.'"><span class="error"><i class="font-'.$this->moe[$number]['ICON'] .'"  ></i> '.$this->moe[$number]['Field Label'] .': <i class="font-'. $warning .'"  ></i></span>'.linc_popupmessage( $this->moe[$number]['LINC Name'],  $this->moe[$number]['Field Label'], $this->moe[$number]['Description']).'</label>';
-				
-		}
-		else if ($this->moe[$number]['valid']=='true'){
 
-		$this->moe[$number]['input_label'] =  '<label  id="'.$this->moe[$number]['LINC Name'].$this->person_id.'_label" for="'.$this->moe[$number]['LINC Name'] .$this->person_id.'"><span class="valid"><i class="font-'.$this->moe[$number]['ICON'].'"  ></i> '.$this->moe[$number]['Field Label'].': <i class="font-checkmark-3"  ></i></span></label>';
-			
-		}
 
-$this->moe[$number]['input_field'] = '<select name="select-'.$this->moe[$number]['LINC Name'].'" id="select-'.$this->moe[$number]['LINC Name'].$this->person_id.'" data-native-menu="false" data-inline="true" data-icon="grid" data-theme="b" data-iconpos="left" class="optionMenu">';
-					
-			$this->moe[$number]['input_field'] .= '<option>Select an option</option>';
-					 
-							   foreach ($array as $key=> $code){
-									   
-									$this->moe[$number]['input_field'] .= '<option ';
-										if ($key == $this->moe[$number]['value'] ){
-										
-									$this->moe[$number]['input_field'] .= 'selected=selected';	
-										}
-										
-			$this->moe[$number]['input_field'].= ' value="'.$key.'" data-arraypos="'.$this->moe[$number]['Field No'].'" data-id="'.$this->person_id.'" data-value="'.$key.'" name="'.$this->moe[$number]['LINC Name'].'" data-id="'.$this->person_id.'">'.$code.'</option>';	
-								}
-							
-			$this->moe[$number]['input_field'] .= '</select>';			
 
 
 				return $this->moe[$number]['valid'];
@@ -3866,39 +3318,9 @@ $code = $this->codes->checkKey($data, $array);
 				$this->moe[$number]['value'] = $data;
 				
 			}
-		if ($this->moe[$number]['valid']=='false'){
-	if ($this->moe[$number]['Mandatory']=="YES"){
-		$warning = 'warning-2';	
-	}
-	else {
-		$warning = 'warning';	
-	}
-	
-	$this->moe[$number]['input_label'] = '<label id="'.$this->moe[$number]['LINC Name'] .$this->person_id.'_label" for="'.$this->moe[$number]['LINC Name'] .$this->person_id.'"><span class="error"><i class="font-'.$this->moe[$number]['ICON'] .'"  ></i> '.$this->moe[$number]['Field Label'] .': <i class="font-'. $warning .'"  ></i></span>'.linc_popupmessage( $this->moe[$number]['LINC Name'],  $this->moe[$number]['Field Label'], $this->moe[$number]['Description']).'</label>';
-				
-		}
-		else if ($this->moe[$number]['valid']=='true'){
+		
 
-		$this->moe[$number]['input_label'] =  '<label  id="'.$this->moe[$number]['LINC Name'].$this->person_id.'_label" for="'.$this->moe[$number]['LINC Name'] .$this->person_id.'"><span class="valid"><i class="font-'.$this->moe[$number]['ICON'].'"  ></i> '.$this->moe[$number]['Field Label'].': <i class="font-checkmark-3"  ></i></span></label>';
-			
-		}
 
-$this->moe[$number]['input_field'] = '<select name="select-'.$this->moe[$number]['LINC Name'].'" id="select-'.$this->moe[$number]['LINC Name'].$this->person_id.'" data-native-menu="false" data-inline="true" data-icon="grid" data-theme="b" data-iconpos="left" class="optionMenu">';
-					
-			$this->moe[$number]['input_field'] .= '<option>Select an option</option>';
-					 
-							   foreach ($array as $key=> $code){
-									   
-									$this->moe[$number]['input_field'] .= '<option ';
-										if ($key == $this->moe[$number]['value'] ){
-										
-									$this->moe[$number]['input_field'] .= 'selected=selected';	
-										}
-										
-			$this->moe[$number]['input_field'].= ' value="'.$key.'" data-arraypos="'.$this->moe[$number]['Field No'].'" data-id="'.$this->person_id.'" data-value="'.$key.'" name="'.$this->moe[$number]['LINC Name'].'" data-id="'.$this->person_id.'">'.$code.'</option>';	
-								}
-							
-			$this->moe[$number]['input_field'] .= '</select>';			
 
 
 				return $this->moe[$number]['valid'];
@@ -4043,39 +3465,7 @@ $code = $this->codes->checkKey($data, $array);
 				$this->moe[$number]['value'] = $data;
 				
 			}
-		if ($this->moe[$number]['valid']=='false'){
-	if ($this->moe[$number]['Mandatory']=="YES"){
-		$warning = 'warning-2';	
-	}
-	else {
-		$warning = 'warning';	
-	}
-	
-	$this->moe[$number]['input_label'] = '<label id="'.$this->moe[$number]['LINC Name'] .$this->person_id.'_label" for="'.$this->moe[$number]['LINC Name'] .$this->person_id.'"><span class="error"><i class="font-'.$this->moe[$number]['ICON'] .'"  ></i> '.$this->moe[$number]['Field Label'] .': <i class="font-'. $warning .'"  ></i></span>'.linc_popupmessage( $this->moe[$number]['LINC Name'],  $this->moe[$number]['Field Label'], $this->moe[$number]['Description']).'</label>';
-				
-		}
-		else if ($this->moe[$number]['valid']=='true'){
-
-		$this->moe[$number]['input_label'] =  '<label  id="'.$this->moe[$number]['LINC Name'].$this->person_id.'_label" for="'.$this->moe[$number]['LINC Name'] .$this->person_id.'"><span class="valid"><i class="font-'.$this->moe[$number]['ICON'].'"  ></i> '.$this->moe[$number]['Field Label'].': <i class="font-checkmark-3"  ></i></span></label>';
-			
-		}
-
-$this->moe[$number]['input_field'] = '<select name="select-'.$this->moe[$number]['LINC Name'].'" id="select-'.$this->moe[$number]['LINC Name'].$this->person_id.'" data-native-menu="false" data-inline="true" data-icon="grid" data-theme="b" data-iconpos="left" class="optionMenu">';
-					
-			$this->moe[$number]['input_field'] .= '<option>Select an option</option>';
-					 
-							   foreach ($array as $key=> $code){
-									   
-									$this->moe[$number]['input_field'] .= '<option ';
-										if ($key == $this->moe[$number]['value'] ){
-										
-									$this->moe[$number]['input_field'] .= 'selected=selected';	
-										}
-										
-			$this->moe[$number]['input_field'].= ' value="'.$key.'" data-arraypos="'.$this->moe[$number]['Field No'].'" data-id="'.$this->person_id.'" data-value="'.$key.'" name="'.$this->moe[$number]['LINC Name'].'" data-id="'.$this->person_id.'">'.$code.'</option>';	
-								}
-							
-			$this->moe[$number]['input_field'] .= '</select>';			
+	 		
 
 
 				return $this->moe[$number]['valid'];
@@ -4221,39 +3611,9 @@ $code = $this->codes->checkKey($data, $array);
 				$this->moe[$number]['value'] = $data;
 				
 			}
-		if ($this->moe[$number]['valid']=='false'){
-	if ($this->moe[$number]['Mandatory']=="YES"){
-		$warning = 'warning-2';	
-	}
-	else {
-		$warning = 'warning';	
-	}
 	
-	$this->moe[$number]['input_label'] = '<label id="'.$this->moe[$number]['LINC Name'] .$this->person_id.'_label" for="'.$this->moe[$number]['LINC Name'] .$this->person_id.'"><span class="error"><i class="font-'.$this->moe[$number]['ICON'] .'"  ></i> '.$this->moe[$number]['Field Label'] .': <i class="font-'. $warning .'"  ></i></span>'.linc_popupmessage( $this->moe[$number]['LINC Name'],  $this->moe[$number]['Field Label'], $this->moe[$number]['Description']).'</label>';
-				
-		}
-		else if ($this->moe[$number]['valid']=='true'){
 
-		$this->moe[$number]['input_label'] =  '<label  id="'.$this->moe[$number]['LINC Name'].$this->person_id.'_label" for="'.$this->moe[$number]['LINC Name'] .$this->person_id.'"><span class="valid"><i class="font-'.$this->moe[$number]['ICON'].'"  ></i> '.$this->moe[$number]['Field Label'].': <i class="font-checkmark-3"  ></i></span></label>';
-			
-		}
 
-$this->moe[$number]['input_field'] = '<select name="select-'.$this->moe[$number]['LINC Name'].'" id="select-'.$this->moe[$number]['LINC Name'].$this->person_id.'" data-native-menu="false" data-inline="true" data-icon="grid" data-theme="b" data-iconpos="left" class="optionMenu">';
-					
-			$this->moe[$number]['input_field'] .= '<option>Select an option</option>';
-					 
-							   foreach ($array as $key=> $code){
-									   
-									$this->moe[$number]['input_field'] .= '<option ';
-										if ($key == $this->moe[$number]['value'] ){
-										
-									$this->moe[$number]['input_field'] .= 'selected=selected';	
-										}
-										
-			$this->moe[$number]['input_field'].= ' value="'.$key.'" data-arraypos="'.$this->moe[$number]['Field No'].'" data-id="'.$this->person_id.'" data-value="'.$key.'" name="'.$this->moe[$number]['LINC Name'].'" data-id="'.$this->person_id.'">'.$code.'</option>';	
-								}
-							
-			$this->moe[$number]['input_field'] .= '</select>';			
 
 
 				return $this->moe[$number]['valid'];
@@ -4398,39 +3758,8 @@ $code = $this->codes->checkKey($data, $array);
 				$this->moe[$number]['value'] = $data;
 				
 			}
-		if ($this->moe[$number]['valid']=='false'){
-	if ($this->moe[$number]['Mandatory']=="YES"){
-		$warning = 'warning-2';	
-	}
-	else {
-		$warning = 'warning';	
-	}
 	
-	$this->moe[$number]['input_label'] = '<label id="'.$this->moe[$number]['LINC Name'] .$this->person_id.'_label" for="'.$this->moe[$number]['LINC Name'] .$this->person_id.'"><span class="error"><i class="font-'.$this->moe[$number]['ICON'] .'"  ></i> '.$this->moe[$number]['Field Label'] .': <i class="font-'. $warning .'"  ></i></span>'.linc_popupmessage( $this->moe[$number]['LINC Name'],  $this->moe[$number]['Field Label'], $this->moe[$number]['Description']).'</label>';
-				
-		}
-		else if ($this->moe[$number]['valid']=='true'){
 
-		$this->moe[$number]['input_label'] =  '<label  id="'.$this->moe[$number]['LINC Name'].$this->person_id.'_label" for="'.$this->moe[$number]['LINC Name'] .$this->person_id.'"><span class="valid"><i class="font-'.$this->moe[$number]['ICON'].'"  ></i> '.$this->moe[$number]['Field Label'].': <i class="font-checkmark-3"  ></i></span></label>';
-			
-		}
-
-$this->moe[$number]['input_field'] = '<select name="select-'.$this->moe[$number]['LINC Name'].'" id="select-'.$this->moe[$number]['LINC Name'].$this->person_id.'" data-native-menu="false" data-inline="true" data-icon="grid" data-theme="b" data-iconpos="left" class="optionMenu">';
-					
-			$this->moe[$number]['input_field'] .= '<option>Select an option</option>';
-					 
-							   foreach ($array as $key=> $code){
-									   
-									$this->moe[$number]['input_field'] .= '<option ';
-										if ($key == $this->moe[$number]['value'] ){
-										
-									$this->moe[$number]['input_field'] .= 'selected=selected';	
-										}
-										
-			$this->moe[$number]['input_field'].= ' value="'.$key.'" data-arraypos="'.$this->moe[$number]['Field No'].'" data-id="'.$this->person_id.'" data-value="'.$key.'" name="'.$this->moe[$number]['LINC Name'].'" data-id="'.$this->person_id.'">'.$code.'</option>';	
-								}
-							
-			$this->moe[$number]['input_field'] .= '</select>';			
 
 
 				return $this->moe[$number]['valid'];
@@ -4575,39 +3904,7 @@ $code = $this->codes->checkKey($data, $array);
 				$this->moe[$number]['value'] = $data;
 				
 			}
-		if ($this->moe[$number]['valid']=='false'){
-	if ($this->moe[$number]['Mandatory']=="YES"){
-		$warning = 'warning-2';	
-	}
-	else {
-		$warning = 'warning';	
-	}
-	
-	$this->moe[$number]['input_label'] = '<label id="'.$this->moe[$number]['LINC Name'] .$this->person_id.'_label" for="'.$this->moe[$number]['LINC Name'] .$this->person_id.'"><span class="error"><i class="font-'.$this->moe[$number]['ICON'] .'"  ></i> '.$this->moe[$number]['Field Label'] .': <i class="font-'. $warning .'"  ></i></span>'.linc_popupmessage( $this->moe[$number]['LINC Name'],  $this->moe[$number]['Field Label'], $this->moe[$number]['Description']).'</label>';
-				
-		}
-		else if ($this->moe[$number]['valid']=='true'){
-
-		$this->moe[$number]['input_label'] =  '<label  id="'.$this->moe[$number]['LINC Name'].$this->person_id.'_label" for="'.$this->moe[$number]['LINC Name'] .$this->person_id.'"><span class="valid"><i class="font-'.$this->moe[$number]['ICON'].'"  ></i> '.$this->moe[$number]['Field Label'].': <i class="font-checkmark-3"  ></i></span></label>';
-			
-		}
-
-$this->moe[$number]['input_field'] = '<select name="select-'.$this->moe[$number]['LINC Name'].'" id="select-'.$this->moe[$number]['LINC Name'].$this->person_id.'" data-native-menu="false" data-inline="true" data-icon="grid" data-theme="b" data-iconpos="left" class="optionMenu">';
-					
-			$this->moe[$number]['input_field'] .= '<option>Select an option</option>';
-					 
-							   foreach ($array as $key=> $code){
-									   
-									$this->moe[$number]['input_field'] .= '<option ';
-										if ($key == $this->moe[$number]['value'] ){
-										
-									$this->moe[$number]['input_field'] .= 'selected=selected';	
-										}
-										
-			$this->moe[$number]['input_field'].= ' value="'.$key.'" data-arraypos="'.$this->moe[$number]['Field No'].'" data-id="'.$this->person_id.'" data-value="'.$key.'" name="'.$this->moe[$number]['LINC Name'].'" data-id="'.$this->person_id.'">'.$code.'</option>';	
-								}
-							
-			$this->moe[$number]['input_field'] .= '</select>';			
+	 	
 
 
 				return $this->moe[$number]['valid'];
@@ -4751,39 +4048,9 @@ $code = $this->codes->checkKey($data, $array);
 				$this->moe[$number]['value'] = $data;
 				
 			}
-		if ($this->moe[$number]['valid']=='false'){
-	if ($this->moe[$number]['Mandatory']=="YES"){
-		$warning = 'warning-2';	
-	}
-	else {
-		$warning = 'warning';	
-	}
-	
-	$this->moe[$number]['input_label'] = '<label id="'.$this->moe[$number]['LINC Name'] .$this->person_id.'_label" for="'.$this->moe[$number]['LINC Name'] .$this->person_id.'"><span class="error"><i class="font-'.$this->moe[$number]['ICON'] .'"  ></i> '.$this->moe[$number]['Field Label'] .': <i class="font-'. $warning .'"  ></i></span>'.linc_popupmessage( $this->moe[$number]['LINC Name'],  $this->moe[$number]['Field Label'], $this->moe[$number]['Description']).'</label>';
-				
-		}
-		else if ($this->moe[$number]['valid']=='true'){
+		
 
-		$this->moe[$number]['input_label'] =  '<label  id="'.$this->moe[$number]['LINC Name'].$this->person_id.'_label" for="'.$this->moe[$number]['LINC Name'] .$this->person_id.'"><span class="valid"><i class="font-'.$this->moe[$number]['ICON'].'"  ></i> '.$this->moe[$number]['Field Label'].': <i class="font-checkmark-3"  ></i></span></label>';
-			
-		}
 
-$this->moe[$number]['input_field'] = '<select name="select-'.$this->moe[$number]['LINC Name'].'" id="select-'.$this->moe[$number]['LINC Name'].$this->person_id.'" data-native-menu="false" data-inline="true" data-icon="grid" data-theme="b" data-iconpos="left" class="optionMenu">';
-					
-			$this->moe[$number]['input_field'] .= '<option>Select an option</option>';
-					 
-							   foreach ($array as $key=> $code){
-									   
-									$this->moe[$number]['input_field'] .= '<option ';
-										if ($key == $this->moe[$number]['value'] ){
-										
-									$this->moe[$number]['input_field'] .= 'selected=selected';	
-										}
-										
-			$this->moe[$number]['input_field'].= ' value="'.$key.'" data-arraypos="'.$this->moe[$number]['Field No'].'" data-id="'.$this->person_id.'" data-value="'.$key.'" name="'.$this->moe[$number]['LINC Name'].'" data-id="'.$this->person_id.'">'.$code.'</option>';	
-								}
-							
-			$this->moe[$number]['input_field'] .= '</select>';			
 
 
 				return $this->moe[$number]['valid'];
@@ -4927,40 +4194,7 @@ $code = $this->codes->checkKey($data, $array);
 				$this->moe[$number]['value'] = $data;
 				
 			}
-		if ($this->moe[$number]['valid']=='false'){
-	if ($this->moe[$number]['Mandatory']=="YES"){
-		$warning = 'warning-2';	
-	}
-	else {
-		$warning = 'warning';	
-	}
-	
-	$this->moe[$number]['input_label'] = '<label id="'.$this->moe[$number]['LINC Name'] .$this->person_id.'_label" for="'.$this->moe[$number]['LINC Name'] .$this->person_id.'"><span class="error"><i class="font-'.$this->moe[$number]['ICON'] .'"  ></i> '.$this->moe[$number]['Field Label'] .': <i class="font-'. $warning .'"  ></i></span>'.linc_popupmessage( $this->moe[$number]['LINC Name'],  $this->moe[$number]['Field Label'], $this->moe[$number]['Description']).'</label>';
-				
-		}
-		else if ($this->moe[$number]['valid']=='true'){
-
-		$this->moe[$number]['input_label'] =  '<label  id="'.$this->moe[$number]['LINC Name'].$this->person_id.'_label" for="'.$this->moe[$number]['LINC Name'] .$this->person_id.'"><span class="valid"><i class="font-'.$this->moe[$number]['ICON'].'"  ></i> '.$this->moe[$number]['Field Label'].': <i class="font-checkmark-3"  ></i></span></label>';
-			
-		}
-
-$this->moe[$number]['input_field'] = '<select name="select-'.$this->moe[$number]['LINC Name'].'" id="select-'.$this->moe[$number]['LINC Name'].$this->person_id.'" data-native-menu="false" data-inline="true" data-icon="grid" data-theme="b" data-iconpos="left" class="optionMenu">';
-					
-			$this->moe[$number]['input_field'] .= '<option>Select an option</option>';
-					 
-							   foreach ($array as $key=> $code){
-									   
-									$this->moe[$number]['input_field'] .= '<option ';
-										if ($key == $this->moe[$number]['value'] ){
-										
-									$this->moe[$number]['input_field'] .= 'selected=selected';	
-										}
-										
-			$this->moe[$number]['input_field'].= ' value="'.$key.'" data-arraypos="'.$this->moe[$number]['Field No'].'" data-id="'.$this->person_id.'" data-value="'.$key.'" name="'.$this->moe[$number]['LINC Name'].'" data-id="'.$this->person_id.'">'.$code.'</option>';	
-								}
-							
-			$this->moe[$number]['input_field'] .= '</select>';			
-
+		 
 
 				return $this->moe[$number]['valid'];
 			}
@@ -5235,25 +4469,8 @@ $this->moe[$number]['valid'] = 'true';
 	$this->moe[$number]['value'] = str_replace('"', "", $data);
 }
 
-if ($this->moe[$number]['valid']=='false'){
-	if ($this->moe[$number]['Mandatory']=="YES"){
-		$warning = 'warning-2';	
-	}
-	else {
-		$warning = 'warning';	
-	}
-	
-	$this->moe[$number]['input_label'] = '<label id="'.$this->moe[$number]['LINC Name'] .$this->person_id.'_label" for="'.$this->moe[$number]['LINC Name'] .$this->person_id.'"><span class="error"><i class="font-'.$this->moe[$number]['ICON'] .'"  ></i> '.$this->moe[$number]['Field Label'] .': <i class="font-'. $warning .'"  ></i></span>'.linc_popupmessage( $this->moe[$number]['LINC Name'],  $this->moe[$number]['Field Label'], $this->moe[$number]['Description']).'</label>';
-				
-		}
-		else if ($this->moe[$number]['valid']=='true'){
 
-		$this->moe[$number]['input_label'] =  '<label  id="'.$this->moe[$number]['LINC Name'].$this->person_id.'_label" for="'.$this->moe[$number]['LINC Name'] .$this->person_id.'"><span class="valid"><i class="font-'.$this->moe[$number]['ICON'].'"  ></i> '.$this->moe[$number]['Field Label'].': <i class="font-checkmark-3"  ></i></span></label>';
-			
-		}
-		
-	
-$this->moe[$number]['input_field'] = '<input type="text" class="'.$this->moe[$number]['Content Type'].'" data-arraypos="'.$this->moe[$number]['Field No'].'" name="'.$this->moe[$number]['LINC Name'].'" data-id="'.$this->person_id.'" id="'.$this->moe[$number]['LINC Name'].$this->person_id.'" value="'.$this->moe[$number]['value'].'" data-theme="'.$theme.'" placeholder="'.$this->moe[$number]['Placeholder'].'"/>';
+
 return $this->moe[$number]['valid'];
 
 }
@@ -5282,25 +4499,8 @@ $this->moe[$number]['valid'] = 'true';
 	
 }
 
-if ($this->moe[$number]['valid']=='false'){
-	if ($this->moe[$number]['Mandatory']=="YES"){
-		$warning = 'warning-2';	
-	}
-	else {
-		$warning = 'warning';	
-	}
-	
-	$this->moe[$number]['input_label'] = '<label id="'.$this->moe[$number]['LINC Name'] .$this->person_id.'_label" for="'.$this->moe[$number]['LINC Name'] .$this->person_id.'"><span class="error"><i class="font-'.$this->moe[$number]['ICON'] .'"  ></i> '.$this->moe[$number]['Field Label'] .': <i class="font-'. $warning .'"  ></i></span>'.linc_popupmessage( $this->moe[$number]['LINC Name'],  $this->moe[$number]['Field Label'], $this->moe[$number]['Description']).'</label>';
-				
-		}
-		else if ($this->moe[$number]['valid']=='true'){
 
-		$this->moe[$number]['input_label'] =  '<label  id="'.$this->moe[$number]['LINC Name'].$this->person_id.'_label" for="'.$this->moe[$number]['LINC Name'] .$this->person_id.'"><span class="valid"><i class="font-'.$this->moe[$number]['ICON'].'"  ></i> '.$this->moe[$number]['Field Label'].': <i class="font-checkmark-3"  ></i></span></label>';
-			
-		}
-		
-	
-$this->moe[$number]['input_field'] = '<input type="text" class="'.$this->moe[$number]['Content Type'].'" data-arraypos="'.$this->moe[$number]['Field No'].'" name="'.$this->moe[$number]['LINC Name'].'" data-id="'.$this->person_id.'" id="'.$this->moe[$number]['LINC Name'].$this->person_id.'" value="'.$this->moe[$number]['value'].'" data-theme="'.$theme.'" placeholder="'.$this->moe[$number]['Placeholder'].'"/>';
+
 return $this->moe[$number]['valid'] ;	
 
 }
@@ -5332,25 +4532,8 @@ else {
 	$this->moe[$number]['value'] = $data;
 }
 
-if ($this->moe[$number]['valid']=='false'){
-	if ($this->moe[$number]['Mandatory']=="YES"){
-		$warning = 'warning-2';	
-	}
-	else {
-		$warning = 'warning';	
-	}
-	
-	$this->moe[$number]['input_label'] = '<label id="'.$this->moe[$number]['LINC Name'] .$this->person_id.'_label" for="'.$this->moe[$number]['LINC Name'] .$this->person_id.'"><span class="error"><i class="font-'.$this->moe[$number]['ICON'] .'"  ></i> '.$this->moe[$number]['Field Label'] .': <i class="font-'. $warning .'"  ></i></span>'.linc_popupmessage( $this->moe[$number]['LINC Name'],  $this->moe[$number]['Field Label'], $this->moe[$number]['Description']).'</label>';
-				
-		}
-		else if ($this->moe[$number]['valid']=='true'){
 
-		$this->moe[$number]['input_label'] =  '<label  id="'.$this->moe[$number]['LINC Name'].$this->person_id.'_label" for="'.$this->moe[$number]['LINC Name'] .$this->person_id.'"><span class="valid"><i class="font-'.$this->moe[$number]['ICON'].'"  ></i> '.$this->moe[$number]['Field Label'].': <i class="font-checkmark-3"  ></i></span></label>';
-			
-		}
-		
-	
-$this->moe[$number]['input_field'] = '<input type="text" class="'.$this->moe[$number]['Content Type'].'" data-arraypos="'.$this->moe[$number]['Field No'].'" name="'.$this->moe[$number]['LINC Name'].'" data-id="'.$this->person_id.'" id="'.$this->moe[$number]['LINC Name'].$this->person_id.'" value="'.$this->moe[$number]['value'].'" data-theme="'.$theme.'" placeholder="'.$this->moe[$number]['Placeholder'].'"/>';
+
 return $this->moe[$number]['valid'] 
 
 ;}
@@ -5386,27 +4569,10 @@ else {
 	$this->moe[$number]['value'] = $data;
 }
 
-if ($this->moe[$number]['valid']=='false'){
-	if ($this->moe[$number]['Mandatory']=="YES"){
-		$warning = 'warning-2';	
-	}
-	else {
-		$warning = 'warning';	
-	}
-	
-	$this->moe[$number]['input_label'] = '<label id="'.$this->moe[$number]['LINC Name'] .$this->person_id.'_label" for="'.$this->moe[$number]['LINC Name'] .$this->person_id.'"><span class="error"><i class="font-'.$this->moe[$number]['ICON'] .'"  ></i> '.$this->moe[$number]['Field Label'] .': <i class="font-'. $warning .'"  ></i></span>'.linc_popupmessage( $this->moe[$number]['LINC Name'],  $this->moe[$number]['Field Label'], $this->moe[$number]['Description']).'</label>';
-				
-		}
-		else if ($this->moe[$number]['valid']=='true'){
 
-		$this->moe[$number]['input_label'] =  '<label  id="'.$this->moe[$number]['LINC Name'].$this->person_id.'_label" for="'.$this->moe[$number]['LINC Name'] .$this->person_id.'"><span class="valid"><i class="font-'.$this->moe[$number]['ICON'].'"  ></i> '.$this->moe[$number]['Field Label'].': <i class="font-checkmark-3"  ></i></span></label>';
-			
-		}
-		
-	
-$this->moe[$number]['input_field'] = '<input type="text" class="'.$this->moe[$number]['Content Type'].'" data-arraypos="'.$this->moe[$number]['Field No'].'" name="'.$this->moe[$number]['LINC Name'].'" data-id="'.$this->person_id.'" id="'.$this->moe[$number]['LINC Name'].$this->person_id.'" value="'.$this->moe[$number]['value'].'" data-theme="'.$theme.'" placeholder="'.$this->moe[$number]['Placeholder'].'"/>';
-return $this->moe[$number]['valid'] ;}
 
+return $this->moe[$number]['valid'] ;
+}
 
 
 public function check_100(){
@@ -5436,40 +4602,7 @@ else {
 	$this->moe[$number]['valid'] = 'true';
 	$this->moe[$number]['value'] = $data;
 	}
-	if ($this->moe[$number]['valid']=='false'){
-	if ($this->moe[$number]['Mandatory']=="YES"){
-		$warning = 'warning-2';	
-	}
-	else {
-		$warning = 'warning';	
-	}
 	
-	$this->moe[$number]['input_label'] = '<label id="'.$this->moe[$number]['LINC Name'] .$this->person_id.'_label" for="'.$this->moe[$number]['LINC Name'] .$this->person_id.'"><span class="error"><i class="font-'.$this->moe[$number]['ICON'] .'"  ></i> '.$this->moe[$number]['Field Label'] .': <i class="font-'. $warning .'"  ></i></span>'.linc_popupmessage( $this->moe[$number]['LINC Name'],  $this->moe[$number]['Field Label'], $this->moe[$number]['Description']).'</label>';
-				
-		}
-		else if ($this->moe[$number]['valid']=='true'){
-
-		$this->moe[$number]['input_label'] =  '<label  id="'.$this->moe[$number]['LINC Name'].$this->person_id.'_label" for="'.$this->moe[$number]['LINC Name'] .$this->person_id.'"><span class="valid"><i class="font-'.$this->moe[$number]['ICON'].'"  ></i> '.$this->moe[$number]['Field Label'].': <i class="font-checkmark-3"  ></i></span></label>';
-			
-		}
-
-$this->moe[$number]['input_field'] = '<select name="select-'.$this->moe[$number]['LINC Name'].'" id="select-'.$this->moe[$number]['LINC Name'].$this->person_id.'" data-native-menu="false" data-inline="true" data-icon="grid" data-theme="b" data-iconpos="left" class="optionMenu">';
-					
-			$this->moe[$number]['input_field'] .= '<option>Select an option</option>';
-					 
-							   foreach ($array as $key=> $code){
-									   
-									$this->moe[$number]['input_field'] .= '<option ';
-										if ($key == $this->moe[$number]['value'] ){
-										
-									$this->moe[$number]['input_field'] .= 'selected=selected';	
-										}
-										
-			$this->moe[$number]['input_field'].= ' value="'.$key.'" data-arraypos="'.$this->moe[$number]['Field No'].'" data-id="'.$this->person_id.'" data-value="'.$key.'" name="'.$this->moe[$number]['LINC Name'].'" data-id="'.$this->person_id.'">'.$code.'</option>';	
-								}
-							
-			$this->moe[$number]['input_field'] .= '</select>';	
-
 
 	return $this->moe[$number]['valid'] ;
 }
@@ -5500,39 +4633,7 @@ else {
 	$this->moe[$number]['value'] = $data;
 	}
 
-		if ($this->moe[$number]['valid']=='false'){
-		if ($this->moe[$number]['Mandatory']=="YES"){
-			$warning = 'warning-2';	
-		}
-		else {
-			$warning = 'warning';	
-		}
-		
-		$this->moe[$number]['input_label'] = '<label id="'.$this->moe[$number]['LINC Name'] .$this->person_id.'_label" for="'.$this->moe[$number]['LINC Name'] .$this->person_id.'"><span class="error"><i class="font-'.$this->moe[$number]['ICON'] .'"  ></i> '.$this->moe[$number]['Field Label'] .': <i class="font-'. $warning .'"  ></i></span>'.linc_popupmessage( $this->moe[$number]['LINC Name'],  $this->moe[$number]['Field Label'], $this->moe[$number]['Description']).'</label>';
-					
-			}
-			else if ($this->moe[$number]['valid']=='true'){
-
-			$this->moe[$number]['input_label'] =  '<label  id="'.$this->moe[$number]['LINC Name'].$this->person_id.'_label" for="'.$this->moe[$number]['LINC Name'] .$this->person_id.'"><span class="valid"><i class="font-'.$this->moe[$number]['ICON'].'"  ></i> '.$this->moe[$number]['Field Label'].': <i class="font-checkmark-3"  ></i></span></label>';
-				
-			}
-
-	$this->moe[$number]['input_field'] = '<select name="select-'.$this->moe[$number]['LINC Name'].'" id="select-'.$this->moe[$number]['LINC Name'].$this->person_id.'" data-native-menu="false" data-inline="true" data-icon="grid" data-theme="b" data-iconpos="left" class="optionMenu">';
-						
-				$this->moe[$number]['input_field'] .= '<option>Select an option</option>';
-						 
-								   foreach ($array as $key=> $code){
-										   
-										$this->moe[$number]['input_field'] .= '<option ';
-											if ($key == $this->moe[$number]['value'] ){
-											
-										$this->moe[$number]['input_field'] .= 'selected=selected';	
-											}
-											
-				$this->moe[$number]['input_field'].= ' value="'.$key.'" data-arraypos="'.$this->moe[$number]['Field No'].'" data-id="'.$this->person_id.'" data-value="'.$key.'" name="'.$this->moe[$number]['LINC Name'].'" data-id="'.$this->person_id.'">'.$code.'</option>';	
-									}
-								
-				$this->moe[$number]['input_field'] .= '</select>';	
+	
 
 			return $this->moe[$number]['valid'] ;
 }
@@ -5551,30 +4652,17 @@ $number = 102;
 
 $data = $this->mappedData[$this->moe[$number]['LINC Name']];
 
-	$this->moe[$number]['valid'] = 'true';
+if (ctype_alnum($data)){
+$this->moe[$number]['valid'] = 'true';
 	$this->moe[$number]['value'] = $data;
 
-if ($this->moe[$number]['valid']=='false'){
-	if ($this->moe[$number]['Mandatory']=="YES"){
-		$warning = 'warning-2';	
-	}
-	else {
-		$warning = 'warning';	
-	}
+}else {
+	$this->moe[$number]['valid'] = 'false';
+	$this->moe[$number]['value'] = $data;
+}
 	
-	$this->moe[$number]['input_label'] = '<label id="'.$this->moe[$number]['LINC Name'] .$this->person_id.'_label" for="'.$this->moe[$number]['LINC Name'] .$this->person_id.'"><span class="error"><i class="font-'.$this->moe[$number]['ICON'] .'"  ></i> '.$this->moe[$number]['Field Label'] .': <i class="font-'. $warning .'"  ></i></span>'.linc_popupmessage( $this->moe[$number]['LINC Name'],  $this->moe[$number]['Field Label'], $this->moe[$number]['Description']).'</label>';
-				
-		}
-		else if ($this->moe[$number]['valid']=='true'){
 
-		$this->moe[$number]['input_label'] =  '<label  id="'.$this->moe[$number]['LINC Name'].$this->person_id.'_label" for="'.$this->moe[$number]['LINC Name'] .$this->person_id.'"><span class="valid"><i class="font-'.$this->moe[$number]['ICON'].'"  ></i> '.$this->moe[$number]['Field Label'].': <i class="font-checkmark-3"  ></i></span></label>';
-			
-		}
-		$this->moe[$number]['input_field'] = '<form>
-    <div data-role="fieldcontain" class="ui-hide-label">
-        <input data-theme="b" type="number" data-arraypos="'.$this->moe[$number]['Field No'].'" name="'.$this->moe[$number]['LINC Name'].'" data-id="'.$this->person_id.'" id="'.$this->moe[$number]['LINC Name'].$this->person_id.'" value="'.$this->moe[$number]['value'].'" data-theme="'.$theme.'" class="'.$this->moe[$number]['Content Type'].'"  >
-    </div>
-</form>';
+
 
 return $this->moe[$number]['valid'] ;
 
@@ -5634,27 +4722,7 @@ else {
 	
 }
 
-if ($this->moe[$number]['valid']=='false'){
-	if ($this->moe[$number]['Mandatory']=="YES"){
-		$warning = 'warning-2';	
-	}
-	else {
-		$warning = 'warning';	
-	}
-	
-	$this->moe[$number]['input_label'] = '<label id="'.$this->moe[$number]['LINC Name'] .$this->person_id.'_label" for="'.$this->moe[$number]['LINC Name'] .$this->person_id.'"><span class="error"><i class="font-'.$this->moe[$number]['ICON'] .'"  ></i> '.$this->moe[$number]['Field Label'] .': <i class="font-'. $warning .'"  ></i></span>'.linc_popupmessage( $this->moe[$number]['LINC Name'],  $this->moe[$number]['Field Label'], $this->moe[$number]['Description']).'</label>';
-				
-		}
-		else if ($this->moe[$number]['valid']=='true'){
 
-		$this->moe[$number]['input_label'] =  '<label  id="'.$this->moe[$number]['LINC Name'].$this->person_id.'_label" for="'.$this->moe[$number]['LINC Name'] .$this->person_id.'"><span class="valid"><i class="font-'.$this->moe[$number]['ICON'].'"  ></i> '.$this->moe[$number]['Field Label'].': <i class="font-checkmark-3"  ></i></span></label>';
-			
-		}
-		$this->moe[$number]['input_field'] = '<form>
-    <div data-role="fieldcontain" class="ui-hide-label">
-        <input data-theme="b" type="range"data-arraypos="'.$this->moe[$number]['Field No'].'" name="'.$this->moe[$number]['LINC Name'].'" data-id="'.$this->person_id.'" id="'.$this->moe[$number]['LINC Name'].$this->person_id.'" value="'.$this->moe[$number]['value'].'" data-theme="'.$theme.'" class="'.$this->moe[$number]['Content Type'].'"  min="0" max="15" >
-    </div>
-</form>';
 
 return $this->moe[$number]['valid'] ;
 
@@ -5695,41 +4763,6 @@ else {
 }
 
 
-if ($this->moe[$number]['valid']=='false'){
-	if ($this->moe[$number]['Mandatory']=="YES"){
-		$warning = 'warning-2';	
-	}
-	else {
-		$warning = 'warning';	
-	}
-	
-	$this->moe[$number]['input_label'] = '<label id="'.$this->moe[$number]['LINC Name'] .$this->person_id.'_label" for="'.$this->moe[$number]['LINC Name'] .$this->person_id.'"><span class="error"><i class="font-'.$this->moe[$number]['ICON'] .'"  ></i> '.$this->moe[$number]['Field Label'] .': <i class="font-'. $warning .'"  ></i></span>'.linc_popupmessage( $this->moe[$number]['LINC Name'],  $this->moe[$number]['Field Label'], $this->moe[$number]['Description']).'</label>';
-				
-		}
-		else if ($this->moe[$number]['valid']=='true'){
-
-		$this->moe[$number]['input_label'] =  '<label  id="'.$this->moe[$number]['LINC Name'].$this->person_id.'_label" for="'.$this->moe[$number]['LINC Name'] .$this->person_id.'"><span class="valid"><i class="font-'.$this->moe[$number]['ICON'].'"  ></i> '.$this->moe[$number]['Field Label'].': <i class="font-checkmark-3"  ></i></span></label>';
-			
-		}
-
-$this->moe[$number]['input_field'] = '<select name="select-'.$this->moe[$number]['LINC Name'].'" id="select-'.$this->moe[$number]['LINC Name'].$this->person_id.'" data-native-menu="false" data-inline="true" data-icon="grid" data-theme="b" data-iconpos="left" class="optionMenu">';
-					
-			$this->moe[$number]['input_field'] .= '<option>Select an option</option>';
-					 
-							   foreach ($array as $key=> $code){
-									   
-									$this->moe[$number]['input_field'] .= '<option ';
-										if ($key == $this->moe[$number]['value'] ){
-										
-									$this->moe[$number]['input_field'] .= 'selected=selected';	
-										}
-										
-			$this->moe[$number]['input_field'].= ' value="'.$key.'" data-arraypos="'.$this->moe[$number]['Field No'].'" data-id="'.$this->person_id.'" data-value="'.$key.'" name="'.$this->moe[$number]['LINC Name'].'" data-id="'.$this->person_id.'">'.$code.'</option>';	
-								}
-							
-			$this->moe[$number]['input_field'] .= '</select>';	
-
-		return $this->moe[$number]['valid'] ;
 
 return $this->moe[$number]['valid'] ;
 }
@@ -5760,41 +4793,7 @@ else {
 	}
 
 
-if ($this->moe[$number]['valid']=='false'){
-	if ($this->moe[$number]['Mandatory']=="YES"){
-		$warning = 'warning-2';	
-	}
-	else {
-		$warning = 'warning';	
-	}
 	
-	$this->moe[$number]['input_label'] = '<label id="'.$this->moe[$number]['LINC Name'] .$this->person_id.'_label" for="'.$this->moe[$number]['LINC Name'] .$this->person_id.'"><span class="error"><i class="font-'.$this->moe[$number]['ICON'] .'"  ></i> '.$this->moe[$number]['Field Label'] .': <i class="font-'. $warning .'"  ></i></span>'.linc_popupmessage( $this->moe[$number]['LINC Name'],  $this->moe[$number]['Field Label'], $this->moe[$number]['Description']).'</label>';
-				
-		}
-		else if ($this->moe[$number]['valid']=='true'){
-
-		$this->moe[$number]['input_label'] =  '<label  id="'.$this->moe[$number]['LINC Name'].$this->person_id.'_label" for="'.$this->moe[$number]['LINC Name'] .$this->person_id.'"><span class="valid"><i class="font-'.$this->moe[$number]['ICON'].'"  ></i> '.$this->moe[$number]['Field Label'].': <i class="font-checkmark-3"  ></i></span></label>';
-			
-		}
-		
-	$this->moe[$number]['input_field'] .= '<fieldset data-role="controlgroup"  data-theme="b" data-type="horizontal">';
-					$options=array(
-							array('value'=>'YES', 'label'=>'Y'),
-							array('value'=>'NO', 'label'=>'NULL')
-	);	
-						foreach ($options as $option){
-										
-			$this->moe[$number]['input_field'] .= '<input data-theme="b" data-arraypos="'.$number.'" class="radioButton" type="radio" data-id="'.$this->person_id.'" data-value="'.$option['value'].'" name="'.$this->moe[$number]['LINC Name'].'" id="radio-'.$this->moe[$number]['LINC Name'].'-'.$option['value'].'" value="'.$option['value'].'"  ';
-										if ($this->moe[$number]['value'] == $option['value']){
-											$this->moe[$number]['input_field'] .= "checked='checked'";
-										}
-					$this->moe[$number]['input_field'] .= '/>';
-					$this->moe[$number]['input_field'] .= '<label data-theme="b" for="radio-'.$this->moe[$number]['LINC Name'].'-'.$option['value'].'">'.$option ['label'].'</label>';
-					
-										
-						}
-										
-				$this->moe[$number]['input_field'] .= '</fieldset>';	
 
 				return $this->moe[$number]['valid'];
 
@@ -5816,25 +4815,7 @@ $data = $this->mappedData[$this->moe[$number]['LINC Name']];
 	$this->moe[$number]['valid'] = 'true';
 	$this->moe[$number]['value'] = $data;
 	
-if ($this->moe[$number]['valid']=='false'){
-	if ($this->moe[$number]['Mandatory']=="YES"){
-		$warning = 'warning-2';	
-	}
-	else {
-		$warning = 'warning';	
-	}
-	
-	$this->moe[$number]['input_label'] = '<label id="'.$this->moe[$number]['LINC Name'] .$this->person_id.'_label" for="'.$this->moe[$number]['LINC Name'] .$this->person_id.'"><span class="error"><i class="font-'.$this->moe[$number]['ICON'] .'"  ></i> '.$this->moe[$number]['Field Label'] .': <i class="font-'. $warning .'"  ></i></span>'.linc_popupmessage( $this->moe[$number]['LINC Name'],  $this->moe[$number]['Field Label'], $this->moe[$number]['Description']).'</label>';
-				
-		}
-		else if ($this->moe[$number]['valid']=='true'){
 
-		$this->moe[$number]['input_label'] =  '<label  id="'.$this->moe[$number]['LINC Name'].$this->person_id.'_label" for="'.$this->moe[$number]['LINC Name'] .$this->person_id.'"><span class="valid"><i class="font-'.$this->moe[$number]['ICON'].'"  ></i> '.$this->moe[$number]['Field Label'].': <i class="font-checkmark-3"  ></i></span></label>';
-			
-		}
-		
-	
-$this->moe[$number]['input_field'] = '<input type="text" class="'.$this->moe[$number]['Content Type'].'" data-arraypos="'.$this->moe[$number]['Field No'].'" name="'.$this->moe[$number]['LINC Name'].'" data-id="'.$this->person_id.'" id="'.$this->moe[$number]['LINC Name'].$this->person_id.'" value="'.$this->moe[$number]['value'].'" data-theme="'.$theme.'" placeholder="'.$this->moe[$number]['Placeholder'].'"/>';
 return $this->moe[$number]['valid'] ;	
 
 }
@@ -5961,7 +4942,7 @@ else {
 	$this->moe[$number]['value'] = $data;
 	
 	}
-
+return $this->moe[$number]['valid'] ;	
 
 }
 
@@ -6000,6 +4981,7 @@ else {
 	$this->moe[$number]['value'] = $data;
 	
 	}
+return $this->moe[$number]['valid'] ;	
 }
 
 public function check_111(){$this->moe[111]=array("Field Name"=>"WITHHOLD CONTACT DETAILS", "LINC Name"=>"WITHHOLD CONTACT DETAILS",  "Content Type"=> 'metacontent', "Field No"=>"111", "Description"=>"Flag to indicate that contact details should not be provided to MSD","Mandatory"=>"NO","Type"=>"Alpha"
@@ -6014,7 +4996,11 @@ $number = 111;
 $data = $this->mappedData[$this->moe[$number]['LINC Name']];
 
 $this->moe[$number]['valid'] = 'true';
-	$this->moe[$number]['value'] = $data;}
+	$this->moe[$number]['value'] = $data;
+
+return $this->moe[$number]['valid'] ;	
+
+}
 
 
 public function check_112(){
@@ -6033,25 +5019,7 @@ $data = $this->mappedData[$this->moe[$number]['LINC Name']];
 $this->moe[$number]['valid'] = 'true';
 	$this->moe[$number]['value'] = $data;
 		
-if ($this->moe[$number]['valid']=='false'){
-	if ($this->moe[$number]['Mandatory']=="YES"){
-		$warning = 'warning-2';	
-	}
-	else {
-		$warning = 'warning';	
-	}
-	
-	$this->moe[$number]['input_label'] = '<label id="'.$this->moe[$number]['LINC Name'] .$this->person_id.'_label" for="'.$this->moe[$number]['LINC Name'] .$this->person_id.'"><span class="error"><i class="font-'.$this->moe[$number]['ICON'] .'"  ></i> '.$this->moe[$number]['Field Label'] .': <i class="font-'. $warning .'"  ></i></span>'.linc_popupmessage( $this->moe[$number]['LINC Name'],  $this->moe[$number]['Field Label'], $this->moe[$number]['Description']).'</label>';
-				
-		}
-		else if ($this->moe[$number]['valid']=='true'){
 
-		$this->moe[$number]['input_label'] =  '<label  id="'.$this->moe[$number]['LINC Name'].$this->person_id.'_label" for="'.$this->moe[$number]['LINC Name'] .$this->person_id.'"><span class="valid"><i class="font-'.$this->moe[$number]['ICON'].'"  ></i> '.$this->moe[$number]['Field Label'].': <i class="font-checkmark-3"  ></i></span></label>';
-			
-		}
-		
-	
-$this->moe[$number]['input_field'] = '<input type="text" class="'.$this->moe[$number]['Content Type'].'" data-arraypos="'.$this->moe[$number]['Field No'].'" name="'.$this->moe[$number]['LINC Name'].'" data-id="'.$this->person_id.'" id="'.$this->moe[$number]['LINC Name'].$this->person_id.'" value="'.$this->moe[$number]['value'].'" data-theme="'.$theme.'" placeholder="'.$this->moe[$number]['Placeholder'].'"/>';
 return $this->moe[$number]['valid'] ;	}
 
 
@@ -6070,25 +5038,7 @@ $this->moe[$number]['valid'] = 'true';
 	$this->moe[$number]['value'] = $data;
 	
 	
-if ($this->moe[$number]['valid']=='false'){
-	if ($this->moe[$number]['Mandatory']=="YES"){
-		$warning = 'warning-2';	
-	}
-	else {
-		$warning = 'warning';	
-	}
-	
-	$this->moe[$number]['input_label'] = '<label id="'.$this->moe[$number]['LINC Name'] .$this->person_id.'_label" for="'.$this->moe[$number]['LINC Name'] .$this->person_id.'"><span class="error"><i class="font-'.$this->moe[$number]['ICON'] .'"  ></i> '.$this->moe[$number]['Field Label'] .': <i class="font-'. $warning .'"  ></i></span>'.linc_popupmessage( $this->moe[$number]['LINC Name'],  $this->moe[$number]['Field Label'], $this->moe[$number]['Description']).'</label>';
-				
-		}
-		else if ($this->moe[$number]['valid']=='true'){
 
-		$this->moe[$number]['input_label'] =  '<label  id="'.$this->moe[$number]['LINC Name'].$this->person_id.'_label" for="'.$this->moe[$number]['LINC Name'] .$this->person_id.'"><span class="valid"><i class="font-'.$this->moe[$number]['ICON'].'"  ></i> '.$this->moe[$number]['Field Label'].': <i class="font-checkmark-3"  ></i></span></label>';
-			
-		}
-		
-	
-$this->moe[$number]['input_field'] = '<input type="text" class="'.$this->moe[$number]['Content Type'].'" data-arraypos="'.$this->moe[$number]['Field No'].'" name="'.$this->moe[$number]['LINC Name'].'" data-id="'.$this->person_id.'" id="'.$this->moe[$number]['LINC Name'].$this->person_id.'" value="'.$this->moe[$number]['value'].'" data-theme="'.$theme.'" placeholder="'.$this->moe[$number]['Placeholder'].'"/>';
 return $this->moe[$number]['valid'] ;	
 
 }
@@ -6112,25 +5062,6 @@ $data = $this->mappedData[$this->moe[$number]['LINC Name']];
 	
 
 	
-if ($this->moe[$number]['valid']=='false'){
-	if ($this->moe[$number]['Mandatory']=="YES"){
-		$warning = 'warning-2';	
-	}
-	else {
-		$warning = 'warning';	
-	}
-	
-	$this->moe[$number]['input_label'] = '<label id="'.$this->moe[$number]['LINC Name'] .$this->person_id.'_label" for="'.$this->moe[$number]['LINC Name'] .$this->person_id.'"><span class="error"><i class="font-'.$this->moe[$number]['ICON'] .'"  ></i> '.$this->moe[$number]['Field Label'] .': <i class="font-'. $warning .'"  ></i></span>'.linc_popupmessage( $this->moe[$number]['LINC Name'],  $this->moe[$number]['Field Label'], $this->moe[$number]['Description']).'</label>';
-				
-		}
-		else if ($this->moe[$number]['valid']=='true'){
-
-		$this->moe[$number]['input_label'] =  '<label  id="'.$this->moe[$number]['LINC Name'].$this->person_id.'_label" for="'.$this->moe[$number]['LINC Name'] .$this->person_id.'"><span class="valid"><i class="font-'.$this->moe[$number]['ICON'].'"  ></i> '.$this->moe[$number]['Field Label'].': <i class="font-checkmark-3"  ></i></span></label>';
-			
-		}
-		
-	
-$this->moe[$number]['input_field'] = '<input type="text" class="'.$this->moe[$number]['Content Type'].'" data-arraypos="'.$this->moe[$number]['Field No'].'" name="'.$this->moe[$number]['LINC Name'].'" data-id="'.$this->person_id.'" id="'.$this->moe[$number]['LINC Name'].$this->person_id.'" value="'.$this->moe[$number]['value'].'" data-theme="'.$theme.'" placeholder="'.$this->moe[$number]['Placeholder'].'"/>';
 
 return $this->moe[$number]['valid'] ;	
 	
@@ -6275,28 +5206,22 @@ $number = 120;
 
 $data = $this->mappedData[$this->moe[$number]['LINC Name']];
 
-$this->moe[$number]['valid'] = 'true';
-	$this->moe[$number]['value'] = $data;
-	if ($this->moe[$number]['valid']=='false'){
-	if ($this->moe[$number]['Mandatory']=="YES"){
-		$warning = 'warning-2';	
-	}
-	else {
-		$warning = 'warning';	
-	}
-	
-	$this->moe[$number]['input_label'] = '<label id="'.$this->moe[$number]['LINC Name'] .$this->person_id.'_label" for="'.$this->moe[$number]['LINC Name'] .$this->person_id.'"><span class="error"><i class="font-'.$this->moe[$number]['ICON'] .'"  ></i> '.$this->moe[$number]['Field Label'] .': <i class="font-'. $warning .'"  ></i></span>'.linc_popupmessage( $this->moe[$number]['LINC Name'],  $this->moe[$number]['Field Label'], $this->moe[$number]['Description']).'</label>';
-				
-		}
-		else if ($this->moe[$number]['valid']=='true'){
 
-		$this->moe[$number]['input_label'] =  '<label  id="'.$this->moe[$number]['LINC Name'].$this->person_id.'_label" for="'.$this->moe[$number]['LINC Name'] .$this->person_id.'"><span class="valid"><i class="font-'.$this->moe[$number]['ICON'].'"  ></i> '.$this->moe[$number]['Field Label'].': <i class="font-checkmark-3"  ></i></span></label>';
-			
-		}
-		
+if (preg_match('/["]/', $data, $m)) {
 	
-$this->moe[$number]['input_field'] = '<input type="text" class="'.$this->moe[$number]['Content Type'].'" data-arraypos="'.$this->moe[$number]['Field No'].'" name="'.$this->moe[$number]['LINC Name'].'" data-id="'.$this->person_id.'" id="'.$this->moe[$number]['LINC Name'].$this->person_id.'" value="'.$this->moe[$number]['value'].'" data-theme="'.$theme.'" placeholder="'.$this->moe[$number]['Placeholder'].'"/>';
-	}
+	$this->moe[$number]['valid'] = 'false';
+	$this->moe[$number]['value'] = str_replace('"', '""', $data);
+	$this->moe[$number]['message'] = 'Double quotes';
+}
+else{
+	$this->moe[$number]['valid'] = 'true';
+	$this->moe[$number]['value'] = $data;
+}
+
+
+return $this->moe[$number]['valid'];
+
+}
 
 
 public function check_121(){$this->moe[121]=array("Content Type"=> 'metacontent',  "ICON"=> "envelop", "Field Name"=>"CONTACT 1 ADDRESS4", "Field Label"=>"First Contact address line 4", "LINC Name"=>"contact_1_address4","Field No"=>"121", "Description"=>"Fourth address line of the first contact person or primary care giver.","Mandatory"=>"NO","Type"=>"ASCII"
@@ -6312,27 +5237,22 @@ $data = $this->mappedData[$this->moe[$number]['LINC Name']];
 
 $this->moe[$number]['valid'] = 'true';
 	$this->moe[$number]['value'] = $data;
-	
-	if ($this->moe[$number]['valid']=='false'){
-	if ($this->moe[$number]['Mandatory']=="YES"){
-		$warning = 'warning-2';	
-	}
-	else {
-		$warning = 'warning';	
-	}
-	
-	$this->moe[$number]['input_label'] = '<label id="'.$this->moe[$number]['LINC Name'] .$this->person_id.'_label" for="'.$this->moe[$number]['LINC Name'] .$this->person_id.'"><span class="error"><i class="font-'.$this->moe[$number]['ICON'] .'"  ></i> '.$this->moe[$number]['Field Label'] .': <i class="font-'. $warning .'"  ></i></span>'.linc_popupmessage( $this->moe[$number]['LINC Name'],  $this->moe[$number]['Field Label'], $this->moe[$number]['Description']).'</label>';
-				
-		}
-		else if ($this->moe[$number]['valid']=='true'){
 
-		$this->moe[$number]['input_label'] =  '<label  id="'.$this->moe[$number]['LINC Name'].$this->person_id.'_label" for="'.$this->moe[$number]['LINC Name'] .$this->person_id.'"><span class="valid"><i class="font-'.$this->moe[$number]['ICON'].'"  ></i> '.$this->moe[$number]['Field Label'].': <i class="font-checkmark-3"  ></i></span></label>';
-			
-		}
-		
+if (preg_match('/["]/', $data, $m)) {
 	
-$this->moe[$number]['input_field'] = '<input type="text" class="'.$this->moe[$number]['Content Type'].'" data-arraypos="'.$this->moe[$number]['Field No'].'" name="'.$this->moe[$number]['LINC Name'].'" data-id="'.$this->person_id.'" id="'.$this->moe[$number]['LINC Name'].$this->person_id.'" value="'.$this->moe[$number]['value'].'" data-theme="'.$theme.'" placeholder="'.$this->moe[$number]['Placeholder'].'"/>';}
+	$this->moe[$number]['valid'] = 'false';
+	$this->moe[$number]['value'] = str_replace('"', '""', $data);
+	$this->moe[$number]['message'] = 'Double quotes';
+}
+else{
+	$this->moe[$number]['valid'] = 'true';
+	$this->moe[$number]['value'] = $data;
+}
 
+
+return $this->moe[$number]['valid'];
+
+}
 
 public function check_122(){$this->moe[122]=array("Content Type"=> 'metacontent', "ICON"=> "envelop",  "Field Label"=>"First Contact postcode", "Field Name"=>"CONTACT 1 ADDRESS5", "LINC Name"=>"contact_1_address5","Field No"=>"122", "Description"=>"Post Code for the first contact person or primary care giver.","Mandatory"=>"NO","Type"=>"Numeric (Natural number)"
 , 'valid'=>'',
@@ -6345,28 +5265,21 @@ $number = 122;
 
 $data = $this->mappedData[$this->moe[$number]['LINC Name']];
 
-$this->moe[$number]['valid'] = 'true';
-	$this->moe[$number]['value'] = $data;
-	
-	if ($this->moe[$number]['valid']=='false'){
-	if ($this->moe[$number]['Mandatory']=="YES"){
-		$warning = 'warning-2';	
-	}
-	else {
-		$warning = 'warning';	
-	}
-	
-	$this->moe[$number]['input_label'] = '<label id="'.$this->moe[$number]['LINC Name'] .$this->person_id.'_label" for="'.$this->moe[$number]['LINC Name'] .$this->person_id.'"><span class="error"><i class="font-'.$this->moe[$number]['ICON'] .'"  ></i> '.$this->moe[$number]['Field Label'] .': <i class="font-'. $warning .'"  ></i></span>'.linc_popupmessage( $this->moe[$number]['LINC Name'],  $this->moe[$number]['Field Label'], $this->moe[$number]['Description']).'</label>';
-				
-		}
-		else if ($this->moe[$number]['valid']=='true'){
 
-		$this->moe[$number]['input_label'] =  '<label  id="'.$this->moe[$number]['LINC Name'].$this->person_id.'_label" for="'.$this->moe[$number]['LINC Name'] .$this->person_id.'"><span class="valid"><i class="font-'.$this->moe[$number]['ICON'].'"  ></i> '.$this->moe[$number]['Field Label'].': <i class="font-checkmark-3"  ></i></span></label>';
-			
-		}
-		
+if (preg_match('/["]/', $data, $m)) {
 	
-$this->moe[$number]['input_field'] = '<input type="text" class="'.$this->moe[$number]['Content Type'].'" data-arraypos="'.$this->moe[$number]['Field No'].'" name="'.$this->moe[$number]['LINC Name'].'" data-id="'.$this->person_id.'" id="'.$this->moe[$number]['LINC Name'].$this->person_id.'" value="'.$this->moe[$number]['value'].'" data-theme="'.$theme.'" placeholder="'.$this->moe[$number]['Placeholder'].'"/>';
+	$this->moe[$number]['valid'] = 'false';
+	$this->moe[$number]['value'] = str_replace('"', '""', $data);
+	$this->moe[$number]['message'] = 'Double quotes';
+}
+else{
+	$this->moe[$number]['valid'] = 'true';
+	$this->moe[$number]['value'] = $data;
+}
+
+
+return $this->moe[$number]['valid'];
+
 }
 
 
@@ -6381,28 +5294,16 @@ $number = 123;
 
 $data = $this->mappedData[$this->moe[$number]['LINC Name']];
 
-$this->moe[$number]['valid'] = 'true';
-	$this->moe[$number]['value'] = $data;
-	if ($this->moe[$number]['valid']=='false'){
-	if ($this->moe[$number]['Mandatory']=="YES"){
-		$warning = 'warning-2';	
-	}
-	else {
-		$warning = 'warning';	
-	}
-	
-	$this->moe[$number]['input_label'] = '<label id="'.$this->moe[$number]['LINC Name'] .$this->person_id.'_label" for="'.$this->moe[$number]['LINC Name'] .$this->person_id.'"><span class="error"><i class="font-'.$this->moe[$number]['ICON'] .'"  ></i> '.$this->moe[$number]['Field Label'] .': <i class="font-'. $warning .'"  ></i></span>'.linc_popupmessage( $this->moe[$number]['LINC Name'],  $this->moe[$number]['Field Label'], $this->moe[$number]['Description']).'</label>';
-				
-		}
-		else if ($this->moe[$number]['valid']=='true'){
 
-		$this->moe[$number]['input_label'] =  '<label  id="'.$this->moe[$number]['LINC Name'].$this->person_id.'_label" for="'.$this->moe[$number]['LINC Name'] .$this->person_id.'"><span class="valid"><i class="font-'.$this->moe[$number]['ICON'].'"  ></i> '.$this->moe[$number]['Field Label'].': <i class="font-checkmark-3"  ></i></span></label>';
-			
-		}
-		
-	
-$this->moe[$number]['input_field'] = '<input type="text" class="'.$this->moe[$number]['Content Type'].'" data-arraypos="'.$this->moe[$number]['Field No'].'" name="'.$this->moe[$number]['LINC Name'].'" data-id="'.$this->person_id.'" id="'.$this->moe[$number]['LINC Name'].$this->person_id.'" value="'.$this->moe[$number]['value'].'" data-theme="'.$theme.'" placeholder="'.$this->moe[$number]['Placeholder'].'"/>';
-	}
+
+	$this->moe[$number]['valid'] = 'true';
+	$this->moe[$number]['value'] = $data;
+
+
+
+return $this->moe[$number]['valid'];
+
+}
 
 
 public function check_124(){$this->moe[124]=array("Content Type"=> 'metacontent', "ICON"=> "user-plus",  "Field Label"=>"Second contact last name", "Field Name"=>"CONTACT 2 SURNAME", "LINC Name"=>"contact_2_last_name","Field No"=>"124", "Description"=>"Surname of the second contact person or primary care giver, or combined name if not held separately.","Mandatory"=>"NO","Type"=>"ASCII"
@@ -6479,28 +5380,22 @@ $number = 126;
 
 $data = $this->mappedData[$this->moe[$number]['LINC Name']];
 
-$this->moe[$number]['valid'] = 'true';
-	$this->moe[$number]['value'] = $data;
-	if ($this->moe[$number]['valid']=='false'){
-	if ($this->moe[$number]['Mandatory']=="YES"){
-		$warning = 'warning-2';	
-	}
-	else {
-		$warning = 'warning';	
-	}
-	
-	$this->moe[$number]['input_label'] = '<label id="'.$this->moe[$number]['LINC Name'] .$this->person_id.'_label" for="'.$this->moe[$number]['LINC Name'] .$this->person_id.'"><span class="error"><i class="font-'.$this->moe[$number]['ICON'] .'"  ></i> '.$this->moe[$number]['Field Label'] .': <i class="font-'. $warning .'"  ></i></span>'.linc_popupmessage( $this->moe[$number]['LINC Name'],  $this->moe[$number]['Field Label'], $this->moe[$number]['Description']).'</label>';
-				
-		}
-		else if ($this->moe[$number]['valid']=='true'){
 
-		$this->moe[$number]['input_label'] =  '<label  id="'.$this->moe[$number]['LINC Name'].$this->person_id.'_label" for="'.$this->moe[$number]['LINC Name'] .$this->person_id.'"><span class="valid"><i class="font-'.$this->moe[$number]['ICON'].'"  ></i> '.$this->moe[$number]['Field Label'].': <i class="font-checkmark-3"  ></i></span></label>';
-			
-		}
-		
+if (preg_match('/["]/', $data, $m)) {
 	
-$this->moe[$number]['input_field'] = '<input type="text" class="'.$this->moe[$number]['Content Type'].'" data-arraypos="'.$this->moe[$number]['Field No'].'" name="'.$this->moe[$number]['LINC Name'].'" data-id="'.$this->person_id.'" id="'.$this->moe[$number]['LINC Name'].$this->person_id.'" value="'.$this->moe[$number]['value'].'" data-theme="'.$theme.'" placeholder="'.$this->moe[$number]['Placeholder'].'"/>';
-	}
+	$this->moe[$number]['valid'] = 'false';
+	$this->moe[$number]['value'] = str_replace('"', '""', $data);
+	$this->moe[$number]['message'] = 'Double quotes';
+}
+else{
+	$this->moe[$number]['valid'] = 'true';
+	$this->moe[$number]['value'] = $data;
+}
+
+
+return $this->moe[$number]['valid'];
+
+}
 
 
 public function check_127(){$this->moe[127]=array("Content Type"=> 'metacontent', "ICON"=> "envelop", "Field Label"=>"Second contact address line 2", "Field Name"=>"CONTACT 2 ADDRESS2", "LINC Name"=>"contact_2_address2","Field No"=>"127", "Description"=>"Second address line of the second contact person or alternative care giver.","Mandatory"=>"NO","Type"=>"ASCII"
@@ -6514,28 +5409,22 @@ $number = 127;
 
 $data = $this->mappedData[$this->moe[$number]['LINC Name']];
 
-$this->moe[$number]['valid'] = 'true';
-	$this->moe[$number]['value'] = $data;
-	if ($this->moe[$number]['valid']=='false'){
-	if ($this->moe[$number]['Mandatory']=="YES"){
-		$warning = 'warning-2';	
-	}
-	else {
-		$warning = 'warning';	
-	}
-	
-	$this->moe[$number]['input_label'] = '<label id="'.$this->moe[$number]['LINC Name'] .$this->person_id.'_label" for="'.$this->moe[$number]['LINC Name'] .$this->person_id.'"><span class="error"><i class="font-'.$this->moe[$number]['ICON'] .'"  ></i> '.$this->moe[$number]['Field Label'] .': <i class="font-'. $warning .'"  ></i></span>'.linc_popupmessage( $this->moe[$number]['LINC Name'],  $this->moe[$number]['Field Label'], $this->moe[$number]['Description']).'</label>';
-				
-		}
-		else if ($this->moe[$number]['valid']=='true'){
 
-		$this->moe[$number]['input_label'] =  '<label  id="'.$this->moe[$number]['LINC Name'].$this->person_id.'_label" for="'.$this->moe[$number]['LINC Name'] .$this->person_id.'"><span class="valid"><i class="font-'.$this->moe[$number]['ICON'].'"  ></i> '.$this->moe[$number]['Field Label'].': <i class="font-checkmark-3"  ></i></span></label>';
-			
-		}
-		
+if (preg_match('/["]/', $data, $m)) {
 	
-$this->moe[$number]['input_field'] = '<input type="text" class="'.$this->moe[$number]['Content Type'].'" data-arraypos="'.$this->moe[$number]['Field No'].'" name="'.$this->moe[$number]['LINC Name'].'" data-id="'.$this->person_id.'" id="'.$this->moe[$number]['LINC Name'].$this->person_id.'" value="'.$this->moe[$number]['value'].'" data-theme="'.$theme.'" placeholder="'.$this->moe[$number]['Placeholder'].'"/>';
-	}
+	$this->moe[$number]['valid'] = 'false';
+	$this->moe[$number]['value'] = str_replace('"', '""', $data);
+	$this->moe[$number]['message'] = 'Double quotes';
+}
+else{
+	$this->moe[$number]['valid'] = 'true';
+	$this->moe[$number]['value'] = $data;
+}
+
+
+return $this->moe[$number]['valid'];
+
+}
 
 
 public function check_128(){$this->moe[128]=array("Content Type"=> 'metacontent', "ICON"=> "envelop",  "Field Label"=>"Second contact address line 3", "Field Name"=>"CONTACT 2 ADDRESS3", "LINC Name"=>"contact_2_address3","Field No"=>"128", "Description"=>"Third address line of the second contact person or alternative care giver.","Mandatory"=>"NO","Type"=>"ASCII"
@@ -6549,29 +5438,22 @@ $number = 128;
 
 $data = $this->mappedData[$this->moe[$number]['LINC Name']];
 
-$this->moe[$number]['valid'] = 'true';
-	
-	$this->moe[$number]['value'] = $data;
-	if ($this->moe[$number]['valid']=='false'){
-	if ($this->moe[$number]['Mandatory']=="YES"){
-		$warning = 'warning-2';	
-	}
-	else {
-		$warning = 'warning';	
-	}
-	
-	$this->moe[$number]['input_label'] = '<label id="'.$this->moe[$number]['LINC Name'] .$this->person_id.'_label" for="'.$this->moe[$number]['LINC Name'] .$this->person_id.'"><span class="error"><i class="font-'.$this->moe[$number]['ICON'] .'"  ></i> '.$this->moe[$number]['Field Label'] .': <i class="font-'. $warning .'"  ></i></span>'.linc_popupmessage( $this->moe[$number]['LINC Name'],  $this->moe[$number]['Field Label'], $this->moe[$number]['Description']).'</label>';
-				
-		}
-		else if ($this->moe[$number]['valid']=='true'){
 
-		$this->moe[$number]['input_label'] =  '<label  id="'.$this->moe[$number]['LINC Name'].$this->person_id.'_label" for="'.$this->moe[$number]['LINC Name'] .$this->person_id.'"><span class="valid"><i class="font-'.$this->moe[$number]['ICON'].'"  ></i> '.$this->moe[$number]['Field Label'].': <i class="font-checkmark-3"  ></i></span></label>';
-			
-		}
-		
+if (preg_match('/["]/', $data, $m)) {
 	
-$this->moe[$number]['input_field'] = '<input type="text" class="'.$this->moe[$number]['Content Type'].'" data-arraypos="'.$this->moe[$number]['Field No'].'" name="'.$this->moe[$number]['LINC Name'].'" data-id="'.$this->person_id.'" id="'.$this->moe[$number]['LINC Name'].$this->person_id.'" value="'.$this->moe[$number]['value'].'" data-theme="'.$theme.'" placeholder="'.$this->moe[$number]['Placeholder'].'"/>';
-	}
+	$this->moe[$number]['valid'] = 'false';
+	$this->moe[$number]['value'] = str_replace('"', '""', $data);
+	$this->moe[$number]['message'] = 'Double quotes';
+}
+else{
+	$this->moe[$number]['valid'] = 'true';
+	$this->moe[$number]['value'] = $data;
+}
+
+
+return $this->moe[$number]['valid'];
+
+}
 
 
 public function check_129(){$this->moe[129]=array("Content Type"=> 'metacontent', "ICON"=> "envelop",  "Field Label"=>"Second contact address line 4", "Field Name"=>"CONTACT 2 ADDRESS4", "LINC Name"=>"contact_2_address4","Field No"=>"129", "Description"=>"Fourth address line of the second contact person or alternative care giver. If address is not split leave blank.","Mandatory"=>"NO","Type"=>"ASCII"
@@ -6585,29 +5467,22 @@ $number = 129;
 
 $data = $this->mappedData[$this->moe[$number]['LINC Name']];
 
-$this->moe[$number]['valid'] = 'true';
-	$this->moe[$number]['value'] = $data;
-	
-	if ($this->moe[$number]['valid']=='false'){
-	if ($this->moe[$number]['Mandatory']=="YES"){
-		$warning = 'warning-2';	
-	}
-	else {
-		$warning = 'warning';	
-	}
-	
-	$this->moe[$number]['input_label'] = '<label id="'.$this->moe[$number]['LINC Name'] .$this->person_id.'_label" for="'.$this->moe[$number]['LINC Name'] .$this->person_id.'"><span class="error"><i class="font-'.$this->moe[$number]['ICON'] .'"  ></i> '.$this->moe[$number]['Field Label'] .': <i class="font-'. $warning .'"  ></i></span>'.linc_popupmessage( $this->moe[$number]['LINC Name'],  $this->moe[$number]['Field Label'], $this->moe[$number]['Description']).'</label>';
-				
-		}
-		else if ($this->moe[$number]['valid']=='true'){
 
-		$this->moe[$number]['input_label'] =  '<label  id="'.$this->moe[$number]['LINC Name'].$this->person_id.'_label" for="'.$this->moe[$number]['LINC Name'] .$this->person_id.'"><span class="valid"><i class="font-'.$this->moe[$number]['ICON'].'"  ></i> '.$this->moe[$number]['Field Label'].': <i class="font-checkmark-3"  ></i></span></label>';
-			
-		}
-		
+if (preg_match('/["]/', $data, $m)) {
 	
-$this->moe[$number]['input_field'] = '<input type="text" class="'.$this->moe[$number]['Content Type'].'" data-arraypos="'.$this->moe[$number]['Field No'].'" name="'.$this->moe[$number]['LINC Name'].'" data-id="'.$this->person_id.'" id="'.$this->moe[$number]['LINC Name'].$this->person_id.'" value="'.$this->moe[$number]['value'].'" data-theme="'.$theme.'" placeholder="'.$this->moe[$number]['Placeholder'].'"/>';
-	}
+	$this->moe[$number]['valid'] = 'false';
+	$this->moe[$number]['value'] = str_replace('"', '""', $data);
+	$this->moe[$number]['message'] = 'Double quotes';
+}
+else{
+	$this->moe[$number]['valid'] = 'true';
+	$this->moe[$number]['value'] = $data;
+}
+
+
+return $this->moe[$number]['valid'];
+
+}
 
 
 public function check_130(){$this->moe[130]=array("Content Type"=> 'metacontent', "ICON"=> "envelop",  "Field Label"=>"Second contact postcode", "Field Name"=>"CONTACT 2 ADDRESS5", "LINC Name"=>"contact_2_address5","Field No"=>"130", "Description"=>"Post Code for the second contact person or alternative care giver.","Mandatory"=>"NO","Type"=>"Numeric (Natural number)"
@@ -6622,29 +5497,22 @@ $number = 130;
 
 $data = $this->mappedData[$this->moe[$number]['LINC Name']];
 
-$this->moe[$number]['valid'] = 'true';
-	$this->moe[$number]['value'] = $data;
-	
-	if ($this->moe[$number]['valid']=='false'){
-	if ($this->moe[$number]['Mandatory']=="YES"){
-		$warning = 'warning-2';	
-	}
-	else {
-		$warning = 'warning';	
-	}
-	
-	$this->moe[$number]['input_label'] = '<label id="'.$this->moe[$number]['LINC Name'] .$this->person_id.'_label" for="'.$this->moe[$number]['LINC Name'] .$this->person_id.'"><span class="error"><i class="font-'.$this->moe[$number]['ICON'] .'"  ></i> '.$this->moe[$number]['Field Label'] .': <i class="font-'. $warning .'"  ></i></span>'.linc_popupmessage( $this->moe[$number]['LINC Name'],  $this->moe[$number]['Field Label'], $this->moe[$number]['Description']).'</label>';
-				
-		}
-		else if ($this->moe[$number]['valid']=='true'){
 
-		$this->moe[$number]['input_label'] =  '<label  id="'.$this->moe[$number]['LINC Name'].$this->person_id.'_label" for="'.$this->moe[$number]['LINC Name'] .$this->person_id.'"><span class="valid"><i class="font-'.$this->moe[$number]['ICON'].'"  ></i> '.$this->moe[$number]['Field Label'].': <i class="font-checkmark-3"  ></i></span></label>';
-			
-		}
-		
+if (preg_match('/["]/', $data, $m)) {
 	
-$this->moe[$number]['input_field'] = '<input type="text" class="'.$this->moe[$number]['Content Type'].'" data-arraypos="'.$this->moe[$number]['Field No'].'" name="'.$this->moe[$number]['LINC Name'].'" data-id="'.$this->person_id.'" id="'.$this->moe[$number]['LINC Name'].$this->person_id.'" value="'.$this->moe[$number]['value'].'" data-theme="'.$theme.'" placeholder="'.$this->moe[$number]['Placeholder'].'"/>';
-	}
+	$this->moe[$number]['valid'] = 'false';
+	$this->moe[$number]['value'] = str_replace('"', '""', $data);
+	$this->moe[$number]['message'] = 'Double quotes';
+}
+else{
+	$this->moe[$number]['valid'] = 'true';
+	$this->moe[$number]['value'] = $data;
+}
+
+
+return $this->moe[$number]['valid'];
+
+}
 
 
 public function check_131(){
@@ -6663,105 +5531,15 @@ $data = $this->mappedData[$this->moe[$number]['LINC Name']];
 $this->moe[$number]['valid'] = 'true';
 	$this->moe[$number]['value'] = $data;
 	
-	if ($this->moe[$number]['valid']=='false'){
-	if ($this->moe[$number]['Mandatory']=="YES"){
-		$warning = 'warning-2';	
-	}
-	else {
-		$warning = 'warning';	
-	}
-	
-	$this->moe[$number]['input_label'] = '<label id="'.$this->moe[$number]['LINC Name'] .$this->person_id.'_label" for="'.$this->moe[$number]['LINC Name'] .$this->person_id.'"><span class="error"><i class="font-'.$this->moe[$number]['ICON'] .'"  ></i> '.$this->moe[$number]['Field Label'] .': <i class="font-'. $warning .'"  ></i></span>'.linc_popupmessage( $this->moe[$number]['LINC Name'],  $this->moe[$number]['Field Label'], $this->moe[$number]['Description']).'</label>';
-				
-		}
-		else if ($this->moe[$number]['valid']=='true'){
 
-		$this->moe[$number]['input_label'] =  '<label  id="'.$this->moe[$number]['LINC Name'].$this->person_id.'_label" for="'.$this->moe[$number]['LINC Name'] .$this->person_id.'"><span class="valid"><i class="font-'.$this->moe[$number]['ICON'].'"  ></i> '.$this->moe[$number]['Field Label'].': <i class="font-checkmark-3"  ></i></span></label>';
-			
-		}
-		
-	
-$this->moe[$number]['input_field'] = '<input type="text" class="'.$this->moe[$number]['Content Type'].'" data-arraypos="'.$this->moe[$number]['Field No'].'" name="'.$this->moe[$number]['LINC Name'].'" data-id="'.$this->person_id.'" id="'.$this->moe[$number]['LINC Name'].$this->person_id.'" value="'.$this->moe[$number]['value'].'" data-theme="'.$theme.'" placeholder="'.$this->moe[$number]['Placeholder'].'"/>';
-	}
+	$this->moe[$number]['valid'] = 'true';
+	$this->moe[$number]['value'] = $data;
 
 
-
-
-public function check_all(){
-
-$this->moe[1000]=array("Field Name"=>"Errors", "Field No"=>"1000", "Description"=>"List of general errors.", "Mandatory"=>"NO", "Type"=>"", 
-'valid'=>'',
-'value' =>'', 
-'message' =>'',
-'input_field'=>'',
-'input_label'=>''
-);
-
-
-$this->moe[1001]=array("Field Name"=>"Warnings", "Field No"=>"1001", "Description"=>"List of general errors.", "Mandatory"=>"NO", "Type"=>"", 
-'valid'=>'',
-'value' =>'', 
-'message' =>'',
-'input_field'=>'',
-'input_label'=>''
-);
-
-// If Rmonth="J" and any SUBJECT code appears more than once in a students record within the same instructional year level
-$subjects = array (
-'31'=>$this->moe[31]['value'],
-'35'=>$this->moe[35]['value'],
-'39'=>$this->moe[39]['value'],
-'43'=>$this->moe[43]['value'],
-'47'=>$this->moe[47]['value'],
-'51'=>$this->moe[51]['value'],
-'55'=>$this->moe[55]['value'],
-'59'=>$this->moe[59]['value'],
-'63'=>$this->moe[63]['value'],
-'67'=>$this->moe[67]['value'],
-'71'=>$this->moe[71]['value'],
-'75'=>$this->moe[75]['value'],
-'79'=>$this->moe[79]['value'],
-'83'=>$this->moe[83]['value'],
-'87'=>$this->moe[87]['value'],
-);
-
-
-
-// If Age of student is < 5 on roll count day and TYPE is RE
-if ($this->ageOnReturnDate < 5 && $this->mappedData['TYPE'] == "RE"){
-	$this->moe[1001]['message'] .= 'Student must be at least 5 years old on Roll count day to be included in the roll count for your school';
-}
+return $this->moe[$number]['valid'];
 
 }
 
-public function dataForTableM3(){
-	$this->validate();
-	
-	$first = $this->moe[8];
-	$funding = $this->moe[17];
-	$type = $this->moe[18];
-	$fte = $this->moe[23];
-	if ($this->moe[25]['valid']== 'true'){
-		$last = $this->moe[25];
-	}
-	$gender = $this->moe[6];
-	$dob = $this->moe[7];
-	if ($this->moe[110]['valid']== 'true'){
-		$stp = $this->moe[110];
-	}
-	$data = array(
-	'FIRST ATTENDANCE' => $first, 
-	'FUNDING YEAR LEVEL'=> $funding, 
-	'TYPE'=>$type, 
-	'FTE'=>$fte, 
-	'LAST ATTENDANCE'=>$last, 
-	'GENDER' =>$gender, 
-	'DOB'=>$dob,
-	'STP'=>$stp);
-	
-	return $data;	
-	
-}
 
 }
 
