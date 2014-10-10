@@ -22,7 +22,7 @@ class MOECodes {
 				'22' =>  'FEE', 
 				'23' =>  'FTE', 
 				'24' =>  'MAORI', 
-				'25' =>'LAST ATTENDANCE', 
+				'25' =>	'LAST ATTENDANCE', 
 				'26' =>  'NQF QUAL',  
 				'27' =>  'REASON', 
 				'28' =>  'ECE',  

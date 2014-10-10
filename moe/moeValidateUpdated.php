@@ -377,7 +377,6 @@ $this->check_128();
 $this->check_129();
 $this->check_130();
 $this->check_131();
-$this->check_all();
 
 
 	return $this->moe;
@@ -734,7 +733,7 @@ public function check_9(){
 
 if ($this->mappedData['funding_year_level']>=10){
 								$this->moe[$number]['valid'] = 'true';
-								$this->moe[$number]['value'] = $data;
+								$this->moe[$number]['value'] = '';
 								$this->moe[$number]['message'] = "Start date is not required for students in year 10 or above.";
 				}	
 				else {
@@ -2078,12 +2077,15 @@ public function check_31(){
 
 $number = 31;
 
-if ($this->school_type != 30){
- return 'true';
+$data = $this->mappedData[$this->moe[$number]['LINC Name']];
+
+if ($this->school_type != 30 || $data =='' || $data == '[Null]'){
+				 $this->moe[$number]['valid'] = 'true';
+				$this->moe[$number]['value'] = $data;
 }
 else {
 
-$data = $this->mappedData[$this->moe[$number]['LINC Name']];
+
 
 $array = MOECodes::$subjectCodes;
 $code = $this->codes->checkKey($data, $array);
@@ -2117,12 +2119,12 @@ $code = $this->codes->checkKey($data, $array);
 				
 			}
 
+
+			}
 		
 
 
 				return $this->moe[$number]['valid'];
-			}
-
 	}
 
 
@@ -2238,12 +2240,16 @@ public function check_35(){$this->moe[35]=array("Content Type"=> 'metacontent', 
 );
 
 $number = 35;
-if ($this->school_type != 30){
- return 'true';
+
+$data = $this->mappedData[$this->moe[$number]['LINC Name']];
+
+if ($this->school_type != 30 || $data =='' || $data == '[Null]'){
+				 $this->moe[$number]['valid'] = 'true';
+				$this->moe[$number]['value'] = $data;
 }
 else {
 
-$data = $this->mappedData[$this->moe[$number]['LINC Name']];
+
 
 $array = MOECodes::$subjectCodes;
 $code = $this->codes->checkKey($data, $array);
@@ -2276,12 +2282,15 @@ $code = $this->codes->checkKey($data, $array);
 				$this->moe[$number]['value'] = $data;
 				
 			}
-			
+
+
+			}
+		
 
 
 				return $this->moe[$number]['valid'];
-			}
-}
+	}
+
 
 
 public function check_36(){$this->moe[36]=array("Content Type"=> 'metacontent', "Field Name"=>"MODE OF INSTRUCTION SUBJECT 2", "LINC Name"=>"MODE OF INSTRUCTION SUBJECT 2","Field No"=>"36", "Description"=>"Predominant mode of curriculum delivery of subject 1 being studied","Mandatory"=>"Not being collected","Type"=>"-"
@@ -2387,12 +2396,16 @@ public function check_39(){$this->moe[39]=array("Content Type"=> 'metacontent', 
 );
 
 $number = 39;
-if ($this->school_type != 30){
- return 'true';
+
+$data = $this->mappedData[$this->moe[$number]['LINC Name']];
+
+if ($this->school_type != 30 || $data =='' || $data == '[Null]'){
+				 $this->moe[$number]['valid'] = 'true';
+				$this->moe[$number]['value'] = $data;
 }
 else {
 
-$data = $this->mappedData[$this->moe[$number]['LINC Name']];
+
 
 $array = MOECodes::$subjectCodes;
 $code = $this->codes->checkKey($data, $array);
@@ -2425,12 +2438,15 @@ $code = $this->codes->checkKey($data, $array);
 				$this->moe[$number]['value'] = $data;
 				
 			}
-	  		
+
+
+			}
+		
 
 
 				return $this->moe[$number]['valid'];
-			}
-	}		
+	}
+
 
 
 public function check_40(){$this->moe[40]=array("Content Type"=> 'metacontent', "Field Name"=>"MODE OF INSTRUCTION SUBJECT 3", "LINC Name"=>"MODE OF INSTRUCTION SUBJECT 3","Field No"=>"40", "Description"=>"Predominant mode of curriculum delivery of subject 1 being studied","Mandatory"=>"Not being collected","Type"=>"-"
@@ -2536,13 +2552,15 @@ public function check_43(){$this->moe[43]=array("Content Type"=> 'metacontent', 
 );
 
 $number = 43;
+$data = $this->mappedData[$this->moe[$number]['LINC Name']];
 
-if ($this->school_type != 30){
- return 'true';
+if ($this->school_type != 30 || $data =='' || $data == '[Null]'){
+				 $this->moe[$number]['valid'] = 'true';
+				$this->moe[$number]['value'] = $data;
 }
 else {
 
-$data = $this->mappedData[$this->moe[$number]['LINC Name']];
+
 
 $array = MOECodes::$subjectCodes;
 $code = $this->codes->checkKey($data, $array);
@@ -2575,12 +2593,15 @@ $code = $this->codes->checkKey($data, $array);
 				$this->moe[$number]['value'] = $data;
 				
 			}
-	 		
+
+
+			}
+		
 
 
 				return $this->moe[$number]['valid'];
-			}
-	}		
+	}
+
 
 
 
@@ -2688,12 +2709,15 @@ public function check_47(){$this->moe[47]=array("Content Type"=> 'metacontent', 
 );
 
 $number = 47;
-if ($this->school_type != 30){
- return 'true';
+$data = $this->mappedData[$this->moe[$number]['LINC Name']];
+
+if ($this->school_type != 30 || $data =='' || $data == '[Null]'){
+				 $this->moe[$number]['valid'] = 'true';
+				$this->moe[$number]['value'] = $data;
 }
 else {
 
-$data = $this->mappedData[$this->moe[$number]['LINC Name']];
+
 
 $array = MOECodes::$subjectCodes;
 $code = $this->codes->checkKey($data, $array);
@@ -2726,12 +2750,15 @@ $code = $this->codes->checkKey($data, $array);
 				$this->moe[$number]['value'] = $data;
 				
 			}
-	 		
+
+
+			}
+		
 
 
 				return $this->moe[$number]['valid'];
-			}
-	}		
+	}
+
 
 
 
@@ -2840,12 +2867,15 @@ public function check_51(){
 
 $number = 51;
 
-if ($this->school_type != 30){
- return 'true';
+$data = $this->mappedData[$this->moe[$number]['LINC Name']];
+
+if ($this->school_type != 30 || $data =='' || $data == '[Null]'){
+				 $this->moe[$number]['valid'] = 'true';
+				$this->moe[$number]['value'] = $data;
 }
 else {
 
-$data = $this->mappedData[$this->moe[$number]['LINC Name']];
+
 
 $array = MOECodes::$subjectCodes;
 $code = $this->codes->checkKey($data, $array);
@@ -2878,12 +2908,15 @@ $code = $this->codes->checkKey($data, $array);
 				$this->moe[$number]['value'] = $data;
 				
 			}
-	  		
+
+
+			}
+		
 
 
 				return $this->moe[$number]['valid'];
-			}
-	}		
+	}
+
 
 
 public function check_52(){$this->moe[52]=array("Content Type"=> 'metacontent', "Field Name"=>"MODE OF INSTRUCTION SUBJECT 6", "LINC Name"=>"MODE OF INSTRUCTION SUBJECT 6","Field No"=>"52", "Description"=>"Predominant mode of curriculum delivery of subject 1 being studied","Mandatory"=>"Not being collected","Type"=>"-"
@@ -2985,12 +3018,15 @@ public function check_55(){$this->moe[55]=array("Content Type"=> 'metacontent', 
 );
 
 $number = 55;
-if ($this->school_type != 30){
- return 'true';
+$data = $this->mappedData[$this->moe[$number]['LINC Name']];
+
+if ($this->school_type != 30 || $data =='' || $data == '[Null]'){
+				 $this->moe[$number]['valid'] = 'true';
+				$this->moe[$number]['value'] = $data;
 }
 else {
 
-$data = $this->mappedData[$this->moe[$number]['LINC Name']];
+
 
 $array = MOECodes::$subjectCodes;
 $code = $this->codes->checkKey($data, $array);
@@ -3023,15 +3059,14 @@ $code = $this->codes->checkKey($data, $array);
 				$this->moe[$number]['value'] = $data;
 				
 			}
-	 
 
 
+			}
+		
 
 
 				return $this->moe[$number]['valid'];
-			}
-	}		
-
+	}
 
 
 public function check_56(){$this->moe[56]=array("Content Type"=> 'metacontent', "Field Name"=>"MODE OF INSTRUCTION SUBJECT 7", "LINC Name"=>"MODE OF INSTRUCTION SUBJECT 7","Field No"=>"56", "Description"=>"Predominant mode of curriculum delivery of subject 1 being studied","Mandatory"=>"Not being collected","Type"=>"-"
@@ -3133,12 +3168,15 @@ public function check_59(){$this->moe[59]=array("Content Type"=> 'metacontent', 
 );
 
 $number = 59;
-if ($this->school_type != 30){
- return 'true';
+$data = $this->mappedData[$this->moe[$number]['LINC Name']];
+
+if ($this->school_type != 30 || $data =='' || $data == '[Null]'){
+				 $this->moe[$number]['valid'] = 'true';
+				$this->moe[$number]['value'] = $data;
 }
 else {
 
-$data = $this->mappedData[$this->moe[$number]['LINC Name']];
+
 
 $array = MOECodes::$subjectCodes;
 $code = $this->codes->checkKey($data, $array);
@@ -3171,14 +3209,14 @@ $code = $this->codes->checkKey($data, $array);
 				$this->moe[$number]['value'] = $data;
 				
 			}
-	
 
 
+			}
+		
 
 
 				return $this->moe[$number]['valid'];
-			}
-	}		
+	}
 
 
 
@@ -3280,12 +3318,15 @@ public function check_63(){$this->moe[63]=array("Content Type"=> 'metacontent', 
 );
 
 $number = 63;
-if ($this->school_type != 30){
- return 'true';
+$data = $this->mappedData[$this->moe[$number]['LINC Name']];
+
+if ($this->school_type != 30 || $data =='' || $data == '[Null]'){
+				 $this->moe[$number]['valid'] = 'true';
+				$this->moe[$number]['value'] = $data;
 }
 else {
 
-$data = $this->mappedData[$this->moe[$number]['LINC Name']];
+
 
 $array = MOECodes::$subjectCodes;
 $code = $this->codes->checkKey($data, $array);
@@ -3318,14 +3359,14 @@ $code = $this->codes->checkKey($data, $array);
 				$this->moe[$number]['value'] = $data;
 				
 			}
+
+
+			}
 		
 
 
-
-
 				return $this->moe[$number]['valid'];
-			}
-	}		
+	}
 
 
 public function check_64(){$this->moe[64]=array("Content Type"=> 'metacontent', "Field Name"=>"MODE OF INSTRUCTION SUBJECT 9", "LINC Name"=>"MODE OF INSTRUCTION SUBJECT 9","Field No"=>"64", "Description"=>"Predominant mode of curriculum delivery of subject 1 being studied","Mandatory"=>"Not being collected","Type"=>"-"
@@ -3427,12 +3468,15 @@ public function check_67(){$this->moe[67]=array("Content Type"=> 'metacontent', 
 );
 
 $number = 67;
-if ($this->school_type != 30){
- return 'true';
+$data = $this->mappedData[$this->moe[$number]['LINC Name']];
+
+if ($this->school_type != 30 || $data =='' || $data == '[Null]'){
+				 $this->moe[$number]['valid'] = 'true';
+				$this->moe[$number]['value'] = $data;
 }
 else {
 
-$data = $this->mappedData[$this->moe[$number]['LINC Name']];
+
 
 $array = MOECodes::$subjectCodes;
 $code = $this->codes->checkKey($data, $array);
@@ -3465,12 +3509,14 @@ $code = $this->codes->checkKey($data, $array);
 				$this->moe[$number]['value'] = $data;
 				
 			}
-	 		
+
+
+			}
+		
 
 
 				return $this->moe[$number]['valid'];
-			}
-	}		
+	}
 
 
 public function check_68(){$this->moe[68]=array("Content Type"=> 'metacontent', "Field Name"=>"MODE OF INSTRUCTION SUBJECT 10", "LINC Name"=>"MODE OF INSTRUCTION SUBJECT 10","Field No"=>"68", "Description"=>"Predominant mode of curriculum delivery of subject 1 being studied","Mandatory"=>"Not being collected","Type"=>"-"
@@ -3572,13 +3618,15 @@ public function check_71(){$this->moe[71]=array("Content Type"=> 'metacontent', 
 );
 
 $number = 71;
+$data = $this->mappedData[$this->moe[$number]['LINC Name']];
 
-if ($this->school_type != 30){
- return 'true';
+if ($this->school_type != 30 || $data =='' || $data == '[Null]'){
+				 $this->moe[$number]['valid'] = 'true';
+				$this->moe[$number]['value'] = $data;
 }
 else {
 
-$data = $this->mappedData[$this->moe[$number]['LINC Name']];
+
 
 $array = MOECodes::$subjectCodes;
 $code = $this->codes->checkKey($data, $array);
@@ -3611,14 +3659,14 @@ $code = $this->codes->checkKey($data, $array);
 				$this->moe[$number]['value'] = $data;
 				
 			}
-	
 
 
+			}
+		
 
 
 				return $this->moe[$number]['valid'];
-			}
-	}		
+	}	
 
 
 public function check_72(){$this->moe[72]=array("Content Type"=> 'metacontent', "Field Name"=>"MODE OF INSTRUCTION SUBJECT 11", "LINC Name"=>"MODE OF INSTRUCTION SUBJECT 11","Field No"=>"72", "Description"=>"Predominant mode of curriculum delivery of subject 1 being studied","Mandatory"=>"Not being collected","Type"=>"-"
@@ -3720,12 +3768,15 @@ public function check_75(){$this->moe[75]=array("Content Type"=> 'metacontent', 
 );
 
 $number = 75;
-if ($this->school_type != 30){
- return 'true';
+$data = $this->mappedData[$this->moe[$number]['LINC Name']];
+
+if ($this->school_type != 30 || $data =='' || $data == '[Null]'){
+				 $this->moe[$number]['valid'] = 'true';
+				$this->moe[$number]['value'] = $data;
 }
 else {
 
-$data = $this->mappedData[$this->moe[$number]['LINC Name']];
+
 
 $array = MOECodes::$subjectCodes;
 $code = $this->codes->checkKey($data, $array);
@@ -3758,13 +3809,14 @@ $code = $this->codes->checkKey($data, $array);
 				$this->moe[$number]['value'] = $data;
 				
 			}
-	
 
+
+			}
+		
 
 
 				return $this->moe[$number]['valid'];
-			}
-	}		
+	}
 
 
 public function check_76(){$this->moe[76]=array("Content Type"=> 'metacontent', "Field Name"=>"MODE OF INSTRUCTION SUBJECT 12", "LINC Name"=>"MODE OF INSTRUCTION SUBJECT 12","Field No"=>"76", "Description"=>"Predominant mode of curriculum delivery of subject 1 being studied","Mandatory"=>"Not being collected","Type"=>"-"
@@ -3866,12 +3918,15 @@ public function check_79(){$this->moe[79]=array("Content Type"=> 'metacontent', 
 );
 
 $number = 79;
-if ($this->school_type != 30){
- return 'true';
+$data = $this->mappedData[$this->moe[$number]['LINC Name']];
+
+if ($this->school_type != 30 || $data =='' || $data == '[Null]'){
+				 $this->moe[$number]['valid'] = 'true';
+				$this->moe[$number]['value'] = $data;
 }
 else {
 
-$data = $this->mappedData[$this->moe[$number]['LINC Name']];
+
 
 $array = MOECodes::$subjectCodes;
 $code = $this->codes->checkKey($data, $array);
@@ -3904,12 +3959,14 @@ $code = $this->codes->checkKey($data, $array);
 				$this->moe[$number]['value'] = $data;
 				
 			}
-	 	
+
+
+			}
+		
 
 
 				return $this->moe[$number]['valid'];
-			}
-	}		
+	}	
 
 
 public function check_80(){$this->moe[80]=array("Content Type"=> 'metacontent', "Field Name"=>"MODE OF INSTRUCTION SUBJECT 13", "LINC Name"=>"MODE OF INSTRUCTION SUBJECT 13","Field No"=>"80", "Description"=>"Predominant mode of curriculum delivery of subject 1 being studied","Mandatory"=>"Not being collected","Type"=>"-"
@@ -4010,12 +4067,15 @@ public function check_83(){$this->moe[83]=array("Content Type"=> 'metacontent', 
 );
 
 $number = 83;
-if ($this->school_type != 30){
- return 'true';
+$data = $this->mappedData[$this->moe[$number]['LINC Name']];
+
+if ($this->school_type != 30 || $data =='' || $data == '[Null]'){
+				 $this->moe[$number]['valid'] = 'true';
+				$this->moe[$number]['value'] = $data;
 }
 else {
 
-$data = $this->mappedData[$this->moe[$number]['LINC Name']];
+
 
 $array = MOECodes::$subjectCodes;
 $code = $this->codes->checkKey($data, $array);
@@ -4048,15 +4108,14 @@ $code = $this->codes->checkKey($data, $array);
 				$this->moe[$number]['value'] = $data;
 				
 			}
+
+
+			}
 		
 
 
-
-
 				return $this->moe[$number]['valid'];
-			}
-	}		
-
+	}
 
 
 public function check_84(){$this->moe[84]=array("Content Type"=> 'metacontent', "Field Name"=>"MODE OF INSTRUCTION SUBJECT 14", "LINC Name"=>"MODE OF INSTRUCTION SUBJECT 14","Field No"=>"84", "Description"=>"Predominant mode of curriculum delivery of subject 1 being studied","Mandatory"=>"Not being collected","Type"=>"-"
@@ -4156,12 +4215,15 @@ public function check_87(){$this->moe[87]=array("Content Type"=> 'metacontent', 
 );
 
 $number = 87;
-if ($this->school_type != 30){
- return 'true';
+$data = $this->mappedData[$this->moe[$number]['LINC Name']];
+
+if ($this->school_type != 30 || $data =='' || $data == '[Null]'){
+				 $this->moe[$number]['valid'] = 'true';
+				$this->moe[$number]['value'] = $data;
 }
 else {
 
-$data = $this->mappedData[$this->moe[$number]['LINC Name']];
+
 
 $array = MOECodes::$subjectCodes;
 $code = $this->codes->checkKey($data, $array);
@@ -4194,12 +4256,14 @@ $code = $this->codes->checkKey($data, $array);
 				$this->moe[$number]['value'] = $data;
 				
 			}
-		 
+
+
+			}
+		
+
 
 				return $this->moe[$number]['valid'];
-			}
-	}		
-
+	}
 
 
 public function check_88(){
