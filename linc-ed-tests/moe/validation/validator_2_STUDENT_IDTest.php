@@ -4,7 +4,7 @@
  * Field number: 2
  * Alphanumeric, mandatory
  */
-// error_reporting(E_ALL);
+error_reporting(E_ALL);
 date_default_timezone_set('Pacific/Auckland');
 require_once(dirname(__FILE__).'/../../../moe/MOEValidateUpdated.php');
 require_once(dirname(__FILE__).'/../../../moe/moe_test.php');

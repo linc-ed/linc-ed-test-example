@@ -395,22 +395,28 @@ public function check_2(){
 
 $data = $this->person_id;
 
-if (!$this->test==true){
-if (!isset($data)){
-	
-	$this->moe[2]['valid'] = 'false';
-	$this->moe[2]['value'] = '602  - Student ID is missing for [Surname, First Name] '. $this->last_name.", ".$this->first_name;
-	
-	
 
-	}
-else {
-	
-	$this->moe[2]['valid'] = 'true';
-	$this->moe[2]['value'] = $data;
-		
-}
-}
+		if ($data ==''){
+			
+
+			$this->moe[2]['valid'] = 'false';
+			$this->moe[2]['value'] = '602  - Student ID is missing for [Surname, First Name] '. $this->last_name.", ".$this->first_name;
+			
+			
+
+			}
+		else {
+			if (ctype_alnum ($data)){
+			$this->moe[2]['valid'] = 'true';
+			$this->moe[2]['value'] = $data;
+			}
+			else {
+
+			$this->moe[2]['valid'] = 'false';
+			$this->moe[2]['value'] = 'Student ID can only contain Alpha-Numeric characters';
+			}				
+		}
+
 
 return $this->moe[$number]['valid'] ;
 
@@ -477,7 +483,8 @@ $data = $this->nsn;
 		 if (in_array($this->mappedData['TYPE'], array("EM", "NF"))){
 
 					$this->moe[$number]['valid'] = 'true';
-					$this->moe[$number]['value'] = "NSN is not mandatory for student type EM or NF.";
+					$this->moe[$number]['value'] = 'value';
+					$this->moe[$number]['message'] = "NSN is not mandatory for student type EM or NF.";
 
 		}
 //If two or more students, with LAST ATTENDANCE=NULL, and Student TYPE not in [EM, NF] have the same NSN. 	Duplicate NSN : XXXXXXXXX 
@@ -722,8 +729,9 @@ public function check_9(){
 
 if ($this->mappedData['funding_year_level']>=10){
 								$this->moe[$number]['valid'] = 'true';
-								$this->moe[$number]['value'] = "Start date is not required for students in year 10 or above.";
-				}
+								$this->moe[$number]['value'] = $data;
+								$this->moe[$number]['message'] = "Start date is not required for students in year 10 or above.";
+				}	
 				else {
 
 if (in_array($this->school_type, array(20,21,32)) ){
@@ -812,12 +820,14 @@ $array = $this->codes->ethnicityCodes();
 
 if ($this->mappedData['funding_year_level']>=10){
 			$this->moe[$number]['valid'] = 'true';
-			$this->moe[$number]['value'] = 'Ethnicity code is not mandatory for students in year 10 or above.';
+			$this->moe[$number]['value'] = $data;
+			$this->moe[$number]['message'] = 'Ethnicity code is not mandatory for students in year 10 or above.';
 
 }
 else if (in_array($this->rmonth, array('E'))){
 $this->moe[$number]['valid'] = 'true';
-			$this->moe[$number]['value'] = 'Ethnicity code is not mandatory for this period.';
+$this->moe[$number]['value'] = $data;
+			$this->moe[$number]['message'] = 'Ethnicity code is not mandatory for this period.';
 
 }
 
@@ -1011,7 +1021,8 @@ $check = $this->codes->checkKey($data, $iwi_codes);
 
 
 											$this->moe[$number]['valid'] = 'true';
-											$this->moe[$number]['value'] = 'IWI is not mandatory for students who are not identified as Maori';
+											$this->moe[$number]['value'] = $data;
+											$this->moe[$number]['message'] = 'IWI is not mandatory for students who are not identified as Maori';
 
 			}	// Not Maori.	
 		}// End check was false.
