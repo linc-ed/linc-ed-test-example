@@ -121,4 +121,17 @@ class validator_SUBJECTSTest extends PHPUnit_Framework_TestCase {
 
 	}
 
+
+	public function testSubjectInstructionalYearLevelIsNull() {
+		$this->student['INSTRUCTIONAL YEAR LEVEL SUBJECT 2'] = '[Null]';
+		
+		$moe = new MOEValidator($this->student, 'M', $this->school);
+		$valid = $moe->check_38();
+		$this->assertSame($valid, 'true');
+
+	}
+	
+
+	
+
 }

@@ -2368,24 +2368,30 @@ public function check_38(){$this->moe[38]=array("Content Type"=> 'metacontent', 
 
 $number = 38;
 
-$array = MOECodes::$subjectYearLevels;
 
 $data = $this->mappedData[$this->moe[$number]['LINC Name']];
+//If Rmonth=J and Subject is not Null and Instructional year level is Null
 
-$code = $this->codes->checkKey($data, $array);
-
-	if ($code){
-		$this->moe[$number]['valid'] = 'true';
-		$this->moe[$number]['value'] = $data;
-	}
-	else {
+if ( $this->rmonth =='J' && ($data =='0' || is_null($data))){
 		$this->moe[$number]['valid'] = 'false';
-		$this->moe[$number]['value'] = $data;
+		$this->moe[$number]['value'] = '400 - Instructional year level code is missing for subject ['.$this->moe[31]['value'].']';
+}
 
+// If Rmonth=J and FUNDING YEAR LEVEL>=9 and Instructional year level not in[ZN07, ZN08, ZN09, ZN10, ZN11, ZN12, ZN13, ZNAD]
+else if ( !in_array ($data, array( 'ZN07', 'ZN08', 'ZN09', 'ZN10', 'ZN11', 'ZN12', 'ZN13', 'ZNAD' )) && ($this->rmonth =='J'&& $this->mappedData['funding_year_level'] >=9)){
+	$this->moe[$number]['valid'] = 'false';
+	$this->moe[$number]['value'] = '401 - Instructional year level code is incorrect for ['.$this->moe[31]['value'].']';
+}
+else {
+	$this->moe[$number]['valid'] = 'true';
+	$this->moe[$number]['value'] = $data;
+	
 	}
 
-		return $this->moe[$number]['valid'];
-}
+
+return $this->moe[$number]['valid'];	
+	}
+
 
 
 public function check_39(){$this->moe[39]=array("Content Type"=> 'metacontent', "Field Name"=>"SUBJECT 3", "LINC Name"=>"SUBJECT 3","Field No"=>"39", "Description"=>"Subject being studied at secondary school level","Mandatory"=>"for Year 9 to Year 15 for July return","Type"=>"Controlled value code list"
@@ -2524,24 +2530,29 @@ public function check_42(){$this->moe[42]=array("Content Type"=> 'metacontent', 
 );
 
 $number = 42;
-$array = MOECodes::$subjectYearLevels;
 
 $data = $this->mappedData[$this->moe[$number]['LINC Name']];
+//If Rmonth=J and Subject is not Null and Instructional year level is Null
 
-$code = $this->codes->checkKey($data, $array);
-
-	if ($code){
-		$this->moe[$number]['valid'] = 'true';
-		$this->moe[$number]['value'] = $data;
-	}
-	else {
+if ( $this->rmonth =='J' && ($data =='0' || is_null($data))){
 		$this->moe[$number]['valid'] = 'false';
-		$this->moe[$number]['value'] = $data;
+		$this->moe[$number]['value'] = '400 - Instructional year level code is missing for subject ['.$this->moe[31]['value'].']';
+}
 
+// If Rmonth=J and FUNDING YEAR LEVEL>=9 and Instructional year level not in[ZN07, ZN08, ZN09, ZN10, ZN11, ZN12, ZN13, ZNAD]
+else if ( !in_array ($data, array( 'ZN07', 'ZN08', 'ZN09', 'ZN10', 'ZN11', 'ZN12', 'ZN13', 'ZNAD' )) && ($this->rmonth =='J'&& $this->mappedData['funding_year_level'] >=9)){
+	$this->moe[$number]['valid'] = 'false';
+	$this->moe[$number]['value'] = '401 - Instructional year level code is incorrect for ['.$this->moe[31]['value'].']';
+}
+else {
+	$this->moe[$number]['valid'] = 'true';
+	$this->moe[$number]['value'] = $data;
+	
 	}
 
-		return $this->moe[$number]['valid'];
-}
+
+return $this->moe[$number]['valid'];	
+	}
 
 
 public function check_43(){$this->moe[43]=array("Content Type"=> 'metacontent', "Field Name"=>"SUBJECT 4", "LINC Name"=>"SUBJECT 4","Field No"=>"43", "Description"=>"Subject being studied at secondary school level","Mandatory"=>"for Year 9 to Year 15 for July return","Type"=>"Controlled value code list"
@@ -2681,24 +2692,29 @@ public function check_46(){$this->moe[46]=array("Content Type"=> 'metacontent', 
 
 $number = 46;
 
-$array = MOECodes::$subjectYearLevels;
-
 $data = $this->mappedData[$this->moe[$number]['LINC Name']];
+//If Rmonth=J and Subject is not Null and Instructional year level is Null
 
-$code = $this->codes->checkKey($data, $array);
-
-	if ($code){
-		$this->moe[$number]['valid'] = 'true';
-		$this->moe[$number]['value'] = $data;
-	}
-	else {
+if ( $this->rmonth =='J' && ($data =='0' || is_null($data))){
 		$this->moe[$number]['valid'] = 'false';
-		$this->moe[$number]['value'] = $data;
+		$this->moe[$number]['value'] = '400 - Instructional year level code is missing for subject ['.$this->moe[31]['value'].']';
+}
 
+// If Rmonth=J and FUNDING YEAR LEVEL>=9 and Instructional year level not in[ZN07, ZN08, ZN09, ZN10, ZN11, ZN12, ZN13, ZNAD]
+else if ( !in_array ($data, array( 'ZN07', 'ZN08', 'ZN09', 'ZN10', 'ZN11', 'ZN12', 'ZN13', 'ZNAD' )) && ($this->rmonth =='J'&& $this->mappedData['funding_year_level'] >=9)){
+	$this->moe[$number]['valid'] = 'false';
+	$this->moe[$number]['value'] = '401 - Instructional year level code is incorrect for ['.$this->moe[31]['value'].']';
+}
+else {
+	$this->moe[$number]['valid'] = 'true';
+	$this->moe[$number]['value'] = $data;
+	
 	}
 
-		return $this->moe[$number]['valid'];
-}
+
+return $this->moe[$number]['valid'];	
+	}
+
 
 
 public function check_47(){$this->moe[47]=array("Content Type"=> 'metacontent', "Field Name"=>"SUBJECT 5", "LINC Name"=>"SUBJECT 5","Field No"=>"47", "Description"=>"Subject being studied at secondary school level","Mandatory"=>"for Year 9 to Year 15 for July return","Type"=>"Controlled value code list"
@@ -2836,24 +2852,30 @@ public function check_50(){$this->moe[50]=array("Content Type"=> 'metacontent', 
 );
 
 $number = 50;
-$array = MOECodes::$subjectYearLevels;
 
 $data = $this->mappedData[$this->moe[$number]['LINC Name']];
+//If Rmonth=J and Subject is not Null and Instructional year level is Null
 
-$code = $this->codes->checkKey($data, $array);
-
-	if ($code){
-		$this->moe[$number]['valid'] = 'true';
-		$this->moe[$number]['value'] = $data;
-	}
-	else {
+if ( $this->rmonth =='J' && ($data =='0' || is_null($data))){
 		$this->moe[$number]['valid'] = 'false';
-		$this->moe[$number]['value'] = $data;
+		$this->moe[$number]['value'] = '400 - Instructional year level code is missing for subject ['.$this->moe[31]['value'].']';
+}
 
+// If Rmonth=J and FUNDING YEAR LEVEL>=9 and Instructional year level not in[ZN07, ZN08, ZN09, ZN10, ZN11, ZN12, ZN13, ZNAD]
+else if ( !in_array ($data, array( 'ZN07', 'ZN08', 'ZN09', 'ZN10', 'ZN11', 'ZN12', 'ZN13', 'ZNAD' )) && ($this->rmonth =='J'&& $this->mappedData['funding_year_level'] >=9)){
+	$this->moe[$number]['valid'] = 'false';
+	$this->moe[$number]['value'] = '401 - Instructional year level code is incorrect for ['.$this->moe[31]['value'].']';
+}
+else {
+	$this->moe[$number]['valid'] = 'true';
+	$this->moe[$number]['value'] = $data;
+	
 	}
 
-		return $this->moe[$number]['valid'];
-}
+
+return $this->moe[$number]['valid'];	
+	}
+
 
 
 public function check_51(){
@@ -2990,24 +3012,30 @@ public function check_54(){$this->moe[54]=array("Content Type"=> 'metacontent', 
 
 $number = 54;
 
-$array = MOECodes::$subjectYearLevels;
 
 $data = $this->mappedData[$this->moe[$number]['LINC Name']];
+//If Rmonth=J and Subject is not Null and Instructional year level is Null
 
-$code = $this->codes->checkKey($data, $array);
-
-	if ($code){
-		$this->moe[$number]['valid'] = 'true';
-		$this->moe[$number]['value'] = $data;
-	}
-	else {
+if ( $this->rmonth =='J' && ($data =='0' || is_null($data))){
 		$this->moe[$number]['valid'] = 'false';
-		$this->moe[$number]['value'] = $data;
+		$this->moe[$number]['value'] = '400 - Instructional year level code is missing for subject ['.$this->moe[31]['value'].']';
+}
 
+// If Rmonth=J and FUNDING YEAR LEVEL>=9 and Instructional year level not in[ZN07, ZN08, ZN09, ZN10, ZN11, ZN12, ZN13, ZNAD]
+else if ( !in_array ($data, array( 'ZN07', 'ZN08', 'ZN09', 'ZN10', 'ZN11', 'ZN12', 'ZN13', 'ZNAD' )) && ($this->rmonth =='J'&& $this->mappedData['funding_year_level'] >=9)){
+	$this->moe[$number]['valid'] = 'false';
+	$this->moe[$number]['value'] = '401 - Instructional year level code is incorrect for ['.$this->moe[31]['value'].']';
+}
+else {
+	$this->moe[$number]['valid'] = 'true';
+	$this->moe[$number]['value'] = $data;
+	
 	}
 
-		return $this->moe[$number]['valid'];
-}
+
+return $this->moe[$number]['valid'];	
+	}
+
 
 
 public function check_55(){$this->moe[55]=array("Content Type"=> 'metacontent', "Field Name"=>"SUBJECT 7", "LINC Name"=>"SUBJECT 7","Field No"=>"55", "Description"=>"Subject being studied at secondary school level","Mandatory"=>"for Year 9 to Year 15 for July return","Type"=>"Controlled value code list"
@@ -3140,24 +3168,29 @@ public function check_58(){$this->moe[58]=array("Content Type"=> 'metacontent', 
 );
 
 $number = 58;
-$array = MOECodes::$subjectYearLevels;
 
 $data = $this->mappedData[$this->moe[$number]['LINC Name']];
+//If Rmonth=J and Subject is not Null and Instructional year level is Null
 
-$code = $this->codes->checkKey($data, $array);
-
-	if ($code){
-		$this->moe[$number]['valid'] = 'true';
-		$this->moe[$number]['value'] = $data;
-	}
-	else {
+if ( $this->rmonth =='J' && ($data =='0' || is_null($data))){
 		$this->moe[$number]['valid'] = 'false';
-		$this->moe[$number]['value'] = $data;
+		$this->moe[$number]['value'] = '400 - Instructional year level code is missing for subject ['.$this->moe[31]['value'].']';
+}
 
+// If Rmonth=J and FUNDING YEAR LEVEL>=9 and Instructional year level not in[ZN07, ZN08, ZN09, ZN10, ZN11, ZN12, ZN13, ZNAD]
+else if ( !in_array ($data, array( 'ZN07', 'ZN08', 'ZN09', 'ZN10', 'ZN11', 'ZN12', 'ZN13', 'ZNAD' )) && ($this->rmonth =='J'&& $this->mappedData['funding_year_level'] >=9)){
+	$this->moe[$number]['valid'] = 'false';
+	$this->moe[$number]['value'] = '401 - Instructional year level code is incorrect for ['.$this->moe[31]['value'].']';
+}
+else {
+	$this->moe[$number]['valid'] = 'true';
+	$this->moe[$number]['value'] = $data;
+	
 	}
 
-		return $this->moe[$number]['valid'];
-}
+
+return $this->moe[$number]['valid'];	
+	}
 
 
 public function check_59(){$this->moe[59]=array("Content Type"=> 'metacontent', "Field Name"=>"SUBJECT 8", "LINC Name"=>"SUBJECT 8","Field No"=>"59", "Description"=>"Subject being studied at secondary school level","Mandatory"=>"for Year 9 to Year 15 for July return","Type"=>"Controlled value code list"
@@ -3290,24 +3323,30 @@ public function check_62(){$this->moe[62]=array("Content Type"=> 'metacontent', 
 );
 
 $number = 62;
-$array = MOECodes::$subjectYearLevels;
 
 $data = $this->mappedData[$this->moe[$number]['LINC Name']];
+//If Rmonth=J and Subject is not Null and Instructional year level is Null
 
-$code = $this->codes->checkKey($data, $array);
-
-	if ($code){
-		$this->moe[$number]['valid'] = 'true';
-		$this->moe[$number]['value'] = $data;
-	}
-	else {
+if ( $this->rmonth =='J' && ($data =='0' || is_null($data))){
 		$this->moe[$number]['valid'] = 'false';
-		$this->moe[$number]['value'] = $data;
+		$this->moe[$number]['value'] = '400 - Instructional year level code is missing for subject ['.$this->moe[31]['value'].']';
+}
 
+// If Rmonth=J and FUNDING YEAR LEVEL>=9 and Instructional year level not in[ZN07, ZN08, ZN09, ZN10, ZN11, ZN12, ZN13, ZNAD]
+else if ( !in_array ($data, array( 'ZN07', 'ZN08', 'ZN09', 'ZN10', 'ZN11', 'ZN12', 'ZN13', 'ZNAD' )) && ($this->rmonth =='J'&& $this->mappedData['funding_year_level'] >=9)){
+	$this->moe[$number]['valid'] = 'false';
+	$this->moe[$number]['value'] = '401 - Instructional year level code is incorrect for ['.$this->moe[31]['value'].']';
+}
+else {
+	$this->moe[$number]['valid'] = 'true';
+	$this->moe[$number]['value'] = $data;
+	
 	}
 
-		return $this->moe[$number]['valid'];
-}
+
+return $this->moe[$number]['valid'];	
+	}
+
 
 
 public function check_63(){$this->moe[63]=array("Content Type"=> 'metacontent', "Field Name"=>"SUBJECT 9", "LINC Name"=>"SUBJECT 9","Field No"=>"63", "Description"=>"Subject being studied at secondary school level","Mandatory"=>"for Year 9 to Year 15 for July return","Type"=>"Controlled value code list"
@@ -3440,24 +3479,29 @@ public function check_66(){$this->moe[66]=array("Content Type"=> 'metacontent', 
 );
 
 $number = 66;
-$array = MOECodes::$subjectYearLevels;
 
 $data = $this->mappedData[$this->moe[$number]['LINC Name']];
+//If Rmonth=J and Subject is not Null and Instructional year level is Null
 
-$code = $this->codes->checkKey($data, $array);
-
-	if ($code){
-		$this->moe[$number]['valid'] = 'true';
-		$this->moe[$number]['value'] = $data;
-	}
-	else {
+if ( $this->rmonth =='J' && ($data =='0' || is_null($data))){
 		$this->moe[$number]['valid'] = 'false';
-		$this->moe[$number]['value'] = $data;
+		$this->moe[$number]['value'] = '400 - Instructional year level code is missing for subject ['.$this->moe[31]['value'].']';
+}
 
+// If Rmonth=J and FUNDING YEAR LEVEL>=9 and Instructional year level not in[ZN07, ZN08, ZN09, ZN10, ZN11, ZN12, ZN13, ZNAD]
+else if ( !in_array ($data, array( 'ZN07', 'ZN08', 'ZN09', 'ZN10', 'ZN11', 'ZN12', 'ZN13', 'ZNAD' )) && ($this->rmonth =='J'&& $this->mappedData['funding_year_level'] >=9)){
+	$this->moe[$number]['valid'] = 'false';
+	$this->moe[$number]['value'] = '401 - Instructional year level code is incorrect for ['.$this->moe[31]['value'].']';
+}
+else {
+	$this->moe[$number]['valid'] = 'true';
+	$this->moe[$number]['value'] = $data;
+	
 	}
 
-		return $this->moe[$number]['valid'];
-}
+
+return $this->moe[$number]['valid'];	
+	}
 
 
 public function check_67(){$this->moe[67]=array("Content Type"=> 'metacontent', "Field Name"=>"SUBJECT 10", "LINC Name"=>"SUBJECT 10","Field No"=>"67", "Description"=>"Subject being studied at secondary school level","Mandatory"=>"for Year 9 to Year 15 for July return","Type"=>"Controlled value code list"
@@ -3590,24 +3634,30 @@ public function check_70(){$this->moe[70]=array("Content Type"=> 'metacontent', 
 
 $number = 70;
 
-$array = MOECodes::$subjectYearLevels;
 
 $data = $this->mappedData[$this->moe[$number]['LINC Name']];
+//If Rmonth=J and Subject is not Null and Instructional year level is Null
 
-$code = $this->codes->checkKey($data, $array);
-
-	if ($code){
-		$this->moe[$number]['valid'] = 'true';
-		$this->moe[$number]['value'] = $data;
-	}
-	else {
+if ( $this->rmonth =='J' && ($data =='0' || is_null($data))){
 		$this->moe[$number]['valid'] = 'false';
-		$this->moe[$number]['value'] = $data;
+		$this->moe[$number]['value'] = '400 - Instructional year level code is missing for subject ['.$this->moe[31]['value'].']';
+}
 
+// If Rmonth=J and FUNDING YEAR LEVEL>=9 and Instructional year level not in[ZN07, ZN08, ZN09, ZN10, ZN11, ZN12, ZN13, ZNAD]
+else if ( !in_array ($data, array( 'ZN07', 'ZN08', 'ZN09', 'ZN10', 'ZN11', 'ZN12', 'ZN13', 'ZNAD' )) && ($this->rmonth =='J'&& $this->mappedData['funding_year_level'] >=9)){
+	$this->moe[$number]['valid'] = 'false';
+	$this->moe[$number]['value'] = '401 - Instructional year level code is incorrect for ['.$this->moe[31]['value'].']';
+}
+else {
+	$this->moe[$number]['valid'] = 'true';
+	$this->moe[$number]['value'] = $data;
+	
 	}
 
-		return $this->moe[$number]['valid'];
-}
+
+return $this->moe[$number]['valid'];	
+	}
+
 
 
 public function check_71(){$this->moe[71]=array("Content Type"=> 'metacontent', "Field Name"=>"SUBJECT 11", "LINC Name"=>"SUBJECT 11","Field No"=>"71", "Description"=>"Subject being studied at secondary school level","Mandatory"=>"for Year 9 to Year 15 for July return","Type"=>"Controlled value code list"
@@ -3740,24 +3790,30 @@ public function check_74(){$this->moe[74]=array("Content Type"=> 'metacontent', 
 );
 
 $number = 74;
-$array = MOECodes::$subjectYearLevels;
 
 $data = $this->mappedData[$this->moe[$number]['LINC Name']];
+//If Rmonth=J and Subject is not Null and Instructional year level is Null
 
-$code = $this->codes->checkKey($data, $array);
-
-	if ($code){
-		$this->moe[$number]['valid'] = 'true';
-		$this->moe[$number]['value'] = $data;
-	}
-	else {
+if ( $this->rmonth =='J' && ($data =='0' || is_null($data))){
 		$this->moe[$number]['valid'] = 'false';
-		$this->moe[$number]['value'] = $data;
+		$this->moe[$number]['value'] = '400 - Instructional year level code is missing for subject ['.$this->moe[31]['value'].']';
+}
 
+// If Rmonth=J and FUNDING YEAR LEVEL>=9 and Instructional year level not in[ZN07, ZN08, ZN09, ZN10, ZN11, ZN12, ZN13, ZNAD]
+else if ( !in_array ($data, array( 'ZN07', 'ZN08', 'ZN09', 'ZN10', 'ZN11', 'ZN12', 'ZN13', 'ZNAD' )) && ($this->rmonth =='J'&& $this->mappedData['funding_year_level'] >=9)){
+	$this->moe[$number]['valid'] = 'false';
+	$this->moe[$number]['value'] = '401 - Instructional year level code is incorrect for ['.$this->moe[31]['value'].']';
+}
+else {
+	$this->moe[$number]['valid'] = 'true';
+	$this->moe[$number]['value'] = $data;
+	
 	}
 
-		return $this->moe[$number]['valid'];
-}
+
+return $this->moe[$number]['valid'];	
+	}
+
 
 
 public function check_75(){$this->moe[75]=array("Content Type"=> 'metacontent', "Field Name"=>"SUBJECT 12", "LINC Name"=>"SUBJECT 12","Field No"=>"75", "Description"=>"Subject being studied at secondary school level","Mandatory"=>"for Year 9 to Year 15 for July return","Type"=>"Controlled value code list"
@@ -3890,24 +3946,30 @@ public function check_78(){$this->moe[78]=array("Content Type"=> 'metacontent', 
 );
 
 $number = 78;
-$array = MOECodes::$subjectYearLevels;
 
 $data = $this->mappedData[$this->moe[$number]['LINC Name']];
+//If Rmonth=J and Subject is not Null and Instructional year level is Null
 
-$code = $this->codes->checkKey($data, $array);
-
-	if ($code){
-		$this->moe[$number]['valid'] = 'true';
-		$this->moe[$number]['value'] = $data;
-	}
-	else {
+if ( $this->rmonth =='J' && ($data =='0' || is_null($data))){
 		$this->moe[$number]['valid'] = 'false';
-		$this->moe[$number]['value'] = $data;
+		$this->moe[$number]['value'] = '400 - Instructional year level code is missing for subject ['.$this->moe[31]['value'].']';
+}
 
+// If Rmonth=J and FUNDING YEAR LEVEL>=9 and Instructional year level not in[ZN07, ZN08, ZN09, ZN10, ZN11, ZN12, ZN13, ZNAD]
+else if ( !in_array ($data, array( 'ZN07', 'ZN08', 'ZN09', 'ZN10', 'ZN11', 'ZN12', 'ZN13', 'ZNAD' )) && ($this->rmonth =='J'&& $this->mappedData['funding_year_level'] >=9)){
+	$this->moe[$number]['valid'] = 'false';
+	$this->moe[$number]['value'] = '401 - Instructional year level code is incorrect for ['.$this->moe[31]['value'].']';
+}
+else {
+	$this->moe[$number]['valid'] = 'true';
+	$this->moe[$number]['value'] = $data;
+	
 	}
 
-		return $this->moe[$number]['valid'];
-}
+
+return $this->moe[$number]['valid'];	
+	}
+
 
 
 public function check_79(){$this->moe[79]=array("Content Type"=> 'metacontent', "Field Name"=>"SUBJECT 13", "LINC Name"=>"SUBJECT 13","Field No"=>"79", "Description"=>"Subject being studied at secondary school level","Mandatory"=>"for Year 9 to Year 15 for July return","Type"=>"Controlled value code list"
@@ -4039,24 +4101,30 @@ public function check_82(){$this->moe[82]=array("Content Type"=> 'metacontent', 
 );
 
 $number = 82;
-$array = MOECodes::$subjectYearLevels;
 
 $data = $this->mappedData[$this->moe[$number]['LINC Name']];
+//If Rmonth=J and Subject is not Null and Instructional year level is Null
 
-$code = $this->codes->checkKey($data, $array);
-
-	if ($code){
-		$this->moe[$number]['valid'] = 'true';
-		$this->moe[$number]['value'] = $data;
-	}
-	else {
+if ( $this->rmonth =='J' && ($data =='0' || is_null($data))){
 		$this->moe[$number]['valid'] = 'false';
-		$this->moe[$number]['value'] = $data;
+		$this->moe[$number]['value'] = '400 - Instructional year level code is missing for subject ['.$this->moe[31]['value'].']';
+}
 
+// If Rmonth=J and FUNDING YEAR LEVEL>=9 and Instructional year level not in[ZN07, ZN08, ZN09, ZN10, ZN11, ZN12, ZN13, ZNAD]
+else if ( !in_array ($data, array( 'ZN07', 'ZN08', 'ZN09', 'ZN10', 'ZN11', 'ZN12', 'ZN13', 'ZNAD' )) && ($this->rmonth =='J'&& $this->mappedData['funding_year_level'] >=9)){
+	$this->moe[$number]['valid'] = 'false';
+	$this->moe[$number]['value'] = '401 - Instructional year level code is incorrect for ['.$this->moe[31]['value'].']';
+}
+else {
+	$this->moe[$number]['valid'] = 'true';
+	$this->moe[$number]['value'] = $data;
+	
 	}
 
-		return $this->moe[$number]['valid'];
-}
+
+return $this->moe[$number]['valid'];	
+	}
+
 
 
 public function check_83(){$this->moe[83]=array("Content Type"=> 'metacontent', "Field Name"=>"SUBJECT 14","LINC Name"=>"SUBJECT 14","Field No"=>"83", "Description"=>"Subject being studied at secondary school level","Mandatory"=>"for Year 9 to Year 15 for July return","Type"=>"Controlled value code list"
@@ -4187,24 +4255,30 @@ public function check_86(){$this->moe[86]=array("Content Type"=> 'metacontent', 
 );
 
 $number = 86;
-$array = MOECodes::$subjectYearLevels;
 
 $data = $this->mappedData[$this->moe[$number]['LINC Name']];
+//If Rmonth=J and Subject is not Null and Instructional year level is Null
 
-$code = $this->codes->checkKey($data, $array);
-
-	if ($code){
-		$this->moe[$number]['valid'] = 'true';
-		$this->moe[$number]['value'] = $data;
-	}
-	else {
+if ( $this->rmonth =='J' && ($data =='0' || is_null($data))){
 		$this->moe[$number]['valid'] = 'false';
-		$this->moe[$number]['value'] = $data;
+		$this->moe[$number]['value'] = '400 - Instructional year level code is missing for subject ['.$this->moe[31]['value'].']';
+}
 
+// If Rmonth=J and FUNDING YEAR LEVEL>=9 and Instructional year level not in[ZN07, ZN08, ZN09, ZN10, ZN11, ZN12, ZN13, ZNAD]
+else if ( !in_array ($data, array( 'ZN07', 'ZN08', 'ZN09', 'ZN10', 'ZN11', 'ZN12', 'ZN13', 'ZNAD' )) && ($this->rmonth =='J'&& $this->mappedData['funding_year_level'] >=9)){
+	$this->moe[$number]['valid'] = 'false';
+	$this->moe[$number]['value'] = '401 - Instructional year level code is incorrect for ['.$this->moe[31]['value'].']';
+}
+else {
+	$this->moe[$number]['valid'] = 'true';
+	$this->moe[$number]['value'] = $data;
+	
 	}
 
-		return $this->moe[$number]['valid'];
-}
+
+return $this->moe[$number]['valid'];	
+	}
+
 
 
 public function check_87(){$this->moe[87]=array("Content Type"=> 'metacontent', "Field Name"=>"SUBJECT 15","LINC Name"=>"SUBJECT 15","Field No"=>"87", "Description"=>"Subject being studied at secondary school level","Mandatory"=>"for Year 9 to Year 15 for July return","Type"=>"Controlled value code list"
@@ -4341,24 +4415,29 @@ public function check_90(){$this->moe[90]=array("Content Type"=> 'metacontent', 
 
 $number = 90;
 
-$array = MOECodes::$subjectYearLevels;
-
 $data = $this->mappedData[$this->moe[$number]['LINC Name']];
+//If Rmonth=J and Subject is not Null and Instructional year level is Null
 
-$code = $this->codes->checkKey($data, $array);
-
-	if ($code){
-		$this->moe[$number]['valid'] = 'true';
-		$this->moe[$number]['value'] = $data;
-	}
-	else {
+if ( $this->rmonth =='J' && ($data =='0' || is_null($data))){
 		$this->moe[$number]['valid'] = 'false';
-		$this->moe[$number]['value'] = $data;
+		$this->moe[$number]['value'] = '400 - Instructional year level code is missing for subject ['.$this->moe[31]['value'].']';
+}
 
+// If Rmonth=J and FUNDING YEAR LEVEL>=9 and Instructional year level not in[ZN07, ZN08, ZN09, ZN10, ZN11, ZN12, ZN13, ZNAD]
+else if ( !in_array ($data, array( 'ZN07', 'ZN08', 'ZN09', 'ZN10', 'ZN11', 'ZN12', 'ZN13', 'ZNAD' )) && ($this->rmonth =='J'&& $this->mappedData['funding_year_level'] >=9)){
+	$this->moe[$number]['valid'] = 'false';
+	$this->moe[$number]['value'] = '401 - Instructional year level code is incorrect for ['.$this->moe[31]['value'].']';
+}
+else {
+	$this->moe[$number]['valid'] = 'true';
+	$this->moe[$number]['value'] = $data;
+	
 	}
 
-		return $this->moe[$number]['valid'];
-}
+
+return $this->moe[$number]['valid'];	
+	}
+
 
 
 public function check_91(){
@@ -4649,24 +4728,27 @@ public function check_100(){
 );
 
 $number = 100;
-
+$data = $this->mappedData[$this->moe[$number]['LINC Name']];
 $array = MOECodes::$eligibilityCriteria;
 
-$this->codes->checkKey($data, $array);
+$check = $this->codes->checkKey($data, $array);
 
-$data = $this->mappedData[$this->moe[$number]['LINC Name']];
+
 // If ELIGIBILITY CRITERIA is not NULL and not in Ministry code list and [Rmonth in [M,J] or Funding Year Level >=9]
 
-if (!is_null($data) && $data !='' && !$check  && (in_array($this->rmonth, array('M', 'J'))|| $this->mappedData['funding_year_level'] >=9)){ // need the code list
-	$this->moe[$number]['valid'] = 'false';
-	$this->moe[$number]['value'] = "644 - Student's Eligibility Criteria is incorrect";
-}
-else {
+if ($data =='[Null]' || $data=''){
 
 	$this->moe[$number]['valid'] = 'true';
 	$this->moe[$number]['value'] = $data;
-	}
+}
+
+else if (!is_null($data) && $data !='[Null]' && $data !='' && !$check  && (in_array($this->rmonth, array('M', 'J'))|| $this->mappedData['funding_year_level'] >=9)){ 
+	$this->moe[$number]['valid'] = 'false';
+	$this->moe[$number]['value'] = "644 - Student's Eligibility Criteria is incorrect";
+}
+
 	
+
 
 	return $this->moe[$number]['valid'] ;
 }
