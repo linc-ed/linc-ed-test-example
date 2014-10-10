@@ -24,7 +24,7 @@ class validator_EligibilityCriteriaTest extends PHPUnit_Framework_TestCase {
 
 	
 
-	public function testSubjectInstructionalYearLevelIsNull() {
+	public function testELIGIBILITYIsNull() {
 		$this->student['ELIGIBILITY CRITERIA'] = '[Null]';
 		
 		$moe = new MOEValidator($this->student, 'M', $this->school);
@@ -32,6 +32,16 @@ class validator_EligibilityCriteriaTest extends PHPUnit_Framework_TestCase {
 		$this->assertSame($valid, 'true');
 
 	}
+
+	public function testVERIFICATIONIsNull() {
+		$this->student['VERIFICATION DOCUMENT'] = '[Null]';
+		
+		$moe = new MOEValidator($this->student, 'M', $this->school);
+		$valid = $moe->check_101();
+		$this->assertSame($valid, 'true');
+
+	}
+	
 	
 
 	

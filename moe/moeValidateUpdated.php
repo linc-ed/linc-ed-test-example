@@ -4769,19 +4769,20 @@ $array = MOECodes::$verificationDocuments;
 $check = $this->codes->checkKey($data, $array);
 
 // If VERIFICATION DOCUMENT is not NULL and not in Ministry code list and [Rmonth in [M,J] or Funding Year Level >=9]
-if ($data!='' && !$check && (in_array($this->rmonth, array('M', 'J'))|| $this->mappedData['funding_year_level'] >=9)){ // need the code list
-	$this->moe[$number]['valid'] = 'false';
-	$this->moe[$number]['value'] = "645 - Student's Eligibility verification document is incorrect";
-}
-else {
+
+if ($data =='[Null]' || $data=''){
 
 	$this->moe[$number]['valid'] = 'true';
 	$this->moe[$number]['value'] = $data;
-	}
+}
 
-	
+else if ($data!='' && $data !='[Null]' && !$check && (in_array($this->rmonth, array('M', 'J'))|| $this->mappedData['funding_year_level'] >=9)){ // need the code list
+	$this->moe[$number]['valid'] = 'false';
+	$this->moe[$number]['value'] = "645 - Student's Eligibility verification document is incorrect";
+}
 
-			return $this->moe[$number]['valid'] ;
+
+	return $this->moe[$number]['valid'] ;
 }
 
 
@@ -4798,8 +4799,8 @@ $number = 102;
 
 $data = $this->mappedData[$this->moe[$number]['LINC Name']];
 
-if (ctype_alnum($data)){
-$this->moe[$number]['valid'] = 'true';
+if ( $data=='[Null]' || $data==''){
+	$this->moe[$number]['valid'] = 'true';
 	$this->moe[$number]['value'] = $data;
 
 }else {
