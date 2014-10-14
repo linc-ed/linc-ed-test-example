@@ -1641,31 +1641,40 @@ public function check_22(){
 'input_label'=>''
 ); 
 
-$data = $this->mappedData[$this->moe[22]['LINC Name']];
+$data = $this->mappedData[$this->moe[$number]['LINC Name']];
 // If Reason=Null and TYPE in [FF] and FEE= 0 OR FEE=Null and [Rmonth in [M,J]
 if ($this->mappedData['TYPE']== "FF"){
 	$this->moe[$number]['Mandatory']="YES";
 }
-if( $this->mappedData['REASON']=='' && $this->mappedData['TYPE']== "FF" && ($this->mappedData['FEE']==0 || empty( $this->mappedData['FEE'] ) || $this->mappedData['FEE']=='' ) ){
-	
-	$this->moe[22]['valid'] = 'false';
-	$this->moe[22]['value'] = $data;
-	$this->moe[22]['message'] = '202 - FEE for International fee-paying student is missing. Enter fee charged, excluding GST, for this academic year';
+
+if ($this->moe[$number]['Mandatory']=="YES"){
+
+		if( empty($this->mappedData['REASON']) && $this->mappedData['TYPE']== "FF" && ($this->mappedData['FEE']==0 || empty( $this->mappedData['FEE'] ) ) ){
+			
+			$this->moe[22]['valid'] = 'false';
+			$this->moe[22]['value'] = $data;
+			$this->moe[22]['message'] = '202 - FEE for International fee-paying student is missing. Enter fee charged, excluding GST, for this academic year';
+		}
+		else {
+
+			if (ctype_digit($data)){
+			$this->moe[22]['valid'] = 'true';
+			$this->moe[22]['value'] = $data;
+			}
+
+		else {
+			$this->moe[22]['valid'] = 'false';
+			$this->moe[22]['value'] = $data;
+			$this->moe[22]['message'] = 'Fee should be a number';
+		}	
+		}
 }
 else {
 
-	if (ctype_digit($data)){
 	$this->moe[22]['valid'] = 'true';
 	$this->moe[22]['value'] = $data;
-	}
-
-else {
-	$this->moe[22]['valid'] = 'false';
-	$this->moe[22]['value'] = $data;
-	$this->moe[22]['message'] = 'Fee should be a number';
-}	
 }
-
+var_dump($this->moe[$number]);
 
 return $this->moe[$number]['valid'];
 

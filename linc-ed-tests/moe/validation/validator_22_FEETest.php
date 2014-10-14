@@ -42,6 +42,7 @@ class validator_22_FEETest extends PHPUnit_Framework_TestCase {
 
 	public function testFeeNumeric() {
 		$this->student['FEE'] = 'aaa';
+		$this->student['TYPE'] = 'FF';
 		$moe = new MOEValidator($this->student, 'M', $this->school);
 		$valid = $moe->check_22();
 		$this->assertSame($valid, 'false');
