@@ -149,7 +149,7 @@ class validator_18_TYPETest extends PHPUnit_Framework_TestCase {
 	public function testTypeError179() {
 		$this->student['TYPE'] = 'NA';
 		$year = date('Y') - 1;
-		$student['LAST ATTENDANCE'] = $year . '-04-01';
+		$this->student['LAST ATTENDANCE'] = $year . '-04-01';
 		$this->student['REASON'] = 'S';
 		$moe = new MOEValidator($this->student, 'M', $this->school);
 		$valid = $moe->check_18();
@@ -214,6 +214,7 @@ class validator_18_TYPETest extends PHPUnit_Framework_TestCase {
 	public function testTypeError667() {
 		$this->student['TYPE'] = 'RE';
 		$this->student['ELIGIBILITY CRITERIA'] = '60010';
+		$this->student['dob'] = '2001-01-01';
 		$moe = new MOEValidator($this->student, 'M', $this->school);
 		$valid = $moe->check_18();
 		$this->assertSame($valid, 'false');

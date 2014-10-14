@@ -122,6 +122,26 @@ private function returnAgeToStart($dob, $first_schooling){
 
 }
 
+private function checkDateBetweenDates($dateToCheck, $start, $end){
+
+
+	
+    $check=date('Y-m-d', strtotime($dateToCheck));;
+    //echo $paymentDate; // echos today! 
+    $startDate = date('Y-m-d', strtotime($start));
+    $endDate = date('Y-m-d', strtotime($end));
+
+    if (($check >= $startDate) && ($check < $endDate))
+    {
+      return true;
+    }
+    else
+    {
+    	return false; 
+    }
+
+}
+
 public function returnMappedData(){
 		
 		return $this->mappedData;
@@ -1367,8 +1387,13 @@ $data = $this->mappedData[$this->moe[$number]['LINC Name']];
 
 $array = 	MOECodes::$student_types;
 $array_keys = array_keys($array);
+$lastYear = date('Y')-1;
+$start = $lastYear.'-03-01';
+$end = date('Y').'-03-01';
+$checkBetween2Dates = $this->checkDateBetweenDates($this->mappedData['LAST ATTENDANCE'], $start, $end);
 
-if ($data!='' && !empty($data)){
+
+if (!empty($data)){
 	
 	//If School Type in [30, 40] and TYPE not in [FF, AE, EX, AD, RA, RE, EM, SA, NA, NF, SF, TPREOM, TPRAOM, TPAD, TPRE, TPRAE]
 	if (in_array($this->school_type, array(30, 40)) && !in_array($data, array('FF', 'AE', 'EX', 'AD', 'RA', 'RE', 'EM', 'SA', 'NA', 'NF', 'SF', 'TPREOM', 'TPRAOM', 'TPAD', 'TPRE', 'TPRAE'))){
@@ -1383,7 +1408,7 @@ if ($data!='' && !empty($data)){
 	$this->moe[$number]['value'] = '176 - Adult must be older than 19 at 1 January of this year';	
 	}
 	//If REASON=Null and ORS AND SECTION 9 = N and TYPE=RE and age at 1 Jan(t)>=19.
-	else if ( $data =='RE' && $this->returnAgeOnJan01 >=19 && empty($this->mappedData['REASON']) && $this->mappedData['ORS AND SECTION 9'] == 'N'){
+	else if ( $data =='RE' && $this->returnAgeOnJan01 >=19 && empty($this->mappedData['REASON']) && $this->mappedData['ORS and Section 9'] == 'N'){
 	$this->moe[$number]['valid'] = 'false';
 	$this->moe[$number]['value'] = '177(a) - Should be coded as an Adult';	
 	}
@@ -1393,7 +1418,7 @@ if ($data!='' && !empty($data)){
 	$this->moe[$number]['value'] = '177(b) - Should be coded as Teen Parent Adult eligible and enrolled (TPRAE) or Teen Parent Adult over max roll (TPRAOM)';	
 	}
 	//If TYPE=NA and LAST ATTENDANCE>=1March year (t-1) and <1 March year (t) and REASON not NULL
-		else if ( $data =='NA' && !empty($this->mappedData['REASON']) && $this->mappedData['LAST ATTENDANCE'] ){ //INCOMPLETE.
+		else if ( $data =='NA' && !empty($this->mappedData['REASON']) && $this->mappedData['LAST ATTENDANCE'] && $checkBetween2Dates==true ){ 
 	$this->moe[$number]['valid'] = 'false'; 
 	$this->moe[$number]['value'] = '179 -Type of Student "Not Attending" (NA) is incorrect for a school leaver. Enter correct student type at date of last attendance. [Student Type Code NA is for temporary absences only]';	
 	}
@@ -1429,26 +1454,26 @@ if ($data!='' && !empty($data)){
 	// 179
 	// If TYPE=NA and LAST ATTENDANCE>=1March year (t-1) 
 	// and <1 March year (t) and REASON not NULL 
-	else if ( $data == "NA" && $this->mappedData['LAST ATTENDANCE'] >13 ){ // need to convert last attendance to do a date comparions
+	else if ( $data == "NA" && !empty($this->mappedData['REASON']) && $checkBetween2Dates==true ){ // need to convert last attendance to do a date comparions
 		
-	$this->moe[$number]['valid'] = 'true'; 
+	$this->moe[$number]['valid'] = 'false'; 
 	$this->moe[$number]['value'] = $data;
 	$this->moe[$number]['message'] = '179 - Warning - Age may be incorrect for Alternative Education student';
 		
 		}
 	// If Student Type = "NF" and Eligibility Criteria NOT in [60010, 60011] and [Rmonth in [M,J] or Funding Year Level >=9]
-		else if ( $data == "NF" && !in_array($this->mappedData["Eligibility Criteria"], array('60010', '60011')) && $this->mappedData['funding_year_level'] >=9 && in_array($this->rmonth, array("M", "J" ))){
+		else if ( $data == "NF" && !in_array($this->mappedData["ELIGIBILITY CRITERIA"], array('60010', '60011')) && (in_array($this->rmonth, array("M", "J" )) || $this->mappedData['funding_year_level'] >=9 )){
 		
-	$this->moe[$number]['valid'] = 'true'; 
+	$this->moe[$number]['valid'] = 'false'; 
 	$this->moe[$number]['value'] = $data;
 	$this->moe[$number]['message'] = '666 - Warning - Student Type does not match Eligibility Criteria. The Student Type "NF" (Not Funded) is valid only for students with a 28 Day Waiver, or Extended 28 Day Waiver';
 		
 	}
 	
 	// If Student Type is NOT "NF" and Eligibility Criteria in [60010, 60011] and [Rmonth in [M,J] or Funding Year Level >=9]
-		else if ( $data != "NF" && in_array('$this->mappedData["Eligibility Criteria"]', array('60010', '60011')) && $this->mappedData['funding_year_level'] >=9 && in_array($this->rmonth, array("M", "J" ))){
+	else if ( $data != "NF" && in_array($this->mappedData["ELIGIBILITY CRITERIA"], array('60010', '60011'))  && ( in_array($this->rmonth, array("M", "J" )) || $this->mappedData['funding_year_level'] >=9)){
 		
-	$this->moe[$number]['valid'] = 'true'; 
+	$this->moe[$number]['valid'] = 'false'; 
 	$this->moe[$number]['value'] = $data;
 	$this->moe[$number]['message'] = '667 - Warning - Student Type does not match Eligibility Criteria. Students with a 28 Day Waiver, or Extended 28 Day Waiver, are not funded and must have the Student Type "NF"';
 		
@@ -1465,8 +1490,8 @@ else {
 	$this->moe[$number]['valid'] = 'false';
 	$this->moe[$number]['value'] = '171 - Student type is missing';
 }
- 
 var_dump($this->mappedData);
+ 
 			return $this->moe[$number]['valid'];	
 }
 
@@ -1486,8 +1511,15 @@ $number = 19;
 $array = MOECodes::$schoolCodes;
 $data = $this->mappedData[$this->moe[$number]['LINC Name']];
 
-$this->moe[$number]['valid'] = 'true';
+if (ctype_digit($data) || empty($data) ){
+	$this->moe[$number]['valid'] = 'true';
 	$this->moe[$number]['value'] = $data;
+}
+else {
+	$this->moe[$number]['valid'] = 'false';
+	$this->moe[$number]['value'] = $data;
+}
+
 
 
 
@@ -2235,23 +2267,24 @@ $number = 34;
 $data = $this->mappedData[$this->moe[$number]['LINC Name']];
 //If Rmonth=J and Subject is not Null and Instructional year level is Null
 
-if ( $this->rmonth =='J' && ($data =='0' || empty($data))){
+if ( $this->rmonth =='J' &&  empty($data)){
 		$this->moe[$number]['valid'] = 'false';
 		$this->moe[$number]['value'] = '400 - Instructional year level code is missing for subject ['.$this->moe[$number]['value'].']';
 }
-
+else {
 // If Rmonth=J and FUNDING YEAR LEVEL>=9 and Instructional year level not in[ZN07, ZN08, ZN09, ZN10, ZN11, ZN12, ZN13, ZNAD]
-else if ( !in_array ($data, array( 'ZN07', 'ZN08', 'ZN09', 'ZN10', 'ZN11', 'ZN12', 'ZN13', 'ZNAD' )) && ($this->rmonth =='J'&& $this->mappedData['funding_year_level'] >=9)){
+if ( !in_array ($data, array( 'ZN07', 'ZN08', 'ZN09', 'ZN10', 'ZN11', 'ZN12', 'ZN13', 'ZNAD' )) && ($this->rmonth =='J'&& $this->mappedData['funding_year_level'] >=9)){
 	$this->moe[$number]['valid'] = 'false';
-	$this->moe[$number]['value'] = '401 - Instructional year level code is incorrect for ['.$this->moe[31]['value'].']';
+	$this->moe[$number]['value'] = '401 - Instructional year level code is incorrect for ['.$this->mappedData['SUBJECT 1'].']';
 }
 else {
 	$this->moe[$number]['valid'] = 'true';
 	$this->moe[$number]['value'] = $data;
 	
 	}
+}
 
-
+var_dump($this->moe[$number]);
 return $this->moe[$number]['valid'];	
 	}
 
@@ -2413,7 +2446,7 @@ if ( $this->rmonth =='J' && ($data =='0' || empty($data))){
 // If Rmonth=J and FUNDING YEAR LEVEL>=9 and Instructional year level not in[ZN07, ZN08, ZN09, ZN10, ZN11, ZN12, ZN13, ZNAD]
 else if ( !in_array ($data, array( 'ZN07', 'ZN08', 'ZN09', 'ZN10', 'ZN11', 'ZN12', 'ZN13', 'ZNAD' )) && ($this->rmonth =='J'&& $this->mappedData['funding_year_level'] >=9)){
 	$this->moe[$number]['valid'] = 'false';
-	$this->moe[$number]['value'] = '401 - Instructional year level code is incorrect for ['.$this->moe[31]['value'].']';
+	$this->moe[$number]['value'] = '401 - Instructional year level code is incorrect for ['.$this->mappedData['SUBJECT 1'].']';
 }
 else {
 	$this->moe[$number]['valid'] = 'true';

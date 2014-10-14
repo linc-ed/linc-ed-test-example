@@ -34,6 +34,7 @@ class validator_INSTRUCTION_YEAR_LEVELTest extends PHPUnit_Framework_TestCase {
 			$this->student = StudentData::getStudent();
 			$subjectFieldName = 'SUBJECT ' . $i;
 			$this->student[$subjectFieldName] = 'PHED';
+			$this->student['funding_year_level'] = '10';
 			$yearLevelFieldName = 'INSTRUCTIONAL YEAR LEVEL SUBJECT ' . $i;
 			$this->student[$yearLevelFieldName] = 'invalid';
 			$moe = new MOEValidator($this->student, 'J', $this->school);

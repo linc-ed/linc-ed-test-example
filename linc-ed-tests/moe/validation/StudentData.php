@@ -24,7 +24,7 @@ class StudentData {
 			'ORS and Section 9' => '',
 			'funding_year_level' => '6',
 			'TYPE' => 'RE',
-			'previous_school' => 'Unknown',
+			'previous_school' => '',
 			'zoning' => '',
 			'citizenship' => 'NZL',
 			'FEE' => '',
