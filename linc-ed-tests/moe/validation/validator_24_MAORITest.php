@@ -36,7 +36,7 @@ class validator_24_MAORITest extends PHPUnit_Framework_TestCase {
 		$this->student['MAORI'] = 'invalid';
 		$moe = new MOEValidator($this->student, 'M', $this->school);
 		$valid = $moe->check_24();
-		$this->assertSame($valid, 'true');
+		$this->assertSame($valid, 'false');
 	}
 
 }

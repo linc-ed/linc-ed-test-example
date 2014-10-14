@@ -52,7 +52,7 @@ class validator_SUBJECTSTest extends PHPUnit_Framework_TestCase {
 		}
 		$this->student['funding_year_level'] = '10';
 		$this->student['ORS and Section 9'] = 'N';
-		$moe = new MOEValidator($this->student, 'M', $this->school);
+		$moe = new MOEValidator($this->student, 'J', $this->school);
 		$valid = $valid = $moe->check_31();
 		$this->assertSame($valid, 'false');
 	}

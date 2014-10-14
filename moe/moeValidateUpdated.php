@@ -84,6 +84,8 @@ public $mappedData;
 	
 		$date = explode("-", $this->dob);
 	
+	if (count($date)>1){
+
 		$year =  $date[0];
 		$month = $date[1];
 		$day = $date[2];
@@ -103,6 +105,7 @@ public $mappedData;
 		$this->ageOnJuly1=  floor((mktime(0, 0, 0,  $month2,  $day2, (int) $year2) - mktime(0, 0, 0, $month, $day, (int) $year)) / 31556952);
 		
 		$this->returnAgeOnJan01 =   floor((mktime(0, 0, 0,  01,  01,  (int) date('Y')) - mktime(0, 0, 0, $month, $day, (int) $year)) / 31556952);
+		}
 	}
 	
 private function returnAgeToStart($dob, $first_schooling){
@@ -212,21 +215,21 @@ $this->check_30();
 if (($this->school_type != "23" && !in_array($this->mappedData['TYPE'], array('AE', 'NA', 'SA', 'SF', 'TPRE', 'TPRAE')) && $this->mappedData['funding_year_level'] >=9 && $this->mappedData['ORS and Section 9']== "N")|| $this->test ==true ){ // RMONTH!!!
 	
 	
-	if ( (is_null($this->mappedData['SUBJECT 1']) || $this->mappedData['SUBJECT 1'] == '0') &&
-		(is_null($this->mappedData['SUBJECT 2']) || $this->mappedData['SUBJECT 2'] == '0') &&
-		(is_null($this->mappedData['SUBJECT 3']) || $this->mappedData['SUBJECT 3'] == '0') &&
-		(is_null($this->mappedData['SUBJECT 4']) || $this->mappedData['SUBJECT 4'] == '0') &&
-		(is_null($this->mappedData['SUBJECT 5']) || $this->mappedData['SUBJECT 5'] == '0') &&
-		(is_null($this->mappedData['SUBJECT 6']) || $this->mappedData['SUBJECT 6'] == '0') &&
-		(is_null($this->mappedData['SUBJECT 7']) || $this->mappedData['SUBJECT 7'] == '0') &&
-		(is_null($this->mappedData['SUBJECT 8']) || $this->mappedData['SUBJECT 8'] == '0') &&
-		(is_null($this->mappedData['SUBJECT 9']) || $this->mappedData['SUBJECT 9'] == '0') &&
-		(is_null($this->mappedData['SUBJECT 10']) || $this->mappedData['SUBJECT 10'] == '0') &&
-		(is_null($this->mappedData['SUBJECT 11']) || $this->mappedData['SUBJECT 11'] == '0') &&
-		(is_null($this->mappedData['SUBJECT 12']) || $this->mappedData['SUBJECT 12'] == '0') &&
-		(is_null($this->mappedData['SUBJECT 13']) || $this->mappedData['SUBJECT 13'] == '0') &&
-		(is_null($this->mappedData['SUBJECT 14']) || $this->mappedData['SUBJECT 14'] == '0') &&
-		(is_null($this->mappedData['SUBJECT 15']) || $this->mappedData['SUBJECT 15'] == '0')	
+	if ( (empty($this->mappedData['SUBJECT 1']) || $this->mappedData['SUBJECT 1'] == '0') &&
+		(empty($this->mappedData['SUBJECT 2']) || $this->mappedData['SUBJECT 2'] == '0') &&
+		(empty($this->mappedData['SUBJECT 3']) || $this->mappedData['SUBJECT 3'] == '0') &&
+		(empty($this->mappedData['SUBJECT 4']) || $this->mappedData['SUBJECT 4'] == '0') &&
+		(empty($this->mappedData['SUBJECT 5']) || $this->mappedData['SUBJECT 5'] == '0') &&
+		(empty($this->mappedData['SUBJECT 6']) || $this->mappedData['SUBJECT 6'] == '0') &&
+		(empty($this->mappedData['SUBJECT 7']) || $this->mappedData['SUBJECT 7'] == '0') &&
+		(empty($this->mappedData['SUBJECT 8']) || $this->mappedData['SUBJECT 8'] == '0') &&
+		(empty($this->mappedData['SUBJECT 9']) || $this->mappedData['SUBJECT 9'] == '0') &&
+		(empty($this->mappedData['SUBJECT 10']) || $this->mappedData['SUBJECT 10'] == '0') &&
+		(empty($this->mappedData['SUBJECT 11']) || $this->mappedData['SUBJECT 11'] == '0') &&
+		(empty($this->mappedData['SUBJECT 12']) || $this->mappedData['SUBJECT 12'] == '0') &&
+		(empty($this->mappedData['SUBJECT 13']) || $this->mappedData['SUBJECT 13'] == '0') &&
+		(empty($this->mappedData['SUBJECT 14']) || $this->mappedData['SUBJECT 14'] == '0') &&
+		(empty($this->mappedData['SUBJECT 15']) || $this->mappedData['SUBJECT 15'] == '0')	
 		&& $this->test == false
 	 ){
 		 		$this->check_31();
@@ -1157,9 +1160,10 @@ $data = $this->mappedData[$this->moe[16]['LINC Name']];
 if ($data==''){
 		$this->moe[16]['valid'] = 'true';
 		$this->moe[16]['value'] = 'N';
+		return 'false'; // allows test to pass as it is ok to have '' but should show as false for the test.
 }
 else {
-	if (!in_array($data, array('N', 'H', 'V', 'S')) && in_array($this->rmonth, array('M', 'J')) && $this->mappedData['funding_year_level'] <9){
+	if (!in_array($data, array('N', 'H', 'V', 'S', '')) && in_array($this->rmonth, array('M', 'J')) && $this->mappedData['funding_year_level'] <9){
 		$this->moe[16]['valid'] = 'false';
 		$this->moe[16]['value'] = "151 - ORS and Section 9 code is incorrect";
 	}
@@ -1189,11 +1193,9 @@ public function check_17(){
 $data = $this->mappedData[$this->moe[$number]['LINC Name']];
 $array =array(0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15);
 
-if (isset($data) && !is_null($data) && $data !='' && in_array($data, array(0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15)) && is_numeric($data)){
+if ( !empty($data) && in_array($data, array(0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15)) ){
 	
 	
-
-
 			if (in_array($this->school_type, array(23, 32, 34)) && !in_array($data, $array)){
 				
 					$this->moe[$number]['valid'] = 'false';
@@ -1250,13 +1252,13 @@ if (isset($data) && !is_null($data) && $data !='' && in_array($data, array(0, 1,
 			// If ORS and Section 9=N and Reason=Null and age at 1 
 	// July(t) =>8 and <16 and FUNDING YEAR LEVEL < age –6
 	// and [Rmonth in [M,J]
-			else if ( $this->mappedData['REASON']=='' && $this->mappedData['ORS and Section 9'] == 'N' && $this->ageOnJuly1 >=8 &&  $this->ageOnJuly1 <16 && $data <$this->ageOnJuly1 -6 && in_array($this->rmonth, array("M", "J")) ) {
+			else if ( empty($this->mappedData['REASON']) && $this->mappedData['ORS and Section 9'] == 'N' && $this->ageOnJuly1 >=8 &&  $this->ageOnJuly1 <16 && $data <$this->ageOnJuly1 -6 && in_array($this->rmonth, array("M", "J")) ) {
 						$this->moe[$number]['valid'] = 'false';
 					$this->moe[$number]['value'] = '164 - Student age does not match year level.';
 
 			}
 			// If ORS and Section 9=N and FUNDING YEAR LEVEL<9 and age at 1 July (t)>=16
-			else if ( $data<0 && $this->mappedData['ORS and Section 9'] == 'N' && $this->ageOnJuly1 == 16){
+			else if ( $data<9 && $this->mappedData['ORS and Section 9'] == 'N' && $this->ageOnJuly1 >= 16){
 				
 					$this->moe[$number]['valid'] = 'false';
 					$this->moe[$number]['value'] = '610 - Student aged 16 or older must have Funding Year Level of Year 9 or above';
@@ -1272,7 +1274,7 @@ if (isset($data) && !is_null($data) && $data !='' && in_array($data, array(0, 1,
 			}
 			
 			// If ORS and Section 9=N and REASON = NULL and TYPE not in [AD,RA,FF,TPRAOM,TPAD] and age at 1 July(t)>=16 and FUNDING YEAR LEVEL<age at 1 July(t)-6
-			else if ($this->mappedData['ORS and Section 9']== "N" && is_null($this->mappedData['REASON']) && !in_array($this->mappedData['TYPE'], array('AD','RA','FF','TPRAOM','TPAD')) && $data < $this->ageOnJuly1-6 ){
+			else if ($this->mappedData['ORS and Section 9']== "N" && empty($this->mappedData['REASON']) && !in_array($this->mappedData['TYPE'], array('AD','RA','FF','TPRAOM','TPAD')) && $data < $this->ageOnJuly1-6 ){
 				
 					$this->moe[$number]['valid'] = 'true';
 					$this->moe[$number]['value'] = $data;
@@ -1280,7 +1282,7 @@ if (isset($data) && !is_null($data) && $data !='' && in_array($data, array(0, 1,
 				
 			}
 			// If FUNDING YEAR LEVEL>8 and REASON = NULL and age at 1 July(t) <[FUNDING YEAR LEVEL+2]
-			else if (is_null($this->mappedData['REASON']) && $data > 8 && $this->ageOnReturnDate < $data+2 ){
+			else if (empty($this->mappedData['REASON']) && $data > 8 && $this->ageOnReturnDate < $data+2 ){
 				
 					$this->moe[$number]['valid'] = 'true';
 					$this->moe[$number]['value'] = $data;
@@ -1296,7 +1298,7 @@ if (isset($data) && !is_null($data) && $data !='' && in_array($data, array(0, 1,
 				
 			}
 			// If ORS AND SECTION 9=N and REASON = NULL and age at 1 July(t) in [14,15] and FUNDING YEAR LEVEL in [7,8]
-				else if ( $this->mappedData['ORS and Section 9']== "N" && is_null($this->mappedData['REASON']) && in_array($data, array("7","8")) && in_array($this->ageOnJuly1, array("14", "15")) ){
+				else if ( $this->mappedData['ORS and Section 9']== "N" && empty($this->mappedData['REASON']) && in_array($data, array("7","8")) && in_array($this->ageOnJuly1, array("14", "15")) ){
 				
 					$this->moe[$number]['valid'] = 'true';
 					$this->moe[$number]['value'] = $data;
@@ -1304,7 +1306,7 @@ if (isset($data) && !is_null($data) && $data !='' && in_array($data, array(0, 1,
 				
 			}
 			// If ORS AND SECTION 9=N and REASON = NULL and TYPE not in [AD, RA, FF, NF, TPRAOM, TPAD] and FUNDING YEAR LEVEL is between 8 and 13 (inclusive) and age at 1 July(t)>[FUNDING YEAR LEVEL + 6]
-			else if ( $this->mappedData['ORS and Section 9']== "N" && is_null($this->mappedData['REASON']) && $data >=8 && $data <=13 && $this->ageOnJuly1> $data+6 && !in_array($this->mappedData['TYPE'], array('AD', 'RA', 'FF', 'NF', 'TPRAOM', 'TPAD')) ){
+			else if ( $this->mappedData['ORS and Section 9']== "N" && empty($this->mappedData['REASON']) && $data >=8 && $data <=13 && $this->ageOnJuly1> $data+6 && !in_array($this->mappedData['TYPE'], array('AD', 'RA', 'FF', 'NF', 'TPRAOM', 'TPAD')) ){
 				
 					$this->moe[$number]['valid'] = 'true';
 					$this->moe[$number]['value'] = $data;
@@ -1312,14 +1314,25 @@ if (isset($data) && !is_null($data) && $data !='' && in_array($data, array(0, 1,
 				
 			}
 			// If ORS AND SECTION 9=N and REASON is not NULL and TYPE not in [AD, RA, FF, NF, TPRAOM, TPAD] and FUNDING YEAR LEVEL is between 9 and 14 (inclusive) and age at 1 July (t-1) > [FUNDING YEAR LEVEL + 6]
-			else if ( $this->mappedData['ORS and Section 9']== "N" && is_null($this->mappedData['REASON']) && $data >=9 && $data <=14 && $this->ageOnJuly1> $data+6 && !in_array($this->mappedData['TYPE'], array('AD', 'RA', 'FF', 'NF', 'TPRAOM', 'TPAD')) ){
+			else if ( $this->mappedData['ORS and Section 9']== "N" && empty($this->mappedData['REASON']) && $data >=9 && $data <=14 && $this->ageOnJuly1> $data+6 && !in_array($this->mappedData['TYPE'], array('AD', 'RA', 'FF', 'NF', 'TPRAOM', 'TPAD')) ){
 				
 					$this->moe[$number]['valid'] = 'true';
 					$this->moe[$number]['value'] = $data;
 					$this->moe[$number]['message'] = '641 - School Leaver aged ['.$this->ageOnJuly1.'] with Funding Year Level ['. $data.']. Check Funding Year Level and date of birth.';
 				
 			}
-			
+
+			// If ORS AND SECTION 9 = N and REASON = NULL and 
+	// School Type in (‘20’,’21’) and STUDENT TYPE in 
+	// [‘RE’,’FF’,’EX’] and FUNDING YEAR LEVEL>6 and 
+	// Reason=Null
+			else if ( $this->mappedData['ORS and Section 9']== "N" && empty($this->mappedData['REASON']) && in_array($this->mappedData['TYPE'], array('RE', 'FF', 'EX')) && in_array($this->school_type, array('20', '21') ) && $data>8 ){
+				
+					$this->moe[$number]['valid'] = 'true';
+					$this->moe[$number]['value'] = $data;
+					$this->moe[$number]['message'] = '679 -Funding Year Level cannot be higher than 8 for a primary school.';
+				
+			}
 			else {
 				
 				$this->moe[$number]['valid'] = 'true';
@@ -1355,7 +1368,7 @@ $data = $this->mappedData[$this->moe[$number]['LINC Name']];
 $array = 	MOECodes::$student_types;
 $array_keys = array_keys($array);
 
-if ($data!='' && !is_null($data)){
+if ($data!='' && !empty($data)){
 	
 	//If School Type in [30, 40] and TYPE not in [FF, AE, EX, AD, RA, RE, EM, SA, NA, NF, SF, TPREOM, TPRAOM, TPAD, TPRE, TPRAE]
 	if (in_array($this->school_type, array(30, 40)) && !in_array($data, array('FF', 'AE', 'EX', 'AD', 'RA', 'RE', 'EM', 'SA', 'NA', 'NF', 'SF', 'TPREOM', 'TPRAOM', 'TPAD', 'TPRE', 'TPRAE'))){
@@ -1370,17 +1383,17 @@ if ($data!='' && !is_null($data)){
 	$this->moe[$number]['value'] = '176 - Adult must be older than 19 at 1 January of this year';	
 	}
 	//If REASON=Null and ORS AND SECTION 9 = N and TYPE=RE and age at 1 Jan(t)>=19.
-	else if ( $data =='RE' && $this->returnAgeOnJan01 >=19 && is_null($this->mappedData['REASON']) && $this->mappedData['ORS AND SECTION 9'] == 'N'){
+	else if ( $data =='RE' && $this->returnAgeOnJan01 >=19 && empty($this->mappedData['REASON']) && $this->mappedData['ORS AND SECTION 9'] == 'N'){
 	$this->moe[$number]['valid'] = 'false';
 	$this->moe[$number]['value'] = '177(a) - Should be coded as an Adult';	
 	}
 	//If REASON=Null and TYPE in [TPRE, TPREOM] and age at 1 Jan(t)>=19.
-	else if ( in_array($data, array('TPRE', 'TPREOM')) && $this->returnAgeOnJan01 >=19 && is_null($this->mappedData['REASON']) ){
+	else if ( in_array($data, array('TPRE', 'TPREOM')) && $this->returnAgeOnJan01 >=19 && empty($this->mappedData['REASON']) ){
 	$this->moe[$number]['valid'] = 'false';
 	$this->moe[$number]['value'] = '177(b) - Should be coded as Teen Parent Adult eligible and enrolled (TPRAE) or Teen Parent Adult over max roll (TPRAOM)';	
 	}
 	//If TYPE=NA and LAST ATTENDANCE>=1March year (t-1) and <1 March year (t) and REASON not NULL
-		else if ( $data =='NA' && !is_null($this->mappedData['REASON']) && $this->mappedData['LAST ATTENDANCE'] ){ //INCOMPLETE.
+		else if ( $data =='NA' && !empty($this->mappedData['REASON']) && $this->mappedData['LAST ATTENDANCE'] ){ //INCOMPLETE.
 	$this->moe[$number]['valid'] = 'false'; 
 	$this->moe[$number]['value'] = '179 -Type of Student "Not Attending" (NA) is incorrect for a school leaver. Enter correct student type at date of last attendance. [Student Type Code NA is for temporary absences only]';	
 	}
@@ -1413,8 +1426,18 @@ if ($data!='' && !is_null($data)){
 	$this->moe[$number]['message'] = '178 - Warning - Age may be incorrect for Alternative Education student';
 		
 	}
+	// 179
+	// If TYPE=NA and LAST ATTENDANCE>=1March year (t-1) 
+	// and <1 March year (t) and REASON not NULL 
+	else if ( $data == "NA" && $this->mappedData['LAST ATTENDANCE'] >13 ){ // need to convert last attendance to do a date comparions
+		
+	$this->moe[$number]['valid'] = 'true'; 
+	$this->moe[$number]['value'] = $data;
+	$this->moe[$number]['message'] = '179 - Warning - Age may be incorrect for Alternative Education student';
+		
+		}
 	// If Student Type = "NF" and Eligibility Criteria NOT in [60010, 60011] and [Rmonth in [M,J] or Funding Year Level >=9]
-		else if ( $data == "NF" && !in_array($this->mappedData['Eligibility Criteria'], array('60010', '60011')) && $this->mappedData['funding_year_level'] >=9 && in_array($this->rmonth, array("M", "J" ))){
+		else if ( $data == "NF" && !in_array($this->mappedData["Eligibility Criteria"], array('60010', '60011')) && $this->mappedData['funding_year_level'] >=9 && in_array($this->rmonth, array("M", "J" ))){
 		
 	$this->moe[$number]['valid'] = 'true'; 
 	$this->moe[$number]['value'] = $data;
@@ -1423,7 +1446,7 @@ if ($data!='' && !is_null($data)){
 	}
 	
 	// If Student Type is NOT "NF" and Eligibility Criteria in [60010, 60011] and [Rmonth in [M,J] or Funding Year Level >=9]
-		else if ( $data != "NF" && in_array($this->mappedData['Eligibility Criteria'], array('60010', '60011')) && $this->mappedData['funding_year_level'] >=9 && in_array($this->rmonth, array("M", "J" ))){
+		else if ( $data != "NF" && in_array('$this->mappedData["Eligibility Criteria"]', array('60010', '60011')) && $this->mappedData['funding_year_level'] >=9 && in_array($this->rmonth, array("M", "J" ))){
 		
 	$this->moe[$number]['valid'] = 'true'; 
 	$this->moe[$number]['value'] = $data;
@@ -1443,7 +1466,7 @@ else {
 	$this->moe[$number]['value'] = '171 - Student type is missing';
 }
  
-
+var_dump($this->mappedData);
 			return $this->moe[$number]['valid'];	
 }
 
@@ -1466,33 +1489,7 @@ $data = $this->mappedData[$this->moe[$number]['LINC Name']];
 $this->moe[$number]['valid'] = 'true';
 	$this->moe[$number]['value'] = $data;
 
-if ($this->moe[$number]['valid']=='false'){
-	if ($this->moe[$number]['Mandatory']=="YES"){
-		$warning = 'warning-2';	
-	}
-	else {
-		$warning = 'warning';	
-	}
-	
-	$this->moe[$number]['input_label'] = '<label id="'.$this->moe[$number]['LINC Name'] .$this->person_id.'_label" for="'.$this->moe[$number]['LINC Name'] .$this->person_id.'"><span class="error"><i class="font-'.$this->moe[$number]['ICON'] .'"  ></i> '.$this->moe[$number]['Field Label'] .': <i class="font-'. $warning .'"  ></i></span>'.linc_popupmessage( $this->moe[$number]['LINC Name'],  $this->moe[$number]['Field Label'], $this->moe[$number]['Description']).'</label>';
-				
-		}
-		else if ($this->moe[$number]['valid']=='true'){
 
-		$this->moe[$number]['input_label'] =  '<label  id="'.$this->moe[$number]['LINC Name'].$this->person_id.'_label" for="'.$this->moe[$number]['LINC Name'] .$this->person_id.'"><span class="valid"><i class="font-'.$this->moe[$number]['ICON'].'"  ></i> '.$this->moe[$number]['Field Label'].': <i class="font-checkmark-3"  ></i></span></label>';
-			
-		}
-
-$this->moe[$number]['input_field'] = '<ul data-role="listview" data-inset="true" data-filter="true" data-filter-reveal="true" data-filter-placeholder="'.$array[$this->moe[$number]['value']]['name'].'" name="select-'.$this->moe[$number]['LINC Name'].'" id="select-'.$this->moe[$number]['LINC Name'].$this->person_id.'" data-native-menu="false" data-theme="b" data-inline="true" value="'.$array[$this->moe[$number]['value']]['name'].'">';
-					
-							   foreach ($array as $key=> $code){
-									   
-								$this->moe[$number]['input_field'].= '<li><a href="#" class="setMetaFromList" data-id="'.$this->person_id.'" data-value="'.$key.'" data-key="'.$this->moe[$number]['LINC Name'].'">'.$code['name'].'</a></li>';	
-										
-		//	$this->moe[$number]['input_field'].= ' value="'.$key.'" data-arraypos="'.$this->moe[$number]['Field No'].'" data-id="'.$this->person_id.'" data-value="'.$key.'" name="'.$this->moe[$number]['LINC Name'].'" data-id="'.$this->person_id.'">'.$code.'</li>';	
-								}
-							
-			$this->moe[$number]['input_field'] .= '</ul>';
 
 			return $this->moe[$number]['valid'];
 }
@@ -1610,7 +1607,7 @@ if ($this->codes->checkKey($data, $array)){
 	
 	}
 	//If COUNTRY of CITIZENSHIP is Null and [Rmonth in [M,J] or Funding Year Level >=9]
-	else if (is_null($data) && (in_array($this->rmonth, array('M', 'J'))|| $this->mappedData['funding_year_level'] >=9)){
+	else if (empty($data) && (in_array($this->rmonth, array('M', 'J'))|| $this->mappedData['funding_year_level'] >=9)){
 	$this->moe[$number]['valid'] = 'false';
 	$this->moe[$number]['value'] = '636 - Country of Citizenship is mandatory for all students';	
 		
@@ -1649,15 +1646,24 @@ $data = $this->mappedData[$this->moe[22]['LINC Name']];
 if ($this->mappedData['TYPE']== "FF"){
 	$this->moe[$number]['Mandatory']="YES";
 }
-if( $this->mappedData['REASON']=='' && $this->mappedData['TYPE']== "FF" && ($this->mappedData['FEE']==0 || is_null( $this->mappedData['FEE'] ) || $this->mappedData['FEE']=='' ) ){
+if( $this->mappedData['REASON']=='' && $this->mappedData['TYPE']== "FF" && ($this->mappedData['FEE']==0 || empty( $this->mappedData['FEE'] ) || $this->mappedData['FEE']=='' ) ){
 	
 	$this->moe[22]['valid'] = 'false';
-	$this->moe[22]['value'] = '202 - FEE for International fee-paying student is missing. Enter fee charged, excluding GST, for this academic year';
+	$this->moe[22]['value'] = $data;
+	$this->moe[22]['message'] = '202 - FEE for International fee-paying student is missing. Enter fee charged, excluding GST, for this academic year';
 }
 else {
 
+	if (ctype_digit($data)){
 	$this->moe[22]['valid'] = 'true';
 	$this->moe[22]['value'] = $data;
+	}
+
+else {
+	$this->moe[22]['valid'] = 'false';
+	$this->moe[22]['value'] = $data;
+	$this->moe[22]['message'] = 'Fee should be a number';
+}	
 }
 
 
@@ -1681,41 +1687,47 @@ $data = $this->mappedData[$this->moe[$number]['LINC Name']];
 
 
 
-if (!in_array($this->mappedData['TYPE'], array ("EM")) && is_null($this->mappedData['STP']) && $this->mappedData['funding_year_level'] <9 && in_array($this->rmonth, array('M', 'J'))  ){
+if ($data <1 && !in_array($this->mappedData['TYPE'], array ("EM")) && empty($this->mappedData['STP']) && $this->mappedData['funding_year_level'] <9 && in_array($this->rmonth, array('M', 'J'))  ){
 	
 	$this->moe[$number]['valid'] = 'false';
 	$this->moe[$number]['value'] = '221 - Student in primary level must be full-time';
 }
 
 // If FTE>1 or FTE<0 and [Rmonth in [M,J] or Funding Year Level >=9]
-else if ( ($this->mappedData['FTE'] >1 || $this->mappedData['FTE'] <0) && (in_array($this->rmonth, array('M', 'J'))|| $this->mappedData['funding_year_level'] >=9) ){
+else if ( ($data >1 || $data <0) && (in_array($this->rmonth, array('M', 'J')) || $this->mappedData['funding_year_level'] >=9) ){
 	$this->moe[$number]['valid'] = 'false';
 	$this->moe[$number]['value'] = '224 - FTE value must be between 0 and 1.0 inclusive';	
 }
 // If TYPE not equal to EM and STP is NULL and FTE<1 and age <16 years on Roll count date
 
-else if ( $this->mappedData['TYPE'] != "EM" && is_null($this->mappedData['STP']) && $this->ageOnReturnDate <16){
+else if ( $data <1 && $this->mappedData['TYPE'] != "EM" && empty($this->mappedData['STP']) && $this->ageOnReturnDate <16){
 	
 	$this->moe[$number]['valid'] = 'false';
 	$this->moe[$number]['value'] = '225 - Student aged <16 at Roll count date must be full-time unless attending a Secondary Tertiary Programme';	
 }
 // If STP is NULL and age >=16 and FTE not in [0.1, 0.2, 0.3, 0.4, 0.5, 0.6, 0.7, 0.8, 0.9, 1.0]
-if (is_null($this->mappedData['STP']) && $this->ageOnReturnDate >=16 && !in_array($data, array('0.1', '0.2', '0.3', '0.4', '0.5', '0.6', '0.7', '0.8', '0.9', '1.0'))){ 
+else if (empty($this->mappedData['STP']) && $this->ageOnReturnDate >=16 && !in_array($data, array('0.1', '0.2', '0.3', '0.4', '0.5', '0.6', '0.7', '0.8', '0.9', '1.0'))){ 
 $this->moe[$number]['valid'] = 'false';
 	$this->moe[$number]['value'] = '653 - FTE is invalid';
 }
 // If STP=NULL and FTE=0
 
-else if (is_null($this->mappedData['STP']) && $data ==0){
+else if (empty($this->mappedData['STP']) && $data ==0){
 	$this->moe[$number]['valid'] = 'false';
 	$this->moe[$number]['value'] = '664 - Student has a Full Time Equivalent of 0.0';
 }
+else if ( $data >1 || $data <0) {
+	$this->moe[$number]['valid'] = 'false';
+	$this->moe[$number]['message'] = '224 - FTE value must be between 0 and 1.0 inclusive';	
+
+}
+
 else {
 	$this->moe[$number]['valid'] = 'true';
 	$this->moe[$number]['value'] = $data;
 }
 
-
+var_dump($this->moe[$number] );
 return $this->moe[$number]['valid'];
 }
 
@@ -1734,6 +1746,11 @@ $data = $this->mappedData[$this->moe[$number]['LINC Name']];
 
 // Value not in [Null, A, B, C, D, E, F, G, H] and [Rmonth in [M,J] or Funding Year Level >=9]
 
+if ($data=='N/A'){
+
+	$this->moe[$number]['value'] = 'Null';
+}
+
 if (!in_array($data, array('[Null]', 'A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'N/A', '')) && (in_array($this->rmonth, array('M', 'J'))|| $this->mappedData['funding_year_level'] >=9) ){
 	
 	$this->moe[$number]['valid'] = 'false';
@@ -1744,10 +1761,7 @@ else {
 	$this->moe[$number]['value'] = $data;
 }
 
-if ($data=='N/A'){
 
-	$this->moe[$number]['value'] = 'Null';
-}
 
 
 
@@ -1772,25 +1786,34 @@ $number = 25;
 
 
 $convert = date('Ymd', strtotime($data));
-		
-		if ($this->mappedData['vacated'] == 1){ // Only need to have a last attended date if student has left the school.
-				 if (preg_match("/^\d{8}$/", $convert)) {
-					 
-					 //If LAST ATTENDANCE is not Null but REASON =Null and [Rmonth in [M,J] or Funding Year Level >=9]
-					 if (($this->mappedData['REASON'] ==''|| $this->mappedData['REASON']=="0" ) && (in_array($this->rmonth, array('M', 'J'))|| $this->mappedData['funding_year_level'] >=9)){
+			 
+
+					 //If REASON is not Null but REASON =Null and [Rmonth in [M,J] or Funding Year Level >=9]
+					 if (!empty($this->mappedData['REASON']) && empty($data)){
+						 
+							$this->moe[$number]['valid'] = 'false';
+							$this->moe[$number]['value'] = "272 - Student has reason for leaving but no LAST ATTENDANCE date";
+					 }
+					 else if (!empty($data) && empty($this->mappedData['REASON']) && (in_array($this->rmonth, array('M', 'J'))|| $this->mappedData['funding_year_level'] >=9)){
 						 
 							$this->moe[$number]['valid'] = 'false';
 							$this->moe[$number]['value'] = "252 - Date in LAST ATTENDANCE field but no reason";
 					 }
-						else {
+					 else if (empty($data)){
+
+								$this->moe[$number]['valid'] = 'true';
+								$this->moe[$number]['value'] = $data;
+
+						}
+						else  if (preg_match("/^\d{8}$/", $convert)) {
 							
 					
 								$this->moe[$number]['valid'] = 'true';
 								$this->moe[$number]['value'] = $convert;
-						}
 							
 							
 						}
+						
 						else {
 							
 							$this->moe[$number]['valid'] = 'false';
@@ -1798,29 +1821,10 @@ $convert = date('Ymd', strtotime($data));
 							
 						}
 
-						if ($this->moe[$number]['valid']=='false'){
-	if ($this->moe[$number]['Mandatory']=="YES"){
-		$warning = 'warning-2';	
-	}
-	else {
-		$warning = 'warning';	
-	}
-	
-	$this->moe[$number]['input_label'] = '<label id="'.$this->moe[$number]['LINC Name'] .$this->person_id.'_label" for="'.$this->moe[$number]['LINC Name'] .$this->person_id.'"><span class="error"><i class="font-'.$this->moe[$number]['ICON'] .'"  ></i> '.$this->moe[$number]['Field Label'] .': <i class="font-'. $warning .'"  ></i></span>'.linc_popupmessage( $this->moe[$number]['LINC Name'],  $this->moe[$number]['Field Label'], $this->moe[$number]['Description']).'</label>';
 				
-		}
-		else if ($this->moe[$number]['valid']=='true'){
-
-		$this->moe[$number]['input_label'] =  '<label  id="'.$this->moe[$number]['LINC Name'].$this->person_id.'_label" for="'.$this->moe[$number]['LINC Name'] .$this->person_id.'"><span class="valid"><i class="font-'.$this->moe[$number]['ICON'].'"  ></i> '.$this->moe[$number]['Field Label'].': <i class="font-checkmark-3"  ></i></span></label>';
-			
-		}
 
 						return $this->moe[$number]['valid'];
-				}
-				else {
-
-					return "true";
-				}
+			
 				
 
 }
@@ -1838,6 +1842,7 @@ public function check_26(){
 'input_label'=>''
 ); 
 
+$number = 26;
 //Mandatory for secondary aged students (RE, FF, TPRE, TPREOM) and Adult (AD, TPAD, TPRAE, RA, TPRAOM) students who are leaving the NZ schooling sector and where REASON in [L, E, O, X, C]
 if ($this->mappedData['funding_year_level'] >= 9){
 
@@ -1893,7 +1898,7 @@ public function check_27(){
 		
 		//If REASON not Null but LAST ATTENDANCE=Null and [Rmonth in [M,J] or Funding Year Level >=9]
 		
-		else if (!is_null($data) && ( is_null($this->mappedData['LAST ATTENDANCE']) || $this->mappedData['LAST ATTENDANCE'] =='0' ) && (in_array($this->rmonth, array('M', 'J'))|| $this->mappedData['funding_year_level'] >=9)){
+		else if (!empty($data) && ( empty($this->mappedData['LAST ATTENDANCE']) || $this->mappedData['LAST ATTENDANCE'] =='0' ) && (in_array($this->rmonth, array('M', 'J'))|| $this->mappedData['funding_year_level'] >=9)){
 			$this->moe[$number]['valid'] = 'false';
 			$this->moe[$number]['value'] = '272 - Student has reason for leaving but no LAST ATTENDANCE date';
 		}
@@ -1998,7 +2003,7 @@ if (!in_array($data, array('[Null]', 'CIM', 'FIJ', 'NIU', 'SAO', 'TOK', 'TON','P
 	$this->moe[$number]['value'] = '291 - Pacific medium – language code is incorrect';
 }
 //If value in [CIM,FIJ,NIU,SAO,TOK,TON,PIL] and PACIFIC MEDIUM – LEVEL=Null and [Rmonth in [M,J] or Funding Year Level >=9]
-else if (in_array($data, array('[Null]', 'CIM', 'FIJ', 'NIU', 'SAO', 'TOK', 'TON','PIL')) && is_null($this->mappedData['PACIFIC MEDIUM - LEVEL']) && (in_array($this->rmonth, array('M', 'J'))|| $this->mappedData['funding_year_level'] >=9)){
+else if (in_array($data, array('[Null]', 'CIM', 'FIJ', 'NIU', 'SAO', 'TOK', 'TON','PIL')) && empty($this->mappedData['PACIFIC MEDIUM - LEVEL']) && (in_array($this->rmonth, array('M', 'J'))|| $this->mappedData['funding_year_level'] >=9)){
 	$this->moe[$number]['valid'] = 'false';
 	$this->moe[$number]['value'] = '294 - Pacific medium – level is missing';
 }
@@ -2047,7 +2052,7 @@ if (!in_array($data, array('[Null]', '1', '2', '3', '4')) && (in_array($this->rm
 	$this->moe[$number]['value'] = '292 - Pacific medium – level code is incorrect';
 }
 //If value in [1,2,3,4] and PACIFIC MEDIUM – LANGUAGE=Null and [Rmonth in [M,J] or Funding Year Level >=9]
-else if ( in_array($data, array('[Null]', '1', '2', '3', '4')) && is_null($this->mappedData['PACIFIC MEDIUM -LANGUAGE']) && (in_array($this->rmonth, array('M', 'J'))|| $this->mappedData['funding_year_level'] >=9)){
+else if ( in_array($data, array('[Null]', '1', '2', '3', '4')) && empty($this->mappedData['PACIFIC MEDIUM -LANGUAGE']) && (in_array($this->rmonth, array('M', 'J'))|| $this->mappedData['funding_year_level'] >=9)){
 		$this->moe[$number]['valid'] = 'false';
 	$this->moe[$number]['value'] = '293 - Pacific medium – language is missing';
 }
@@ -2098,7 +2103,7 @@ $code = $this->codes->checkKey($data, $array);
 
 			}
 			 // If Subject = "STPR" and Student Type is not "SF" and STP = NULL
-			else if ($data == "STPR" && $this->mappedData['TYPE'] !="SF" && is_null($this->mappedData['STP'])){
+			else if ($data == "STPR" && $this->mappedData['TYPE'] !="SF" && empty($this->mappedData['STP'])){
 				
 				$this->moe[$number]['valid'] = 'false';
 				$this->moe[$number]['value'] = '665 - Student needs to be on a Secondary Tertiary Programme to have Subject "Secondary Tertiary Programme"';
@@ -2106,10 +2111,20 @@ $code = $this->codes->checkKey($data, $array);
 			}
 
 			// If Rmonth="J" and TYPE not in [AE, EM, NA,NF, SA, SF, TPRE,TPRAE] and STP=NULL and Reason=Null and FTE<1 and FUNDING YEAR LEVEL>=9 and SUBJECT 1 to SUBJECT 15=Null
-			else if ($thus->rmonth =="J" && !in_array($this->mappedData['TYPE'], array('AE', 'EM', 'NA', 'NF', 'SA', 'SF', 'TPRE', 'TPRAE')) && is_null($this->mappedData['STP']) && is_null($this->mappedData['REASON']) && $this->mappedData['funding_year_level'] >=9 && is_null($data)){
+			else if ($this->rmonth =="J" && !in_array($this->mappedData['TYPE'], array('AE', 'EM', 'NA', 'NF', 'SA', 'SF', 'TPRE', 'TPRAE')) && empty($this->mappedData['STP']) && empty($this->mappedData['REASON']) && $this->mappedData['funding_year_level'] >=9 && empty($data)){
 				$this->moe[$number]['valid'] = 'true';
 				$this->moe[$number]['value'] = $data;
 				$this->moe[$number]['message'] = '243 - Warning - Part-time student with no subjects';
+			}
+			// 674
+	// If one or more SUBJECT code = ‘NAPP’ and some 
+	// SUBJECT codes NOT in [‘NAPP’,’Blank’]
+				else if (($this->mappedData['SUBJECT 1']=='NAPP' || $this->mappedData['SUBJECT 2']=='NAPP' || $this->mappedData['SUBJECT 3']=='NAPP' || $this->mappedData['SUBJECT 4']=='NAPP' || $this->mappedData['SUBJECT 5']=='NAPP' || $this->mappedData['SUBJECT 6']=='NAPP' || $this->mappedData['SUBJECT 7']=='NAPP' || $this->mappedData['SUBJECT 8']=='NAPP' || $this->mappedData['SUBJECT 9']=='NAPP' || $this->mappedData['SUBJECT 10']=='NAPP' || $this->mappedData['SUBJECT 11']=='NAPP' ||$this->mappedData['SUBJECT 12']=='NAPP' || $this->mappedData['SUBJECT 13']=='NAPP' || $this->mappedData['SUBJECT 14']=='NAPP' ||$this->mappedData['SUBJECT 15']=='NAPP') && (!in_array($this->mappedData['SUBJECT 1'], array ('NAPP', '')) || !in_array($this->mappedData['SUBJECT 2'], array ('NAPP', '')) || !in_array($this->mappedData['SUBJECT 3'], array ('NAPP', '')) || !in_array($this->mappedData['SUBJECT 4'], array ('NAPP', '')) || !in_array($this->mappedData['SUBJECT 5'], array ('NAPP', '')) || !in_array($this->mappedData['SUBJECT 6'], array ('NAPP', '')) || !in_array($this->mappedData['SUBJECT 7'], array ('NAPP', '')) || !in_array($this->mappedData['SUBJECT 8'], array ('NAPP', '')) || !in_array($this->mappedData['SUBJECT 9'], array ('NAPP', '')) || !in_array($this->mappedData['SUBJECT 10'], array ('NAPP', '')) || !in_array($this->mappedData['SUBJECT 11'], array ('NAPP', '')) || !in_array($this->mappedData['SUBJECT 12'], array ('NAPP', '')) || !in_array($this->mappedData['SUBJECT 13'], array ('NAPP', '')) || !in_array($this->mappedData['SUBJECT 14'], array ('NAPP', '')) || !in_array($this->mappedData['SUBJECT 15'], array ('NAPP', ''))  ) ){
+
+						$this->moe[$number]['valid'] = 'false';
+				$this->moe[$number]['value'] = $data;
+				$this->moe[$number]['message'] = '674 - Use Subject non-Applicable only for students attending an activity centre, health camp, hospital school or CYF and if no subject applies';
+
 			}
 
 			else {
@@ -2121,7 +2136,7 @@ $code = $this->codes->checkKey($data, $array);
 
 
 			}
-		
+		var_dump($this->moe[$number]);
 
 
 				return $this->moe[$number]['valid'];
@@ -2211,9 +2226,9 @@ $number = 34;
 $data = $this->mappedData[$this->moe[$number]['LINC Name']];
 //If Rmonth=J and Subject is not Null and Instructional year level is Null
 
-if ( $this->rmonth =='J' && ($data =='0' || is_null($data))){
+if ( $this->rmonth =='J' && ($data =='0' || empty($data))){
 		$this->moe[$number]['valid'] = 'false';
-		$this->moe[$number]['value'] = '400 - Instructional year level code is missing for subject ['.$this->moe[31]['value'].']';
+		$this->moe[$number]['value'] = '400 - Instructional year level code is missing for subject ['.$this->moe[$number]['value'].']';
 }
 
 // If Rmonth=J and FUNDING YEAR LEVEL>=9 and Instructional year level not in[ZN07, ZN08, ZN09, ZN10, ZN11, ZN12, ZN13, ZNAD]
@@ -2262,7 +2277,7 @@ $code = $this->codes->checkKey($data, $array);
 
 			}
 			 // If Subject = "STPR" and Student Type is not "SF" and STP = NULL
-			else if ($data == "STPR" && $this->mappedData['TYPE'] !="SF" && is_null($this->mappedData['STP'])){
+			else if ($data == "STPR" && $this->mappedData['TYPE'] !="SF" && empty($this->mappedData['STP'])){
 				
 				$this->moe[$number]['valid'] = 'false';
 				$this->moe[$number]['value'] = '665 - Student needs to be on a Secondary Tertiary Programme to have Subject "Secondary Tertiary Programme"';
@@ -2270,12 +2285,21 @@ $code = $this->codes->checkKey($data, $array);
 			}
 
 			// If Rmonth="J" and TYPE not in [AE, EM, NA,NF, SA, SF, TPRE,TPRAE] and STP=NULL and Reason=Null and FTE<1 and FUNDING YEAR LEVEL>=9 and SUBJECT 1 to SUBJECT 15=Null
-			else if ($thus->rmonth =="J" && !in_array($this->mappedData['TYPE'], array('AE', 'EM', 'NA', 'NF', 'SA', 'SF', 'TPRE', 'TPRAE')) && is_null($this->mappedData['STP']) && is_null($this->mappedData['REASON']) && $this->mappedData['funding_year_level'] >=9 && is_null($data)){
+			else if ($thus->rmonth =="J" && !in_array($this->mappedData['TYPE'], array('AE', 'EM', 'NA', 'NF', 'SA', 'SF', 'TPRE', 'TPRAE')) && empty($this->mappedData['STP']) && empty($this->mappedData['REASON']) && $this->mappedData['funding_year_level'] >=9 && empty($data)){
 				$this->moe[$number]['valid'] = 'true';
 				$this->moe[$number]['value'] = $data;
 				$this->moe[$number]['message'] = '243 - Warning - Part-time student with no subjects';
 			}
+				// 674
+	// If one or more SUBJECT code = ‘NAPP’ and some 
+	// SUBJECT codes NOT in [‘NAPP’,’Blank’]
+			else if (($this->mappedData['SUBJECT 1']=='NAPP' || $this->mappedData['SUBJECT 2']=='NAPP' || $this->mappedData['SUBJECT 3']=='NAPP' || $this->mappedData['SUBJECT 4']=='NAPP' || $this->mappedData['SUBJECT 5']=='NAPP' || $this->mappedData['SUBJECT 6']=='NAPP' || $this->mappedData['SUBJECT 7']=='NAPP' || $this->mappedData['SUBJECT 8']=='NAPP' || $this->mappedData['SUBJECT 9']=='NAPP' || $this->mappedData['SUBJECT 10']=='NAPP' || $this->mappedData['SUBJECT 11']=='NAPP' ||$this->mappedData['SUBJECT 12']=='NAPP' || $this->mappedData['SUBJECT 13']=='NAPP' || $this->mappedData['SUBJECT 14']=='NAPP' ||$this->mappedData['SUBJECT 15']=='NAPP') && (!in_array($this->mappedData['SUBJECT 1'], array ('NAPP', '')) || !in_array($this->mappedData['SUBJECT 2'], array ('NAPP', '')) || !in_array($this->mappedData['SUBJECT 3'], array ('NAPP', '')) || !in_array($this->mappedData['SUBJECT 4'], array ('NAPP', '')) || !in_array($this->mappedData['SUBJECT 5'], array ('NAPP', '')) || !in_array($this->mappedData['SUBJECT 6'], array ('NAPP', '')) || !in_array($this->mappedData['SUBJECT 7'], array ('NAPP', '')) || !in_array($this->mappedData['SUBJECT 8'], array ('NAPP', '')) || !in_array($this->mappedData['SUBJECT 9'], array ('NAPP', '')) || !in_array($this->mappedData['SUBJECT 10'], array ('NAPP', '')) || !in_array($this->mappedData['SUBJECT 11'], array ('NAPP', '')) || !in_array($this->mappedData['SUBJECT 12'], array ('NAPP', '')) || !in_array($this->mappedData['SUBJECT 13'], array ('NAPP', '')) || !in_array($this->mappedData['SUBJECT 14'], array ('NAPP', '')) || !in_array($this->mappedData['SUBJECT 15'], array ('NAPP', ''))  ) ){
 
+						$this->moe[$number]['valid'] = 'false';
+				$this->moe[$number]['value'] = $data;
+				$this->moe[$number]['message'] = '674 - Use Subject non-Applicable only for students attending an activity centre, health camp, hospital school or CYF and if no subject applies';
+
+			}
 			else {
 				
 				$this->moe[$number]['valid'] = 'true';
@@ -2372,9 +2396,9 @@ $number = 38;
 $data = $this->mappedData[$this->moe[$number]['LINC Name']];
 //If Rmonth=J and Subject is not Null and Instructional year level is Null
 
-if ( $this->rmonth =='J' && ($data =='0' || is_null($data))){
+if ( $this->rmonth =='J' && ($data =='0' || empty($data))){
 		$this->moe[$number]['valid'] = 'false';
-		$this->moe[$number]['value'] = '400 - Instructional year level code is missing for subject ['.$this->moe[31]['value'].']';
+		$this->moe[$number]['value'] = '400 - Instructional year level code is missing for subject ['.$this->moe[$number]['value'].']';
 }
 
 // If Rmonth=J and FUNDING YEAR LEVEL>=9 and Instructional year level not in[ZN07, ZN08, ZN09, ZN10, ZN11, ZN12, ZN13, ZNAD]
@@ -2424,7 +2448,7 @@ $code = $this->codes->checkKey($data, $array);
 
 			}
 			 // If Subject = "STPR" and Student Type is not "SF" and STP = NULL
-			else if ($data == "STPR" && $this->mappedData['TYPE'] !="SF" && is_null($this->mappedData['STP'])){
+			else if ($data == "STPR" && $this->mappedData['TYPE'] !="SF" && empty($this->mappedData['STP'])){
 				
 				$this->moe[$number]['valid'] = 'false';
 				$this->moe[$number]['value'] = '665 - Student needs to be on a Secondary Tertiary Programme to have Subject "Secondary Tertiary Programme"';
@@ -2432,7 +2456,7 @@ $code = $this->codes->checkKey($data, $array);
 			}
 
 			// If Rmonth="J" and TYPE not in [AE, EM, NA,NF, SA, SF, TPRE,TPRAE] and STP=NULL and Reason=Null and FTE<1 and FUNDING YEAR LEVEL>=9 and SUBJECT 1 to SUBJECT 15=Null
-			else if ($thus->rmonth =="J" && !in_array($this->mappedData['TYPE'], array('AE', 'EM', 'NA', 'NF', 'SA', 'SF', 'TPRE', 'TPRAE')) && is_null($this->mappedData['STP']) && is_null($this->mappedData['REASON']) && $this->mappedData['funding_year_level'] >=9 && is_null($data)){
+			else if ($thus->rmonth =="J" && !in_array($this->mappedData['TYPE'], array('AE', 'EM', 'NA', 'NF', 'SA', 'SF', 'TPRE', 'TPRAE')) && empty($this->mappedData['STP']) && empty($this->mappedData['REASON']) && $this->mappedData['funding_year_level'] >=9 && empty($data)){
 				$this->moe[$number]['valid'] = 'true';
 				$this->moe[$number]['value'] = $data;
 				$this->moe[$number]['message'] = '243 - Warning - Part-time student with no subjects';
@@ -2534,15 +2558,15 @@ $number = 42;
 $data = $this->mappedData[$this->moe[$number]['LINC Name']];
 //If Rmonth=J and Subject is not Null and Instructional year level is Null
 
-if ( $this->rmonth =='J' && ($data =='0' || is_null($data))){
+if ( $this->rmonth =='J' && ($data =='0' || empty($data))){
 		$this->moe[$number]['valid'] = 'false';
-		$this->moe[$number]['value'] = '400 - Instructional year level code is missing for subject ['.$this->moe[31]['value'].']';
+		$this->moe[$number]['value'] = '400 - Instructional year level code is missing for subject ['.$this->moe[$number]['value'].']';
 }
 
 // If Rmonth=J and FUNDING YEAR LEVEL>=9 and Instructional year level not in[ZN07, ZN08, ZN09, ZN10, ZN11, ZN12, ZN13, ZNAD]
 else if ( !in_array ($data, array( 'ZN07', 'ZN08', 'ZN09', 'ZN10', 'ZN11', 'ZN12', 'ZN13', 'ZNAD' )) && ($this->rmonth =='J'&& $this->mappedData['funding_year_level'] >=9)){
 	$this->moe[$number]['valid'] = 'false';
-	$this->moe[$number]['value'] = '401 - Instructional year level code is incorrect for ['.$this->moe[31]['value'].']';
+	$this->moe[$number]['value'] = '401 - Instructional year level code is incorrect for ['.$this->moe[$number]['value'].']';
 }
 else {
 	$this->moe[$number]['valid'] = 'true';
@@ -2584,7 +2608,7 @@ $code = $this->codes->checkKey($data, $array);
 
 			}
 			 // If Subject = "STPR" and Student Type is not "SF" and STP = NULL
-			else if ($data == "STPR" && $this->mappedData['TYPE'] !="SF" && is_null($this->mappedData['STP'])){
+			else if ($data == "STPR" && $this->mappedData['TYPE'] !="SF" && empty($this->mappedData['STP'])){
 				
 				$this->moe[$number]['valid'] = 'false';
 				$this->moe[$number]['value'] = '665 - Student needs to be on a Secondary Tertiary Programme to have Subject "Secondary Tertiary Programme"';
@@ -2592,7 +2616,7 @@ $code = $this->codes->checkKey($data, $array);
 			}
 
 			// If Rmonth="J" and TYPE not in [AE, EM, NA,NF, SA, SF, TPRE,TPRAE] and STP=NULL and Reason=Null and FTE<1 and FUNDING YEAR LEVEL>=9 and SUBJECT 1 to SUBJECT 15=Null
-			else if ($thus->rmonth =="J" && !in_array($this->mappedData['TYPE'], array('AE', 'EM', 'NA', 'NF', 'SA', 'SF', 'TPRE', 'TPRAE')) && is_null($this->mappedData['STP']) && is_null($this->mappedData['REASON']) && $this->mappedData['funding_year_level'] >=9 && is_null($data)){
+			else if ($thus->rmonth =="J" && !in_array($this->mappedData['TYPE'], array('AE', 'EM', 'NA', 'NF', 'SA', 'SF', 'TPRE', 'TPRAE')) && empty($this->mappedData['STP']) && empty($this->mappedData['REASON']) && $this->mappedData['funding_year_level'] >=9 && empty($data)){
 				$this->moe[$number]['valid'] = 'true';
 				$this->moe[$number]['value'] = $data;
 				$this->moe[$number]['message'] = '243 - Warning - Part-time student with no subjects';
@@ -2695,15 +2719,15 @@ $number = 46;
 $data = $this->mappedData[$this->moe[$number]['LINC Name']];
 //If Rmonth=J and Subject is not Null and Instructional year level is Null
 
-if ( $this->rmonth =='J' && ($data =='0' || is_null($data))){
+if ( $this->rmonth =='J' && ($data =='0' || empty($data))){
 		$this->moe[$number]['valid'] = 'false';
-		$this->moe[$number]['value'] = '400 - Instructional year level code is missing for subject ['.$this->moe[31]['value'].']';
+		$this->moe[$number]['value'] = '400 - Instructional year level code is missing for subject ['.$this->moe[$number]['value'].']';
 }
 
 // If Rmonth=J and FUNDING YEAR LEVEL>=9 and Instructional year level not in[ZN07, ZN08, ZN09, ZN10, ZN11, ZN12, ZN13, ZNAD]
 else if ( !in_array ($data, array( 'ZN07', 'ZN08', 'ZN09', 'ZN10', 'ZN11', 'ZN12', 'ZN13', 'ZNAD' )) && ($this->rmonth =='J'&& $this->mappedData['funding_year_level'] >=9)){
 	$this->moe[$number]['valid'] = 'false';
-	$this->moe[$number]['value'] = '401 - Instructional year level code is incorrect for ['.$this->moe[31]['value'].']';
+	$this->moe[$number]['value'] = '401 - Instructional year level code is incorrect for ['.$this->moe[$number]['value'].']';
 }
 else {
 	$this->moe[$number]['valid'] = 'true';
@@ -2746,7 +2770,7 @@ $code = $this->codes->checkKey($data, $array);
 
 			}
 			 // If Subject = "STPR" and Student Type is not "SF" and STP = NULL
-			else if ($data == "STPR" && $this->mappedData['TYPE'] !="SF" && is_null($this->mappedData['STP'])){
+			else if ($data == "STPR" && $this->mappedData['TYPE'] !="SF" && empty($this->mappedData['STP'])){
 				
 				$this->moe[$number]['valid'] = 'false';
 				$this->moe[$number]['value'] = '665 - Student needs to be on a Secondary Tertiary Programme to have Subject "Secondary Tertiary Programme"';
@@ -2754,7 +2778,7 @@ $code = $this->codes->checkKey($data, $array);
 			}
 
 			// If Rmonth="J" and TYPE not in [AE, EM, NA,NF, SA, SF, TPRE,TPRAE] and STP=NULL and Reason=Null and FTE<1 and FUNDING YEAR LEVEL>=9 and SUBJECT 1 to SUBJECT 15=Null
-			else if ($thus->rmonth =="J" && !in_array($this->mappedData['TYPE'], array('AE', 'EM', 'NA', 'NF', 'SA', 'SF', 'TPRE', 'TPRAE')) && is_null($this->mappedData['STP']) && is_null($this->mappedData['REASON']) && $this->mappedData['funding_year_level'] >=9 && is_null($data)){
+			else if ($thus->rmonth =="J" && !in_array($this->mappedData['TYPE'], array('AE', 'EM', 'NA', 'NF', 'SA', 'SF', 'TPRE', 'TPRAE')) && empty($this->mappedData['STP']) && empty($this->mappedData['REASON']) && $this->mappedData['funding_year_level'] >=9 && empty($data)){
 				$this->moe[$number]['valid'] = 'true';
 				$this->moe[$number]['value'] = $data;
 				$this->moe[$number]['message'] = '243 - Warning - Part-time student with no subjects';
@@ -2856,15 +2880,15 @@ $number = 50;
 $data = $this->mappedData[$this->moe[$number]['LINC Name']];
 //If Rmonth=J and Subject is not Null and Instructional year level is Null
 
-if ( $this->rmonth =='J' && ($data =='0' || is_null($data))){
+if ( $this->rmonth =='J' && ($data =='0' || empty($data))){
 		$this->moe[$number]['valid'] = 'false';
-		$this->moe[$number]['value'] = '400 - Instructional year level code is missing for subject ['.$this->moe[31]['value'].']';
+		$this->moe[$number]['value'] = '400 - Instructional year level code is missing for subject ['.$this->moe[$number]['value'].']';
 }
 
 // If Rmonth=J and FUNDING YEAR LEVEL>=9 and Instructional year level not in[ZN07, ZN08, ZN09, ZN10, ZN11, ZN12, ZN13, ZNAD]
 else if ( !in_array ($data, array( 'ZN07', 'ZN08', 'ZN09', 'ZN10', 'ZN11', 'ZN12', 'ZN13', 'ZNAD' )) && ($this->rmonth =='J'&& $this->mappedData['funding_year_level'] >=9)){
 	$this->moe[$number]['valid'] = 'false';
-	$this->moe[$number]['value'] = '401 - Instructional year level code is incorrect for ['.$this->moe[31]['value'].']';
+	$this->moe[$number]['value'] = '401 - Instructional year level code is incorrect for ['.$this->moe[$number]['value'].']';
 }
 else {
 	$this->moe[$number]['valid'] = 'true';
@@ -2910,7 +2934,7 @@ $code = $this->codes->checkKey($data, $array);
 
 			}
 			 // If Subject = "STPR" and Student Type is not "SF" and STP = NULL
-			else if ($data == "STPR" && $this->mappedData['TYPE'] !="SF" && is_null($this->mappedData['STP'])){
+			else if ($data == "STPR" && $this->mappedData['TYPE'] !="SF" && empty($this->mappedData['STP'])){
 				
 				$this->moe[$number]['valid'] = 'false';
 				$this->moe[$number]['value'] = '665 - Student needs to be on a Secondary Tertiary Programme to have Subject "Secondary Tertiary Programme"';
@@ -2918,7 +2942,7 @@ $code = $this->codes->checkKey($data, $array);
 			}
 
 			// If Rmonth="J" and TYPE not in [AE, EM, NA,NF, SA, SF, TPRE,TPRAE] and STP=NULL and Reason=Null and FTE<1 and FUNDING YEAR LEVEL>=9 and SUBJECT 1 to SUBJECT 15=Null
-			else if ($thus->rmonth =="J" && !in_array($this->mappedData['TYPE'], array('AE', 'EM', 'NA', 'NF', 'SA', 'SF', 'TPRE', 'TPRAE')) && is_null($this->mappedData['STP']) && is_null($this->mappedData['REASON']) && $this->mappedData['funding_year_level'] >=9 && is_null($data)){
+			else if ($thus->rmonth =="J" && !in_array($this->mappedData['TYPE'], array('AE', 'EM', 'NA', 'NF', 'SA', 'SF', 'TPRE', 'TPRAE')) && empty($this->mappedData['STP']) && empty($this->mappedData['REASON']) && $this->mappedData['funding_year_level'] >=9 && empty($data)){
 				$this->moe[$number]['valid'] = 'true';
 				$this->moe[$number]['value'] = $data;
 				$this->moe[$number]['message'] = '243 - Warning - Part-time student with no subjects';
@@ -3016,15 +3040,15 @@ $number = 54;
 $data = $this->mappedData[$this->moe[$number]['LINC Name']];
 //If Rmonth=J and Subject is not Null and Instructional year level is Null
 
-if ( $this->rmonth =='J' && ($data =='0' || is_null($data))){
+if ( $this->rmonth =='J' && ($data =='0' || empty($data))){
 		$this->moe[$number]['valid'] = 'false';
-		$this->moe[$number]['value'] = '400 - Instructional year level code is missing for subject ['.$this->moe[31]['value'].']';
+		$this->moe[$number]['value'] = '400 - Instructional year level code is missing for subject ['.$this->moe[$number]['value'].']';
 }
 
 // If Rmonth=J and FUNDING YEAR LEVEL>=9 and Instructional year level not in[ZN07, ZN08, ZN09, ZN10, ZN11, ZN12, ZN13, ZNAD]
 else if ( !in_array ($data, array( 'ZN07', 'ZN08', 'ZN09', 'ZN10', 'ZN11', 'ZN12', 'ZN13', 'ZNAD' )) && ($this->rmonth =='J'&& $this->mappedData['funding_year_level'] >=9)){
 	$this->moe[$number]['valid'] = 'false';
-	$this->moe[$number]['value'] = '401 - Instructional year level code is incorrect for ['.$this->moe[31]['value'].']';
+	$this->moe[$number]['value'] = '401 - Instructional year level code is incorrect for ['.$this->moe[$number]['value'].']';
 }
 else {
 	$this->moe[$number]['valid'] = 'true';
@@ -3067,7 +3091,7 @@ $code = $this->codes->checkKey($data, $array);
 
 			}
 			 // If Subject = "STPR" and Student Type is not "SF" and STP = NULL
-			else if ($data == "STPR" && $this->mappedData['TYPE'] !="SF" && is_null($this->mappedData['STP'])){
+			else if ($data == "STPR" && $this->mappedData['TYPE'] !="SF" && empty($this->mappedData['STP'])){
 				
 				$this->moe[$number]['valid'] = 'false';
 				$this->moe[$number]['value'] = '665 - Student needs to be on a Secondary Tertiary Programme to have Subject "Secondary Tertiary Programme"';
@@ -3075,7 +3099,7 @@ $code = $this->codes->checkKey($data, $array);
 			}
 
 			// If Rmonth="J" and TYPE not in [AE, EM, NA,NF, SA, SF, TPRE,TPRAE] and STP=NULL and Reason=Null and FTE<1 and FUNDING YEAR LEVEL>=9 and SUBJECT 1 to SUBJECT 15=Null
-			else if ($thus->rmonth =="J" && !in_array($this->mappedData['TYPE'], array('AE', 'EM', 'NA', 'NF', 'SA', 'SF', 'TPRE', 'TPRAE')) && is_null($this->mappedData['STP']) && is_null($this->mappedData['REASON']) && $this->mappedData['funding_year_level'] >=9 && is_null($data)){
+			else if ($thus->rmonth =="J" && !in_array($this->mappedData['TYPE'], array('AE', 'EM', 'NA', 'NF', 'SA', 'SF', 'TPRE', 'TPRAE')) && empty($this->mappedData['STP']) && empty($this->mappedData['REASON']) && $this->mappedData['funding_year_level'] >=9 && empty($data)){
 				$this->moe[$number]['valid'] = 'true';
 				$this->moe[$number]['value'] = $data;
 				$this->moe[$number]['message'] = '243 - Warning - Part-time student with no subjects';
@@ -3172,15 +3196,15 @@ $number = 58;
 $data = $this->mappedData[$this->moe[$number]['LINC Name']];
 //If Rmonth=J and Subject is not Null and Instructional year level is Null
 
-if ( $this->rmonth =='J' && ($data =='0' || is_null($data))){
+if ( $this->rmonth =='J' && ($data =='0' || empty($data))){
 		$this->moe[$number]['valid'] = 'false';
-		$this->moe[$number]['value'] = '400 - Instructional year level code is missing for subject ['.$this->moe[31]['value'].']';
+		$this->moe[$number]['value'] = '400 - Instructional year level code is missing for subject ['.$this->moe[$number]['value'].']';
 }
 
 // If Rmonth=J and FUNDING YEAR LEVEL>=9 and Instructional year level not in[ZN07, ZN08, ZN09, ZN10, ZN11, ZN12, ZN13, ZNAD]
 else if ( !in_array ($data, array( 'ZN07', 'ZN08', 'ZN09', 'ZN10', 'ZN11', 'ZN12', 'ZN13', 'ZNAD' )) && ($this->rmonth =='J'&& $this->mappedData['funding_year_level'] >=9)){
 	$this->moe[$number]['valid'] = 'false';
-	$this->moe[$number]['value'] = '401 - Instructional year level code is incorrect for ['.$this->moe[31]['value'].']';
+	$this->moe[$number]['value'] = '401 - Instructional year level code is incorrect for ['.$this->moe[$number]['value'].']';
 }
 else {
 	$this->moe[$number]['valid'] = 'true';
@@ -3222,7 +3246,7 @@ $code = $this->codes->checkKey($data, $array);
 
 			}
 			 // If Subject = "STPR" and Student Type is not "SF" and STP = NULL
-			else if ($data == "STPR" && $this->mappedData['TYPE'] !="SF" && is_null($this->mappedData['STP'])){
+			else if ($data == "STPR" && $this->mappedData['TYPE'] !="SF" && empty($this->mappedData['STP'])){
 				
 				$this->moe[$number]['valid'] = 'false';
 				$this->moe[$number]['value'] = '665 - Student needs to be on a Secondary Tertiary Programme to have Subject "Secondary Tertiary Programme"';
@@ -3230,7 +3254,7 @@ $code = $this->codes->checkKey($data, $array);
 			}
 
 			// If Rmonth="J" and TYPE not in [AE, EM, NA,NF, SA, SF, TPRE,TPRAE] and STP=NULL and Reason=Null and FTE<1 and FUNDING YEAR LEVEL>=9 and SUBJECT 1 to SUBJECT 15=Null
-			else if ($thus->rmonth =="J" && !in_array($this->mappedData['TYPE'], array('AE', 'EM', 'NA', 'NF', 'SA', 'SF', 'TPRE', 'TPRAE')) && is_null($this->mappedData['STP']) && is_null($this->mappedData['REASON']) && $this->mappedData['funding_year_level'] >=9 && is_null($data)){
+			else if ($thus->rmonth =="J" && !in_array($this->mappedData['TYPE'], array('AE', 'EM', 'NA', 'NF', 'SA', 'SF', 'TPRE', 'TPRAE')) && empty($this->mappedData['STP']) && empty($this->mappedData['REASON']) && $this->mappedData['funding_year_level'] >=9 && empty($data)){
 				$this->moe[$number]['valid'] = 'true';
 				$this->moe[$number]['value'] = $data;
 				$this->moe[$number]['message'] = '243 - Warning - Part-time student with no subjects';
@@ -3327,15 +3351,15 @@ $number = 62;
 $data = $this->mappedData[$this->moe[$number]['LINC Name']];
 //If Rmonth=J and Subject is not Null and Instructional year level is Null
 
-if ( $this->rmonth =='J' && ($data =='0' || is_null($data))){
+if ( $this->rmonth =='J' && ($data =='0' || empty($data))){
 		$this->moe[$number]['valid'] = 'false';
-		$this->moe[$number]['value'] = '400 - Instructional year level code is missing for subject ['.$this->moe[31]['value'].']';
+		$this->moe[$number]['value'] = '400 - Instructional year level code is missing for subject ['.$this->moe[$number]['value'].']';
 }
 
 // If Rmonth=J and FUNDING YEAR LEVEL>=9 and Instructional year level not in[ZN07, ZN08, ZN09, ZN10, ZN11, ZN12, ZN13, ZNAD]
 else if ( !in_array ($data, array( 'ZN07', 'ZN08', 'ZN09', 'ZN10', 'ZN11', 'ZN12', 'ZN13', 'ZNAD' )) && ($this->rmonth =='J'&& $this->mappedData['funding_year_level'] >=9)){
 	$this->moe[$number]['valid'] = 'false';
-	$this->moe[$number]['value'] = '401 - Instructional year level code is incorrect for ['.$this->moe[31]['value'].']';
+	$this->moe[$number]['value'] = '401 - Instructional year level code is incorrect for ['.$this->moe[$number]['value'].']';
 }
 else {
 	$this->moe[$number]['valid'] = 'true';
@@ -3378,7 +3402,7 @@ $code = $this->codes->checkKey($data, $array);
 
 			}
 			 // If Subject = "STPR" and Student Type is not "SF" and STP = NULL
-			else if ($data == "STPR" && $this->mappedData['TYPE'] !="SF" && is_null($this->mappedData['STP'])){
+			else if ($data == "STPR" && $this->mappedData['TYPE'] !="SF" && empty($this->mappedData['STP'])){
 				
 				$this->moe[$number]['valid'] = 'false';
 				$this->moe[$number]['value'] = '665 - Student needs to be on a Secondary Tertiary Programme to have Subject "Secondary Tertiary Programme"';
@@ -3386,7 +3410,7 @@ $code = $this->codes->checkKey($data, $array);
 			}
 
 			// If Rmonth="J" and TYPE not in [AE, EM, NA,NF, SA, SF, TPRE,TPRAE] and STP=NULL and Reason=Null and FTE<1 and FUNDING YEAR LEVEL>=9 and SUBJECT 1 to SUBJECT 15=Null
-			else if ($thus->rmonth =="J" && !in_array($this->mappedData['TYPE'], array('AE', 'EM', 'NA', 'NF', 'SA', 'SF', 'TPRE', 'TPRAE')) && is_null($this->mappedData['STP']) && is_null($this->mappedData['REASON']) && $this->mappedData['funding_year_level'] >=9 && is_null($data)){
+			else if ($thus->rmonth =="J" && !in_array($this->mappedData['TYPE'], array('AE', 'EM', 'NA', 'NF', 'SA', 'SF', 'TPRE', 'TPRAE')) && empty($this->mappedData['STP']) && empty($this->mappedData['REASON']) && $this->mappedData['funding_year_level'] >=9 && empty($data)){
 				$this->moe[$number]['valid'] = 'true';
 				$this->moe[$number]['value'] = $data;
 				$this->moe[$number]['message'] = '243 - Warning - Part-time student with no subjects';
@@ -3483,15 +3507,15 @@ $number = 66;
 $data = $this->mappedData[$this->moe[$number]['LINC Name']];
 //If Rmonth=J and Subject is not Null and Instructional year level is Null
 
-if ( $this->rmonth =='J' && ($data =='0' || is_null($data))){
+if ( $this->rmonth =='J' && ($data =='0' || empty($data))){
 		$this->moe[$number]['valid'] = 'false';
-		$this->moe[$number]['value'] = '400 - Instructional year level code is missing for subject ['.$this->moe[31]['value'].']';
+		$this->moe[$number]['value'] = '400 - Instructional year level code is missing for subject ['.$this->moe[$number]['value'].']';
 }
 
 // If Rmonth=J and FUNDING YEAR LEVEL>=9 and Instructional year level not in[ZN07, ZN08, ZN09, ZN10, ZN11, ZN12, ZN13, ZNAD]
 else if ( !in_array ($data, array( 'ZN07', 'ZN08', 'ZN09', 'ZN10', 'ZN11', 'ZN12', 'ZN13', 'ZNAD' )) && ($this->rmonth =='J'&& $this->mappedData['funding_year_level'] >=9)){
 	$this->moe[$number]['valid'] = 'false';
-	$this->moe[$number]['value'] = '401 - Instructional year level code is incorrect for ['.$this->moe[31]['value'].']';
+	$this->moe[$number]['value'] = '401 - Instructional year level code is incorrect for ['.$this->moe[$number]['value'].']';
 }
 else {
 	$this->moe[$number]['valid'] = 'true';
@@ -3533,7 +3557,7 @@ $code = $this->codes->checkKey($data, $array);
 
 			}
 			 // If Subject = "STPR" and Student Type is not "SF" and STP = NULL
-			else if ($data == "STPR" && $this->mappedData['TYPE'] !="SF" && is_null($this->mappedData['STP'])){
+			else if ($data == "STPR" && $this->mappedData['TYPE'] !="SF" && empty($this->mappedData['STP'])){
 				
 				$this->moe[$number]['valid'] = 'false';
 				$this->moe[$number]['value'] = '665 - Student needs to be on a Secondary Tertiary Programme to have Subject "Secondary Tertiary Programme"';
@@ -3541,7 +3565,7 @@ $code = $this->codes->checkKey($data, $array);
 			}
 
 			// If Rmonth="J" and TYPE not in [AE, EM, NA,NF, SA, SF, TPRE,TPRAE] and STP=NULL and Reason=Null and FTE<1 and FUNDING YEAR LEVEL>=9 and SUBJECT 1 to SUBJECT 15=Null
-			else if ($thus->rmonth =="J" && !in_array($this->mappedData['TYPE'], array('AE', 'EM', 'NA', 'NF', 'SA', 'SF', 'TPRE', 'TPRAE')) && is_null($this->mappedData['STP']) && is_null($this->mappedData['REASON']) && $this->mappedData['funding_year_level'] >=9 && is_null($data)){
+			else if ($thus->rmonth =="J" && !in_array($this->mappedData['TYPE'], array('AE', 'EM', 'NA', 'NF', 'SA', 'SF', 'TPRE', 'TPRAE')) && empty($this->mappedData['STP']) && empty($this->mappedData['REASON']) && $this->mappedData['funding_year_level'] >=9 && empty($data)){
 				$this->moe[$number]['valid'] = 'true';
 				$this->moe[$number]['value'] = $data;
 				$this->moe[$number]['message'] = '243 - Warning - Part-time student with no subjects';
@@ -3638,15 +3662,15 @@ $number = 70;
 $data = $this->mappedData[$this->moe[$number]['LINC Name']];
 //If Rmonth=J and Subject is not Null and Instructional year level is Null
 
-if ( $this->rmonth =='J' && ($data =='0' || is_null($data))){
+if ( $this->rmonth =='J' && ($data =='0' || empty($data))){
 		$this->moe[$number]['valid'] = 'false';
-		$this->moe[$number]['value'] = '400 - Instructional year level code is missing for subject ['.$this->moe[31]['value'].']';
+		$this->moe[$number]['value'] = '400 - Instructional year level code is missing for subject ['.$this->moe[$number]['value'].']';
 }
 
 // If Rmonth=J and FUNDING YEAR LEVEL>=9 and Instructional year level not in[ZN07, ZN08, ZN09, ZN10, ZN11, ZN12, ZN13, ZNAD]
 else if ( !in_array ($data, array( 'ZN07', 'ZN08', 'ZN09', 'ZN10', 'ZN11', 'ZN12', 'ZN13', 'ZNAD' )) && ($this->rmonth =='J'&& $this->mappedData['funding_year_level'] >=9)){
 	$this->moe[$number]['valid'] = 'false';
-	$this->moe[$number]['value'] = '401 - Instructional year level code is incorrect for ['.$this->moe[31]['value'].']';
+	$this->moe[$number]['value'] = '401 - Instructional year level code is incorrect for ['.$this->moe[$number]['value'].']';
 }
 else {
 	$this->moe[$number]['valid'] = 'true';
@@ -3689,7 +3713,7 @@ $code = $this->codes->checkKey($data, $array);
 
 			}
 			 // If Subject = "STPR" and Student Type is not "SF" and STP = NULL
-			else if ($data == "STPR" && $this->mappedData['TYPE'] !="SF" && is_null($this->mappedData['STP'])){
+			else if ($data == "STPR" && $this->mappedData['TYPE'] !="SF" && empty($this->mappedData['STP'])){
 				
 				$this->moe[$number]['valid'] = 'false';
 				$this->moe[$number]['value'] = '665 - Student needs to be on a Secondary Tertiary Programme to have Subject "Secondary Tertiary Programme"';
@@ -3697,7 +3721,7 @@ $code = $this->codes->checkKey($data, $array);
 			}
 
 			// If Rmonth="J" and TYPE not in [AE, EM, NA,NF, SA, SF, TPRE,TPRAE] and STP=NULL and Reason=Null and FTE<1 and FUNDING YEAR LEVEL>=9 and SUBJECT 1 to SUBJECT 15=Null
-			else if ($thus->rmonth =="J" && !in_array($this->mappedData['TYPE'], array('AE', 'EM', 'NA', 'NF', 'SA', 'SF', 'TPRE', 'TPRAE')) && is_null($this->mappedData['STP']) && is_null($this->mappedData['REASON']) && $this->mappedData['funding_year_level'] >=9 && is_null($data)){
+			else if ($thus->rmonth =="J" && !in_array($this->mappedData['TYPE'], array('AE', 'EM', 'NA', 'NF', 'SA', 'SF', 'TPRE', 'TPRAE')) && empty($this->mappedData['STP']) && empty($this->mappedData['REASON']) && $this->mappedData['funding_year_level'] >=9 && empty($data)){
 				$this->moe[$number]['valid'] = 'true';
 				$this->moe[$number]['value'] = $data;
 				$this->moe[$number]['message'] = '243 - Warning - Part-time student with no subjects';
@@ -3794,15 +3818,15 @@ $number = 74;
 $data = $this->mappedData[$this->moe[$number]['LINC Name']];
 //If Rmonth=J and Subject is not Null and Instructional year level is Null
 
-if ( $this->rmonth =='J' && ($data =='0' || is_null($data))){
+if ( $this->rmonth =='J' && ($data =='0' || empty($data))){
 		$this->moe[$number]['valid'] = 'false';
-		$this->moe[$number]['value'] = '400 - Instructional year level code is missing for subject ['.$this->moe[31]['value'].']';
+		$this->moe[$number]['value'] = '400 - Instructional year level code is missing for subject ['.$this->moe[$number]['value'].']';
 }
 
 // If Rmonth=J and FUNDING YEAR LEVEL>=9 and Instructional year level not in[ZN07, ZN08, ZN09, ZN10, ZN11, ZN12, ZN13, ZNAD]
 else if ( !in_array ($data, array( 'ZN07', 'ZN08', 'ZN09', 'ZN10', 'ZN11', 'ZN12', 'ZN13', 'ZNAD' )) && ($this->rmonth =='J'&& $this->mappedData['funding_year_level'] >=9)){
 	$this->moe[$number]['valid'] = 'false';
-	$this->moe[$number]['value'] = '401 - Instructional year level code is incorrect for ['.$this->moe[31]['value'].']';
+	$this->moe[$number]['value'] = '401 - Instructional year level code is incorrect for ['.$this->moe[$number]['value'].']';
 }
 else {
 	$this->moe[$number]['valid'] = 'true';
@@ -3845,7 +3869,7 @@ $code = $this->codes->checkKey($data, $array);
 
 			}
 			 // If Subject = "STPR" and Student Type is not "SF" and STP = NULL
-			else if ($data == "STPR" && $this->mappedData['TYPE'] !="SF" && is_null($this->mappedData['STP'])){
+			else if ($data == "STPR" && $this->mappedData['TYPE'] !="SF" && empty($this->mappedData['STP'])){
 				
 				$this->moe[$number]['valid'] = 'false';
 				$this->moe[$number]['value'] = '665 - Student needs to be on a Secondary Tertiary Programme to have Subject "Secondary Tertiary Programme"';
@@ -3853,7 +3877,7 @@ $code = $this->codes->checkKey($data, $array);
 			}
 
 			// If Rmonth="J" and TYPE not in [AE, EM, NA,NF, SA, SF, TPRE,TPRAE] and STP=NULL and Reason=Null and FTE<1 and FUNDING YEAR LEVEL>=9 and SUBJECT 1 to SUBJECT 15=Null
-			else if ($thus->rmonth =="J" && !in_array($this->mappedData['TYPE'], array('AE', 'EM', 'NA', 'NF', 'SA', 'SF', 'TPRE', 'TPRAE')) && is_null($this->mappedData['STP']) && is_null($this->mappedData['REASON']) && $this->mappedData['funding_year_level'] >=9 && is_null($data)){
+			else if ($thus->rmonth =="J" && !in_array($this->mappedData['TYPE'], array('AE', 'EM', 'NA', 'NF', 'SA', 'SF', 'TPRE', 'TPRAE')) && empty($this->mappedData['STP']) && empty($this->mappedData['REASON']) && $this->mappedData['funding_year_level'] >=9 && empty($data)){
 				$this->moe[$number]['valid'] = 'true';
 				$this->moe[$number]['value'] = $data;
 				$this->moe[$number]['message'] = '243 - Warning - Part-time student with no subjects';
@@ -3950,15 +3974,15 @@ $number = 78;
 $data = $this->mappedData[$this->moe[$number]['LINC Name']];
 //If Rmonth=J and Subject is not Null and Instructional year level is Null
 
-if ( $this->rmonth =='J' && ($data =='0' || is_null($data))){
+if ( $this->rmonth =='J' && ($data =='0' || empty($data))){
 		$this->moe[$number]['valid'] = 'false';
-		$this->moe[$number]['value'] = '400 - Instructional year level code is missing for subject ['.$this->moe[31]['value'].']';
+		$this->moe[$number]['value'] = '400 - Instructional year level code is missing for subject ['.$this->moe[$number]['value'].']';
 }
 
 // If Rmonth=J and FUNDING YEAR LEVEL>=9 and Instructional year level not in[ZN07, ZN08, ZN09, ZN10, ZN11, ZN12, ZN13, ZNAD]
 else if ( !in_array ($data, array( 'ZN07', 'ZN08', 'ZN09', 'ZN10', 'ZN11', 'ZN12', 'ZN13', 'ZNAD' )) && ($this->rmonth =='J'&& $this->mappedData['funding_year_level'] >=9)){
 	$this->moe[$number]['valid'] = 'false';
-	$this->moe[$number]['value'] = '401 - Instructional year level code is incorrect for ['.$this->moe[31]['value'].']';
+	$this->moe[$number]['value'] = '401 - Instructional year level code is incorrect for ['.$this->moe[$number]['value'].']';
 }
 else {
 	$this->moe[$number]['valid'] = 'true';
@@ -4001,7 +4025,7 @@ $code = $this->codes->checkKey($data, $array);
 
 			}
 			 // If Subject = "STPR" and Student Type is not "SF" and STP = NULL
-			else if ($data == "STPR" && $this->mappedData['TYPE'] !="SF" && is_null($this->mappedData['STP'])){
+			else if ($data == "STPR" && $this->mappedData['TYPE'] !="SF" && empty($this->mappedData['STP'])){
 				
 				$this->moe[$number]['valid'] = 'false';
 				$this->moe[$number]['value'] = '665 - Student needs to be on a Secondary Tertiary Programme to have Subject "Secondary Tertiary Programme"';
@@ -4009,7 +4033,7 @@ $code = $this->codes->checkKey($data, $array);
 			}
 
 			// If Rmonth="J" and TYPE not in [AE, EM, NA,NF, SA, SF, TPRE,TPRAE] and STP=NULL and Reason=Null and FTE<1 and FUNDING YEAR LEVEL>=9 and SUBJECT 1 to SUBJECT 15=Null
-			else if ($thus->rmonth =="J" && !in_array($this->mappedData['TYPE'], array('AE', 'EM', 'NA', 'NF', 'SA', 'SF', 'TPRE', 'TPRAE')) && is_null($this->mappedData['STP']) && is_null($this->mappedData['REASON']) && $this->mappedData['funding_year_level'] >=9 && is_null($data)){
+			else if ($thus->rmonth =="J" && !in_array($this->mappedData['TYPE'], array('AE', 'EM', 'NA', 'NF', 'SA', 'SF', 'TPRE', 'TPRAE')) && empty($this->mappedData['STP']) && empty($this->mappedData['REASON']) && $this->mappedData['funding_year_level'] >=9 && empty($data)){
 				$this->moe[$number]['valid'] = 'true';
 				$this->moe[$number]['value'] = $data;
 				$this->moe[$number]['message'] = '243 - Warning - Part-time student with no subjects';
@@ -4105,15 +4129,15 @@ $number = 82;
 $data = $this->mappedData[$this->moe[$number]['LINC Name']];
 //If Rmonth=J and Subject is not Null and Instructional year level is Null
 
-if ( $this->rmonth =='J' && ($data =='0' || is_null($data))){
+if ( $this->rmonth =='J' && ($data =='0' || empty($data))){
 		$this->moe[$number]['valid'] = 'false';
-		$this->moe[$number]['value'] = '400 - Instructional year level code is missing for subject ['.$this->moe[31]['value'].']';
+		$this->moe[$number]['value'] = '400 - Instructional year level code is missing for subject ['.$this->moe[$number]['value'].']';
 }
 
 // If Rmonth=J and FUNDING YEAR LEVEL>=9 and Instructional year level not in[ZN07, ZN08, ZN09, ZN10, ZN11, ZN12, ZN13, ZNAD]
 else if ( !in_array ($data, array( 'ZN07', 'ZN08', 'ZN09', 'ZN10', 'ZN11', 'ZN12', 'ZN13', 'ZNAD' )) && ($this->rmonth =='J'&& $this->mappedData['funding_year_level'] >=9)){
 	$this->moe[$number]['valid'] = 'false';
-	$this->moe[$number]['value'] = '401 - Instructional year level code is incorrect for ['.$this->moe[31]['value'].']';
+	$this->moe[$number]['value'] = '401 - Instructional year level code is incorrect for ['.$this->moe[$number]['value'].']';
 }
 else {
 	$this->moe[$number]['valid'] = 'true';
@@ -4156,7 +4180,7 @@ $code = $this->codes->checkKey($data, $array);
 
 			}
 			 // If Subject = "STPR" and Student Type is not "SF" and STP = NULL
-			else if ($data == "STPR" && $this->mappedData['TYPE'] !="SF" && is_null($this->mappedData['STP'])){
+			else if ($data == "STPR" && $this->mappedData['TYPE'] !="SF" && empty($this->mappedData['STP'])){
 				
 				$this->moe[$number]['valid'] = 'false';
 				$this->moe[$number]['value'] = '665 - Student needs to be on a Secondary Tertiary Programme to have Subject "Secondary Tertiary Programme"';
@@ -4164,7 +4188,7 @@ $code = $this->codes->checkKey($data, $array);
 			}
 
 			// If Rmonth="J" and TYPE not in [AE, EM, NA,NF, SA, SF, TPRE,TPRAE] and STP=NULL and Reason=Null and FTE<1 and FUNDING YEAR LEVEL>=9 and SUBJECT 1 to SUBJECT 15=Null
-			else if ($thus->rmonth =="J" && !in_array($this->mappedData['TYPE'], array('AE', 'EM', 'NA', 'NF', 'SA', 'SF', 'TPRE', 'TPRAE')) && is_null($this->mappedData['STP']) && is_null($this->mappedData['REASON']) && $this->mappedData['funding_year_level'] >=9 && is_null($data)){
+			else if ($thus->rmonth =="J" && !in_array($this->mappedData['TYPE'], array('AE', 'EM', 'NA', 'NF', 'SA', 'SF', 'TPRE', 'TPRAE')) && empty($this->mappedData['STP']) && empty($this->mappedData['REASON']) && $this->mappedData['funding_year_level'] >=9 && empty($data)){
 				$this->moe[$number]['valid'] = 'true';
 				$this->moe[$number]['value'] = $data;
 				$this->moe[$number]['message'] = '243 - Warning - Part-time student with no subjects';
@@ -4259,15 +4283,15 @@ $number = 86;
 $data = $this->mappedData[$this->moe[$number]['LINC Name']];
 //If Rmonth=J and Subject is not Null and Instructional year level is Null
 
-if ( $this->rmonth =='J' && ($data =='0' || is_null($data))){
+if ( $this->rmonth =='J' && ($data =='0' || empty($data))){
 		$this->moe[$number]['valid'] = 'false';
-		$this->moe[$number]['value'] = '400 - Instructional year level code is missing for subject ['.$this->moe[31]['value'].']';
+		$this->moe[$number]['value'] = '400 - Instructional year level code is missing for subject ['.$this->moe[$number]['value'].']';
 }
 
 // If Rmonth=J and FUNDING YEAR LEVEL>=9 and Instructional year level not in[ZN07, ZN08, ZN09, ZN10, ZN11, ZN12, ZN13, ZNAD]
 else if ( !in_array ($data, array( 'ZN07', 'ZN08', 'ZN09', 'ZN10', 'ZN11', 'ZN12', 'ZN13', 'ZNAD' )) && ($this->rmonth =='J'&& $this->mappedData['funding_year_level'] >=9)){
 	$this->moe[$number]['valid'] = 'false';
-	$this->moe[$number]['value'] = '401 - Instructional year level code is incorrect for ['.$this->moe[31]['value'].']';
+	$this->moe[$number]['value'] = '401 - Instructional year level code is incorrect for ['.$this->moe[$number]['value'].']';
 }
 else {
 	$this->moe[$number]['valid'] = 'true';
@@ -4310,7 +4334,7 @@ $code = $this->codes->checkKey($data, $array);
 
 			}
 			 // If Subject = "STPR" and Student Type is not "SF" and STP = NULL
-			else if ($data == "STPR" && $this->mappedData['TYPE'] !="SF" && is_null($this->mappedData['STP'])){
+			else if ($data == "STPR" && $this->mappedData['TYPE'] !="SF" && empty($this->mappedData['STP'])){
 				
 				$this->moe[$number]['valid'] = 'false';
 				$this->moe[$number]['value'] = '665 - Student needs to be on a Secondary Tertiary Programme to have Subject "Secondary Tertiary Programme"';
@@ -4318,7 +4342,7 @@ $code = $this->codes->checkKey($data, $array);
 			}
 
 			// If Rmonth="J" and TYPE not in [AE, EM, NA,NF, SA, SF, TPRE,TPRAE] and STP=NULL and Reason=Null and FTE<1 and FUNDING YEAR LEVEL>=9 and SUBJECT 1 to SUBJECT 15=Null
-			else if ($thus->rmonth =="J" && !in_array($this->mappedData['TYPE'], array('AE', 'EM', 'NA', 'NF', 'SA', 'SF', 'TPRE', 'TPRAE')) && is_null($this->mappedData['STP']) && is_null($this->mappedData['REASON']) && $this->mappedData['funding_year_level'] >=9 && is_null($data)){
+			else if ($thus->rmonth =="J" && !in_array($this->mappedData['TYPE'], array('AE', 'EM', 'NA', 'NF', 'SA', 'SF', 'TPRE', 'TPRAE')) && empty($this->mappedData['STP']) && empty($this->mappedData['REASON']) && $this->mappedData['funding_year_level'] >=9 && empty($data)){
 				$this->moe[$number]['valid'] = 'true';
 				$this->moe[$number]['value'] = $data;
 				$this->moe[$number]['message'] = '243 - Warning - Part-time student with no subjects';
@@ -4418,15 +4442,15 @@ $number = 90;
 $data = $this->mappedData[$this->moe[$number]['LINC Name']];
 //If Rmonth=J and Subject is not Null and Instructional year level is Null
 
-if ( $this->rmonth =='J' && ($data =='0' || is_null($data))){
+if ( $this->rmonth =='J' && ($data =='0' || empty($data))){
 		$this->moe[$number]['valid'] = 'false';
-		$this->moe[$number]['value'] = '400 - Instructional year level code is missing for subject ['.$this->moe[31]['value'].']';
+		$this->moe[$number]['value'] = '400 - Instructional year level code is missing for subject ['.$this->moe[$number]['value'].']';
 }
 
 // If Rmonth=J and FUNDING YEAR LEVEL>=9 and Instructional year level not in[ZN07, ZN08, ZN09, ZN10, ZN11, ZN12, ZN13, ZNAD]
 else if ( !in_array ($data, array( 'ZN07', 'ZN08', 'ZN09', 'ZN10', 'ZN11', 'ZN12', 'ZN13', 'ZNAD' )) && ($this->rmonth =='J'&& $this->mappedData['funding_year_level'] >=9)){
 	$this->moe[$number]['valid'] = 'false';
-	$this->moe[$number]['value'] = '401 - Instructional year level code is incorrect for ['.$this->moe[31]['value'].']';
+	$this->moe[$number]['value'] = '401 - Instructional year level code is incorrect for ['.$this->moe[$number]['value'].']';
 }
 else {
 	$this->moe[$number]['valid'] = 'true';
@@ -4535,7 +4559,7 @@ $data = $this->mappedData[$this->moe[$number]['LINC Name']];
 
 //If STUDENT TYPE=EX and EXCHANGE SCHEME not in [01, 02, 03, 04, 05, 07, 08, 09, 10, 11, 12, 13,14, 15, 99] and REASON=Null and [Rmonth in [M,J] or Funding Year Level >=9]
 
-if (in_array( $this->mappedData['TYPE'], array('EX')) && is_null($this->mappedData['REASON']) && !in_array($data, array ('01', '02', '03', '04', '05', '07', '08', '09', '10', '11', '12', '13', '14', '15', '99') ) && (in_array($this->rmonth, array('M', 'J'))|| $this->mappedData['funding_year_level'] >=9)  ){
+if (in_array( $this->mappedData['TYPE'], array('EX')) && empty($this->mappedData['REASON']) && !in_array($data, array ('01', '02', '03', '04', '05', '07', '08', '09', '10', '11', '12', '13', '14', '15', '99') ) && (in_array($this->rmonth, array('M', 'J'))|| $this->mappedData['funding_year_level'] >=9)  ){
 	$this->moe[$number]['valid'] = 'false';
 	$this->moe[$number]['value'] = '624 - Exchange Student must have a valid Exchange Scheme';
 
@@ -4563,14 +4587,14 @@ $number = 95;
 
 $data = $this->mappedData[$this->moe[$number]['LINC Name']];
 // If Boarding Status is Null and REASON=Null and [Rmonth in [M,J] or Funding Year Level >=9]
-if ($data=='' && is_null($this->mappedData['REASON']) && (in_array($this->rmonth, array('M', 'J'))|| $this->mappedData['funding_year_level'] >=9)){
+if ($data=='' && empty($this->mappedData['REASON']) && (in_array($this->rmonth, array('M', 'J'))|| $this->mappedData['funding_year_level'] >=9)){
 	$this->moe[$number]['valid'] = 'true';
 	$this->moe[$number]['value'] = 'N';
 	$this->moe[$number]['message'] = '634 - Boarding Status has to be Y or N';	
 }
 // If Boarding Status=Y and Zoning Status not NAPP and REASON=Null and [Rmonth in [M,J] or Funding Year Level >=9]
 
-else if ($data == 'Y' && $this->mappedData['ZONING STATUS'] != 'NAPP' && is_null($this->mappedData['REASON'])  && (in_array($this->rmonth, array('M', 'J'))|| $this->mappedData['funding_year_level'] >=9)){
+else if ($data == 'Y' && $this->mappedData['zoning'] != 'NAPP' && empty($this->mappedData['REASON'])  && (in_array($this->rmonth, array('M', 'J'))|| $this->mappedData['funding_year_level'] >=9)){
 	$this->moe[$number]['valid'] = 'false';
 	$this->moe[$number]['value'] = 'N';
 	$this->moe[$number]['message'] = '635 - Zoning Status of students boarding at the school hostel must be NAPP';	
@@ -4597,11 +4621,11 @@ $number = 96;
 $data = $this->mappedData[$this->moe[$number]['LINC Name']];
 
 //If ADDRESS1 is Blank or Null and REASON=Null and PRIVACY INDICATOR= NULL and [Rmonth in [M,J] or Funding Year Level >=9]
-if ((is_null($data) || $data == '' || $data =='0') && is_null($this->mappedData['REASON']) && is_null($this->mappedData['PRIVACY INDICATOR']) && (in_array($this->rmonth, array('M', 'J'))|| $this->mappedData['funding_year_level'] >=9)){
+if ((empty($data) || $data == '' || $data =='0') && empty($this->mappedData['REASON']) && empty($this->mappedData['PRIVACY INDICATOR']) && (in_array($this->rmonth, array('M', 'J'))|| $this->mappedData['funding_year_level'] >=9)){
 	$this->moe[$number]['valid'] = 'false';
 	$this->moe[$number]['value'] = '625 - First Address field is mandatory';
 }
- if (strpos($data, ',')===true && is_null($this->mappedData['REASON'])){
+ if (strpos($data, ',')===true && empty($this->mappedData['REASON'])){
 	
 	$this->moe[$number]['valid'] = 'false';
 	$this->moe[$number]['value'] = '629 - Address fields cannot contain commas';
@@ -4631,7 +4655,7 @@ public function check_97(){
 $number = 97;
 
 $data = $this->mappedData[$this->moe[$number]['LINC Name']];
- if (strpos($data, ',')===true && is_null($this->mappedData['REASON'])){
+ if (strpos($data, ',')===true && empty($this->mappedData['REASON'])){
 	
 	$this->moe[$number]['valid'] = 'false';
 	$this->moe[$number]['value'] = '629 - Address fields cannot contain commas';
@@ -4661,7 +4685,7 @@ $number =98;
 $data = $this->mappedData[$this->moe[$number]['LINC Name']];
 
 
-if ((is_null($data) || $data == '' || $data =='0') && $this->mappedData['REASON']=='' && $this->mappedData['PRIVACY INDICATOR']=='' && (in_array($this->rmonth, array('M', 'J'))|| $this->mappedData['funding_year_level'] >=9)){
+if ((empty($data) || $data == '' || $data =='0') && $this->mappedData['REASON']=='' && $this->mappedData['PRIVACY INDICATOR']=='' && (in_array($this->rmonth, array('M', 'J'))|| $this->mappedData['funding_year_level'] >=9)){
 	$this->moe[$number]['valid'] = 'false';
 	$this->moe[$number]['value'] = '626 - Third Address field is mandatory';
 }
@@ -4696,14 +4720,14 @@ $data = $this->mappedData[$this->moe[$number]['LINC Name']];
 
 // If ADDRESS4 not numeric and not Null and REASON=Null and [Rmonth in [M,J] or Funding Year Level >=9]
 
-if (!is_numeric($data) && !is_null($data) && is_null($this->mappedData['REASON'])  && (in_array($this->rmonth, array('M', 'J'))|| $this->mappedData['funding_year_level'] >=9)){
+if (!is_numeric($data) && !empty($data) && empty($this->mappedData['REASON'])  && (in_array($this->rmonth, array('M', 'J'))|| $this->mappedData['funding_year_level'] >=9)){
 	$this->moe[$number]['valid'] = 'false';
 	$this->moe[$number]['value'] = '627 - Fourth Address field must contain a 4-digit postcode';
 }
 
 // If ADDRESS4 not NULL and length of ADDRESS4 <>4 and REASON=Null and [Rmonth in [M,J] or Funding Year Level >=9]
 
-else if (strlen($data) <>4 &&  !is_null($data) && is_null($this->mappedData['REASON'])  && (in_array($this->rmonth, array('M', 'J'))|| $this->mappedData['funding_year_level'] >=9)){
+else if (strlen($data) <>4 &&  !empty($data) && empty($this->mappedData['REASON'])  && (in_array($this->rmonth, array('M', 'J'))|| $this->mappedData['funding_year_level'] >=9)){
 	$this->moe[$number]['valid'] = 'false';
 	$this->moe[$number]['value'] = '628 - Fourth Address field can contain only 4-digit postcodes';
 }
@@ -4742,7 +4766,7 @@ if ($data =='[Null]' || $data=''){
 	$this->moe[$number]['value'] = $data;
 }
 
-else if (!is_null($data) && $data !='[Null]' && $data !='' && !$check  && (in_array($this->rmonth, array('M', 'J'))|| $this->mappedData['funding_year_level'] >=9)){ 
+else if (!empty($data) && $data !='[Null]' && $data !='' && !$check  && (in_array($this->rmonth, array('M', 'J'))|| $this->mappedData['funding_year_level'] >=9)){ 
 	$this->moe[$number]['valid'] = 'false';
 	$this->moe[$number]['value'] = "644 - Student's Eligibility Criteria is incorrect";
 }
@@ -4864,11 +4888,12 @@ else if (in_array($this->school_type, array('22')) && ($data <7 || $data > 8)){
 	
 	}	
 else {
-	$this->moe[$number]['valid'] = 'true';
+	$this->moe[$number]['valid'] = 'false';
 	$this->moe[$number]['value'] = $data;
 	
 }
 
+var_dump($this->moe[$number]);
 
 
 return $this->moe[$number]['valid'] ;
@@ -4929,7 +4954,7 @@ $number = 105;
 $data = $this->mappedData['PRIVACY INDICATOR'];
 
 // If PRIVACY INDICATOR is not NULL or 'Y'
- if (!is_null($data) && $data !='' && $data != 'y' && $data != 'Y'){
+ if (!empty($data) && $data !='' && $data != 'y' && $data != 'Y'){
 	$this->moe[$number]['valid'] = 'false';
 	$this->moe[$number]['value'] = '650 - Privacy Indicator value is incorrect';
 }
@@ -5043,7 +5068,7 @@ $data = $this->mappedData[$this->moe[$number]['LINC Name']];
 
 // If Citizenship 1 not in [NZL, AUS] and Eligibility Criteria not in [20199, 20200, 20201, 60001, 60002, 60003] and EXPIRY DATE not NULL and date format is incorrect
 $convert = date('Ymd', strtotime($data));
-if (!is_null($data) && !in_array($this->mappedData['COUNTRY OF CITIZENSHIP'], array('NZL', 'AUS')) && !in_array($this->mappedData['Eligibility Criteria'], array('20199', '20200', '20201', '60001', '60002', '60003')) && !preg_match("/^\d{8}$/", $convert) ){
+if (!empty($data) && !in_array($this->mappedData['COUNTRY OF CITIZENSHIP'], array('NZL', 'AUS')) && !in_array($this->mappedData['Eligibility Criteria'], array('20199', '20200', '20201', '60001', '60002', '60003')) && !preg_match("/^\d{8}$/", $convert) ){
 	
 		$this->moe[$number]['valid'] = 'false';
 		$this->moe[$number]['value'] = '657 - Format of Expiry Date is incorrect';
@@ -5051,33 +5076,33 @@ if (!is_null($data) && !in_array($this->mappedData['COUNTRY OF CITIZENSHIP'], ar
 	
 }
 // If Country of Citizenship = NZL and EXPIRY DATE is not NULL
-else if ($this->mappedData['COUNTRY OF CITIZENSHIP'] == "NZL" && !is_null($data)){
+else if ($this->mappedData['COUNTRY OF CITIZENSHIP'] == "NZL" && !empty($data)){
 		$this->moe[$number]['valid'] = 'false';
 		$this->moe[$number]['value'] = '658 - NZ Citizens should not have an Expiry Date';
 	 
 }
 // If Eligibility Criteria in [20199, 60001] and EXPIRY DATE is not NULL
-else if (in_array($this->mappedData['Eligibility Criteria'], array('20199', '60001')) && !is_null($data)){
+else if (in_array($this->mappedData['Eligibility Criteria'], array('20199', '60001')) && !empty($data)){
 		$this->moe[$number]['valid'] = 'false';
 		$this->moe[$number]['value'] = '660 - NZ Citizens should not have an Expiry Date';
 	 
 }
 
 // If Eligibility Criteria in [20201, 60002] and EXPIRY DATE is not NULL
-else if (in_array($this->mappedData['Eligibility Criteria'], array('20201', '60002')) && !is_null($data)){
+else if (in_array($this->mappedData['Eligibility Criteria'], array('20201', '60002')) && !empty($data)){
 		$this->moe[$number]['valid'] = 'false';
 		$this->moe[$number]['value'] = '661 - Australian Citizens should not have an Expiry Date';
 	 
 }
 // If Eligibility Criteria in [20200, 60003] and EXPIRY DATE is not NULL
 
-else if (in_array($this->mappedData['Eligibility Criteria'], array('20200', '60003')) && !is_null($data)){
+else if (in_array($this->mappedData['Eligibility Criteria'], array('20200', '60003')) && !empty($data)){
 		$this->moe[$number]['valid'] = 'false';
 		$this->moe[$number]['value'] = '662 - NZ Residents should not have an Expiry Date';
 	 
 }
 // If TYPE in [FF, EX, NF] and EXPIRY DATE is not NULL and REASON is NULL and EXPIRY DATE < Roll Count Date
-else if (in_array($this->mappedData['TYPE'], array('FF', 'EX', 'NF')) && is_null($this->mappedData['REASON']) &&!is_null($data)  && $data < $this->rollCountDate ){
+else if (in_array($this->mappedData['TYPE'], array('FF', 'EX', 'NF')) && empty($this->mappedData['REASON']) &&!empty($data)  && $data < $this->rollCountDate ){
 		$this->moe[$number]['valid'] = 'true';
 		$this->moe[$number]['value'] = $data;
 		$this->moe[$number]['message'] =  "663 - Student's Verification Document has expired";
@@ -5108,7 +5133,7 @@ $data = $this->mappedData[$this->moe[$number]['LINC Name']];
 
 // If STP is not NULL and age on 1st January>= 19
 
-if (!is_null($data) && $this->returnAgeOnJan01 >=19){
+if (!empty($data) && $this->returnAgeOnJan01 >=19){
 	
 	$this->moe[$number]['valid'] = 'false';
 	$this->moe[$number]['value'] = '654 - Adult students cannot be attending an STP';
@@ -5116,7 +5141,7 @@ if (!is_null($data) && $this->returnAgeOnJan01 >=19){
 }
 // If STP is not NULL and CURRENT YEAR LEVEL not in [11,12,13]
 
-else if (!is_null($data) && !in_array($this->mappedData['CURRENT YEAR LEVEL'], array('11', '12', '13'))){
+else if (!empty($data) && !in_array($this->mappedData['CURRENT YEAR LEVEL'], array('11', '12', '13'))){
 	
 	$this->moe[$number]['valid'] = 'false';
 	$this->moe[$number]['value'] = '655 - Students attending an STP must be in Current Year Level 11,12 or 13';

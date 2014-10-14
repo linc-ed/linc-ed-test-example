@@ -295,7 +295,7 @@ class validator_17_FUNDING_YEAR_LEVELTest extends PHPUnit_Framework_TestCase {
 		$this->student['REASON'] = '';
 		$this->school['school_type'] = '20';
 		$this->student['TYPE'] = 'RE';
-		$this->student['funding_year_level'] = '8';
+		$this->student['funding_year_level'] = '9';
 		$this->student['REASON'] = '';
 		$moe = new MOEValidator($this->student, 'M', $this->school);
 		$valid = $moe->check_17();

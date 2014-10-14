@@ -161,7 +161,7 @@ class validator_18_TYPETest extends PHPUnit_Framework_TestCase {
 	// and TYPE not in [FF, EX, RE, EM, SA, NA,NF, SF]
 
 	public function testTypeError612() {
-		$this->student['ORS and Section 9'] = 'N';
+		$this->student['ORS and Section 9']='N';
 		$this->school['school_type'] = '20';
 		$this->student['TYPE'] = 'TPRE';
 		$moe = new MOEValidator($this->student, 'M', $this->school);

@@ -79,7 +79,7 @@ class validator_23_FTETest extends PHPUnit_Framework_TestCase {
 		$this->student['STP'] = '';
 		$birthYear = date('Y') - 10;
 		$this->student['dob'] = $birthYear . '-01-01';
-		$this->student['FTE'] - '0.5';
+		$this->student['FTE'] = '0.5';
 		$moe = new MOEValidator($this->student, 'M', $this->school);
 		$valid = $moe->check_23();
 		$this->assertSame($valid, 'false');

@@ -30,7 +30,7 @@ class validator_104_POST_SCHOOL_ACTIVITYTest extends PHPUnit_Framework_TestCase 
 		$this->student['REASON'] = 'L';
 		$this->student['funding_year_level'] = '10';
 		$moe = new MOEValidator($this->student, 'M', $this->school);
-		$valid = $moe->check_28();
+		$valid = $moe->check_104();
 		$this->assertSame($valid, 'false');
 	}
 
@@ -39,7 +39,7 @@ class validator_104_POST_SCHOOL_ACTIVITYTest extends PHPUnit_Framework_TestCase 
 		$this->student['REASON'] = 'L';
 		$this->student['funding_year_level'] = '10';
 		$moe = new MOEValidator($this->student, 'M', $this->school);
-		$valid = $moe->check_28();
+		$valid = $moe->check_104();
 		$this->assertSame($valid, 'false');
 	}
 }
