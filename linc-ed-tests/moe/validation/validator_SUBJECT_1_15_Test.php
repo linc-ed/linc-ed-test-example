@@ -33,11 +33,13 @@ class validator_SUBJECTSTest extends PHPUnit_Framework_TestCase {
 	}
 
 	public function testValidSubject() {
+		$this->school['school_type']='30';
 		for($i = 1; $i <= 15; $i++) {
 			$fieldName = 'SUBJECT ' . $i;
 			$this->student[$fieldName] = 'invalid';
 		}
 		$moe = new MOEValidator($this->student, 'M', $this->school);
+
 		foreach ($this->fieldNumbers as $fieldNumber) {
 			$validator = 'check_'.$fieldNumber;
 			$valid = $moe->$validator();
@@ -50,8 +52,10 @@ class validator_SUBJECTSTest extends PHPUnit_Framework_TestCase {
 			$fieldName = 'SUBJECT ' . $i;
 			$this->student[$fieldName] = '';
 		}
+		$this->school['school_type']='30';
 		$this->student['funding_year_level'] = '10';
 		$this->student['ORS and Section 9'] = 'N';
+		$this->student['FTE'] = '1';
 		$moe = new MOEValidator($this->student, 'J', $this->school);
 		$valid = $valid = $moe->check_31();
 		$this->assertSame($valid, 'false');
@@ -62,6 +66,7 @@ class validator_SUBJECTSTest extends PHPUnit_Framework_TestCase {
 	// SUBJECT codes NOT in [‘NAPP’,’Blank’]
 
 	public function testNoNAPPSubjects() {
+		$this->school['school_type']='30';
 		$this->student['SUBJECT 1'] = 'NAPP';
 		$this->student['SUBJECT 2'] = 'PHED';
 		$moe = new MOEValidator($this->student, 'M', $this->school);

@@ -2124,25 +2124,47 @@ public function check_31(){
 $number = 31;
 
 $data = $this->mappedData[$this->moe[$number]['LINC Name']];
-
-if ($this->school_type != 30 || $data =='' || $data == '[Null]'){
-				 $this->moe[$number]['valid'] = 'true';
-				$this->moe[$number]['value'] = $data;
-}
-else {
-
-
-
 $array = MOECodes::$subjectCodes;
 $code = $this->codes->checkKey($data, $array);
 
+if ($this->school_type != 30 || empty($data)){
+	if ($this->mappedData['FTE']==1 &&  ( 
+				 empty($this->mappedData['SUBJECT 1']) && 
+				 empty($this->mappedData['SUBJECT 2']) &&
+				 empty($this->mappedData['SUBJECT 3']) &&
+				 empty($this->mappedData['SUBJECT 4']) &&
+				 empty($this->mappedData['SUBJECT 5'])&&
+				 empty($this->mappedData['SUBJECT 6'])&&
+				 empty($this->mappedData['SUBJECT 7'])&&
+				 empty($this->mappedData['SUBJECT 8'])&&
+				 empty($this->mappedData['SUBJECT 9'])&&
+				 empty($this->mappedData['SUBJECT 10'])&&
+				 empty($this->mappedData['SUBJECT 11'])&&
+				 empty($this->mappedData['SUBJECT 12'])&&
+				 empty($this->mappedData['SUBJECT 13'])&&
+				 empty($this->mappedData['SUBJECT 14'])&&
+				 empty($this->mappedData['SUBJECT 15'])
+				)){
+					$this->moe[$number]['valid'] = 'false';
+					$this->moe[$number]['value'] = 'Full time student must have at least one subject"';
 
-			if (!$code) {
+			}
+			else {
+				 $this->moe[$number]['valid'] = 'true';
+				$this->moe[$number]['value'] = $data;
+}
+}
+
+else {
+
+
+			 if (!$code) {
 				
 				$this->moe[$number]['valid'] = 'false';
 				$this->moe[$number]['value'] = '241 - Subject code ['.$data.'] is incorrect';
 
 			}
+		
 			 // If Subject = "STPR" and Student Type is not "SF" and STP = NULL
 			else if ($data == "STPR" && $this->mappedData['TYPE'] !="SF" && empty($this->mappedData['STP'])){
 				
@@ -2153,7 +2175,7 @@ $code = $this->codes->checkKey($data, $array);
 
 			// If Rmonth="J" and TYPE not in [AE, EM, NA,NF, SA, SF, TPRE,TPRAE] and STP=NULL and Reason=Null and FTE<1 and FUNDING YEAR LEVEL>=9 and SUBJECT 1 to SUBJECT 15=Null
 			else if ($this->rmonth =="J" && !in_array($this->mappedData['TYPE'], array('AE', 'EM', 'NA', 'NF', 'SA', 'SF', 'TPRE', 'TPRAE')) && empty($this->mappedData['STP']) && empty($this->mappedData['REASON']) && $this->mappedData['funding_year_level'] >=9 && empty($data)){
-				$this->moe[$number]['valid'] = 'true';
+				$this->moe[$number]['valid'] = 'false';
 				$this->moe[$number]['value'] = $data;
 				$this->moe[$number]['message'] = '243 - Warning - Part-time student with no subjects';
 			}
@@ -2176,7 +2198,7 @@ $code = $this->codes->checkKey($data, $array);
 			}
 
 
-			}
+}
 		var_dump($this->moe[$number]);
 
 
