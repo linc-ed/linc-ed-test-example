@@ -4628,9 +4628,17 @@ public function check_95(){
 $number = 95;
 
 $data = $this->mappedData[$this->moe[$number]['LINC Name']];
+
+if (!in_array($data, array('Y', 'N'))){
+	$this->moe[$number]['valid'] = 'false';
+	$this->moe[$number]['value'] = 'N';
+	$this->moe[$number]['message'] = '634 - Boarding Status has to be Y or N';	
+
+}
+else {
 // If Boarding Status is Null and REASON=Null and [Rmonth in [M,J] or Funding Year Level >=9]
-if ($data=='' && empty($this->mappedData['REASON']) && (in_array($this->rmonth, array('M', 'J'))|| $this->mappedData['funding_year_level'] >=9)){
-	$this->moe[$number]['valid'] = 'true';
+if (empty($data) && empty($this->mappedData['REASON']) && (in_array($this->rmonth, array('M', 'J'))|| $this->mappedData['funding_year_level'] >=9)){
+	$this->moe[$number]['valid'] = 'false';
 	$this->moe[$number]['value'] = 'N';
 	$this->moe[$number]['message'] = '634 - Boarding Status has to be Y or N';	
 }
@@ -4645,6 +4653,7 @@ else {
 	$this->moe[$number]['valid'] = 'true';
 	$this->moe[$number]['value'] = $data;
 	}
+}
 
 	return $this->moe[$number]['valid'];
 }
