@@ -1490,7 +1490,7 @@ else {
 	$this->moe[$number]['valid'] = 'false';
 	$this->moe[$number]['value'] = '171 - Student type is missing';
 }
-var_dump($this->mappedData);
+
  
 			return $this->moe[$number]['valid'];	
 }
@@ -1529,7 +1529,7 @@ else {
 
 public function check_20(){
 
-if ( $this->EnrolmentScheme == 'true'){	
+
 
 	$number = 20;
 	$this->moe[$number]=array("Field Name"=>"ZONING STATUS", "Field Label"=>"Zone", "LINC Name"=>"zoning", "Field No"=>$number, "Description"=>"Indication of whether the student resided in or out of the School Zone at date of first attendance at the school",
@@ -1555,7 +1555,7 @@ if ($this->mappedData['TYPE'] == "RE" && $this->EnrolmentScheme == 'true'){
 $data = $this->mappedData[$this->moe[$number]['LINC Name']];
 //If value not in [INZN, OUTZ, NAPP] (this test applies to all students to ensure only 1 of the 3 valid codes can be entered) and [Rmonth in [M,J] or Funding Year Level >=9]
 
-if (!in_array($data, array('INZN', 'OUTZ', 'NAPP')) && (in_array($this->rmonth, array('M', 'J'))|| $this->mappedData['funding_year_level'] >=9)  ){
+if ((!in_array($data, array('INZN', 'OUTZ', 'NAPP')) && in_array($this->rmonth, array('M', 'J'))) || $this->mappedData['funding_year_level'] >=9  ){
 	
 	$this->moe[$number]['valid'] = 'false';
 	$this->moe[$number]['value'] = '300 - Code for zoning status is incorrect';
@@ -1564,47 +1564,12 @@ if (!in_array($data, array('INZN', 'OUTZ', 'NAPP')) && (in_array($this->rmonth, 
 else {
 
 
-$this->moe[$number]['valid'] = 'true';
+	$this->moe[$number]['valid'] = 'true';
 	$this->moe[$number]['value'] = $data;
 }
-if ($this->moe[$number]['valid']=='false'){
-	if ($this->moe[$number]['Mandatory']=="YES"){
-		$warning = 'warning-2';	
-	}
-	else {
-		$warning = 'warning';	
-	}
-	
-	$this->moe[$number]['input_label'] = '<label id="'.$this->moe[$number]['LINC Name'] .$this->person_id.'_label" for="'.$this->moe[$number]['LINC Name'] .$this->person_id.'"><span class="error"><i class="font-'.$this->moe[$number]['ICON'] .'"  ></i> '.$this->moe[$number]['Field Label'] .': <i class="font-'. $warning .'"  ></i></span>'.linc_popupmessage( $this->moe[$number]['LINC Name'],  $this->moe[$number]['Field Label'], $this->moe[$number]['Description']).'</label>';
-				
-		}
-		else if ($this->moe[$number]['valid']=='true'){
 
-		$this->moe[$number]['input_label'] =  '<label  id="'.$this->moe[$number]['LINC Name'].$this->person_id.'_label" for="'.$this->moe[$number]['LINC Name'] .$this->person_id.'"><span class="valid"><i class="font-'.$this->moe[$number]['ICON'].'"  ></i> '.$this->moe[$number]['Field Label'].': <i class="font-checkmark-3"  ></i></span></label>';
+return $this->moe[$number]['valid'];
 			
-		}
-		
-	$this->moe[$number]['input_field'] .= '<fieldset data-role="controlgroup"  data-theme="b" data-type="horizontal">';
-						foreach ($this->moe[$number]['options'] as $option){
-										
-			$this->moe[$number]['input_field'] .= '<input data-theme="b" data-arraypos="'.$number.'" class="radioButton" type="radio" data-id="'.$this->person_id.'" data-value="'.$option['value'].'" name="'.$this->moe[$number]['LINC Name'].'" id="radio-'.$this->moe[$number]['LINC Name'].'-'.$option['value'].'" value="'.$option['value'].'"  ';
-										if ($this->moe[$number]['value'] == $option['value']){
-										$this->moe[$number]['input_field'] .= "checked='checked'";
-										}
-					$this->moe[$number]['input_field'] .= '/>';
-					$this->moe[$number]['input_field'] .= '<label data-theme="b" for="radio-'.$this->moe[$number]['LINC Name'].'-'.$option['value'].'">'.$option ['label'].'</label>';
-					
-										
-						}
-										
-				$this->moe[$number]['input_field'] .= '</fieldset>';	
-
-				return $this->moe[$number]['valid'];
-			}
-			else {
-
-				return 'true';
-			}
 
 }
 
@@ -1706,7 +1671,7 @@ else {
 	$this->moe[22]['valid'] = 'true';
 	$this->moe[22]['value'] = $data;
 }
-var_dump($this->moe[$number]);
+
 
 return $this->moe[$number]['valid'];
 
@@ -1768,7 +1733,7 @@ else {
 	$this->moe[$number]['value'] = $data;
 }
 
-var_dump($this->moe[$number] );
+
 return $this->moe[$number]['valid'];
 }
 
@@ -1884,10 +1849,11 @@ public function check_26(){
 ); 
 
 $number = 26;
+$code = $this->codes->checkKey($data, MOECodes::$NQF_codes);
 //Mandatory for secondary aged students (RE, FF, TPRE, TPREOM) and Adult (AD, TPAD, TPRAE, RA, TPRAOM) students who are leaving the NZ schooling sector and where REASON in [L, E, O, X, C]
 if ($this->mappedData['funding_year_level'] >= 9){
 
-				$code = $this->codes->checkKey($data, MOECodes::$NQF_codes);
+				
 					
 					if($code){
 												$this->moe[$number]['valid'] = 'true';
@@ -1903,14 +1869,25 @@ if ($this->mappedData['funding_year_level'] >= 9){
 
 
 
-			return $this->moe[$number]['valid'];
+		
 			
 		}
 		else {
 
-				return "true";
-			}
+				if(empty($data) || $code){
+											$this->moe[$number]['valid'] = 'true';
+											$this->moe[$number]['value'] = $data;
+											
 
+							}	
+							else {
+									$this->moe[$number]['valid'] = 'false';
+									$this->moe[$number]['value'] = "Incorrect code for NQF Qual";
+											
+											
+							}
+			}
+	return $this->moe[$number]['valid'];
 
 }
 
@@ -2199,8 +2176,7 @@ else {
 
 
 }
-		var_dump($this->moe[$number]);
-
+		
 
 				return $this->moe[$number]['valid'];
 	}
@@ -2241,31 +2217,36 @@ $number = 33;
 $data = $this->mappedData[$this->moe[$number]['LINC Name']];
 
 
+$subject = 'SUBJECT 1';
+
+
 //If Rmonth=J and Number of hours per year is ≥1000
- if ( $data > 1000 && (in_array($this->rmonth, array('M', 'J'))|| $this->mappedData['funding_year_level'] >=9)){
+  if ( ($data >= 1000 && (in_array($this->rmonth, array('M', 'J'))) || $this->mappedData['funding_year_level'] >=9)){
 
 	$this->moe[$number]['valid'] = 'false';
-	$this->moe[$number]['value'] = 'Subject ['.MOECodes::$subjectCodes[$this->mappedData['SUBJECT 1']].'] cannot be studied for ≥1000hrs.';
+	$this->moe[$number]['value'] = $data;
+	$this->moe[$number]['message'] =  'Subject ['.MOECodes::$subjectCodes[$this->mappedData[$subject]].'] cannot be studied for ≥1000hrs.';
 
  }
  //If Rmonth=J and Subject is not Null and Number of hours per year=0 or Null
- else if ( $data == '' && $this->rmonth =='J'){
+ else if ( empty($data) && !empty($this->mappedData['SUBJECT 15']) && $this->rmonth =='J'){
 	 	$this->moe[$number]['valid'] = 'false';
-		$this->moe[$number]['value'] = 'Subject ['.MOECodes::$subjectCodes[$this->mappedData['SUBJECT 1']].'] must have hours per year.';
+		$this->moe[$number]['value'] = $data;
+	$this->moe[$number]['message'] = 'Subject ['.MOECodes::$subjectCodes[$this->mappedData[$subject]].'] must have hours per year.';
  }
  
 //  If Rmonth="J" and Number of hours per year is >=1 and <20
 else if ($this->rmonth=="J" && $data >=1 && $data <20){
 	$this->moe[$number]['valid'] = 'true';
 	$this->moe[$number]['value'] = $data;
-	$this->moe[$number]['message'] = 'Subject ['.MOECodes::$subjectCodes[$this->mappedData['SUBJECT 1']].'] studied for less than 20 hrs per year [Y hours].';
+	$this->moe[$number]['message'] = 'Subject ['.MOECodes::$subjectCodes[$this->mappedData[$subject]].'] studied for less than 20 hrs per year [Y hours].';
 }
 //If Rmonth=J and Number of hours per year is >310
 else if ($this->rmonth=="J" && $data >310){
 	
 	$this->moe[$number]['valid'] = 'true';
 	$this->moe[$number]['value'] = $data;
-	$this->moe[$number]['message'] = 'Subject ['.MOECodes::$subjectCodes[$this->mappedData['SUBJECT 1']].'] studied should not exceed 310 hrs per year [Y hours].';
+	$this->moe[$number]['message'] = 'Subject ['.MOECodes::$subjectCodes[$this->mappedData[$subject]].'] studied should not exceed 310 hrs per year [Y hours].';
 }
  else {
 	$this->moe[$number]['valid'] = 'true';
@@ -2306,7 +2287,7 @@ else {
 	}
 }
 
-var_dump($this->moe[$number]);
+
 return $this->moe[$number]['valid'];	
 	}
 
@@ -2411,31 +2392,36 @@ $number = 37;
 $data = $this->mappedData[$this->moe[$number]['LINC Name']];
 
 
+$subject = 'SUBJECT 2';
+
+
 //If Rmonth=J and Number of hours per year is ≥1000
- if ( $data > 1000 && (in_array($this->rmonth, array('M', 'J'))|| $this->mappedData['funding_year_level'] >=9)){
+  if ( ($data >= 1000 && (in_array($this->rmonth, array('M', 'J'))) || $this->mappedData['funding_year_level'] >=9)){
 
 	$this->moe[$number]['valid'] = 'false';
-	$this->moe[$number]['value'] = 'Subject ['.MOECodes::$subjectCodes[$this->mappedData['SUBJECT 2']].'] cannot be studied for ≥1000hrs.';
+	$this->moe[$number]['value'] = $data;
+	$this->moe[$number]['message'] =  'Subject ['.MOECodes::$subjectCodes[$this->mappedData[$subject]].'] cannot be studied for ≥1000hrs.';
 
  }
  //If Rmonth=J and Subject is not Null and Number of hours per year=0 or Null
- else if ( $data == '' && $this->rmonth =='J'){
+ else if ( empty($data) && !empty($this->mappedData['SUBJECT 15']) && $this->rmonth =='J'){
 	 	$this->moe[$number]['valid'] = 'false';
-		$this->moe[$number]['value'] = 'Subject ['.MOECodes::$subjectCodes[$this->mappedData['SUBJECT 2']].'] must have hours per year.';
+		$this->moe[$number]['value'] = $data;
+	$this->moe[$number]['message'] = 'Subject ['.MOECodes::$subjectCodes[$this->mappedData[$subject]].'] must have hours per year.';
  }
  
 //  If Rmonth="J" and Number of hours per year is >=1 and <20
 else if ($this->rmonth=="J" && $data >=1 && $data <20){
 	$this->moe[$number]['valid'] = 'true';
 	$this->moe[$number]['value'] = $data;
-	$this->moe[$number]['message'] = 'Subject ['.MOECodes::$subjectCodes[$this->mappedData['SUBJECT 2']].'] studied for less than 20 hrs per year [Y hours].';
+	$this->moe[$number]['message'] = 'Subject ['.MOECodes::$subjectCodes[$this->mappedData[$subject]].'] studied for less than 20 hrs per year [Y hours].';
 }
 //If Rmonth=J and Number of hours per year is >310
 else if ($this->rmonth=="J" && $data >310){
 	
 	$this->moe[$number]['valid'] = 'true';
 	$this->moe[$number]['value'] = $data;
-	$this->moe[$number]['message'] = 'Subject ['.MOECodes::$subjectCodes[$this->mappedData['SUBJECT 2']].'] studied should not exceed 310 hrs per year [Y hours].';
+	$this->moe[$number]['message'] = 'Subject ['.MOECodes::$subjectCodes[$this->mappedData[$subject]].'] studied should not exceed 310 hrs per year [Y hours].';
 }
  else {
 	$this->moe[$number]['valid'] = 'true';
@@ -2574,31 +2560,36 @@ $number = 41;
 $data = $this->mappedData[$this->moe[$number]['LINC Name']];
 
 
+$subject = 'SUBJECT 3';
+
+
 //If Rmonth=J and Number of hours per year is ≥1000
- if ( $data > 1000 && (in_array($this->rmonth, array('M', 'J'))|| $this->mappedData['funding_year_level'] >=9)){
+  if ( ($data >= 1000 && (in_array($this->rmonth, array('M', 'J'))) || $this->mappedData['funding_year_level'] >=9)){
 
 	$this->moe[$number]['valid'] = 'false';
-	$this->moe[$number]['value'] = 'Subject ['.MOECodes::$subjectCodes[$this->mappedData['SUBJECT 3']].'] cannot be studied for ≥1000hrs.';
+	$this->moe[$number]['value'] = $data;
+	$this->moe[$number]['message'] =  'Subject ['.MOECodes::$subjectCodes[$this->mappedData[$subject]].'] cannot be studied for ≥1000hrs.';
 
  }
  //If Rmonth=J and Subject is not Null and Number of hours per year=0 or Null
- else if ( $data == '' && $this->rmonth =='J'){
+ else if ( empty($data) && !empty($this->mappedData['SUBJECT 15']) && $this->rmonth =='J'){
 	 	$this->moe[$number]['valid'] = 'false';
-		$this->moe[$number]['value'] = 'Subject ['.MOECodes::$subjectCodes[$this->mappedData['SUBJECT 3']].'] must have hours per year.';
+		$this->moe[$number]['value'] = $data;
+	$this->moe[$number]['message'] = 'Subject ['.MOECodes::$subjectCodes[$this->mappedData[$subject]].'] must have hours per year.';
  }
  
 //  If Rmonth="J" and Number of hours per year is >=1 and <20
 else if ($this->rmonth=="J" && $data >=1 && $data <20){
 	$this->moe[$number]['valid'] = 'true';
 	$this->moe[$number]['value'] = $data;
-	$this->moe[$number]['message'] = 'Subject ['.MOECodes::$subjectCodes[$this->mappedData['SUBJECT 3']].'] studied for less than 20 hrs per year [Y hours].';
+	$this->moe[$number]['message'] = 'Subject ['.MOECodes::$subjectCodes[$this->mappedData[$subject]].'] studied for less than 20 hrs per year [Y hours].';
 }
 //If Rmonth=J and Number of hours per year is >310
 else if ($this->rmonth=="J" && $data >310){
 	
 	$this->moe[$number]['valid'] = 'true';
 	$this->moe[$number]['value'] = $data;
-	$this->moe[$number]['message'] = 'Subject ['.MOECodes::$subjectCodes[$this->mappedData['SUBJECT 3']].'] studied should not exceed 310 hrs per year [Y hours].';
+	$this->moe[$number]['message'] = 'Subject ['.MOECodes::$subjectCodes[$this->mappedData[$subject]].'] studied should not exceed 310 hrs per year [Y hours].';
 }
  else {
 	$this->moe[$number]['valid'] = 'true';
@@ -2735,31 +2726,36 @@ $number = 45;
 $data = $this->mappedData[$this->moe[$number]['LINC Name']];
 
 
+$subject = 'SUBJECT 4';
+
+
 //If Rmonth=J and Number of hours per year is ≥1000
- if ( $data > 1000 && (in_array($this->rmonth, array('M', 'J'))|| $this->mappedData['funding_year_level'] >=9)){
+  if ( ($data >= 1000 && (in_array($this->rmonth, array('M', 'J'))) || $this->mappedData['funding_year_level'] >=9)){
 
 	$this->moe[$number]['valid'] = 'false';
-	$this->moe[$number]['value'] = 'Subject ['.MOECodes::$subjectCodes[$this->mappedData['SUBJECT 4']].'] cannot be studied for ≥1000hrs.';
+	$this->moe[$number]['value'] = $data;
+	$this->moe[$number]['message'] =  'Subject ['.MOECodes::$subjectCodes[$this->mappedData[$subject]].'] cannot be studied for ≥1000hrs.';
 
  }
  //If Rmonth=J and Subject is not Null and Number of hours per year=0 or Null
- else if ( $data == '' && $this->rmonth =='J'){
+ else if ( empty($data) && !empty($this->mappedData['SUBJECT 15']) && $this->rmonth =='J'){
 	 	$this->moe[$number]['valid'] = 'false';
-		$this->moe[$number]['value'] = 'Subject ['.MOECodes::$subjectCodes[$this->mappedData['SUBJECT 4']].'] must have hours per year.';
+		$this->moe[$number]['value'] = $data;
+	$this->moe[$number]['message'] = 'Subject ['.MOECodes::$subjectCodes[$this->mappedData[$subject]].'] must have hours per year.';
  }
  
 //  If Rmonth="J" and Number of hours per year is >=1 and <20
 else if ($this->rmonth=="J" && $data >=1 && $data <20){
 	$this->moe[$number]['valid'] = 'true';
 	$this->moe[$number]['value'] = $data;
-	$this->moe[$number]['message'] = 'Subject ['.MOECodes::$subjectCodes[$this->mappedData['SUBJECT 4']].'] studied for less than 20 hrs per year [Y hours].';
+	$this->moe[$number]['message'] = 'Subject ['.MOECodes::$subjectCodes[$this->mappedData[$subject]].'] studied for less than 20 hrs per year [Y hours].';
 }
 //If Rmonth=J and Number of hours per year is >310
 else if ($this->rmonth=="J" && $data >310){
 	
 	$this->moe[$number]['valid'] = 'true';
 	$this->moe[$number]['value'] = $data;
-	$this->moe[$number]['message'] = 'Subject ['.MOECodes::$subjectCodes[$this->mappedData['SUBJECT 4']].'] studied should not exceed 310 hrs per year [Y hours].';
+	$this->moe[$number]['message'] = 'Subject ['.MOECodes::$subjectCodes[$this->mappedData[$subject]].'] studied should not exceed 310 hrs per year [Y hours].';
 }
  else {
 	$this->moe[$number]['valid'] = 'true';
@@ -2769,7 +2765,6 @@ else if ($this->rmonth=="J" && $data >310){
 
 	return $this->moe[$number]['valid'];
 }
-
 
 public function check_46(){$this->moe[46]=array("Content Type"=> 'metacontent', "Field Name"=>"INSTRUCTIONAL YEAR LEVEL SUBJECT 4", "LINC Name"=>"INSTRUCTIONAL YEAR LEVEL SUBJECT 4","Field No"=>"46", "Description"=>"The level at which subject 1 is being studied","Mandatory"=>"for all subjects for JULY roll return","Type"=>"Controlled value code list"
 , 'valid'=>'',
@@ -2897,31 +2892,36 @@ $number = 49;
 $data = $this->mappedData[$this->moe[$number]['LINC Name']];
 
 
+$subject = 'SUBJECT 5';
+
+
 //If Rmonth=J and Number of hours per year is ≥1000
- if ( $data > 1000 && (in_array($this->rmonth, array('M', 'J'))|| $this->mappedData['funding_year_level'] >=9)){
+  if ( ($data >= 1000 && (in_array($this->rmonth, array('M', 'J'))) || $this->mappedData['funding_year_level'] >=9)){
 
 	$this->moe[$number]['valid'] = 'false';
-	$this->moe[$number]['value'] = 'Subject ['.MOECodes::$subjectCodes[$this->mappedData['SUBJECT 5']].'] cannot be studied for ≥1000hrs.';
+	$this->moe[$number]['value'] = $data;
+	$this->moe[$number]['message'] =  'Subject ['.MOECodes::$subjectCodes[$this->mappedData[$subject]].'] cannot be studied for ≥1000hrs.';
 
  }
  //If Rmonth=J and Subject is not Null and Number of hours per year=0 or Null
- else if ( $data == '' && $this->rmonth =='J'){
+ else if ( empty($data) && !empty($this->mappedData['SUBJECT 15']) && $this->rmonth =='J'){
 	 	$this->moe[$number]['valid'] = 'false';
-		$this->moe[$number]['value'] = 'Subject ['.MOECodes::$subjectCodes[$this->mappedData['SUBJECT 5']].'] must have hours per year.';
+		$this->moe[$number]['value'] = $data;
+	$this->moe[$number]['message'] = 'Subject ['.MOECodes::$subjectCodes[$this->mappedData[$subject]].'] must have hours per year.';
  }
  
 //  If Rmonth="J" and Number of hours per year is >=1 and <20
 else if ($this->rmonth=="J" && $data >=1 && $data <20){
 	$this->moe[$number]['valid'] = 'true';
 	$this->moe[$number]['value'] = $data;
-	$this->moe[$number]['message'] = 'Subject ['.MOECodes::$subjectCodes[$this->mappedData['SUBJECT 5']].'] studied for less than 20 hrs per year [Y hours].';
+	$this->moe[$number]['message'] = 'Subject ['.MOECodes::$subjectCodes[$this->mappedData[$subject]].'] studied for less than 20 hrs per year [Y hours].';
 }
 //If Rmonth=J and Number of hours per year is >310
 else if ($this->rmonth=="J" && $data >310){
 	
 	$this->moe[$number]['valid'] = 'true';
 	$this->moe[$number]['value'] = $data;
-	$this->moe[$number]['message'] = 'Subject ['.MOECodes::$subjectCodes[$this->mappedData['SUBJECT 5']].'] studied should not exceed 310 hrs per year [Y hours].';
+	$this->moe[$number]['message'] = 'Subject ['.MOECodes::$subjectCodes[$this->mappedData[$subject]].'] studied should not exceed 310 hrs per year [Y hours].';
 }
  else {
 	$this->moe[$number]['valid'] = 'true';
@@ -3054,32 +3054,36 @@ public function check_53(){$this->moe[53]=array("Content Type"=> 'metacontent', 
 $number = 53;
 $data = $this->mappedData[$this->moe[$number]['LINC Name']];
 
+$subject = 'SUBJECT 6';
+
 
 //If Rmonth=J and Number of hours per year is ≥1000
- if ( $data > 1000 && (in_array($this->rmonth, array('M', 'J'))|| $this->mappedData['funding_year_level'] >=9)){
+  if ( ($data >= 1000 && (in_array($this->rmonth, array('M', 'J'))) || $this->mappedData['funding_year_level'] >=9)){
 
 	$this->moe[$number]['valid'] = 'false';
-	$this->moe[$number]['value'] = 'Subject ['.MOECodes::$subjectCodes[$this->mappedData['SUBJECT 6']].'] cannot be studied for ≥1000hrs.';
+	$this->moe[$number]['value'] = $data;
+	$this->moe[$number]['message'] =  'Subject ['.MOECodes::$subjectCodes[$this->mappedData[$subject]].'] cannot be studied for ≥1000hrs.';
 
  }
  //If Rmonth=J and Subject is not Null and Number of hours per year=0 or Null
- else if ( $data == '' && $this->rmonth =='J'){
+ else if ( empty($data) && !empty($this->mappedData['SUBJECT 15']) && $this->rmonth =='J'){
 	 	$this->moe[$number]['valid'] = 'false';
-		$this->moe[$number]['value'] = 'Subject ['.MOECodes::$subjectCodes[$this->mappedData['SUBJECT 6']].'] must have hours per year.';
+		$this->moe[$number]['value'] = $data;
+	$this->moe[$number]['message'] = 'Subject ['.MOECodes::$subjectCodes[$this->mappedData[$subject]].'] must have hours per year.';
  }
  
 //  If Rmonth="J" and Number of hours per year is >=1 and <20
 else if ($this->rmonth=="J" && $data >=1 && $data <20){
 	$this->moe[$number]['valid'] = 'true';
 	$this->moe[$number]['value'] = $data;
-	$this->moe[$number]['message'] = 'Subject ['.MOECodes::$subjectCodes[$this->mappedData['SUBJECT 6']].'] studied for less than 20 hrs per year [Y hours].';
+	$this->moe[$number]['message'] = 'Subject ['.MOECodes::$subjectCodes[$this->mappedData[$subject]].'] studied for less than 20 hrs per year [Y hours].';
 }
 //If Rmonth=J and Number of hours per year is >310
 else if ($this->rmonth=="J" && $data >310){
 	
 	$this->moe[$number]['valid'] = 'true';
 	$this->moe[$number]['value'] = $data;
-	$this->moe[$number]['message'] = 'Subject ['.MOECodes::$subjectCodes[$this->mappedData['SUBJECT 6']].'] studied should not exceed 310 hrs per year [Y hours].';
+	$this->moe[$number]['message'] = 'Subject ['.MOECodes::$subjectCodes[$this->mappedData[$subject]].'] studied should not exceed 310 hrs per year [Y hours].';
 }
  else {
 	$this->moe[$number]['valid'] = 'true';
@@ -3089,7 +3093,6 @@ else if ($this->rmonth=="J" && $data >310){
 
 	return $this->moe[$number]['valid'];
 }
-
 
 public function check_54(){$this->moe[54]=array("Content Type"=> 'metacontent', "Field Name"=>"INSTRUCTIONAL YEAR LEVEL SUBJECT 6", "LINC Name"=>"INSTRUCTIONAL YEAR LEVEL SUBJECT 6","Field No"=>"54", "Description"=>"The level at which subject 1 is being studied","Mandatory"=>"for all subjects for JULY roll return","Type"=>"Controlled value code list"
 , 'valid'=>'',
@@ -3212,31 +3215,36 @@ $number = 57;
 $data = $this->mappedData[$this->moe[$number]['LINC Name']];
 
 
+$subject = 'SUBJECT 7';
+
+
 //If Rmonth=J and Number of hours per year is ≥1000
- if ( $data > 1000 && (in_array($this->rmonth, array('M', 'J'))|| $this->mappedData['funding_year_level'] >=9)){
+  if ( ($data >= 1000 && (in_array($this->rmonth, array('M', 'J'))) || $this->mappedData['funding_year_level'] >=9)){
 
 	$this->moe[$number]['valid'] = 'false';
-	$this->moe[$number]['value'] = 'Subject ['.MOECodes::$subjectCodes[$this->mappedData['SUBJECT 7']].'] cannot be studied for ≥1000hrs.';
+	$this->moe[$number]['value'] = $data;
+	$this->moe[$number]['message'] =  'Subject ['.MOECodes::$subjectCodes[$this->mappedData[$subject]].'] cannot be studied for ≥1000hrs.';
 
  }
  //If Rmonth=J and Subject is not Null and Number of hours per year=0 or Null
- else if ( $data == '' && $this->rmonth =='J'){
+ else if ( empty($data) && !empty($this->mappedData['SUBJECT 15']) && $this->rmonth =='J'){
 	 	$this->moe[$number]['valid'] = 'false';
-		$this->moe[$number]['value'] = 'Subject ['.MOECodes::$subjectCodes[$this->mappedData['SUBJECT 7']].'] must have hours per year.';
+		$this->moe[$number]['value'] = $data;
+	$this->moe[$number]['message'] = 'Subject ['.MOECodes::$subjectCodes[$this->mappedData[$subject]].'] must have hours per year.';
  }
  
 //  If Rmonth="J" and Number of hours per year is >=1 and <20
 else if ($this->rmonth=="J" && $data >=1 && $data <20){
 	$this->moe[$number]['valid'] = 'true';
 	$this->moe[$number]['value'] = $data;
-	$this->moe[$number]['message'] = 'Subject ['.MOECodes::$subjectCodes[$this->mappedData['SUBJECT 7']].'] studied for less than 20 hrs per year [Y hours].';
+	$this->moe[$number]['message'] = 'Subject ['.MOECodes::$subjectCodes[$this->mappedData[$subject]].'] studied for less than 20 hrs per year [Y hours].';
 }
 //If Rmonth=J and Number of hours per year is >310
 else if ($this->rmonth=="J" && $data >310){
 	
 	$this->moe[$number]['valid'] = 'true';
 	$this->moe[$number]['value'] = $data;
-	$this->moe[$number]['message'] = 'Subject ['.MOECodes::$subjectCodes[$this->mappedData['SUBJECT 7']].'] studied should not exceed 310 hrs per year [Y hours].';
+	$this->moe[$number]['message'] = 'Subject ['.MOECodes::$subjectCodes[$this->mappedData[$subject]].'] studied should not exceed 310 hrs per year [Y hours].';
 }
  else {
 	$this->moe[$number]['valid'] = 'true';
@@ -3246,7 +3254,6 @@ else if ($this->rmonth=="J" && $data >310){
 
 	return $this->moe[$number]['valid'];
 }
-
 
 public function check_58(){$this->moe[58]=array("Content Type"=> 'metacontent', "Field Name"=>"INSTRUCTIONAL YEAR LEVEL SUBJECT 7", "LINC Name"=>"INSTRUCTIONAL YEAR LEVEL SUBJECT 7","Field No"=>"58", "Description"=>"The level at which subject 1 is being studied","Mandatory"=>"for all subjects for JULY roll return","Type"=>"Controlled value code list"
 , 'valid'=>'',
@@ -3367,31 +3374,36 @@ $number = 61;
 $data = $this->mappedData[$this->moe[$number]['LINC Name']];
 
 
+$subject = 'SUBJECT 8';
+
+
 //If Rmonth=J and Number of hours per year is ≥1000
- if ( $data > 1000 && (in_array($this->rmonth, array('M', 'J'))|| $this->mappedData['funding_year_level'] >=9)){
+  if ( ($data >= 1000 && (in_array($this->rmonth, array('M', 'J'))) || $this->mappedData['funding_year_level'] >=9)){
 
 	$this->moe[$number]['valid'] = 'false';
-	$this->moe[$number]['value'] = 'Subject ['.MOECodes::$subjectCodes[$this->mappedData['SUBJECT 8']].'] cannot be studied for ≥1000hrs.';
+	$this->moe[$number]['value'] = $data;
+	$this->moe[$number]['message'] =  'Subject ['.MOECodes::$subjectCodes[$this->mappedData[$subject]].'] cannot be studied for ≥1000hrs.';
 
  }
  //If Rmonth=J and Subject is not Null and Number of hours per year=0 or Null
- else if ( $data == '' && $this->rmonth =='J'){
+ else if ( empty($data) && !empty($this->mappedData['SUBJECT 15']) && $this->rmonth =='J'){
 	 	$this->moe[$number]['valid'] = 'false';
-		$this->moe[$number]['value'] = 'Subject ['.MOECodes::$subjectCodes[$this->mappedData['SUBJECT 8']].'] must have hours per year.';
+		$this->moe[$number]['value'] = $data;
+	$this->moe[$number]['message'] = 'Subject ['.MOECodes::$subjectCodes[$this->mappedData[$subject]].'] must have hours per year.';
  }
  
 //  If Rmonth="J" and Number of hours per year is >=1 and <20
 else if ($this->rmonth=="J" && $data >=1 && $data <20){
 	$this->moe[$number]['valid'] = 'true';
 	$this->moe[$number]['value'] = $data;
-	$this->moe[$number]['message'] = 'Subject ['.MOECodes::$subjectCodes[$this->mappedData['SUBJECT 8']].'] studied for less than 20 hrs per year [Y hours].';
+	$this->moe[$number]['message'] = 'Subject ['.MOECodes::$subjectCodes[$this->mappedData[$subject]].'] studied for less than 20 hrs per year [Y hours].';
 }
 //If Rmonth=J and Number of hours per year is >310
 else if ($this->rmonth=="J" && $data >310){
 	
 	$this->moe[$number]['valid'] = 'true';
 	$this->moe[$number]['value'] = $data;
-	$this->moe[$number]['message'] = 'Subject ['.MOECodes::$subjectCodes[$this->mappedData['SUBJECT 8']].'] studied should not exceed 310 hrs per year [Y hours].';
+	$this->moe[$number]['message'] = 'Subject ['.MOECodes::$subjectCodes[$this->mappedData[$subject]].'] studied should not exceed 310 hrs per year [Y hours].';
 }
  else {
 	$this->moe[$number]['valid'] = 'true';
@@ -3522,32 +3534,36 @@ $number = 65;
 
 $data = $this->mappedData[$this->moe[$number]['LINC Name']];
 
+$subject = 'SUBJECT 9';
+
 
 //If Rmonth=J and Number of hours per year is ≥1000
- if ( $data > 1000 && (in_array($this->rmonth, array('M', 'J'))|| $this->mappedData['funding_year_level'] >=9)){
+  if ( ($data >= 1000 && (in_array($this->rmonth, array('M', 'J'))) || $this->mappedData['funding_year_level'] >=9)){
 
 	$this->moe[$number]['valid'] = 'false';
-	$this->moe[$number]['value'] = 'Subject ['.MOECodes::$subjectCodes[$this->mappedData['SUBJECT 9']].'] cannot be studied for ≥1000hrs.';
+	$this->moe[$number]['value'] = $data;
+	$this->moe[$number]['message'] =  'Subject ['.MOECodes::$subjectCodes[$this->mappedData[$subject]].'] cannot be studied for ≥1000hrs.';
 
  }
  //If Rmonth=J and Subject is not Null and Number of hours per year=0 or Null
- else if ( $data == '' && $this->rmonth =='J'){
+ else if ( empty($data) && !empty($this->mappedData['SUBJECT 15']) && $this->rmonth =='J'){
 	 	$this->moe[$number]['valid'] = 'false';
-		$this->moe[$number]['value'] = 'Subject ['.MOECodes::$subjectCodes[$this->mappedData['SUBJECT 9']].'] must have hours per year.';
+		$this->moe[$number]['value'] = $data;
+	$this->moe[$number]['message'] = 'Subject ['.MOECodes::$subjectCodes[$this->mappedData[$subject]].'] must have hours per year.';
  }
  
 //  If Rmonth="J" and Number of hours per year is >=1 and <20
 else if ($this->rmonth=="J" && $data >=1 && $data <20){
 	$this->moe[$number]['valid'] = 'true';
 	$this->moe[$number]['value'] = $data;
-	$this->moe[$number]['message'] = 'Subject ['.MOECodes::$subjectCodes[$this->mappedData['SUBJECT 9']].'] studied for less than 20 hrs per year [Y hours].';
+	$this->moe[$number]['message'] = 'Subject ['.MOECodes::$subjectCodes[$this->mappedData[$subject]].'] studied for less than 20 hrs per year [Y hours].';
 }
 //If Rmonth=J and Number of hours per year is >310
 else if ($this->rmonth=="J" && $data >310){
 	
 	$this->moe[$number]['valid'] = 'true';
 	$this->moe[$number]['value'] = $data;
-	$this->moe[$number]['message'] = 'Subject ['.MOECodes::$subjectCodes[$this->mappedData['SUBJECT 9']].'] studied should not exceed 310 hrs per year [Y hours].';
+	$this->moe[$number]['message'] = 'Subject ['.MOECodes::$subjectCodes[$this->mappedData[$subject]].'] studied should not exceed 310 hrs per year [Y hours].';
 }
  else {
 	$this->moe[$number]['valid'] = 'true';
@@ -3677,31 +3693,36 @@ $number = 69;
 $data = $this->mappedData[$this->moe[$number]['LINC Name']];
 
 
+$subject = 'SUBJECT 10';
+
+
 //If Rmonth=J and Number of hours per year is ≥1000
- if ( $data > 1000 && (in_array($this->rmonth, array('M', 'J'))|| $this->mappedData['funding_year_level'] >=9)){
+  if ( ($data >= 1000 && (in_array($this->rmonth, array('M', 'J'))) || $this->mappedData['funding_year_level'] >=9)){
 
 	$this->moe[$number]['valid'] = 'false';
-	$this->moe[$number]['value'] = 'Subject ['.MOECodes::$subjectCodes[$this->mappedData['SUBJECT 10']].'] cannot be studied for ≥1000hrs.';
+	$this->moe[$number]['value'] = $data;
+	$this->moe[$number]['message'] =  'Subject ['.MOECodes::$subjectCodes[$this->mappedData[$subject]].'] cannot be studied for ≥1000hrs.';
 
  }
  //If Rmonth=J and Subject is not Null and Number of hours per year=0 or Null
- else if ( $data == '' && $this->rmonth =='J'){
+ else if ( empty($data) && !empty($this->mappedData['SUBJECT 15']) && $this->rmonth =='J'){
 	 	$this->moe[$number]['valid'] = 'false';
-		$this->moe[$number]['value'] = 'Subject ['.MOECodes::$subjectCodes[$this->mappedData['SUBJECT 10']].'] must have hours per year.';
+		$this->moe[$number]['value'] = $data;
+	$this->moe[$number]['message'] = 'Subject ['.MOECodes::$subjectCodes[$this->mappedData[$subject]].'] must have hours per year.';
  }
  
 //  If Rmonth="J" and Number of hours per year is >=1 and <20
 else if ($this->rmonth=="J" && $data >=1 && $data <20){
 	$this->moe[$number]['valid'] = 'true';
 	$this->moe[$number]['value'] = $data;
-	$this->moe[$number]['message'] = 'Subject ['.MOECodes::$subjectCodes[$this->mappedData['SUBJECT 10']].'] studied for less than 20 hrs per year [Y hours].';
+	$this->moe[$number]['message'] = 'Subject ['.MOECodes::$subjectCodes[$this->mappedData[$subject]].'] studied for less than 20 hrs per year [Y hours].';
 }
 //If Rmonth=J and Number of hours per year is >310
 else if ($this->rmonth=="J" && $data >310){
 	
 	$this->moe[$number]['valid'] = 'true';
 	$this->moe[$number]['value'] = $data;
-	$this->moe[$number]['message'] = 'Subject ['.MOECodes::$subjectCodes[$this->mappedData['SUBJECT 10']].'] studied should not exceed 310 hrs per year [Y hours].';
+	$this->moe[$number]['message'] = 'Subject ['.MOECodes::$subjectCodes[$this->mappedData[$subject]].'] studied should not exceed 310 hrs per year [Y hours].';
 }
  else {
 	$this->moe[$number]['valid'] = 'true';
@@ -3711,7 +3732,6 @@ else if ($this->rmonth=="J" && $data >310){
 
 	return $this->moe[$number]['valid'];
 }
-
 
 public function check_70(){$this->moe[70]=array("Content Type"=> 'metacontent', "Field Name"=>"INSTRUCTIONAL YEAR LEVEL SUBJECT 10", "LINC Name"=>"INSTRUCTIONAL YEAR LEVEL SUBJECT 10","Field No"=>"70", "Description"=>"The level at which subject 1 is being studied","Mandatory"=>"for all subjects for JULY roll return","Type"=>"Controlled value code list"
 , 'valid'=>'',
@@ -3834,31 +3854,36 @@ $number = 73;
 $data = $this->mappedData[$this->moe[$number]['LINC Name']];
 
 
+$subject = 'SUBJECT 11';
+
+
 //If Rmonth=J and Number of hours per year is ≥1000
- if ( $data > 1000 && (in_array($this->rmonth, array('M', 'J'))|| $this->mappedData['funding_year_level'] >=9)){
+  if ( ($data >= 1000 && (in_array($this->rmonth, array('M', 'J'))) || $this->mappedData['funding_year_level'] >=9)){
 
 	$this->moe[$number]['valid'] = 'false';
-	$this->moe[$number]['value'] = 'Subject ['.MOECodes::$subjectCodes[$this->mappedData['SUBJECT 11']].'] cannot be studied for ≥1000hrs.';
+	$this->moe[$number]['value'] = $data;
+	$this->moe[$number]['message'] =  'Subject ['.MOECodes::$subjectCodes[$this->mappedData[$subject]].'] cannot be studied for ≥1000hrs.';
 
  }
  //If Rmonth=J and Subject is not Null and Number of hours per year=0 or Null
- else if ( $data == '' && $this->rmonth =='J'){
+ else if ( empty($data) && !empty($this->mappedData['SUBJECT 15']) && $this->rmonth =='J'){
 	 	$this->moe[$number]['valid'] = 'false';
-		$this->moe[$number]['value'] = 'Subject ['.MOECodes::$subjectCodes[$this->mappedData['SUBJECT 11']].'] must have hours per year.';
+		$this->moe[$number]['value'] = $data;
+	$this->moe[$number]['message'] = 'Subject ['.MOECodes::$subjectCodes[$this->mappedData[$subject]].'] must have hours per year.';
  }
  
 //  If Rmonth="J" and Number of hours per year is >=1 and <20
 else if ($this->rmonth=="J" && $data >=1 && $data <20){
 	$this->moe[$number]['valid'] = 'true';
 	$this->moe[$number]['value'] = $data;
-	$this->moe[$number]['message'] = 'Subject ['.MOECodes::$subjectCodes[$this->mappedData['SUBJECT 11']].'] studied for less than 20 hrs per year [Y hours].';
+	$this->moe[$number]['message'] = 'Subject ['.MOECodes::$subjectCodes[$this->mappedData[$subject]].'] studied for less than 20 hrs per year [Y hours].';
 }
 //If Rmonth=J and Number of hours per year is >310
 else if ($this->rmonth=="J" && $data >310){
 	
 	$this->moe[$number]['valid'] = 'true';
 	$this->moe[$number]['value'] = $data;
-	$this->moe[$number]['message'] = 'Subject ['.MOECodes::$subjectCodes[$this->mappedData['SUBJECT 11']].'] studied should not exceed 310 hrs per year [Y hours].';
+	$this->moe[$number]['message'] = 'Subject ['.MOECodes::$subjectCodes[$this->mappedData[$subject]].'] studied should not exceed 310 hrs per year [Y hours].';
 }
  else {
 	$this->moe[$number]['valid'] = 'true';
@@ -3990,31 +4015,36 @@ $number = 77;
 $data = $this->mappedData[$this->moe[$number]['LINC Name']];
 
 
+$subject = 'SUBJECT 12';
+
+
 //If Rmonth=J and Number of hours per year is ≥1000
- if ( $data > 1000 && (in_array($this->rmonth, array('M', 'J'))|| $this->mappedData['funding_year_level'] >=9)){
+  if ( ($data >= 1000 && (in_array($this->rmonth, array('M', 'J'))) || $this->mappedData['funding_year_level'] >=9)){
 
 	$this->moe[$number]['valid'] = 'false';
-	$this->moe[$number]['value'] = 'Subject ['.MOECodes::$subjectCodes[$this->mappedData['SUBJECT 12']].'] cannot be studied for ≥1000hrs.';
+	$this->moe[$number]['value'] = $data;
+	$this->moe[$number]['message'] =  'Subject ['.MOECodes::$subjectCodes[$this->mappedData[$subject]].'] cannot be studied for ≥1000hrs.';
 
  }
  //If Rmonth=J and Subject is not Null and Number of hours per year=0 or Null
- else if ( $data == '' && $this->rmonth =='J'){
+ else if ( empty($data) && !empty($this->mappedData['SUBJECT 15']) && $this->rmonth =='J'){
 	 	$this->moe[$number]['valid'] = 'false';
-		$this->moe[$number]['value'] = 'Subject ['.MOECodes::$subjectCodes[$this->mappedData['SUBJECT 12']].'] must have hours per year.';
+		$this->moe[$number]['value'] = $data;
+	$this->moe[$number]['message'] = 'Subject ['.MOECodes::$subjectCodes[$this->mappedData[$subject]].'] must have hours per year.';
  }
  
 //  If Rmonth="J" and Number of hours per year is >=1 and <20
 else if ($this->rmonth=="J" && $data >=1 && $data <20){
 	$this->moe[$number]['valid'] = 'true';
 	$this->moe[$number]['value'] = $data;
-	$this->moe[$number]['message'] = 'Subject ['.MOECodes::$subjectCodes[$this->mappedData['SUBJECT 12']].'] studied for less than 20 hrs per year [Y hours].';
+	$this->moe[$number]['message'] = 'Subject ['.MOECodes::$subjectCodes[$this->mappedData[$subject]].'] studied for less than 20 hrs per year [Y hours].';
 }
 //If Rmonth=J and Number of hours per year is >310
 else if ($this->rmonth=="J" && $data >310){
 	
 	$this->moe[$number]['valid'] = 'true';
 	$this->moe[$number]['value'] = $data;
-	$this->moe[$number]['message'] = 'Subject ['.MOECodes::$subjectCodes[$this->mappedData['SUBJECT 12']].'] studied should not exceed 310 hrs per year [Y hours].';
+	$this->moe[$number]['message'] = 'Subject ['.MOECodes::$subjectCodes[$this->mappedData[$subject]].'] studied should not exceed 310 hrs per year [Y hours].';
 }
  else {
 	$this->moe[$number]['valid'] = 'true';
@@ -4144,32 +4174,36 @@ public function check_81(){$this->moe[81]=array("Content Type"=> 'metacontent', 
 $number = 81;
 $data = $this->mappedData[$this->moe[$number]['LINC Name']];
 
+$subject = 'SUBJECT 13';
+
 
 //If Rmonth=J and Number of hours per year is ≥1000
- if ( $data > 1000 && (in_array($this->rmonth, array('M', 'J'))|| $this->mappedData['funding_year_level'] >=9)){
+  if ( ($data >= 1000 && (in_array($this->rmonth, array('M', 'J'))) || $this->mappedData['funding_year_level'] >=9)){
 
 	$this->moe[$number]['valid'] = 'false';
-	$this->moe[$number]['value'] = 'Subject ['.MOECodes::$subjectCodes[$this->mappedData['SUBJECT 13']].'] cannot be studied for ≥1000hrs.';
+	$this->moe[$number]['value'] = $data;
+	$this->moe[$number]['message'] =  'Subject ['.MOECodes::$subjectCodes[$this->mappedData[$subject]].'] cannot be studied for ≥1000hrs.';
 
  }
  //If Rmonth=J and Subject is not Null and Number of hours per year=0 or Null
- else if ( $data == '' && $this->rmonth =='J'){
+ else if ( empty($data) && !empty($this->mappedData['SUBJECT 15']) && $this->rmonth =='J'){
 	 	$this->moe[$number]['valid'] = 'false';
-		$this->moe[$number]['value'] = 'Subject ['.MOECodes::$subjectCodes[$this->mappedData['SUBJECT 13']].'] must have hours per year.';
+		$this->moe[$number]['value'] = $data;
+	$this->moe[$number]['message'] = 'Subject ['.MOECodes::$subjectCodes[$this->mappedData[$subject]].'] must have hours per year.';
  }
  
 //  If Rmonth="J" and Number of hours per year is >=1 and <20
 else if ($this->rmonth=="J" && $data >=1 && $data <20){
 	$this->moe[$number]['valid'] = 'true';
 	$this->moe[$number]['value'] = $data;
-	$this->moe[$number]['message'] = 'Subject ['.MOECodes::$subjectCodes[$this->mappedData['SUBJECT 13']].'] studied for less than 20 hrs per year [Y hours].';
+	$this->moe[$number]['message'] = 'Subject ['.MOECodes::$subjectCodes[$this->mappedData[$subject]].'] studied for less than 20 hrs per year [Y hours].';
 }
 //If Rmonth=J and Number of hours per year is >310
 else if ($this->rmonth=="J" && $data >310){
 	
 	$this->moe[$number]['valid'] = 'true';
 	$this->moe[$number]['value'] = $data;
-	$this->moe[$number]['message'] = 'Subject ['.MOECodes::$subjectCodes[$this->mappedData['SUBJECT 13']].'] studied should not exceed 310 hrs per year [Y hours].';
+	$this->moe[$number]['message'] = 'Subject ['.MOECodes::$subjectCodes[$this->mappedData[$subject]].'] studied should not exceed 310 hrs per year [Y hours].';
 }
  else {
 	$this->moe[$number]['valid'] = 'true';
@@ -4299,32 +4333,36 @@ public function check_85(){$this->moe[85]=array("Content Type"=> 'metacontent', 
 $number = 85;
 $data = $this->mappedData[$this->moe[$number]['LINC Name']];
 
+$subject = 'SUBJECT 14';
+
 
 //If Rmonth=J and Number of hours per year is ≥1000
- if ( $data > 1000 && (in_array($this->rmonth, array('M', 'J'))|| $this->mappedData['funding_year_level'] >=9)){
+  if ( ($data >= 1000 && (in_array($this->rmonth, array('M', 'J'))) || $this->mappedData['funding_year_level'] >=9)){
 
 	$this->moe[$number]['valid'] = 'false';
-	$this->moe[$number]['value'] = 'Subject ['.MOECodes::$subjectCodes[$this->mappedData['SUBJECT 14']].'] cannot be studied for ≥1000hrs.';
+	$this->moe[$number]['value'] = $data;
+	$this->moe[$number]['message'] =  'Subject ['.MOECodes::$subjectCodes[$this->mappedData[$subject]].'] cannot be studied for ≥1000hrs.';
 
  }
  //If Rmonth=J and Subject is not Null and Number of hours per year=0 or Null
- else if ( $data == '' && $this->rmonth =='J'){
+ else if ( empty($data) && !empty($this->mappedData['SUBJECT 15']) && $this->rmonth =='J'){
 	 	$this->moe[$number]['valid'] = 'false';
-		$this->moe[$number]['value'] = 'Subject ['.MOECodes::$subjectCodes[$this->mappedData['SUBJECT 14']].'] must have hours per year.';
+		$this->moe[$number]['value'] = $data;
+	$this->moe[$number]['message'] = 'Subject ['.MOECodes::$subjectCodes[$this->mappedData[$subject]].'] must have hours per year.';
  }
  
 //  If Rmonth="J" and Number of hours per year is >=1 and <20
 else if ($this->rmonth=="J" && $data >=1 && $data <20){
 	$this->moe[$number]['valid'] = 'true';
 	$this->moe[$number]['value'] = $data;
-	$this->moe[$number]['message'] = 'Subject ['.MOECodes::$subjectCodes[$this->mappedData['SUBJECT 14']].'] studied for less than 20 hrs per year [Y hours].';
+	$this->moe[$number]['message'] = 'Subject ['.MOECodes::$subjectCodes[$this->mappedData[$subject]].'] studied for less than 20 hrs per year [Y hours].';
 }
 //If Rmonth=J and Number of hours per year is >310
 else if ($this->rmonth=="J" && $data >310){
 	
 	$this->moe[$number]['valid'] = 'true';
 	$this->moe[$number]['value'] = $data;
-	$this->moe[$number]['message'] = 'Subject ['.MOECodes::$subjectCodes[$this->mappedData['SUBJECT 14']].'] studied should not exceed 310 hrs per year [Y hours].';
+	$this->moe[$number]['message'] = 'Subject ['.MOECodes::$subjectCodes[$this->mappedData[$subject]].'] studied should not exceed 310 hrs per year [Y hours].';
 }
  else {
 	$this->moe[$number]['valid'] = 'true';
@@ -4379,7 +4417,7 @@ public function check_87(){$this->moe[87]=array("Content Type"=> 'metacontent', 
 $number = 87;
 $data = $this->mappedData[$this->moe[$number]['LINC Name']];
 
-if ($this->school_type != 30 || $data =='' || $data == '[Null]'){
+if ($this->school_type != 30 || empty($data) || $data =='' || $data == '[Null]'){
 				 $this->moe[$number]['valid'] = 'true';
 				$this->moe[$number]['value'] = $data;
 }
@@ -4455,32 +4493,36 @@ public function check_89(){$this->moe[89]=array("Content Type"=> 'metacontent', 
 $number = 89;
 $data = $this->mappedData[$this->moe[$number]['LINC Name']];
 
+$subject = 'SUBJECT 15';
+
 
 //If Rmonth=J and Number of hours per year is ≥1000
- if ( $data > 1000 && (in_array($this->rmonth, array('M', 'J'))|| $this->mappedData['funding_year_level'] >=9)){
+  if ( ($data >= 1000 && (in_array($this->rmonth, array('M', 'J'))) || $this->mappedData['funding_year_level'] >=9)){
 
 	$this->moe[$number]['valid'] = 'false';
-	$this->moe[$number]['value'] = 'Subject ['.MOECodes::$subjectCodes[$this->mappedData['SUBJECT 15']].'] cannot be studied for ≥1000hrs.';
+	$this->moe[$number]['value'] = $data;
+	$this->moe[$number]['message'] =  'Subject ['.MOECodes::$subjectCodes[$this->mappedData[$subject]].'] cannot be studied for ≥1000hrs.';
 
  }
  //If Rmonth=J and Subject is not Null and Number of hours per year=0 or Null
- else if ( $data == '' && $this->rmonth =='J'){
+ else if ( empty($data) && !empty($this->mappedData['SUBJECT 15']) && $this->rmonth =='J'){
 	 	$this->moe[$number]['valid'] = 'false';
-		$this->moe[$number]['value'] = 'Subject ['.MOECodes::$subjectCodes[$this->mappedData['SUBJECT 15']].'] must have hours per year.';
+		$this->moe[$number]['value'] = $data;
+	$this->moe[$number]['message'] = 'Subject ['.MOECodes::$subjectCodes[$this->mappedData[$subject]].'] must have hours per year.';
  }
  
 //  If Rmonth="J" and Number of hours per year is >=1 and <20
 else if ($this->rmonth=="J" && $data >=1 && $data <20){
 	$this->moe[$number]['valid'] = 'true';
 	$this->moe[$number]['value'] = $data;
-	$this->moe[$number]['message'] = 'Subject ['.MOECodes::$subjectCodes[$this->mappedData['SUBJECT 15']].'] studied for less than 20 hrs per year [Y hours].';
+	$this->moe[$number]['message'] = 'Subject ['.MOECodes::$subjectCodes[$this->mappedData[$subject]].'] studied for less than 20 hrs per year [Y hours].';
 }
 //If Rmonth=J and Number of hours per year is >310
 else if ($this->rmonth=="J" && $data >310){
 	
 	$this->moe[$number]['valid'] = 'true';
 	$this->moe[$number]['value'] = $data;
-	$this->moe[$number]['message'] = 'Subject ['.MOECodes::$subjectCodes[$this->mappedData['SUBJECT 15']].'] studied should not exceed 310 hrs per year [Y hours].';
+	$this->moe[$number]['message'] = 'Subject ['.MOECodes::$subjectCodes[$this->mappedData[$subject]].'] studied should not exceed 310 hrs per year [Y hours].';
 }
  else {
 	$this->moe[$number]['valid'] = 'true';
@@ -4569,9 +4611,19 @@ if (in_array( $this->mappedData['REASON'], array('L', 'E', 'X', 'C', 'O')) && $t
 
 }
 else {
-	$this->moe[$number]['valid'] = 'true';
-	$this->moe[$number]['value'] = $data;
-	
+
+	if (empty($data) || in_array($data, array ('00', '60', '61', '62', '70', '71', '72', '80', '81', '82', '90', '91', '92')) ){
+
+
+			$this->moe[$number]['valid'] = 'true';
+			$this->moe[$number]['value'] = $data;
+	}
+	else {
+		$this->moe[$number]['valid'] = 'false';
+		$this->moe[$number]['value'] = '622 - Code for NON-NQF attainment incorrect';
+
+	}
+
 	}
 }
 
@@ -4599,9 +4651,14 @@ if (in_array( $this->mappedData['REASON'], array('L', 'E', 'X', 'C', 'O')) && $t
 
 }
 else {
-	$this->moe[$number]['valid'] = 'true';
-	$this->moe[$number]['value'] = $data;
-	
+	if (!in_array($data, array ('Y', 'N') ) ){
+		$this->moe[$number]['valid'] = 'false';
+		$this->moe[$number]['value'] = '623 - Code for UE incorrect';
+	}
+	else {
+		$this->moe[$number]['valid'] = 'true';
+		$this->moe[$number]['value'] = $data;
+		}
 	}
 	return $this->moe[$number]['valid'];
 }
@@ -4629,9 +4686,14 @@ if (in_array( $this->mappedData['TYPE'], array('EX')) && empty($this->mappedData
 
 }
 else {
+	if (!in_array($data, array ('01', '02', '03', '04', '05', '07', '08', '09', '10', '11', '12', '13', '14', '15', '99') )){
+	$this->moe[$number]['valid'] = 'false';
+	$this->moe[$number]['message'] = 'This is not a valid Exchange Scheme';
+	}
+	else {
 	$this->moe[$number]['valid'] = 'true';
 	$this->moe[$number]['value'] = $data;
-	
+	}
 	}
 	return $this->moe[$number]['valid'];
 
@@ -4966,7 +5028,7 @@ else {
 	
 }
 
-var_dump($this->moe[$number]);
+
 
 
 return $this->moe[$number]['valid'] ;

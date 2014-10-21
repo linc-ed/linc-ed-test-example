@@ -52,7 +52,7 @@ class validator_HOURS_PER_YEARTest extends PHPUnit_Framework_TestCase {
 			$this->student[$subjectFieldName] = 'PHED';
 			$hoursFieldName = 'HOURS PER YEAR SUBJECT ' . $i;
 			$this->student[$hoursFieldName] = '';
-			$moe = new MOEValidator($this->student, 'M', $this->school);
+			$moe = new MOEValidator($this->student, 'J', $this->school);
 			//Get field number by indexing at i - 1
 			$validator = 'check_'.$this->fieldNumbers[$i - 1];
 			$valid = $moe->$validator();
